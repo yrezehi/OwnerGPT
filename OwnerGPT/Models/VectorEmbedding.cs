@@ -9,5 +9,7 @@ namespace OwnerGPT.Models
         public int Id { get; set; }
 
         public Vector Embedding { get; set; } 
+
+        public string Context { get; set; }
     }
 }
