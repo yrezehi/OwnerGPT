@@ -20,12 +20,11 @@ namespace OwnerGPT.Services
         {
             var encodedDocuments = SentenceEncoder.Encode(new string[] { document });
 
-            if(encodedDocuments.Length == 0)
-            {
-                throw new Exception();
-            }
+            if(encodedDocuments.Length != 0)
+                return encodedDocuments[0];
 
-            return encodedDocuments[0];
+
+            throw new Exception();
         }
     }
 }

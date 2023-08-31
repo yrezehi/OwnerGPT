@@ -50,5 +50,13 @@ namespace OwnerGPT.Repositories
             }
         }
 
+        public async Task CreateTable<T>()
+        {
+            await using (var command = new NpgsqlCommand(PGVQueryExtension.InsertVectorQuery<T>(), Connection))
+            {
+                await command.ExecuteNonQueryAsync();
+            }
+        }
+
     }
 }

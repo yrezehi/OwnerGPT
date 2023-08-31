@@ -11,7 +11,9 @@ namespace OwnerGPT.Utilities.Extenstions
 
         public static string NearestVectorNeighborsQuery<T>(int limit) =>
             $"SELECT * FROM {EntityToTableName<T>()} ORDER BY embedding <-> $1 LIMIT {limit}";
-        
+
+        public static string CreateVectorTableQuery<T>(int limit) =>
+            $"CREATE TABLE {EntityToTableName<T>()} (embedding vector(3), context varchar(n))";
 
         // converts entity name to snake case
         public static string EntityToTableName<T>() =>
