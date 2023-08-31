@@ -15,9 +15,7 @@ namespace OwnerGPT.Controllers
         [HttpGet("{id}")]
         public virtual async Task<IActionResult> Id(int id)
         {
-            Service.Insert(new Pgvector.Vector(new float[] { 1, 1, 1}), "context");
-            var x = await Service.NearestNeighbor(new Pgvector.Vector(new float[] { 1, 1, 1 }));
-            return Ok();
+             return Ok();
         }
     }
 }
