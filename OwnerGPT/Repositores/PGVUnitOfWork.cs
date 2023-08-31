@@ -11,6 +11,7 @@ namespace OwnerGPT.Repositories
     public class PGVUnitOfWork
     {
         private readonly NpgsqlConnection Connection;
+        private int DEFAULT_NEAREST_NEIGHBORS = 5;
 
         public PGVUnitOfWork() {
             NpgsqlDataSourceBuilder builder = new NpgsqlDataSourceBuilder(ConfigurationUtil.GetValue<string>("PG_V_CONNECTION_STRING"));
@@ -20,21 +21,23 @@ namespace OwnerGPT.Repositories
             Connection = builder.Build().OpenConnection();
         }
 
-        public async Task<T> NearestVectorNeighbor<T>(Vector vector)
+        public async Task<IEnumerable<T>> NearestVectorNeighbor<T>(Vector vector)
         {
-            await using (var command = new NpgsqlCommand(PGVQueryExtension.NearestVectorNeighborsQuery<T>(5), Connection))
+            await using (var command = new NpgsqlCommand(PGVQueryExtension.NearestVectorNeighborsQuery<T>(DEFAULT_NEAREST_NEIGHBORS), Connection))
             {
+                IList<T> neighbors = new List<T>();
                 command.Parameters.AddWithValue(vector);
 
                 await using (var reader = command.ExecuteReader())
                 {
                     while (await reader.ReadAsync())
                     {
-                       return reader.MapToObject<T>();
+                       neighbors.Add(reader.MapToObject<T>());
                     }
+
+                    return neighbors;
                 }
             }
-            return default(T);
         }
         
         public async Task<Vector> InsertVector<T>(Vector vector, string context)

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -6,10 +6,17 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Encoder\Resources\model.onnx" />
+    <None Remove="Encoder\Resources\vocab.txt" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<EmbeddedResource Include="Encoder\DenseTensorHelpers.cs" />
 		<EmbeddedResource Include="Encoder\MiniLMTokenizer.cs" />
 		<EmbeddedResource Include="Encoder\ResourceLoader.cs" />
+		<EmbeddedResource Include="Encoder\Resources\model.onnx" />
+		<EmbeddedResource Include="Encoder\Resources\vocab.txt" />
 		<EmbeddedResource Include="Encoder\SentenceEncoder.cs" />
 	</ItemGroup>
 

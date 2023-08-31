@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OwnerGPT.Services;
+using System.Reflection.Metadata;
 
 namespace OwnerGPT.Controllers
 {
@@ -15,7 +16,7 @@ namespace OwnerGPT.Controllers
         [HttpGet("{id}")]
         public virtual async Task<IActionResult> Id(int id)
         {
-             return Ok();
+            return Ok();
         }
     }
 }

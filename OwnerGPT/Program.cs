@@ -1,6 +1,7 @@
 using OwnerGPT.Utilities;
 using OwnerGPT.Services;
 using OwnerGPT.Repositories;
+using DocumentEncoder.Encoder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,10 @@ ConfigurationUtil.Initialize(builder.Configuration);
 builder.Services.AddTransient(typeof(PGVUnitOfWork), typeof(PGVUnitOfWork));
 
 builder.Services.AddTransient(typeof(VectorEmbeddingService), typeof(VectorEmbeddingService));
+
+builder.Services.AddTransient(typeof(SentenceEncoder), typeof(SentenceEncoder));
+builder.Services.AddTransient(typeof(DocumentEncoderService), typeof(DocumentEncoderService));
+
 
 var app = builder.Build();
 

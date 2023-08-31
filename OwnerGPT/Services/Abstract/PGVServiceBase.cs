@@ -6,9 +6,9 @@ namespace OwnerGPT.Services.Abstract
     public class PGVServiceBase<T> where T : class
     {
         private readonly PGVUnitOfWork PGVUnitOfWork;
-        private readonly DocumentEncoder DocumentEncoder;
+        private readonly DocumentEncoderService DocumentEncoder;
 
-        public PGVServiceBase(PGVUnitOfWork pgvUnitOfWork, DocumentEncoder documentEncoder) {
+        public PGVServiceBase(PGVUnitOfWork pgvUnitOfWork, DocumentEncoderService documentEncoder) {
             PGVUnitOfWork = pgvUnitOfWork;
             DocumentEncoder = documentEncoder;
         }
