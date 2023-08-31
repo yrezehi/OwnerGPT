@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  db:
+    restart: always
+    image: ankane/pgvector
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=owner
+      - POSTGRES_USER=owner
+      - POSTGRES_DB=ownergpt
