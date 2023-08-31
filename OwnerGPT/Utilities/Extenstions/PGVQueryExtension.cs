@@ -1,5 +1,5 @@
-﻿using Npgsql;
-using OwnerGPT.Models.Interfaces;
+﻿using Hisuh.Utilities;
+using Npgsql;
 
 namespace OwnerGPT.Utilities.Extenstions
 {
@@ -17,25 +17,25 @@ namespace OwnerGPT.Utilities.Extenstions
             $"CREATE TABLE {EntityToTableName<T>()} (embedding vector(3), context varchar(n))";
 
         // converts data reader result into object
-        public static T ReaderToObject<T>(this NpgsqlDataReader reader)
+        public static T MapToObject<T>(this NpgsqlDataReader reader)
         {
             T entity = (T)Activator.CreateInstance(typeof(T))!;
 
-            for (int i = 0; i < reader.FieldCount; i++)
+            for (int index = 0; index < reader.FieldCount; index++)
             {
-                //var name = propertiesHashSet.FirstOrDefault(a => a.Equals(dataReader.GetName(i), StringComparison.InvariantCultureIgnoreCase));
-                if (!String.IsNullOrEmpty(name))
+                var propertyName = reader.GetName(index);
+
+                if (ReflectionUtil.ContainsProperty(entity, propertyName))
                 {
-                    //dataReader.IsDBNull(i) ? null : dataReader.GetValue(i);
+                    ReflectionUtil.SetValueOf(entity, propertyName, reader.GetValue(index));
                 }
             }
+            return entity;
         }
 
        // converts snake case to camel case
-       public static string TablePropertyToOjbectProperty(this string propertyName)
-       {
-            return propertyName.Split(new[] { "_" }, StringSplitOptions.RemoveEmptyEntries).Select(s => char.ToUpperInvariant(s[0]) + s.Substring(1, s.Length - 1)).Aggregate(string.Empty, (s1, s2) => s1 + s2);
-       }
+       public static string TablePropertyToOjbectProperty(this string propertyName) =>
+            propertyName.Split(new[] { "_" }, StringSplitOptions.RemoveEmptyEntries).Select(s => char.ToUpperInvariant(s[0]) + s.Substring(1, s.Length - 1)).Aggregate(string.Empty, (s1, s2) => s1 + s2);
 
         // converts entity name to snake case
         public static string EntityToTableName<T>() =>
