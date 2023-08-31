@@ -1,9 +1,9 @@
 ﻿using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
-using static DocumentEncoder.Resources.DenseTensorHelpers;
+using static DocumentEncoder.Encoder.DenseTensorHelpers;
 using DocumentEncoder.Encoder.BERTTokenizers.Base;
 
-namespace DocumentEncoder.Resources;
+namespace DocumentEncoder.Encoder;
 
 public record struct EncodedChunk(string Text, float[] Vector);
 

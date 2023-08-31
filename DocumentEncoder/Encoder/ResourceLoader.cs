@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace DocumentEncoder.Resources;
+namespace DocumentEncoder.Encoder;
 
 public static class ResourceLoader
 {

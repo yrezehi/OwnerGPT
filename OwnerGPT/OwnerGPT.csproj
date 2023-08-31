@@ -60,4 +60,8 @@
 	    <PackageReference Include="Pgvector" Version="0.1.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\DocumentEncoder\DocumentEncoder.csproj" />
+    </ItemGroup>
+
 </Project>
