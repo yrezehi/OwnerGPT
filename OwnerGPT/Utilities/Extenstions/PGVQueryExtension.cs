@@ -8,13 +8,13 @@ namespace OwnerGPT.Utilities.Extenstions
 
         // This query assumes all vectors has properties have column named embedding as embedding vector
         public static string InsertVectorQuery<T>() =>
-            $"INSERT INTO {EntityToTableName<T>()} (embedding) VALUES($1)";
+            $"INSERT INTO {EntityToTableName<T>()} (embedding, context) VALUES($1, $2)";
 
         public static string NearestVectorNeighborsQuery<T>(int limit) =>
             $"SELECT * FROM {EntityToTableName<T>()} ORDER BY embedding <-> $1 LIMIT {limit}";
 
         public static string CreateVectorTableQuery<T>(int limit) =>
-            $"CREATE TABLE {EntityToTableName<T>()} (embedding vector(3), context varchar(n))";
+            $"CREATE TABLE {EntityToTableName<T>()} (embedding vector, context varchar)";
 
         // converts data reader result into object
         public static T MapToObject<T>(this NpgsqlDataReader reader)
@@ -23,7 +23,7 @@ namespace OwnerGPT.Utilities.Extenstions
 
             for (int index = 0; index < reader.FieldCount; index++)
             {
-                var propertyName = reader.GetName(index);
+                var propertyName = reader.GetName(index).TablePropertyToOjbectProperty();
 
                 if (ReflectionUtil.ContainsProperty(entity, propertyName))
                 {

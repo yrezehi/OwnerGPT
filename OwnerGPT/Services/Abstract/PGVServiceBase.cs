@@ -9,8 +9,8 @@ namespace OwnerGPT.Services.Abstract
 
         public PGVServiceBase(PGVUnitOfWork pgvUnitOfWork) => PGVUnitOfWork = pgvUnitOfWork;
 
-        public async Task<Vector> NearestNeighbor(Vector vector) => await PGVUnitOfWork.NearestVectorNeighbor<T>(vector);
+        public async Task<T> NearestNeighbor(Vector vector) => await PGVUnitOfWork.NearestVectorNeighbor<T>(vector);
 
-        public async Task<Vector> Insert(Vector vector) => await PGVUnitOfWork.InsertVector<T>(vector);
+        public async Task<Vector> Insert(Vector vector, string context) => await PGVUnitOfWork.InsertVector<T>(vector, context);
     }
 }
