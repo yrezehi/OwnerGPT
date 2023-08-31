@@ -1,0 +1,12 @@
+C:\Users\Administrator\Documents\Projects\llm\OwnerGPT\DocumentEncoder\bin\Debug\net7.0\DocumentEncoder.deps.json
+C:\Users\Administrator\Documents\Projects\llm\OwnerGPT\DocumentEncoder\bin\Debug\net7.0\DocumentEncoder.dll
+C:\Users\Administrator\Documents\Projects\llm\OwnerGPT\DocumentEncoder\bin\Debug\net7.0\DocumentEncoder.pdb
+C:\Users\Administrator\Documents\Projects\llm\OwnerGPT\DocumentEncoder\obj\Debug\net7.0\DocumentEncoder.csproj.AssemblyReference.cache
+C:\Users\Administrator\Documents\Projects\llm\OwnerGPT\DocumentEncoder\obj\Debug\net7.0\DocumentEncoder.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\Documents\Projects\llm\OwnerGPT\DocumentEncoder\obj\Debug\net7.0\DocumentEncoder.AssemblyInfoInputs.cache
+C:\Users\Administrator\Documents\Projects\llm\OwnerGPT\DocumentEncoder\obj\Debug\net7.0\DocumentEncoder.AssemblyInfo.cs
+C:\Users\Administrator\Documents\Projects\llm\OwnerGPT\DocumentEncoder\obj\Debug\net7.0\DocumentEncoder.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\Projects\llm\OwnerGPT\DocumentEncoder\obj\Debug\net7.0\DocumentEncoder.dll
+C:\Users\Administrator\Documents\Projects\llm\OwnerGPT\DocumentEncoder\obj\Debug\net7.0\refint\DocumentEncoder.dll
+C:\Users\Administrator\Documents\Projects\llm\OwnerGPT\DocumentEncoder\obj\Debug\net7.0\DocumentEncoder.pdb
+C:\Users\Administrator\Documents\Projects\llm\OwnerGPT\DocumentEncoder\obj\Debug\net7.0\ref\DocumentEncoder.dll
