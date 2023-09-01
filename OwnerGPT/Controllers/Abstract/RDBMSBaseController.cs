@@ -4,6 +4,7 @@ using OwnerGPT.Services.Abstract.Interfaces;
 
 namespace OwnerGPT.Controllers.Abstract
 {
+    [Route("api/[controller]")]
     public class RDBMSBaseController<IService, T, TDTO> : Controller where IService : IRDBMSCRUDService<T> where T : class where TDTO : class
     {
         public IService Service { get; set; }

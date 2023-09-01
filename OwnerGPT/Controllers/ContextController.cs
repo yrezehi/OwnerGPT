@@ -6,11 +6,11 @@ using System.Reflection.Metadata;
 namespace OwnerGPT.Controllers
 {
     [Route("api/[controller]")]
-    public class VectorEmbeddingController : Controller
+    public class ContextController : Controller
     {
         private readonly VectorEmbeddingService Service;
 
-        public VectorEmbeddingController(VectorEmbeddingService service) =>
+        public ContextController(VectorEmbeddingService service) =>
             Service = service;
 
         [HttpPost("[action]")]
