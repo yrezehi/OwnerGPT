@@ -116,4 +116,3 @@ namespace OwnerGPT.Services.Abstract
 
     }
 }
-}
