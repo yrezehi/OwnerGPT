@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Npgsql;
-using NpgsqlTypes;
+﻿using Npgsql;
 using OwnerGPT.Utilities;
 using OwnerGPT.Utilities.Extenstions;
 using Pgvector;
@@ -51,6 +49,18 @@ namespace OwnerGPT.Repositores.PGVDB
                 await command.ExecuteNonQueryAsync();
 
                 return vector;
+            }
+        }
+
+        public async Task<int> DeleteVector<T>(int id)
+        {
+            await using (var command = new NpgsqlCommand(PGVQueryExtension.DeleteVectorQuery<T>(), Connection))
+            {
+                command.Parameters.AddWithValue(id);
+
+                await command.ExecuteNonQueryAsync();
+
+                return id;
             }
         }
 

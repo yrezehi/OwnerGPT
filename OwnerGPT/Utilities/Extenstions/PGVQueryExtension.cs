@@ -18,6 +18,9 @@ namespace OwnerGPT.Utilities.Extenstions
         public static string CreateVectorTableQuery<T>(int limit) =>
             $"CREATE TABLE {EntityToTableName<T>()} (embedding vector, context varchar)";
 
+        public static string DeleteVectorQuery<T>() =>
+            $"DELETE FROM {EntityToTableName<T>()} WHERE id = $1";
+
         // converts data reader result into object
         public static T MapToObject<T>(this NpgsqlDataReader reader)
         {

@@ -20,6 +20,9 @@ namespace OwnerGPT.Services.Abstract
         public async Task<Vector> Insert(string context) =>
             await PGVUnitOfWork.InsertVector<T>(new Vector(SentenceEncoder.Encode(context)), context);
 
+        public async Task<int> Delete(int id) =>
+            await PGVUnitOfWork.DeleteVector<T>(id);
+
         public async Task<IEnumerable<T>> All() =>
             await PGVUnitOfWork.All<T>();
     }

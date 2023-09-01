@@ -5,7 +5,6 @@ using OwnerGPT.Services.Abstract;
 
 namespace OwnerGPT.Controllers
 {
-    [Route("api/[controller]")]
     public class AgentsController : RDBMSBaseController<AgentsService, Agent, AgentDTO>
     {
         public AgentsController(AgentsService Service) : base(Service) { }
