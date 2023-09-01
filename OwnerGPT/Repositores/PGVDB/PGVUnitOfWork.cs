@@ -1,4 +1,5 @@
 ﻿using Npgsql;
+using OwnerGPT.Repositores.PGVDB.Interfaces;
 using OwnerGPT.Utilities;
 using OwnerGPT.Utilities.Extenstions;
 using Pgvector;
@@ -6,7 +7,7 @@ using Pgvector.Npgsql;
 
 namespace OwnerGPT.Repositores.PGVDB
 {
-    public class PGVUnitOfWork
+    public class PGVUnitOfWork : IPGVUnitOfWork
     {
         private readonly NpgsqlConnection Connection;
         private int DEFAULT_NEAREST_NEIGHBORS = 5;

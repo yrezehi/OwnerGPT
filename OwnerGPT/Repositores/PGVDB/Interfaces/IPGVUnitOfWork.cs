@@ -1,7 +1,4 @@
-﻿using Npgsql;
-using OwnerGPT.Utilities.Extenstions;
-using Pgvector;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+﻿using Pgvector;
 
 namespace OwnerGPT.Repositores.PGVDB.Interfaces
 {
