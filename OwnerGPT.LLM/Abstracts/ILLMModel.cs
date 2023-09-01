@@ -1,6 +1,6 @@
 ﻿namespace OwnerGPT.LLM.Abstracts
 {
-    interface IModel
+    interface ILLMModel
     {
         Task<string> Replay(string prompt);
     }

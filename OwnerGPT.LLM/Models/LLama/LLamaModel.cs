@@ -6,7 +6,7 @@ using System.Text;
 
 namespace OwnerGPT.LLM.Models.LLama
 {
-    public class LLAMAModel : IModel
+    public class LLAMAModel : ILLMModel
     {
         private LLamaModel Model { get; set; }
 
