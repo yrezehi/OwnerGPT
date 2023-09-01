@@ -35,7 +35,7 @@ namespace OwnerGPT.Controllers.Abstract
             return Ok(await Service.Update(entityToUpdate, (IDTO)entityDTO));
         }
 
-        [HttpPost("api")]
+        [HttpPost]
         public virtual async Task<IActionResult> Insert([FromBody] TDTO entityDTO)
         {
             return Ok(await Service.Insert((IDTO)entityDTO));

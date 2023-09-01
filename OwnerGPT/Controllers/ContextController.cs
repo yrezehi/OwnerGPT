@@ -13,7 +13,7 @@ namespace OwnerGPT.Controllers
         public ContextController(VectorEmbeddingService service) =>
             Service = service;
 
-        [HttpPost("[action]")]
+        [HttpPost]
         public async Task<IActionResult> Context(string context) =>
             Ok(await Service.Insert(context));
 
