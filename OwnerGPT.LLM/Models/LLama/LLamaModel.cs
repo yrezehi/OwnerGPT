@@ -12,7 +12,6 @@ namespace OwnerGPT.LLM.Models.LLama
 
         private StatelessExecutor Executor { get; set; }
         private InferenceParams InferenceParams { get; set; }
-        private ModelParams ModelParameters { get; set; }
 
         public LLAMAModel()
         {

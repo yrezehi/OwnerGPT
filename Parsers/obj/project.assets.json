@@ -14,9 +14,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\Parsers\\OwnerGPT.Parsers.csproj",
-      "projectName": "OwnerGPT.Parsers",
-      "projectPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\Parsers\\OwnerGPT.Parsers.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\Parsers\\OwnerGPT.DocumentParsers.csproj",
+      "projectName": "OwnerGPT.DocumentParsers",
+      "projectPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\Parsers\\OwnerGPT.DocumentParsers.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\Parsers\\obj\\",
       "projectStyle": "PackageReference",
