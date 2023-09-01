@@ -26,7 +26,7 @@ public sealed class SentenceEncoder : IDisposable
         _session.Dispose();
     }
 
-    public EncodedChunk[] ChunkAndEncode(string text, int chunkLength = 500, int chunkOverlap = 100, CancellationToken cancellationToken = default)
+    private EncodedChunk[] ChunkAndEncode(string text, int chunkLength = 500, int chunkOverlap = 100, CancellationToken cancellationToken = default)
     {
         var chunks = MergeSplits(text.Split(new char[] { '\n', '\r', ' ' }, StringSplitOptions.RemoveEmptyEntries), ' ', chunkLength, chunkOverlap);
         var vectors = Encode(chunks.ToArray(), cancellationToken: cancellationToken);
@@ -75,7 +75,7 @@ public sealed class SentenceEncoder : IDisposable
         return docs;
     }
 
-    public float[][] Encode(string[] sentences, CancellationToken cancellationToken = default)
+    private float[][] Encode(string[] sentences, CancellationToken cancellationToken = default)
     {
         var numSentences = sentences.Length;
 
@@ -138,5 +138,21 @@ public sealed class SentenceEncoder : IDisposable
         }
 
         return outputFlatten;
+    }
+
+    public float[][] Encode(params string[] documents)
+    {
+        return this.Encode(documents);
+    }
+
+    public float[] Encode(string document)
+    {
+        var encodedDocuments = this.Encode(new string[] { document });
+
+        if (encodedDocuments.Length != 0)
+            return encodedDocuments[0];
+
+
+        throw new Exception();
     }
 }
