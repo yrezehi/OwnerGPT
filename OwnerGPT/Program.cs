@@ -1,7 +1,7 @@
 using OwnerGPT.Utilities;
 using OwnerGPT.Services;
 using OwnerGPT.DocumentEncoder.Encoder;
-using OwnerGPT.Repositores.PGV;
+using OwnerGPT.Repositores.PGVDB;
 
 var builder = WebApplication.CreateBuilder(args);
 

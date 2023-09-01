@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Hisuh.Repositories.Interfaces
+namespace OwnerGPT.Repositores.RDBMS.Abstracts.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {

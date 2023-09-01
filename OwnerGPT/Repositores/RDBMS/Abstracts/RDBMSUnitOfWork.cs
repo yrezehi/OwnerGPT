@@ -1,8 +1,8 @@
-﻿using Callem.Repositories;
+﻿using OwnerGPT.Repositores.RDBMS.Abstracts;
 using Microsoft.EntityFrameworkCore;
 using OwnerGPT.Repositores.RDBMS.Abstracts.Interfaces;
 
-namespace Hisuh.Repositories
+namespace OwnerGPT.Repositores.RDBMS.Abstracts
 {
     public class UnitOfWork<TContext> : IUnitOfWork<TContext>, IUnitOfWork where TContext : DbContext, IDisposable
     {

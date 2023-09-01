@@ -1,5 +1,4 @@
-﻿using Hisuh.Utilities;
-using Npgsql;
+﻿using Npgsql;
 
 namespace OwnerGPT.Utilities.Extenstions
 {

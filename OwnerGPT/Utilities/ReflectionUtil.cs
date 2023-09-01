@@ -1,9 +1,10 @@
 ﻿using System.Reflection;
 using System.Linq.Expressions;
 
-namespace Hisuh.Utilities
+namespace OwnerGPT.Utilities
 {
-    public static class ReflectionUtil {
+    public static class ReflectionUtil
+    {
         public static object GetValueOf(object targetObject, string propertyName) =>
         targetObject.GetType().GetProperty(propertyName)!.GetValue(targetObject, null)!;
 

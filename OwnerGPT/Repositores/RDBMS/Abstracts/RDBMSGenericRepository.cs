@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OwnerGPT.Repositores.RDBMS.Abstracts.Interfaces;
 
-namespace Callem.Repositories
+namespace OwnerGPT.Repositores.RDBMS.Abstracts
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected readonly DbContext Context;
-        public  DbSet<T> DBSet { get; }
+        public DbSet<T> DBSet { get; }
 
         public GenericRepository(DbContext context)
         {

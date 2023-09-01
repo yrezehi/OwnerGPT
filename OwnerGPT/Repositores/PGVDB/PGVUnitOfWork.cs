@@ -6,7 +6,7 @@ using OwnerGPT.Utilities.Extenstions;
 using Pgvector;
 using Pgvector.Npgsql;
 
-namespace OwnerGPT.Repositores.PGV
+namespace OwnerGPT.Repositores.PGVDB
 {
     public class PGVUnitOfWork
     {
