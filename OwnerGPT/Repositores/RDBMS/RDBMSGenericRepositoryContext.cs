@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Hisuh.Repositories
+namespace OwnerGPT.Repositores.RDBMS
 {
     public class RDBMSGenericRepositoryContext : DbContext
     {

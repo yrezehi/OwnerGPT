@@ -3,7 +3,7 @@ using OwnerGPT.Services;
 using OwnerGPT.DocumentEncoder.Encoder;
 using OwnerGPT.Repositores.PGVDB;
 using Microsoft.EntityFrameworkCore;
-using Hisuh.Repositories;
+using OwnerGPT.Repositores.RDBMS;
 
 var builder = WebApplication.CreateBuilder(args);
 
