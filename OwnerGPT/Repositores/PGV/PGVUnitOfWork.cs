@@ -6,16 +6,17 @@ using OwnerGPT.Utilities.Extenstions;
 using Pgvector;
 using Pgvector.Npgsql;
 
-namespace OwnerGPT.Repositories
+namespace OwnerGPT.Repositores.PGV
 {
     public class PGVUnitOfWork
     {
         private readonly NpgsqlConnection Connection;
         private int DEFAULT_NEAREST_NEIGHBORS = 5;
 
-        public PGVUnitOfWork() {
+        public PGVUnitOfWork()
+        {
             NpgsqlDataSourceBuilder builder = new NpgsqlDataSourceBuilder(ConfigurationUtil.GetValue<string>("PG_V_CONNECTION_STRING"));
-            
+
             builder.UseVector();
 
             Connection = builder.Build().OpenConnection();
@@ -32,14 +33,14 @@ namespace OwnerGPT.Repositories
                 {
                     while (await reader.ReadAsync())
                     {
-                       neighbors.Add(reader.MapToObject<T>());
+                        neighbors.Add(reader.MapToObject<T>());
                     }
 
                     return neighbors;
                 }
             }
         }
-        
+
         public async Task<Vector> InsertVector<T>(Vector vector, string context)
         {
             await using (var command = new NpgsqlCommand(PGVQueryExtension.InsertVectorQuery<T>(), Connection))
