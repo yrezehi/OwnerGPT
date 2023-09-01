@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\OwnerGPT.WebUI.Admin.props" />
+</Project>

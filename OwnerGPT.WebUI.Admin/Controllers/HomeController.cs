@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OwnerGPT.WebUI.Models;
+using OwnerGPT.WebUI.Admin.Models;
 using System.Diagnostics;
 
 namespace OwnerGPT.WebUI.Admin.Controllers
