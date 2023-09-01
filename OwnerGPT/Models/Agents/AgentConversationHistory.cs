@@ -1,4 +1,4 @@
-﻿namespace OwnerGPT.Models.Agent
+﻿namespace OwnerGPT.Models.Agents
 {
     public class AgentConversationHistory
     {

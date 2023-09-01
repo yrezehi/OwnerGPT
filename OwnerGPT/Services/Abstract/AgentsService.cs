@@ -1,4 +1,4 @@
-﻿using OwnerGPT.Models.Agent;
+﻿using OwnerGPT.Models.Agents;
 using OwnerGPT.Repositores.RDBMS.Abstracts.Interfaces;
 
 namespace OwnerGPT.Services.Abstract
