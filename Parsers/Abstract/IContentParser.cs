@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OwnerGPT.Parsers.Abstract
+namespace OwnerGPT.DocumentParsers.Abstract
 {
     public interface IContentParser
     {

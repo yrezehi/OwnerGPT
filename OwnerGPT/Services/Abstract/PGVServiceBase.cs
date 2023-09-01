@@ -1,4 +1,4 @@
-﻿using OwnerGPT.Repositories;
+﻿using OwnerGPT.Repositores.PGV;
 using Pgvector;
 
 namespace OwnerGPT.Services.Abstract

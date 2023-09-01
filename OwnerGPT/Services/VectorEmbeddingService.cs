@@ -1,5 +1,5 @@
 ﻿using OwnerGPT.Models;
-using OwnerGPT.Repositories;
+using OwnerGPT.Repositores.PGV;
 using OwnerGPT.Services.Abstract;
 
 namespace OwnerGPT.Services
