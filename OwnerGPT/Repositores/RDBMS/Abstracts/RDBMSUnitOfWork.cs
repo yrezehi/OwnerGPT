@@ -4,11 +4,11 @@ using OwnerGPT.Repositores.RDBMS.Abstracts.Interfaces;
 
 namespace OwnerGPT.Repositores.RDBMS.Abstracts
 {
-    public class UnitOfWork<TContext> : IUnitOfWork<TContext>, IUnitOfWork where TContext : DbContext, IDisposable
+    public class RDBMSUnitOfWork<TContext> : IRDBMSUnitOfWork<TContext>, IRDBMSUnitOfWork where TContext : DbContext, IDisposable
     {
         public TContext Context { get; }
 
-        public UnitOfWork(TContext context) => Context = context;
+        public RDBMSUnitOfWork(TContext context) => Context = context;
 
         public async Task<int> CompletedAsync() => await Context.SaveChangesAsync();
 
@@ -16,7 +16,7 @@ namespace OwnerGPT.Repositores.RDBMS.Abstracts
 
         public void Dispose() => Context.Dispose();
 
-        public IGenericRepository<TEntity> Repository<TEntity>() where TEntity : class => new GenericRepository<TEntity>(Context);
+        public IRDBMSGenericRepository<TEntity> Repository<TEntity>() where TEntity : class => new RDBMSGenericRepository<TEntity>(Context);
 
     }
 }

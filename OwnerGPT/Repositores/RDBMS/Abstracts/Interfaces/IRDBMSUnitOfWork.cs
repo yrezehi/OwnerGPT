@@ -2,15 +2,15 @@
 
 namespace OwnerGPT.Repositores.RDBMS.Abstracts.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IRDBMSUnitOfWork : IDisposable
     {
-        IGenericRepository<TEntity> Repository<TEntity>() where TEntity : class;
+        IRDBMSGenericRepository<TEntity> Repository<TEntity>() where TEntity : class;
 
         Task<int> CompletedAsync();
         Task DisposeAsync();
     }
 
-    public interface IUnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
+    public interface IRDBMSUnitOfWork<TContext> : IRDBMSUnitOfWork where TContext : DbContext
     {
         TContext Context { get; }
     }
