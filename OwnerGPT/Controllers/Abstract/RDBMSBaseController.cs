@@ -11,25 +11,25 @@ namespace OwnerGPT.Controllers.Abstract
 
         public RDBMSBaseController(IService service) => Service = service;
 
-        [HttpGet("api/{id}")]
+        [HttpGet("{id}")]
         public virtual async Task<IActionResult> Id(int id)
         {
             return Ok(await Service.FindById(id));
         }
 
-        [HttpGet("api")]
+        [HttpGet]
         public virtual async Task<IActionResult> GetAll()
         {
             return Ok(await Service.GetAll());
         }
 
-        [HttpDelete("api")]
+        [HttpDelete]
         public virtual async Task<IActionResult> Delete(int id)
         {
             return Ok(await Service.Delete(id));
         }
 
-        [HttpPut("api")]
+        [HttpPut]
         public virtual async Task<IActionResult> Update(T entityToUpdate, TDTO entityDTO)
         {
             return Ok(await Service.Update(entityToUpdate, (IDTO)entityDTO));
