@@ -5,11 +5,13 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT", "OwnerGPT\OwnerGPT.csproj", "{F6C283D7-99D0-46CE-B528-2CCD01B59D19}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.DocumentEncoder", "DocumentEncoder\OwnerGPT.DocumentEncoder.csproj", "{3188C28C-B56E-4912-935C-5F58F0B41DED}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.DocumentParsers", "Parsers\OwnerGPT.DocumentParsers.csproj", "{430F5FC7-6710-4977-8B15-96CB3794B1B6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwnerGPT.LLM", "OwnerGPT.LLM\OwnerGPT.LLM.csproj", "{10D103D9-E928-4D47-B152-B690978F520A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.DocumentParsers", "OwnerGPT.DocumentParsers\OwnerGPT.DocumentParsers.csproj", "{E98AA0B2-E5B1-4B27-88D2-F8B1A553F654}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.DocumentEncoder", "OwnerGPT.DocumentEncoder\OwnerGPT.DocumentEncoder.csproj", "{6E70FA99-A719-46B7-B787-092059B60BC2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.WebUI", "OwnerGPT.WebUI.Admin\OwnerGPT.WebUI.csproj", "{5C82DA1E-5E41-4998-A052-E52A3C1E2D38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +23,22 @@ Global
 		{F6C283D7-99D0-46CE-B528-2CCD01B59D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6C283D7-99D0-46CE-B528-2CCD01B59D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6C283D7-99D0-46CE-B528-2CCD01B59D19}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3188C28C-B56E-4912-935C-5F58F0B41DED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3188C28C-B56E-4912-935C-5F58F0B41DED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3188C28C-B56E-4912-935C-5F58F0B41DED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3188C28C-B56E-4912-935C-5F58F0B41DED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{430F5FC7-6710-4977-8B15-96CB3794B1B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{430F5FC7-6710-4977-8B15-96CB3794B1B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{430F5FC7-6710-4977-8B15-96CB3794B1B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{430F5FC7-6710-4977-8B15-96CB3794B1B6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{10D103D9-E928-4D47-B152-B690978F520A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{10D103D9-E928-4D47-B152-B690978F520A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10D103D9-E928-4D47-B152-B690978F520A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10D103D9-E928-4D47-B152-B690978F520A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E98AA0B2-E5B1-4B27-88D2-F8B1A553F654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E98AA0B2-E5B1-4B27-88D2-F8B1A553F654}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E98AA0B2-E5B1-4B27-88D2-F8B1A553F654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E98AA0B2-E5B1-4B27-88D2-F8B1A553F654}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E70FA99-A719-46B7-B787-092059B60BC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E70FA99-A719-46B7-B787-092059B60BC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E70FA99-A719-46B7-B787-092059B60BC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E70FA99-A719-46B7-B787-092059B60BC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C82DA1E-5E41-4998-A052-E52A3C1E2D38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C82DA1E-5E41-4998-A052-E52A3C1E2D38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C82DA1E-5E41-4998-A052-E52A3C1E2D38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C82DA1E-5E41-4998-A052-E52A3C1E2D38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
