@@ -6,6 +6,7 @@ using OwnerGPT.Utilities;
 using System.Linq.Expressions;
 using OwnerGPT.Services.Abstract.Interfaces;
 using OwnerGPT.Repositores.RDBMS.Abstracts.Interfaces;
+using OwnerGPT.Utilities.Extenstions;
 
 namespace OwnerGPT.Services.Abstract
 {
