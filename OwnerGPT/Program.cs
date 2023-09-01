@@ -24,6 +24,11 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
+    // to trigger onModelCreate
+    using (var scope = app.Services.CreateScope())
+        using (var context = scope.ServiceProvider.GetService<RDBMSGenericRepositoryContext>())
+            context!.Database.EnsureCreated();
+
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
