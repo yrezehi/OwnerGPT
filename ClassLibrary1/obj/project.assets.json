@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\Parsers\\OwnerGPT.Parsers.csproj",
-      "projectName": "OwnerGPT.Parsers",
-      "projectPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\Parsers\\OwnerGPT.Parsers.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\ClassLibrary1\\ClassLibrary1.csproj",
+      "projectName": "ClassLibrary1",
+      "projectPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\ClassLibrary1\\ClassLibrary1.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\Parsers\\obj\\",
+      "outputPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\ClassLibrary1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dPOMWBLKer9nQtfMJHfPKF1vNwqPy+9tG2mxO1HVegsHlqoLSOQ7hcR2yKrmo79S6mVpCzVpkjUrt/yBz9fYwg==",
+  "dgSpecHash": "zq9EVPZzhXPP5hcNs1fVWq6Firhr8bo+l1DPd5j2QTLoVIqfTvR0XbrF+FMLuL/d0NcVTlYsIGb753lyNS265Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\DocumentEncoder\\DocumentEncoder.csproj",
+  "projectFilePath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\DocumentEncoder\\OwnerGPT.DocumentEncoder.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.ml\\2.0.1\\microsoft.ml.2.0.1.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.ml.cpumath\\2.0.1\\microsoft.ml.cpumath.2.0.1.nupkg.sha512",

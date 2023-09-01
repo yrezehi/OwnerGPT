@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace DocumentEncoder.Encoder.BERTTokenizers.Helpers
+namespace OwnerGPT.DocumentEncoder.Encoder.BERTTokenizers.Helpers
 {
     public class VocabularyReader
     {

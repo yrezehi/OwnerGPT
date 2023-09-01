@@ -1421,9 +1421,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\DocumentEncoder\\DocumentEncoder.csproj",
-      "projectName": "DocumentEncoder",
-      "projectPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\DocumentEncoder\\DocumentEncoder.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\DocumentEncoder\\OwnerGPT.DocumentEncoder.csproj",
+      "projectName": "OwnerGPT.DocumentEncoder",
+      "projectPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\DocumentEncoder\\OwnerGPT.DocumentEncoder.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\DocumentEncoder\\obj\\",
       "projectStyle": "PackageReference",

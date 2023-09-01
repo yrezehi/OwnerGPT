@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT", "OwnerGPT\OwnerG
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentEncoder", "DocumentEncoder\DocumentEncoder.csproj", "{3188C28C-B56E-4912-935C-5F58F0B41DED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LLM", "LLM\LLM.csproj", "{C3A4B6C6-9CCC-49F4-930A-98C76F492E40}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parsers", "Parsers\Parsers.csproj", "{430F5FC7-6710-4977-8B15-96CB3794B1B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{3188C28C-B56E-4912-935C-5F58F0B41DED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3188C28C-B56E-4912-935C-5F58F0B41DED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3188C28C-B56E-4912-935C-5F58F0B41DED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C3A4B6C6-9CCC-49F4-930A-98C76F492E40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C3A4B6C6-9CCC-49F4-930A-98C76F492E40}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C3A4B6C6-9CCC-49F4-930A-98C76F492E40}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C3A4B6C6-9CCC-49F4-930A-98C76F492E40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{430F5FC7-6710-4977-8B15-96CB3794B1B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{430F5FC7-6710-4977-8B15-96CB3794B1B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{430F5FC7-6710-4977-8B15-96CB3794B1B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{430F5FC7-6710-4977-8B15-96CB3794B1B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

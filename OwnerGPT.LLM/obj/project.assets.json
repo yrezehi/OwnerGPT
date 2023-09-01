@@ -1,11 +1,46 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {}
+    "net7.0": {
+      "LLamaSharp/0.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/LLamaSharp.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/LLamaSharp.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "LLamaSharp/0.4.0": {
+      "sha512": "vTn3p8hwgHYYXk2ZfBQfH3oKlk1ZE4zwnf4lReN3zef+97cxfdQImLxUtRL0RdDubQ786u3yGVXw1cNrTZ7Zyw==",
+      "type": "package",
+      "path": "llamasharp/0.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net6.0/LLamaSharp.dll",
+        "lib/net6.0/LLamaSharp.xml",
+        "lib/net7.0/LLamaSharp.dll",
+        "lib/net7.0/LLamaSharp.xml",
+        "lib/netstandard2.0/LLamaSharp.dll",
+        "lib/netstandard2.0/LLamaSharp.xml",
+        "llamasharp.0.4.0.nupkg.sha512",
+        "llamasharp.nuspec"
+      ]
+    }
+  },
   "projectFileDependencyGroups": {
-    "net7.0": []
+    "net7.0": [
+      "LLamaSharp >= 0.4.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Administrator\\.nuget\\packages\\": {},
@@ -14,11 +49,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\Parsers\\OwnerGPT.Parsers.csproj",
-      "projectName": "OwnerGPT.Parsers",
-      "projectPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\Parsers\\OwnerGPT.Parsers.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.LLM\\OwnerGPT.LLM.csproj",
+      "projectName": "OwnerGPT.LLM",
+      "projectPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.LLM\\OwnerGPT.LLM.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\Parsers\\obj\\",
+      "outputPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.LLM\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -49,6 +84,12 @@
     "frameworks": {
       "net7.0": {
         "targetAlias": "net7.0",
+        "dependencies": {
+          "LLamaSharp": {
+            "target": "Package",
+            "version": "[0.4.0, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",

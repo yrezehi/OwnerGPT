@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NGifOV6Avldkp5LdTd0eVztIrpKCiS0PQOuatgZwKLPo9S/VSYVTMgYg2yh23irZVIGxkPHfpBahH+hHY7OkuQ==",
+  "dgSpecHash": "iqfNnPfU6Sv8GMKRzg6bctATohADucGxOK4i/5a8NNLJmQEUtFNw0mUYRoRhNe8qAS659ABUHIVlzsbV1BGulg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\Parsers\\Parsers.csproj",
+  "projectFilePath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\Parsers\\OwnerGPT.Parsers.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
