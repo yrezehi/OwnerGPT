@@ -1,4 +1,5 @@
-﻿using OwnerGPT.Models.DTO.Interfaces;
+﻿using OwnerGPT.Models.DTO;
+using OwnerGPT.Models.DTO.Interfaces;
 using System.Linq.Expressions;
 
 namespace OwnerGPT.Services.Abstract.Interfaces
