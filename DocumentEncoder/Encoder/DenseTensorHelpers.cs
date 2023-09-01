@@ -1,6 +1,6 @@
 ﻿using Microsoft.ML.OnnxRuntime.Tensors;
 
-namespace DocumentEncoder.Encoder;
+namespace OwnerGPT.DocumentEncoder.Encoder;
 
 public static class DenseTensorHelpers
 {

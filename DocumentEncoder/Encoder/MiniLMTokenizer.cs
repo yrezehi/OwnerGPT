@@ -1,6 +1,6 @@
-using DocumentEncoder.Encoder.BERTTokenizers.Base;
+using OwnerGPT.DocumentEncoder.Encoder.BERTTokenizers.Base;
 
-namespace DocumentEncoder.Encoder;
+namespace OwnerGPT.DocumentEncoder.Encoder;
 public class MiniLMTokenizer : UncasedTokenizer
 {
     public MiniLMTokenizer() : base(ResourceLoader.OpenResource(typeof(MiniLMTokenizer).Assembly, "vocab.txt"))

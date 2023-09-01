@@ -1,4 +1,4 @@
-﻿using DocumentEncoder.Encoder;
+﻿using OwnerGPT.DocumentEncoder.Encoder;
 
 namespace OwnerGPT.Services
 {

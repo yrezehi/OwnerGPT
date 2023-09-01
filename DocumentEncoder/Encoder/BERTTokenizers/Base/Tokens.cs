@@ -1,4 +1,4 @@
-﻿namespace DocumentEncoder.Encoder.BERTTokenizers.Base
+﻿namespace OwnerGPT.DocumentEncoder.Encoder.BERTTokenizers.Base
 {
     public class Tokens
     {

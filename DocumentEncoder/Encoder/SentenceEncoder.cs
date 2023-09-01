@@ -1,9 +1,10 @@
 ﻿using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
-using static DocumentEncoder.Encoder.DenseTensorHelpers;
-using DocumentEncoder.Encoder.BERTTokenizers.Base;
+using static OwnerGPT.DocumentEncoder.Encoder.DenseTensorHelpers;
+using OwnerGPT.DocumentEncoder.Encoder.BERTTokenizers.Base;
+using DocumentEncoder.Encoder;
 
-namespace DocumentEncoder.Encoder;
+namespace OwnerGPT.DocumentEncoder.Encoder;
 
 public record struct EncodedChunk(string Text, float[] Vector);
 

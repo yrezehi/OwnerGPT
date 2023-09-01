@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Parsers.Abstract
+namespace OwnerGPT.Parsers.Abstract
 {
     public interface IContentParser
     {
@@ -13,7 +13,7 @@ namespace Parsers.Abstract
 
         // the process of converting the content to text representation
         Task<string> ToText<T>(T data);
-        
+
         // the process of removing nosies of a 
         Task<string> Cleansing(string content);
     }

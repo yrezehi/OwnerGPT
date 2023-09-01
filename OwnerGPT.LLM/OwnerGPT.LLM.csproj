@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="LLamaSharp" Version="0.4.0" />
+  </ItemGroup>
+
 </Project>

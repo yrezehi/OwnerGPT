@@ -5,9 +5,11 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT", "OwnerGPT\OwnerGPT.csproj", "{F6C283D7-99D0-46CE-B528-2CCD01B59D19}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentEncoder", "DocumentEncoder\DocumentEncoder.csproj", "{3188C28C-B56E-4912-935C-5F58F0B41DED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.DocumentEncoder", "DocumentEncoder\OwnerGPT.DocumentEncoder.csproj", "{3188C28C-B56E-4912-935C-5F58F0B41DED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parsers", "Parsers\Parsers.csproj", "{430F5FC7-6710-4977-8B15-96CB3794B1B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Parsers", "Parsers\OwnerGPT.Parsers.csproj", "{430F5FC7-6710-4977-8B15-96CB3794B1B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwnerGPT.LLM", "OwnerGPT.LLM\OwnerGPT.LLM.csproj", "{10D103D9-E928-4D47-B152-B690978F520A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{430F5FC7-6710-4977-8B15-96CB3794B1B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{430F5FC7-6710-4977-8B15-96CB3794B1B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{430F5FC7-6710-4977-8B15-96CB3794B1B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10D103D9-E928-4D47-B152-B690978F520A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10D103D9-E928-4D47-B152-B690978F520A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10D103D9-E928-4D47-B152-B690978F520A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10D103D9-E928-4D47-B152-B690978F520A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

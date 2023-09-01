@@ -61,7 +61,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DocumentEncoder\DocumentEncoder.csproj" />
+      <ProjectReference Include="..\DocumentEncoder\OwnerGPT.DocumentEncoder.csproj" />
     </ItemGroup>
 
 </Project>
