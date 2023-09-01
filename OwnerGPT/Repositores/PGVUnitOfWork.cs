@@ -65,7 +65,6 @@ namespace OwnerGPT.Repositories
                     {
                         vectors.Add(reader.MapToObject<T>());
                     }
-
                     return vectors;
                 }
             }
