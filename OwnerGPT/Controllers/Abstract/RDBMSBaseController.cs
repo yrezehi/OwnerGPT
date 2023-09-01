@@ -4,11 +4,11 @@ using OwnerGPT.Services.Abstract.Interfaces;
 
 namespace OwnerGPT.Controllers.Abstract
 {
-    public class BaseController<IService, T, TDTO> : Controller where IService : IRDBMSCRUDService<T> where T : class where TDTO : class
+    public class RDBMSBaseController<IService, T, TDTO> : Controller where IService : IRDBMSCRUDService<T> where T : class where TDTO : class
     {
         public IService Service { get; set; }
 
-        public BaseController(IService service) => Service = service;
+        public RDBMSBaseController(IService service) => Service = service;
 
         [HttpGet("api/{id}")]
         public virtual async Task<IActionResult> Id(int id)
