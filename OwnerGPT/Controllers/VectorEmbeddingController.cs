@@ -14,15 +14,16 @@ namespace OwnerGPT.Controllers
             Service = service;
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> Context(string context)
-        {
-            return Ok(await Service.Insert(context));
-        }
+        public async Task<IActionResult> Context(string context) =>
+            Ok(await Service.Insert(context));
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> NearestContext(string query)
-        {
-            return Ok(await Service.NearestNeighbor(query));
-        }
+        public async Task<IActionResult> NearestContext(string query) =>
+            Ok(await Service.NearestNeighbor(query));
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> Contexts() =>
+            Ok(await Service.All());
+        
     }
 }

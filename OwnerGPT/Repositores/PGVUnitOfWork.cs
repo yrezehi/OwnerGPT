@@ -53,6 +53,24 @@ namespace OwnerGPT.Repositories
             }
         }
 
+        public async Task<IEnumerable<T>> All<T>()
+        {
+            await using (var command = new NpgsqlCommand(PGVQueryExtension.VectorsQuery<T>(), Connection))
+            {
+                IList<T> vectors = new List<T>();
+
+                await using (var reader = command.ExecuteReader())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        vectors.Add(reader.MapToObject<T>());
+                    }
+
+                    return vectors;
+                }
+            }
+        }
+
         public async Task CreateTable<T>()
         {
             await using (var command = new NpgsqlCommand(PGVQueryExtension.InsertVectorQuery<T>(), Connection))

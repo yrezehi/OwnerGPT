@@ -13,8 +13,13 @@ namespace OwnerGPT.Services.Abstract
             DocumentEncoder = documentEncoder;
         }
 
-        public async Task<IEnumerable<T>> NearestNeighbor(string query) => await PGVUnitOfWork.NearestVectorNeighbor<T>(new Vector(DocumentEncoder.Encode(query)));
+        public async Task<IEnumerable<T>> NearestNeighbor(string query) =>
+            await PGVUnitOfWork.NearestVectorNeighbor<T>(new Vector(DocumentEncoder.Encode(query)));
 
-        public async Task<Vector> Insert(string context) => await PGVUnitOfWork.InsertVector<T>(new Vector(DocumentEncoder.Encode(context)), context);
+        public async Task<Vector> Insert(string context) =>
+            await PGVUnitOfWork.InsertVector<T>(new Vector(DocumentEncoder.Encode(context)), context);
+
+        public async Task<IEnumerable<T>> All() =>
+            await PGVUnitOfWork.All<T>();
     }
 }

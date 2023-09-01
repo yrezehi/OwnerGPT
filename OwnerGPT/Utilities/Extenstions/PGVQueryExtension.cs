@@ -10,6 +10,9 @@ namespace OwnerGPT.Utilities.Extenstions
         public static string InsertVectorQuery<T>() =>
             $"INSERT INTO {EntityToTableName<T>()} (embedding, context) VALUES($1, $2)";
 
+        public static string VectorsQuery<T>() =>
+            $"SELECT * FROM {EntityToTableName<T>()}";
+
         public static string NearestVectorNeighborsQuery<T>(int limit) =>
             $"SELECT * FROM {EntityToTableName<T>()} ORDER BY embedding <-> $1 LIMIT {limit}";
 
