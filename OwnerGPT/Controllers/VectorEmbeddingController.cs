@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OwnerGPT.Models;
 using OwnerGPT.Services;
 using System.Reflection.Metadata;
 
@@ -9,14 +10,19 @@ namespace OwnerGPT.Controllers
     {
         private readonly VectorEmbeddingService Service;
 
-        public VectorEmbeddingController(VectorEmbeddingService service) {
+        public VectorEmbeddingController(VectorEmbeddingService service) =>
             Service = service;
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Context(string context)
+        {
+            return Ok(await Service.Insert(context));
         }
 
-        [HttpGet("{id}")]
-        public virtual async Task<IActionResult> Id(int id)
+        [HttpPost("[action]")]
+        public async Task<IActionResult> NearestContext(string query)
         {
-            return Ok();
+            return Ok(await Service.NearestNeighbor(query));
         }
     }
 }
