@@ -1,6 +1,6 @@
-﻿namespace OwnerGPT.Models
+﻿namespace OwnerGPT.Models.Agent
 {
-    public class Instruction
+    public class AgentInstruction
     {
         public int Id { get; set; }
         public string Title { get; set; }

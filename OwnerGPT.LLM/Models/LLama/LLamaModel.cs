@@ -45,5 +45,10 @@ namespace OwnerGPT.LLM.Models.LLama
             return responseBuilder.ToString();
         }
 
+        public async Task<string> ReplayWithInstruction(string instruction, string prompt)
+        {
+            return await this.Replay(instruction +  prompt);
+        }
+
     }
 }
