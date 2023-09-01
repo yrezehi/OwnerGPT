@@ -14,9 +14,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.WebUI.Admin\\OwnerGPT.WebUI.csproj",
-      "projectName": "OwnerGPT.WebUI",
-      "projectPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.WebUI.Admin\\OwnerGPT.WebUI.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.WebUI.Admin\\OwnerGPT.WebUI.Admin.csproj",
+      "projectName": "OwnerGPT.WebUI.Admin",
+      "projectPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.WebUI.Admin\\OwnerGPT.WebUI.Admin.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.WebUI.Admin\\obj\\",
       "projectStyle": "PackageReference",

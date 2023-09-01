@@ -2,7 +2,7 @@
 using OwnerGPT.WebUI.Models;
 using System.Diagnostics;
 
-namespace OwnerGPT.WebUI.Controllers
+namespace OwnerGPT.WebUI.Admin.Controllers
 {
     public class HomeController : Controller
     {
