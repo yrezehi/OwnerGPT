@@ -1,8 +1,8 @@
 ﻿using OwnerGPT.Plugins.Manager.Interfaces;
 
-namespace OwnerGPT.Plugins.API
+namespace OwnerGPT.Plugins.Parsers.API
 {
-    public class APIPlugin : IOwnerGPTPlugin
+    public class APIPlugin : IOwnerGPTParserPlugin
     {
         public Task<string> Cleansing(string content)
         {

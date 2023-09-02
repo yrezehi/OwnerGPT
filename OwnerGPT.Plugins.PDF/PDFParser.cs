@@ -1,8 +1,8 @@
 ﻿using OwnerGPT.Plugins.Manager.Interfaces;
 
-namespace OwnerGPT.Plugins.PDF
+namespace OwnerGPT.Plugins.Parsers.PDF
 {
-    public class PDFParser : IOwnerGPTPlugin
+    public class PDFParser : IOwnerGPTParserPlugin
     {
         public Task<string> Cleansing(string content)
         {
