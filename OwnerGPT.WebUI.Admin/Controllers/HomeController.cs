@@ -12,6 +12,9 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         [HttpGet("[action]")]
         public IActionResult Index() =>
             View();
-        
+
+        [HttpGet("[action]")]
+        public IActionResult Dashboard() =>
+            View();
     }
 }
