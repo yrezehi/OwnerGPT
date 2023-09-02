@@ -30,7 +30,7 @@ namespace OwnerGPT.Repositores.PGVDB
             var nearestVectorNeighbor = vectors.Select(vectrorEmbedding => new {
                 VectorEmbedding = vectrorEmbedding,
                 Similarity = CosineSimilarity(vector.ToArray(), vectrorEmbedding.Embedding.ToArray()) 
-            }).OrderBy(vectorEmbedding => vectorEmbedding.Similarity)
+            }).OrderBy(vectorEmbedding => vectorEmbedding.Similarity).Take(DEFAULT_NEAREST_NEIGHBORS)
             .Select(vectorEmbedding => vectorEmbedding.VectorEmbedding);
             
             return (IEnumerable<T>) nearestVectorNeighbor;
