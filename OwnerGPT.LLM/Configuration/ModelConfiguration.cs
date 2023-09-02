@@ -18,7 +18,10 @@ namespace OwnerGPT.LLM.Configuration
 
         /* Inference parameters */
 
-        // should range from 0.0 to 1.0, the higher the value more the model gets creative on ambiguous context
+        // Should range from 0.0 to 1.0, the higher the value more the model gets creative on ambiguous context
         public static float INFERENCE_TEMPERATURE = 0.6f;
+
+        // Idk what would happen when exceeding the limit? 
+        public static float LLAMA_CONTEXT_LIMIT = 4096;
     }
 }

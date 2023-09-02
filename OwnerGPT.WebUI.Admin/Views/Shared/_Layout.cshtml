@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OwnerGPT Admin</title>
 
-    <link rel="stylesheet" href="~/css/site.css" type="text/css" />
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
     <div class="wrapper-container">
@@ -63,16 +61,13 @@
             </div>
         </header>
 
-
-
-        <main role="main" class="pb-3">
+        <main role="main">
             @RenderBody()
         </main>
 
         <footer></footer>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
