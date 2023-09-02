@@ -11,6 +11,7 @@ body, html {
     height: 100vh;
     position: relative;
     background-color: #F2F2F2;
+    overflow: hidden;
 }
 
 .wrapper-container {
@@ -34,4 +35,26 @@ footer {
     -webkit-box-flex: 0;
     -ms-flex: 0 1 auto;
     flex: 0 1 auto;
+}
+
+.svg-circuit {
+    position: absolute;
+    height: 500%;
+    width: 500%;
+    transform: translate(-50%, -50%);
+}
+
+.path-circuit {
+    animation: draw-svg-circuit 20s infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes draw-svg-circuit {
+    0% {
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        stroke-opacity: 1;
+    }
 }
