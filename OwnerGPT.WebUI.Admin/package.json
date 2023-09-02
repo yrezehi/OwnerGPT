@@ -1,0 +1,11 @@
+{
+  "name": "ownergpt.webui.admin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "wwwroot/index.js\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Djs/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "yrezehi",
+  "license": "ISC"
+}
