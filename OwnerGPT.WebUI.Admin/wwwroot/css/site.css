@@ -553,10 +553,8 @@ body, html {
 
 main {
   flex: 1 1 auto;
-  background-color: red;
 }
 
 footer {
   flex: 0 1 auto;
-  background-color: pink;
 }
