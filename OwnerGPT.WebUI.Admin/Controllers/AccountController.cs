@@ -7,10 +7,11 @@ namespace OwnerGPT.WebUI.Admin.Controllers
     public class AccountController : Controller
     {
         [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
+        public IActionResult Login() => 
+            View();
 
+        [HttpGet("[controller]/[action]")]
+        public IActionResult Manager() =>
+            View();
     }
 }
