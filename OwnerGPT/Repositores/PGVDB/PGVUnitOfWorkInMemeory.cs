@@ -3,14 +3,24 @@ using OwnerGPT.Repositores.PGVDB.Interfaces;
 using OwnerGPT.Utilities.Extenstions;
 using OwnerGPT.Utilities;
 using Pgvector;
+using System.Collections.Concurrent;
+using OwnerGPT.Models;
+using OwnerGPT.Utilities.Extenstions;
 
 namespace OwnerGPT.Repositores.PGVDB
 {
     public class PGVUnitOfWorkInMemeory : IPGVUnitOfWork
     {
-        private int DEFAULT_NEAREST_NEIGHBORS = 5;
 
-        public PGVUnitOfWorkInMemeory() { }
+        private readonly ConcurrentDictionary<int, VectorEmbedding> Database;
+        private int IncrementIdentity;
+
+        private int DEFAULT_NEAREST_NEIGHBORS = 5; 
+
+        public PGVUnitOfWorkInMemeory() {
+            Database = new ConcurrentDictionary<int, VectorEmbedding>();
+            IncrementIdentity = 1;
+        }
 
         public async Task<IEnumerable<T>> NearestVectorNeighbor<T>(Vector vector)
         {
@@ -19,23 +29,24 @@ namespace OwnerGPT.Repositores.PGVDB
 
         public async Task<Vector> InsertVector<T>(Vector vector, string context)
         {
-            throw new NotImplementedException();
+            Database.TryAdd(IncrementIdentity, new VectorEmbedding() { Context = context, Embedding = vector });
+
+            return vector;
         }
 
         public async Task<int> DeleteVector<T>(int id)
         {
-            throw new NotImplementedException();
+            Database.TryRemove(id, out VectorEmbedding removedVector);
+
+            return id;
         }
 
         public async Task<IEnumerable<T>> All<T>()
         {
-            throw new NotImplementedException();
+            return (IEnumerable<T>) Database.Values.ToList();
         }
 
-        public async Task CreateTable<T>()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task CreateTable<T>() { }
 
     }
 }
