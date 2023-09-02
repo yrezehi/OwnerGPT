@@ -29,6 +29,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Providers", "Providers", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwnerGPT.Plugins.Providers.Whatsapp", "OwnerGPT.Plugins.Providers\OwnerGPT.Plugins.Providers.Whatsapp.csproj", "{A4E8DDE8-71FA-4481-845F-A950CE57D979}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwnerGPT.WebUI.Public", "OwnerGPT.WebUI.Public\OwnerGPT.WebUI.Public.csproj", "{70B68111-B539-4B89-8CE6-B0C30E27618E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwnerGPT.WebUI.Widget", "OwnerGPT.WebUI.Widget\OwnerGPT.WebUI.Widget.csproj", "{C7792F8B-3F1F-40F7-AC3B-EC556386A052}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +79,14 @@ Global
 		{A4E8DDE8-71FA-4481-845F-A950CE57D979}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4E8DDE8-71FA-4481-845F-A950CE57D979}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4E8DDE8-71FA-4481-845F-A950CE57D979}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70B68111-B539-4B89-8CE6-B0C30E27618E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70B68111-B539-4B89-8CE6-B0C30E27618E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70B68111-B539-4B89-8CE6-B0C30E27618E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70B68111-B539-4B89-8CE6-B0C30E27618E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7792F8B-3F1F-40F7-AC3B-EC556386A052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7792F8B-3F1F-40F7-AC3B-EC556386A052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7792F8B-3F1F-40F7-AC3B-EC556386A052}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7792F8B-3F1F-40F7-AC3B-EC556386A052}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
