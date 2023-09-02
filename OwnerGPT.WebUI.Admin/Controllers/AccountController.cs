@@ -4,10 +4,9 @@ using System.Diagnostics;
 
 namespace OwnerGPT.WebUI.Admin.Controllers
 {
-    [Route("[controller]")]
     public class AccountController : Controller
     {
-        [HttpGet("[Action]")]
+        [HttpGet]
         public IActionResult Login()
         {
             return View();

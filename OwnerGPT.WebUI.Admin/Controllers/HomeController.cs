@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace OwnerGPT.WebUI.Admin.Controllers
 {
+    [Route("[controller]")]
     public class HomeController : Controller
     {
         public HomeController() { }
