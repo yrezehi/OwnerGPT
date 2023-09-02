@@ -1,6 +1,6 @@
 ﻿namespace OwnerGPT.Plugins.OCR
 {
-    public class OCRPlugin
+    public class OCRPlugin 
     {
 
     }

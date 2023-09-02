@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OwnerGPT.Plugins.Manager\OwnerGPT.Plugins.Manager.csproj" />
+  </ItemGroup>
+
 </Project>
