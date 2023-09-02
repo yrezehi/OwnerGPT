@@ -2,8 +2,9 @@
   "name": "ownergpt.webui.admin",
   "version": "1.0.0",
   "description": "",
-  "main": "wwwroot/index.js\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Djs/index.js",
+  "main": "wwwroot/js/index.js",
   "scripts": {
+    "build": "npx tailwind build -i ./wwwroot/css/style.css -o ./wwwroot/css/site.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "yrezehi",
