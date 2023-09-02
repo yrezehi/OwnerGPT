@@ -8,17 +8,17 @@
     <link rel="stylesheet" href="~/css/site.css" type="text/css" />
 </head>
 <body>
-
-    <header></header>
+    <div class="wrapper-container">
+        <header></header>
     
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
 
-    <footer></footer>
+        <footer></footer>
+    </div>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-
 </body>
 </html>
