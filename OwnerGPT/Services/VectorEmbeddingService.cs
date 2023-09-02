@@ -6,6 +6,6 @@ namespace OwnerGPT.Services
 {
     public class VectorEmbeddingService : PGVServiceBase<VectorEmbedding>
     {
-        public VectorEmbeddingService(PGVUnitOfWork unitOfWork) : base(unitOfWork){ }
+        public VectorEmbeddingService(PGVUnitOfWorkInMemeory unitOfWork) : base(unitOfWork){ }
     }
 }

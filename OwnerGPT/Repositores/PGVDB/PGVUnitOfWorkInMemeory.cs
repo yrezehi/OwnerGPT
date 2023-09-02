@@ -1,12 +1,7 @@
-﻿using Npgsql;
-using OwnerGPT.Repositores.PGVDB.Interfaces;
-using OwnerGPT.Utilities.Extenstions;
-using OwnerGPT.Utilities;
+﻿using OwnerGPT.Repositores.PGVDB.Interfaces;
 using Pgvector;
 using System.Collections.Concurrent;
 using OwnerGPT.Models;
-using OwnerGPT.Utilities.Extenstions;
-using System.Reflection.Metadata;
 
 namespace OwnerGPT.Repositores.PGVDB
 {

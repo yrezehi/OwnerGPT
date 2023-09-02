@@ -140,12 +140,12 @@ public sealed class SentenceEncoder : IDisposable
         return outputFlatten;
     }
 
-    public float[][] Encode(params string[] documents)
+    public float[][] EncodeDocument(params string[] documents)
     {
         return this.Encode(documents);
     }
 
-    public float[] Encode(string document)
+    public float[] EncodeDocument(string document)
     {
         var encodedDocuments = this.Encode(new string[] { document });
 
