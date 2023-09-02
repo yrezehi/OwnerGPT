@@ -1,7 +1,4 @@
-using OwnerGPT.Utilities;
 using OwnerGPT.Services;
-using OwnerGPT.Repositores.PGVDB;
-using Microsoft.EntityFrameworkCore;
 using OwnerGPT.Repositores.RDBMS;
 using OwnerGPT.Configuration;
 
@@ -14,10 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<RDBMSGenericRepositoryContext>(option => option.UseInMemoryDatabase(ConfigurationUtil.GetValue<string>("INMEMEORYDBNAME")));
-
-builder.Services.AddTransient(typeof(PGVUnitOfWork), typeof(PGVUnitOfWork));
-builder.Services.AddSingleton(typeof(PGVUnitOfWorkInMemeory), typeof(PGVUnitOfWorkInMemeory));
+builder.RegisterRDBMS();
+builder.RegisterPGVDB();
 
 builder.Services.AddTransient(typeof(VectorEmbeddingService), typeof(VectorEmbeddingService));
 
