@@ -14,7 +14,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\OwnerGPT.DocumentEncoder\OwnerGPT.DocumentEncoder.csproj" />
-      <ProjectReference Include="..\OwnerGPT.DocumentParsers\OwnerGPT.DocumentParsers.csproj" />
       <ProjectReference Include="..\OwnerGPT.LLM\OwnerGPT.LLM.csproj" />
     </ItemGroup>
 

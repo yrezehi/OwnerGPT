@@ -13,4 +13,8 @@
     <SourceRoot Include="C:\Users\Administrator\.nuget\packages\" />
     <SourceRoot Include="C:\Program Files\dotnet\sdk\NuGetFallbackFolder\" />
   </ItemGroup>
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.ml.onnxruntime\1.15.1\build\netstandard2.0\Microsoft.ML.OnnxRuntime.props" Condition="Exists('$(NuGetPackageRoot)microsoft.ml.onnxruntime\1.15.1\build\netstandard2.0\Microsoft.ML.OnnxRuntime.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.ml\2.0.1\build\netstandard2.0\Microsoft.ML.props" Condition="Exists('$(NuGetPackageRoot)microsoft.ml\2.0.1\build\netstandard2.0\Microsoft.ML.props')" />
+  </ImportGroup>
 </Project>
