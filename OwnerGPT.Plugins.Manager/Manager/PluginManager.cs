@@ -6,6 +6,8 @@ namespace OwnerGPT.Plugins.Manager.Manager
     {
         public IList<string> PluginAssemblies;
 
+        private static string PLUGIN_CONFIGURATION_PATH = "plugins.json";
+
         public PluginManager()
         {
             PluginAssemblies = new List<string>();
@@ -14,6 +16,19 @@ namespace OwnerGPT.Plugins.Manager.Manager
         public string GetAssemblyPathByName(string assemblyName)
         {
             return Path.Combine(Directory.GetParent(Assembly.GetEntryAssembly()!.Location)!.FullName, assemblyName + ".dll");
+        }
+
+        public string[] GetPluginNames()
+        {
+            using(StreamReader reader = new StreamReader(PLUGIN_CONFIGURATION_PATH))
+            {
+
+            }
+        }
+
+        private string[] LoadPluginConfigurationFile()
+        {
+
         }
     }
 }
