@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.DocumentEncoder", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.WebUI.Admin", "OwnerGPT.WebUI.Admin\OwnerGPT.WebUI.Admin.csproj", "{5C82DA1E-5E41-4998-A052-E52A3C1E2D38}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwnerGPT.Plugins", "OwnerGPT.Plugins\OwnerGPT.Plugins.csproj", "{A0CD3045-4ECD-4556-B9BD-AC78A7FCC343}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{5C82DA1E-5E41-4998-A052-E52A3C1E2D38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C82DA1E-5E41-4998-A052-E52A3C1E2D38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C82DA1E-5E41-4998-A052-E52A3C1E2D38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0CD3045-4ECD-4556-B9BD-AC78A7FCC343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0CD3045-4ECD-4556-B9BD-AC78A7FCC343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0CD3045-4ECD-4556-B9BD-AC78A7FCC343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0CD3045-4ECD-4556-B9BD-AC78A7FCC343}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
