@@ -45,10 +45,8 @@ namespace OwnerGPT.Repositores.PGVDB
             return id;
         }
 
-        public async Task<IEnumerable<T>> All<T>()
-        {
-            return (IEnumerable<T>) Database.Values.ToList();
-        }
+        public async Task<IEnumerable<T>> All<T>() =>
+            (IEnumerable<T>) Database.Values.ToList();
 
         public async Task CreateTable<T>() { }
 
