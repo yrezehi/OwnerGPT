@@ -3,11 +3,11 @@ using OwnerGPT.Services;
 using OwnerGPT.Repositores.PGVDB;
 using Microsoft.EntityFrameworkCore;
 using OwnerGPT.Repositores.RDBMS;
+using OwnerGPT.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Inject configuration into static object
-ConfigurationUtil.Initialize(builder.Configuration);
+builder.UseStaticConfiguration();
 
 // Add services to the container.
 builder.Services.AddControllers();

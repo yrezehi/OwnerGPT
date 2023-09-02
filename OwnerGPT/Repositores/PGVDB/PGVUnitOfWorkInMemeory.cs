@@ -33,7 +33,7 @@ namespace OwnerGPT.Repositores.PGVDB
 
         public async Task<Vector> InsertVector<T>(Vector vector, string context)
         {
-            Database.TryAdd(IncrementIdentity, new VectorEmbedding() { Context = context, Embedding = vector });
+            Database.TryAdd(IncrementIdentity++, new VectorEmbedding() { Context = context, Embedding = vector });
 
             return vector;
         }
