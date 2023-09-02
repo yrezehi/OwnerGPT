@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {}
+    "net7.0": {
+      "OwnerGPT.Plugins.Manager/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/OwnerGPT.Plugins.Manager.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/OwnerGPT.Plugins.Manager.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "OwnerGPT.Plugins.Manager/1.0.0": {
+      "type": "project",
+      "path": "../OwnerGPT.Plugins.Manager/OwnerGPT.Plugins.Manager.csproj",
+      "msbuildProject": "../OwnerGPT.Plugins.Manager/OwnerGPT.Plugins.Manager.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net7.0": []
+    "net7.0": [
+      "OwnerGPT.Plugins.Manager >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Administrator\\.nuget\\packages\\": {},
@@ -14,11 +33,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.Plugins\\OwnerGPT.Plugins.csproj",
-      "projectName": "OwnerGPT.Plugins",
-      "projectPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.Plugins\\OwnerGPT.Plugins.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.Plugins.PDF\\OwnerGPT.Plugins.PDF.csproj",
+      "projectName": "OwnerGPT.Plugins.PDF",
+      "projectPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.Plugins.PDF\\OwnerGPT.Plugins.PDF.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.Plugins\\obj\\",
+      "outputPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.Plugins.PDF\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -37,7 +56,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.Plugins.Manager\\OwnerGPT.Plugins.Manager.csproj": {
+              "projectPath": "C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.Plugins.Manager\\OwnerGPT.Plugins.Manager.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
