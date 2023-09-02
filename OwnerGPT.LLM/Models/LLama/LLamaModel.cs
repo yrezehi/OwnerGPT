@@ -1,7 +1,7 @@
 ﻿using LLama;
 using LLama.Common;
-using OwnerGPT.LLM.Abstracts;
 using OwnerGPT.LLM.Configuration;
+using OwnerGPT.LLM.Interfaces;
 using System.Text;
 
 namespace OwnerGPT.LLM.Models.LLama

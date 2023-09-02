@@ -1,4 +1,4 @@
-﻿namespace OwnerGPT.LLM.Abstracts
+﻿namespace OwnerGPT.LLM.Interfaces
 {
     interface ILLMModel
     {
