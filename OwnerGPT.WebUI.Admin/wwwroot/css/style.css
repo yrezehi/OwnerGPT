@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-    font-family: 'ge-flow';
+    font-family: sans-serif;
     line-height: normal !important;
 }
 
