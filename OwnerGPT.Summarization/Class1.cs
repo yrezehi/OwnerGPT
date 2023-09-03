@@ -1,4 +1,4 @@
-﻿namespace OwnerGPT.Summarization
+﻿ namespace OwnerGPT.Summarization
 {
     public class Class1
     {
