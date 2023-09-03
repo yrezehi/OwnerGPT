@@ -10,7 +10,6 @@ namespace OwnerGPT.Plugins.Parsers.WEB.Utilities
     public class MarkdownUtil
     {
         private static Converter Converter { get; } = new ReverseMarkdown.Converter();
-
         public static string ToMarkdown(string content) => Converter.Convert(content);
     }
 }

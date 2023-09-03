@@ -1,9 +1,20 @@
 ﻿using OwnerGPT.Plugins.Manager.Interfaces;
+using OwnerGPT.Plugins.Parsers.WEB.Utilities;
 
 namespace OwnerGPT.Plugins.Parsers.WEB
 {
     public class WebPlugin : IOwnerGPTParserPlugin
     {
+
+        public async Task<string> GetDocument(string url)
+        {
+            string content = await ScraperUtil.GetHTML(url);
+
+            content = MarkdownUtil.ToMarkdown(content);
+
+            return content;
+        }
+
         public Task<string> Cleansing(string content)
         {
             throw new NotImplementedException();
