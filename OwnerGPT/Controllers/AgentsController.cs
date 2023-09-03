@@ -12,13 +12,13 @@ namespace OwnerGPT.Controllers
 
 
         [HttpPut]
-        public virtual async Task<IActionResult> Update(Agent entityToUpdate)
+        public async Task<IActionResult> Update([FromBody][Bind(AgentBinding.Edit)] Agent entityToUpdate)
         {
             return Ok(await Service.Update(entityToUpdate));
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> Insert([FromBody] Agent entity)
+        public async Task<IActionResult> Insert([FromBody][Bind(AgentBinding.Create)] Agent entity)
         {
             return Ok(await Service.Insert(entity));
         }
