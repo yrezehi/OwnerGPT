@@ -5,7 +5,7 @@ using OwnerGPT.Services.Abstract;
 
 namespace OwnerGPT.Controllers
 {
-    public class AgentsController : RDBMSBaseController<AgentsService, Agent, AgentDTO>
+    public class AgentsController : RDBMSBaseController<AgentsService, AgentBinding, AgentDTO>
     {
         public AgentsController(AgentsService Service) : base(Service) { }
     }

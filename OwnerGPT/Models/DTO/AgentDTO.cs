@@ -2,5 +2,5 @@
 
 namespace OwnerGPT.Models.DTO
 {
-    public class AgentDTO : Agent { }
+    public class AgentDTO : AgentBinding { }
 }
