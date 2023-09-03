@@ -2,19 +2,9 @@
 
 namespace OwnerGPT.Plugins.Parsers.PDF
 {
-    public class PDFParser : IOwnerGPTParserPlugin
+    public class PDFParser : IOwnerGPTParserPlugin<string, string>
     {
-        public Task<string> Cleansing(string content)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<E> Get<T, E>(T content)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<string> ToText<T>(T data)
+        public Task<string> Process(string content)
         {
             throw new NotImplementedException();
         }

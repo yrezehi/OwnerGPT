@@ -13,7 +13,7 @@ namespace Experimental.Plugins
         {
             WebPlugin plugin = new WebPlugin();
 
-            var document = await plugin.GetDocument("https://www.sfda.gov.sa/ar/overview");
+            var document = await plugin.Process("https://www.sfda.gov.sa/ar/overview");
 
             Console.WriteLine(document);
         }

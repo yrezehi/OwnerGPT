@@ -2,19 +2,9 @@
 
 namespace OwnerGPT.Plugins.Parsers.OCR
 {
-    public class OCRPlugin : IOwnerGPTParserPlugin
+    public class OCRPlugin : IOwnerGPTParserPlugin<string, string>
     {
-        public Task<string> Cleansing(string content)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<E> Get<T, E>(T content)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<string> ToText<T>(T data)
+        public Task<string> Process(string content)
         {
             throw new NotImplementedException();
         }
