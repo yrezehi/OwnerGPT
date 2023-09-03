@@ -1,8 +1,5 @@
-﻿using OwnerGPT.Plugins.Parsers.WEB;
+﻿using Experimental.Plugins;
 
-
-WebPlugin plugin = new WebPlugin();
-
-var document = await plugin.GetDocument("https://www.sfda.gov.sa/ar/overview");
+await WebPluginInstance.Start();
 
 Console.WriteLine("Class project finished execution!");
