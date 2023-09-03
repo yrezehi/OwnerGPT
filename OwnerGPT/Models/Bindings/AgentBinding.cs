@@ -1,5 +1,4 @@
-﻿using OwnerGPT.Models.Bindings.Interfaces;
-
+﻿
 namespace OwnerGPT.Models.Bindings
 {
     public class AgentBinding

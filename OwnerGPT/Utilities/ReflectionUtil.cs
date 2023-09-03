@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using System.Linq.Expressions;
-using OwnerGPT.Models.DTO.Interfaces;
 
 namespace OwnerGPT.Utilities
 {
@@ -19,46 +18,9 @@ namespace OwnerGPT.Utilities
             (new Type[] { type })
                 .Concat(type.GetInterfaces())
                     .SelectMany(interfaceProperty => interfaceProperty.GetProperties());
-        public static T MapEntity<T>(IDTO entityDTO)
-        {
-            T entityToInsert = (T)Activator.CreateInstance(typeof(T))!;
-            var dtoProperties = ReflectionUtil.GetInterfacedObjectProperties(entityDTO.GetType());
 
-            foreach (var property in dtoProperties)
-            {
-                var dtoPropertyValue = ReflectionUtil.GetValueOf(entityDTO, property.Name);
-
-                if (!ReflectionUtil.IsNullOrDefault(dtoPropertyValue))
-                {
-                    if (ReflectionUtil.ContainsProperty(entityToInsert, property.Name))
-                        ReflectionUtil.SetValueOf(entityToInsert, property.Name, dtoPropertyValue);
-                }
-            }
-
-            return entityToInsert;
-        }
-
-        private static bool IsNullOrDefault<T>(T argument)
-        {
-            if (argument == null)
-                return true;
-
-            if (object.Equals(argument, default(T)))
-                return true;
-
-            Type methodType = typeof(T);
-            if (Nullable.GetUnderlyingType(methodType) != null)
-                return false;
-
-            // deal with boxed value types
-            Type argumentType = argument.GetType();
-            if (argumentType.IsValueType && argumentType != methodType)
-            {
-                object objectInstance = Activator.CreateInstance(argument.GetType())!;
-                return objectInstance.Equals(argument);
-            }
-
-            return false;
-        }
+        public static IEnumerable<PropertyInfo> GetObjectProperties(Type type) =>
+            (new Type[] { type })
+                .SelectMany(interfaceProperty => interfaceProperty.GetProperties());
     }
 }

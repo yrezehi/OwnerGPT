@@ -1,5 +1,4 @@
 ﻿using OwnerGPT.Models.DTO;
-using OwnerGPT.Models.DTO.Interfaces;
 using System.Linq.Expressions;
 
 namespace OwnerGPT.Services.Abstract.Interfaces
@@ -16,8 +15,8 @@ namespace OwnerGPT.Services.Abstract.Interfaces
 
         Task<T> Delete(int id);
 
-        Task<T> Update(T entityToUpdate, IDTO entityDTO);
+        Task<T> Update(T entityToUpdate);
 
-        Task<T> Insert(IDTO entityDTO);
+        Task<T> Insert(T entityDTO);
     }
 }

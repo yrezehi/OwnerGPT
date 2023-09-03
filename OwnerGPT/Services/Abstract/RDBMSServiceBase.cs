@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OwnerGPT.Models.DTO.Interfaces;
-using OwnerGPT.Models.DTO;
 using OwnerGPT.Models.Interfaces;
 using OwnerGPT.Utilities;
 using System.Linq.Expressions;
 using OwnerGPT.Services.Abstract.Interfaces;
 using OwnerGPT.Repositores.RDBMS.Abstracts.Interfaces;
 using OwnerGPT.Utilities.Extenstions;
+using OwnerGPT.Models.DTO;
 
 namespace OwnerGPT.Services.Abstract
 {
@@ -67,26 +66,28 @@ namespace OwnerGPT.Services.Abstract
             throw new Exception(nameof(IEntity));
         }
 
-        public async Task<T> Update(T entityToUpdate, IDTO entityDTO)
+        public async Task<T> Update(IEntity entityToUpdate)
         {
-            if (await UnitOfWork.Repository<IEntity>().DBSet.AnyAsync(entity => entity.Id == ((IEntity)entityToUpdate).Id))
+            T entity = await UnitOfWork.Repository<T>().DBSet.FirstOrDefaultAsync(entity => ((IEntity) entity).Id == ((IEntity)entityToUpdate).Id);
+
+            if (entity != null)
             {
-                var dtoProperties = ReflectionUtil.GetInterfacedObjectProperties(typeof(IDTO));
+                var dtoProperties = ReflectionUtil.GetInterfacedObjectProperties(entityToUpdate.GetType());
 
                 foreach (var property in dtoProperties)
                 {
-                    var dtoPropertyValue = ReflectionUtil.GetValueOf(entityDTO, property.Name);
+                    var dtoPropertyValue = ReflectionUtil.GetValueOf(entityToUpdate, property.Name);
 
                     if (dtoPropertyValue != null)
                     {
-                        if (ReflectionUtil.ContainsProperty(entityToUpdate, property.Name))
-                            ReflectionUtil.SetValueOf(entityDTO, property.Name, dtoPropertyValue);
+                        if (ReflectionUtil.ContainsProperty(entity, property.Name))
+                            ReflectionUtil.SetValueOf(entity, property.Name, dtoPropertyValue);
                     }
                 }
 
-                UnitOfWork.Repository<T>().DBSet.Update(entityToUpdate);
+                UnitOfWork.Repository<T>().DBSet.Update(entity);
 
-                return entityToUpdate;
+                return entity;
             }
 
             throw new Exception(nameof(T));
@@ -103,10 +104,8 @@ namespace OwnerGPT.Services.Abstract
             throw new Exception(nameof(T));
         }
 
-        public async Task<T> Insert(IDTO entityDTO)
+        public async Task<T> Insert(T entity)
         {
-            T entity = ReflectionUtil.MapEntity<T>(entityDTO);
-
             await UnitOfWork.Repository<T>().DBSet.AddAsync(entity);
 
             await UnitOfWork.CompletedAsync();

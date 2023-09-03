@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OwnerGPT.Models.DTO.Interfaces;
 using OwnerGPT.Services.Abstract.Interfaces;
 
 namespace OwnerGPT.Controllers.Abstract
 {
     [Route("api/[controller]")]
-    public class RDBMSBaseController<IService, T, TDTO> : Controller where IService : IRDBMSCRUDService<T> where T : class where TDTO : class
+    public class RDBMSBaseController<IService, T> : Controller where IService : IRDBMSCRUDService<T> where T : class
     {
         public IService Service { get; set; }
 
