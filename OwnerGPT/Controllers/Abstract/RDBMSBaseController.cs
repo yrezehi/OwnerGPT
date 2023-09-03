@@ -29,17 +29,5 @@ namespace OwnerGPT.Controllers.Abstract
             return Ok(await Service.Delete(id));
         }
 
-        [HttpPut]
-        public virtual async Task<IActionResult> Update(T entityToUpdate, TDTO entityDTO)
-        {
-            return Ok(await Service.Update(entityToUpdate, (IDTO)entityDTO));
-        }
-
-        [HttpPost]
-        public virtual async Task<IActionResult> Insert([FromBody] TDTO entityDTO)
-        {
-            return Ok(await Service.Insert((IDTO)entityDTO));
-        }
-
     }
 }

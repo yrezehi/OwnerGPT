@@ -1,13 +1,10 @@
-﻿namespace OwnerGPT.Models.Bindings
+﻿using OwnerGPT.Models.Bindings.Interfaces;
+
+namespace OwnerGPT.Models.Bindings
 {
     public class AgentBinding
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
-        public DateTime CreationDate { get; set; }
+        public string Create { get; set; } = "Name,Description";
+        public string Edit { get; set; } = "Name,Description";
     }
 }
