@@ -104,7 +104,7 @@ namespace OwnerGPT.Services.Abstract
             throw new Exception(nameof(T));
         }
 
-        public async Task<T> Insert(T entity)
+        public async Task<T> Create(T entity)
         {
             await UnitOfWork.Repository<T>().DBSet.AddAsync(entity);
 

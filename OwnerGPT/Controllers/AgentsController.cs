@@ -18,9 +18,9 @@ namespace OwnerGPT.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Insert([FromBody][Bind(AgentBinding.Create)] Agent entity)
+        public async Task<IActionResult> Create([FromBody][Bind(AgentBinding.Create)] Agent entity)
         {
-            return Ok(await Service.Insert(entity));
+            return Ok(await Service.Create(entity));
         }
     }
 }

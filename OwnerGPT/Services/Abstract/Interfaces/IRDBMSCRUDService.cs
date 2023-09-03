@@ -17,6 +17,6 @@ namespace OwnerGPT.Services.Abstract.Interfaces
 
         Task<T> Update(T entityToUpdate);
 
-        Task<T> Insert(T entityDTO);
+        Task<T> Create(T entityDTO);
     }
 }
