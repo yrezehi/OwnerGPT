@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwnerGPT.WebUI.Widget", "Ow
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwnerGPT.Summarization", "OwnerGPT.Summarization\OwnerGPT.Summarization.csproj", "{A342E1AA-AF68-4F5B-9F6A-FB173FAE7402}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experimental", "Experimental\Experimental.csproj", "{1372EC99-82CE-4757-BAE4-828080618D03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{A342E1AA-AF68-4F5B-9F6A-FB173FAE7402}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A342E1AA-AF68-4F5B-9F6A-FB173FAE7402}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A342E1AA-AF68-4F5B-9F6A-FB173FAE7402}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1372EC99-82CE-4757-BAE4-828080618D03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1372EC99-82CE-4757-BAE4-828080618D03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1372EC99-82CE-4757-BAE4-828080618D03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1372EC99-82CE-4757-BAE4-828080618D03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

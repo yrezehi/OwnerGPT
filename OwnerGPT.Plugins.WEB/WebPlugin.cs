@@ -10,6 +10,8 @@ namespace OwnerGPT.Plugins.Parsers.WEB
         {
             string content = await ScraperUtil.GetHTML(url);
 
+            content = HTMLUtil.RemoveNoises(content);
+
             content = MarkdownUtil.ToMarkdown(content);
 
             return content;
