@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace WebApplication1.ExceptionHandlers.Configuration
+namespace OwnerGPT.WebUI.Admin.Configuration.ExceptionHandlers
 {
     public class MiddlewareExceptionHandler
     {
@@ -38,9 +38,9 @@ namespace WebApplication1.ExceptionHandlers.Configuration
             dynamic loggingErrorObject = new
             {
                 StatusCode = statusCode,
-                Message = exception.Message,
-                StackTrace = exception.StackTrace,
-                InnerException = exception.InnerException,
+                exception.Message,
+                exception.StackTrace,
+                exception.InnerException,
                 Cause = "Unhandled exception",
                 TraceId = traceId
             };

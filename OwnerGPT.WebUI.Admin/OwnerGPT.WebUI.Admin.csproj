@@ -7,16 +7,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Content Include="tailwind.config.js" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <None Include="wwwroot\lib\polipop\polipop.min.js" />
+	  <None Include="wwwroot\configuration\tailwind.config.js" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<UpToDateCheckBuilt Include="wwwroot/css/style.css" Set="Css" />
-		<UpToDateCheckBuilt Include="tailwind.config.js" Set="Css" />
+		<UpToDateCheckBuilt Include="wwwroot/configuration/tailwind.config.js" Set="Css" />
 	</ItemGroup>
 
 	<!--<Target Name="Tailwind" BeforeTargets="Build">
