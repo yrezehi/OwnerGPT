@@ -1,7 +1,7 @@
 ﻿using OwnerGPT.LLM.PromptEnginner;
 using System.Reflection.Metadata;
 
-namespace Experimental.LLMManager
+namespace OwnerGPT.Experimental.LLMManager
 {
     public class PromptEnginnerInstance
     {

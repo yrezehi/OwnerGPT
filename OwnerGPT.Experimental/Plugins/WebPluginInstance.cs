@@ -1,5 +1,5 @@
 ﻿using OwnerGPT.Plugins.Parsers.WEB;
-namespace Experimental.Plugins
+namespace OwnerGPT.Experimental.Plugins
 {
     public static class WebPluginInstance
     {

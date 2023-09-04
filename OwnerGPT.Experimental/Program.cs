@@ -1,4 +1,4 @@
-﻿using Experimental.LLMManager;
+﻿using OwnerGPT.Experimental.LLMManager;
 
 await PromptEnginnerInstance.Start();
 
