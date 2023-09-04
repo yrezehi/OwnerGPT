@@ -11,6 +11,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include="wwwroot\lib\polipop\polipop.min.js" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<UpToDateCheckBuilt Include="wwwroot/css/style.css" Set="Css" />
 		<UpToDateCheckBuilt Include="tailwind.config.js" Set="Css" />
 	</ItemGroup>
