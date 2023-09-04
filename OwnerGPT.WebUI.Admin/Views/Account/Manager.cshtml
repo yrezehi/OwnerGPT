@@ -2,7 +2,7 @@
     ViewData["Title"] = "Login Page";
 }
 
-<div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6">
+<div class="relative rounded-lg overflow-hidden box-shadow bg-white h-full py-5 px-8">
     <!-- Card header -->
     <div class="items-center justify-between lg:flex">
         <div class="mb-4 lg:mb-0">
@@ -233,46 +233,6 @@
                     </table>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- Card Footer -->
-    <div class="flex items-center justify-between pt-3 sm:pt-6">
-        <div>
-            <button class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 rounded-lg hover:text-gray-900" type="button" data-dropdown-toggle="transactions-dropdown">Last 7 days <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-            <!-- Dropdown menu -->
-            <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow" id="transactions-dropdown" data-popper-placement="bottom" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(354.545px, 3749.09px, 0px);">
-                <div class="px-4 py-3" role="none">
-                    <p class="text-sm font-medium text-gray-900 truncate" role="none">
-                        Sep 16, 2021 - Sep 22, 2021
-                    </p>
-                </div>
-                <ul class="py-1" role="none">
-                    <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Yesterday</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Today</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Last 7 days</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Last 30 days</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Last 90 days</a>
-                    </li>
-                </ul>
-                <div class="py-1" role="none">
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Custom...</a>
-                </div>
-            </div>
-        </div>
-        <div class="flex-shrink-0">
-            <a href="#" class="inline-flex items-center p-2 text-xs font-medium uppercase rounded-lg text-primary-700 sm:text-sm hover:bg-gray-100">
-                Transactions Report
-                <svg class="w-4 h-4 ml-1 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-            </a>
         </div>
     </div>
 </div>
