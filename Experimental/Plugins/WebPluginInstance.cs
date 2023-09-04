@@ -1,10 +1,4 @@
 ﻿using OwnerGPT.Plugins.Parsers.WEB;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Experimental.Plugins
 {
     public static class WebPluginInstance
@@ -13,7 +7,7 @@ namespace Experimental.Plugins
         {
             WebPlugin plugin = new WebPlugin();
 
-            var document = await plugin.Process("https://www.sfda.gov.sa/ar/overview");
+            var document = await plugin.Process("");
 
             Console.WriteLine(document);
         }
