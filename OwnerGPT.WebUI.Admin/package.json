@@ -4,7 +4,7 @@
   "description": "",
   "main": "wwwroot/js/index.js",
   "scripts": {
-    "build": "npx tailwind build -i ./wwwroot/css/style.css -o ./wwwroot/css/site.css --minify",
+    "build": "npx tailwind build -i ./wwwroot/css/site.css -o ./wwwroot/dist/site.css --minify",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "yrezehi",
