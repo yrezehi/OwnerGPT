@@ -6,3 +6,13 @@
   <a href="https://github.com/Naereen/badges"><img src="https://img.shields.io/maintenance/Yes/2023" alt="Maintenance badge"></a>
 </p>
 
+```
+📂OwnerGPT
+├── 📂OwnerGPT.LLM
+├── 📂OwnerGPT.DocumentEncoder
+├── 📂OwnerGPT.Plugins
+    ├── 📂OwnerGPT.Plugins.API
+    ├── 📂OwnerGPT.Plugins.PDF
+    ├── 📂OwnerGPT.Plugins.WEB
+    ├── 📂OwnerGPT.Plugins.OCR
+```

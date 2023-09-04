@@ -19,7 +19,6 @@
     <ProjectReference Include="..\OwnerGPT.Summarization\OwnerGPT.Summarization.csproj" />
     <ProjectReference Include="..\OwnerGPT.WebUI.Admin\OwnerGPT.WebUI.Admin.csproj" />
     <ProjectReference Include="..\OwnerGPT.WebUI.Public\OwnerGPT.WebUI.Public.csproj" />
-    <ProjectReference Include="..\OwnerGPT.WebUI.Widget\OwnerGPT.WebUI.Widget.csproj" />
     <ProjectReference Include="..\OwnerGPT\OwnerGPT.csproj" />
   </ItemGroup>
 
