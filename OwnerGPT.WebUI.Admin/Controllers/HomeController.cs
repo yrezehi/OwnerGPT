@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OwnerGPT.WebUI.Admin.Controllers.Abstract;
 using OwnerGPT.WebUI.Admin.Models;
 using System.Diagnostics;
 
 namespace OwnerGPT.WebUI.Admin.Controllers
 {
     [Route("[controller]")]
-    public class HomeController : Controller
+    public class HomeController : BasePartialViewController
     {
         public HomeController() { }
 
