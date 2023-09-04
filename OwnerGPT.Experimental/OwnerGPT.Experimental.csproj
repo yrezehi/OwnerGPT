@@ -18,7 +18,6 @@
     <ProjectReference Include="..\OwnerGPT.Plugins.WEB\OwnerGPT.Plugins.Parsers.WEB.csproj" />
     <ProjectReference Include="..\OwnerGPT.Summarization\OwnerGPT.Summarization.csproj" />
     <ProjectReference Include="..\OwnerGPT.WebUI.Admin\OwnerGPT.WebUI.Admin.csproj" />
-    <ProjectReference Include="..\OwnerGPT.WebUI.Public\OwnerGPT.WebUI.Public.csproj" />
     <ProjectReference Include="..\OwnerGPT\OwnerGPT.csproj" />
   </ItemGroup>
 

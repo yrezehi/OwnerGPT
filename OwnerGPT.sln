@@ -29,13 +29,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Providers", "Providers", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Plugins.Providers.Whatsapp", "OwnerGPT.Plugins.Providers\OwnerGPT.Plugins.Providers.Whatsapp.csproj", "{A4E8DDE8-71FA-4481-845F-A950CE57D979}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.WebUI.Public", "OwnerGPT.WebUI.Public\OwnerGPT.WebUI.Public.csproj", "{70B68111-B539-4B89-8CE6-B0C30E27618E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Summarization", "OwnerGPT.Summarization\OwnerGPT.Summarization.csproj", "{A342E1AA-AF68-4F5B-9F6A-FB173FAE7402}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Experimental", "OwnerGPT.Experimental\OwnerGPT.Experimental.csproj", "{FAC63425-D805-40C7-82AC-F4646D072EB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwnerGPT.Plugins.Providers.Widget", "OwnerGPT.Plugins.Providers.Widget\OwnerGPT.Plugins.Providers.Widget.csproj", "{4CF39FA7-DC04-40EB-BE42-38D8C34BECF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Plugins.Providers.Widget", "OwnerGPT.Plugins.Providers.Widget\OwnerGPT.Plugins.Providers.Widget.csproj", "{4CF39FA7-DC04-40EB-BE42-38D8C34BECF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,10 +81,6 @@ Global
 		{A4E8DDE8-71FA-4481-845F-A950CE57D979}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4E8DDE8-71FA-4481-845F-A950CE57D979}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4E8DDE8-71FA-4481-845F-A950CE57D979}.Release|Any CPU.Build.0 = Release|Any CPU
-		{70B68111-B539-4B89-8CE6-B0C30E27618E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{70B68111-B539-4B89-8CE6-B0C30E27618E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{70B68111-B539-4B89-8CE6-B0C30E27618E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{70B68111-B539-4B89-8CE6-B0C30E27618E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A342E1AA-AF68-4F5B-9F6A-FB173FAE7402}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A342E1AA-AF68-4F5B-9F6A-FB173FAE7402}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A342E1AA-AF68-4F5B-9F6A-FB173FAE7402}.Release|Any CPU.ActiveCfg = Release|Any CPU
