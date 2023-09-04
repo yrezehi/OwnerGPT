@@ -3,8 +3,10 @@ var loading = function () {
 
     return function () {
         return Object.freeze({
-            unload: function () { },
-            load: function () { },
+            setElement: function () { },
+            unsetElement: function () { },
+            setSVG: function () { },
+            unsetSVG: function () { }
         });
     }();
 }();
