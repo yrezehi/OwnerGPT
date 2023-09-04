@@ -15,7 +15,7 @@ namespace OwnerGPT.WebUI.Admin.Controllers
             View();
 
         [HttpGet("[action]")]
-        public IActionResult Dashboard() =>
+        public IActionResult Chat() =>
             View();
 
         [HttpGet("[action]")]
