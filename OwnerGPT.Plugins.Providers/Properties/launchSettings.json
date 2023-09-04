@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "OwnerGPT.Plugins.Providers.Whatsapp": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:50551;http://localhost:50553"
+    }
+  }
+}

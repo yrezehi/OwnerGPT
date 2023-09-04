@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "OwnerGPT.Plugins.Parsers.API": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:50555;http://localhost:50557"
+    }
+  }
+}
