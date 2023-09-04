@@ -15,8 +15,7 @@
     <ProjectReference Include="..\OwnerGPT.Plugins.OCR\OwnerGPT.Plugins.Parsers.OCR.csproj" />
     <ProjectReference Include="..\OwnerGPT.Plugins.PDF\OwnerGPT.Plugins.Parsers.PDF.csproj" />
     <ProjectReference Include="..\OwnerGPT.Plugins.Providers\OwnerGPT.Plugins.Providers.Whatsapp.csproj" />
-    <ProjectReference Include="..\OwnerGPT.Plugins.WEB\OwnerGPT.Plugins.Parsers.WEB.csproj" />
-    <ProjectReference Include="..\OwnerGPT.Summarization\OwnerGPT.Summarization.csproj" />
+    <ProjectReference Include="..\OwnerGPT.Plugins.WEB\OwnerGPT.Plugins.Parsers.Web.csproj" />
     <ProjectReference Include="..\OwnerGPT.WebUI.Admin\OwnerGPT.WebUI.Admin.csproj" />
     <ProjectReference Include="..\OwnerGPT\OwnerGPT.csproj" />
   </ItemGroup>
