@@ -40,7 +40,10 @@
         var chatDialogContainer = document.querySelector("#chat-dialog-container");
 
         document.querySelector("#chat-submit").onclick = function(event) {
+            if(!chatInputElement.value) return;
+
             getPartialView("Chat/Replay/_UserReplay", chatInputElement.value, chatDialogContainer);
+
             chatInputElement.value = "";
         }
     </script>

@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OwnerGPT Admin</title>
 
+    <!-- 3rd party style sheets -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="~/lib/polipop/polipop.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/polipop/polipop.theme.min.css" asp-append-version="true" />
+
+    <!-- style sheets -->
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    
     <!-- TODO: Siwtch back to tailwind.output.dir on deployment -->
     <!--<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />-->
 </head>
@@ -64,8 +70,13 @@
         <footer></footer>
     </div>
 
+    <!-- 3rd party libraries -->
+    <script src="~/lib/polipop/polipop.min.js" asp-append-version="true"></script>
+
+    <!-- scripts -->
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/partial_view.js" asp-append-version="true"></script>
+    <script src="~/js/notification.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
