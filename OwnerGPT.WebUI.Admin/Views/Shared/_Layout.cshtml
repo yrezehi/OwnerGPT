@@ -17,7 +17,10 @@
     <!--<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />-->
 </head>
 <body class="bg-indigo-600">
-    @await Html.PartialAsync("_DynamicBackground")
+
+    <div class="h-[100%] w-[100%] absolute overflow-hidden">
+        @await Html.PartialAsync("_DynamicBackground")
+    </div>
 
     <div class="wrapper-container">
         <header>
