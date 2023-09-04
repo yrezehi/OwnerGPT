@@ -26,15 +26,19 @@ var notification = function () {
         return Object.freeze({
             error: function (title, content) {
                 spawnNotification(title, content, "error");
+                console.error("GET STACKTRACK PLEASE");
             },
             information: function (title, content) {
                 spawnNotification(title, content, "info");
+                console.info(title, content);
             },
             warning: function (title, content) {
                 spawnNotification(title, content, "warning");
+                console.warn(title, content);
             },
             success: function (title, content) {
                 spawnNotification(title, content, "success");
+                console.info(title, content);
             }
         });
     }();
