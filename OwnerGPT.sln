@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT", "OwnerGPT\OwnerG
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.LLM", "OwnerGPT.LLM\OwnerGPT.LLM.csproj", "{10D103D9-E928-4D47-B152-B690978F520A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.DocumentEmbedding", "OwnerGPT.DocumentEncoder\OwnerGPT.DocumentEmbedding.csproj", "{6E70FA99-A719-46B7-B787-092059B60BC2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.WebUI.Admin", "OwnerGPT.WebUI.Admin\OwnerGPT.WebUI.Admin.csproj", "{5C82DA1E-5E41-4998-A052-E52A3C1E2D38}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Plugins.Manager", "OwnerGPT.Plugins.Manager\OwnerGPT.Plugins.Manager.csproj", "{F90844C2-D5E3-49F6-8C5A-D3A5C8C513A9}"
@@ -35,7 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Plugins.Providers.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.MessageQueue", "OwnerGPT.MessageQueue\OwnerGPT.MessageQueue.csproj", "{CB1D868C-DD4F-4B0E-9C7F-88FB013E83C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwnerGPT.Plugins.Parsers.Excel", "OwnerGPT.Plugins.Parsers.Excel\OwnerGPT.Plugins.Parsers.Excel.csproj", "{F0D47CBA-793F-4BDC-A140-291802786A7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Plugins.Parsers.Excel", "OwnerGPT.Plugins.Parsers.Excel\OwnerGPT.Plugins.Parsers.Excel.csproj", "{F0D47CBA-793F-4BDC-A140-291802786A7A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.DocumentEmbedding", "OwnerGPT.DocumentEmbedding\OwnerGPT.DocumentEmbedding.csproj", "{D5140158-0BA2-467B-9E0E-1A6430F27755}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +51,6 @@ Global
 		{10D103D9-E928-4D47-B152-B690978F520A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10D103D9-E928-4D47-B152-B690978F520A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10D103D9-E928-4D47-B152-B690978F520A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E70FA99-A719-46B7-B787-092059B60BC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E70FA99-A719-46B7-B787-092059B60BC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E70FA99-A719-46B7-B787-092059B60BC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E70FA99-A719-46B7-B787-092059B60BC2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C82DA1E-5E41-4998-A052-E52A3C1E2D38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C82DA1E-5E41-4998-A052-E52A3C1E2D38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C82DA1E-5E41-4998-A052-E52A3C1E2D38}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -99,6 +95,10 @@ Global
 		{F0D47CBA-793F-4BDC-A140-291802786A7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0D47CBA-793F-4BDC-A140-291802786A7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0D47CBA-793F-4BDC-A140-291802786A7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5140158-0BA2-467B-9E0E-1A6430F27755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5140158-0BA2-467B-9E0E-1A6430F27755}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5140158-0BA2-467B-9E0E-1A6430F27755}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5140158-0BA2-467B-9E0E-1A6430F27755}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
