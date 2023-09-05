@@ -2,168 +2,91 @@
     ViewData["Title"] = "Manage Account";
 }
 
-<div class="relative rounded-lg overflow-hidden box-shadow bg-white h-full py-5 px-8">
+<div class="relative rounded-lg overflow-hidden box-shadow bg-white pt-5 pb-12 px-8">
     <!-- Card header -->
-    <div class="items-center justify-between lg:flex">
+    <div class="items-center justify-between lg:flex mb-4">
         <div class="mb-4 lg:mb-0 pb-5 pt-3">
             <h3 class="mb-2 text-xl font-bold text-gray-900">User Manager</h3>
             <span class="text-base font-normal text-gray-500">This is a list of system's users</span>
         </div>
     </div>
     <!-- Table -->
-    <div class="flex flex-col justify-center w-full mt-6">
-        <div class="overflow-x-auto rounded-lg">
-            <div class="inline-block min-w-full align-middle">
-                <div class="overflow-hidden shadow sm:rounded-lg">
-                    <table class="min-w-full text-center divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th scope="col" class="p-4 text-xs font-medium tracking-wider text-gray-500 uppercase">
-                                    Email
-                                </th>
-                                <th scope="col" class="p-4 text-xs font-medium tracking-wider text-gray-500 uppercase">
-                                    Username
-                                </th>
-                                <th scope="col" class="p-4 text-xs font-medium tracking-wider text-gray-500 uppercase">
-                                    Last Sign-in
-                                </th>
-                                <th scope="col" class="p-4 text-xs font-medium tracking-wider text-gray-500 uppercase">
-                                    Role
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white">
-                            <tr>
-                                <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap">
-                                    ****@@domain.com
-                                </td>
-                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
-                                    ****
-                                </td>
-                                <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
-                                    Last Day
-                                </td>
-                                <td class="p-4 whitespace-nowrap">
-                                    <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-green-100">Active</span>
-                                </td>
-                            </tr>
-                            <tr class="bg-gray-50">
-                                <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap">
-                                    ****@@domain.com
-                                </td>
-                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
-                                    ****
-                                </td>
-                                <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
-                                    Last Day
-                                </td>
-                                <td class="p-4 whitespace-nowrap">
-                                    <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-green-100">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap">
-                                    ****@@domain.com
-                                </td>
-                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
-                                    ****
-                                </td>
-                                <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
-                                    Last Day
-                                </td>
-                                <td class="p-4 whitespace-nowrap">
-                                    <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-green-100">Active</span>
-                                </td>
-                            </tr>
-                            <tr class="bg-gray-50">
-                                <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap">
-                                    ****@@domain.com
-                                </td>
-                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
-                                    ****
-                                </td>
-                                <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
-                                    Last Day
-                                </td>
-                                <td class="p-4 whitespace-nowrap">
-                                    <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-green-100">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap">
-                                    ****@@domain.com
-                                </td>
-                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
-                                    ****
-                                </td>
-                                <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
-                                    Last Day
-                                </td>
-                                <td class="p-4 whitespace-nowrap">
-                                    <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-green-100">Active</span>
-                                </td>
-                            </tr>
-                            <tr class="bg-gray-50">
-                                <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap">
-                                    ****@@domain.com
-                                </td>
-                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
-                                    ****
-                                </td>
-                                <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
-                                    Last Day
-                                </td>
-                                <td class="p-4 whitespace-nowrap">
-                                    <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-green-100">Active</span>
-                                </td>
-                            </tr>
 
-                            <tr>
-                                <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap">
-                                    ****@@domain.com
-                                </td>
-                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
-                                    ****
-                                </td>
-                                <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
-                                    Last Day
-                                </td>
-                                <td class="p-4 whitespace-nowrap">
-                                    <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-green-100">Active</span>
-                                </td>
-                            </tr>
-                            <tr class="bg-gray-50">
-                                <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap">
-                                    ****@@domain.com
-                                </td>
-                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
-                                    ****
-                                </td>
-                                <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
-                                    Last Day
-                                </td>
-                                <td class="p-4 whitespace-nowrap">
-                                    <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-green-100">Active</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap">
-                                    ****@@domain.com
-                                </td>
-                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap">
-                                    ****
-                                </td>
-                                <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
-                                    Last Day
-                                </td>
-                                <td class="p-4 whitespace-nowrap">
-                                    <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-green-100">Active</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-xs text-white uppercase bg-indigo-600">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Product name
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Color
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Category
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Price
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <span class="sr-only">Edit</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg-white border-b hover:bg-gray-50">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        Apple MacBook Pro 17"
+                    </th>
+                    <td class="px-6 py-4">
+                        Silver
+                    </td>
+                    <td class="px-6 py-4">
+                        Laptop
+                    </td>
+                    <td class="px-6 py-4">
+                        $2999
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
+                    </td>
+                </tr>
+                <tr class="bg-white border-b hover:bg-gray-50">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        Microsoft Surface Pro
+                    </th>
+                    <td class="px-6 py-4">
+                        White
+                    </td>
+                    <td class="px-6 py-4">
+                        Laptop PC
+                    </td>
+                    <td class="px-6 py-4">
+                        $1999
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
+                    </td>
+                </tr>
+                <tr class="bg-white hover:bg-gray-50">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        Magic Mouse 2
+                    </th>
+                    <td class="px-6 py-4">
+                        Black
+                    </td>
+                    <td class="px-6 py-4">
+                        Accessories
+                    </td>
+                    <td class="px-6 py-4">
+                        $99
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+
 </div>
