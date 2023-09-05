@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT", "OwnerGPT\OwnerG
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.LLM", "OwnerGPT.LLM\OwnerGPT.LLM.csproj", "{10D103D9-E928-4D47-B152-B690978F520A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.DocumentEncoder", "OwnerGPT.DocumentEncoder\OwnerGPT.DocumentEncoder.csproj", "{6E70FA99-A719-46B7-B787-092059B60BC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.DocumentEmbedding", "OwnerGPT.DocumentEncoder\OwnerGPT.DocumentEmbedding.csproj", "{6E70FA99-A719-46B7-B787-092059B60BC2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.WebUI.Admin", "OwnerGPT.WebUI.Admin\OwnerGPT.WebUI.Admin.csproj", "{5C82DA1E-5E41-4998-A052-E52A3C1E2D38}"
 EndProject

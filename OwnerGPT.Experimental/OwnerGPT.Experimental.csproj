@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OwnerGPT.DocumentEncoder\OwnerGPT.DocumentEncoder.csproj" />
+    <ProjectReference Include="..\OwnerGPT.DocumentEncoder\OwnerGPT.DocumentEmbedding.csproj" />
     <ProjectReference Include="..\OwnerGPT.LLM\OwnerGPT.LLM.csproj" />
     <ProjectReference Include="..\OwnerGPT.Plugins.API\OwnerGPT.Plugins.Parsers.API.csproj" />
     <ProjectReference Include="..\OwnerGPT.Plugins.Manager\OwnerGPT.Plugins.Manager.csproj" />
