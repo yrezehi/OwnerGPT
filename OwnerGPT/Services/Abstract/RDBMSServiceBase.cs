@@ -27,7 +27,6 @@ namespace OwnerGPT.Services.Abstract
         public virtual async Task<IEnumerable<T>> GetAll() =>
             await UnitOfWork.Repository<T>().DBSet.ToListAsync();
 
-
         public virtual async Task<PaginateDTO<T>> Paginate(int currentPage, Expression<Func<T, bool>>? expression)
         {
             var items = UnitOfWork.Repository<T>().DBSet.ConditionalWhere(expression != null, expression!).Skip(currentPage * 10);

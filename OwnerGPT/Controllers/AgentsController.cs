@@ -2,7 +2,7 @@
 using OwnerGPT.Controllers.Abstract;
 using OwnerGPT.Models.Agents;
 using OwnerGPT.Models.Bindings;
-using OwnerGPT.Services.Abstract;
+using OwnerGPT.Services;
 
 namespace OwnerGPT.Controllers
 {
