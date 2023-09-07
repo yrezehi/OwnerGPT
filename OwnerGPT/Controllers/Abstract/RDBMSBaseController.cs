@@ -22,11 +22,5 @@ namespace OwnerGPT.Controllers.Abstract
             return Ok(await Service.GetAll());
         }
 
-        [HttpDelete]
-        public virtual async Task<IActionResult> Delete(int id)
-        {
-            return Ok(await Service.Delete(id));
-        }
-
     }
 }
