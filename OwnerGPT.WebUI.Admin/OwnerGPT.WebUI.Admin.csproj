@@ -12,6 +12,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\OwnerGPT\OwnerGPT.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<UpToDateCheckBuilt Include="wwwroot/css/style.css" Set="Css" />
 		<UpToDateCheckBuilt Include="wwwroot/configuration/tailwind.config.js" Set="Css" />
 	</ItemGroup>
