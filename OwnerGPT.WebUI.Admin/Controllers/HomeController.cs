@@ -19,10 +19,6 @@ namespace OwnerGPT.WebUI.Admin.Controllers
             View();
 
         [HttpGet("[action]")]
-        public IActionResult Agents() =>
-            View();
-
-        [HttpGet("[action]")]
         public IActionResult KnowledgeBase() =>
             View();
 
