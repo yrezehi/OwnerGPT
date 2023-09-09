@@ -11,7 +11,7 @@ namespace OwnerGPT.LLM.Services
 
         public StatelessGPTService()
         {
-            StatelessExecutor = new StatelessExecutor((new LLamaModel(new ModelParams("C:\\llm_model\\wizardLM.bin", contextSize: 1024, seed: 1337, gpuLayerCount: 5))));
+            StatelessExecutor = new StatelessExecutor((new LLamaModel(new ModelParams("C:\\llm_models\\wizardLM.bin", contextSize: 1024, seed: 1337, gpuLayerCount: 5))));
             InferenceParameters = new InferenceParams
             {
                 Temperature = 1.0f,
@@ -20,13 +20,13 @@ namespace OwnerGPT.LLM.Services
             };
         }
 
-        public async Task<string> Replay(string question)
+        public string Replay(string question)
         {
             StringBuilder replayBuilder = new StringBuilder();
 
-            await foreach(var replaySegment in StatelessExecutor.InferAsync($"Question: {question} Answer: ", inferenceParams: InferenceParameters))
+            foreach(var replaySegment in StatelessExecutor.Infer($"Question: {question} Answer: ", inferenceParams: InferenceParameters))
             {
-                replayBuilder.AppendLine(replaySegment);
+                replayBuilder.Append(replaySegment);
             }
 
             return replayBuilder.ToString();

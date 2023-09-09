@@ -13,10 +13,10 @@ namespace OwnerGPT.WebUI.Admin.Controllers
             StatelessGPTService = statelessGPTService;
         }
 
-        [HttpPost("action")]
-        public async Task<IActionResult> Replay(string message)
+        [HttpPost("[action]")]
+        public IActionResult Replay([FromBody] string message)
         {
-            return Ok(await StatelessGPTService.Replay(message));
+            return Ok(StatelessGPTService.Replay(message));
         }
     }
 }
