@@ -8,10 +8,29 @@ namespace OwnerGPT.Experimental.Documents
 {
     public class DocumentManager
     {
-        private static string TEMPORARY_FILE_PATH = "C:\\OwnerGPT.Temporary.Upload";
+        private static string TEMPORARY_DIRECTORY_PATH = "C:\\OwnerGPT.Temporary.Upload";
 
-        public DocumentManager() { 
+        public DocumentManager() {
+            CreateTemporaryDirectoryIfNotExists();
+        }
 
+        private void CreateTemporaryDirectoryIfNotExists()
+        {
+            if(Directory.Exists(TEMPORARY_DIRECTORY_PATH))
+                NukeTemporaryDirectory(TEMPORARY_DIRECTORY_PATH);
+
+            if (!Directory.Exists(TEMPORARY_DIRECTORY_PATH))
+                Directory.CreateDirectory(TEMPORARY_DIRECTORY_PATH);
+        }
+
+        private void NukeTemporaryDirectory(string directoryPath)
+        {
+            var directoryInformation =  new DirectoryInfo(directoryPath);
+
+            foreach (var file in directoryInformation.GetFiles())
+            {
+                file.Delete();
+            }
         }
     }
 }
