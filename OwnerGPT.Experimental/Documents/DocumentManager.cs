@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OwnerGPT.Experimental.Documents
+﻿namespace OwnerGPT.Experimental.Documents
 {
+    // TODO: limit temporary file size via configuration
     public class DocumentManager
     {
         private static string TEMPORARY_DIRECTORY_PATH = "C:\\OwnerGPT.Temporary.Upload";
@@ -13,6 +8,8 @@ namespace OwnerGPT.Experimental.Documents
         public DocumentManager() {
             CreateTemporaryDirectoryIfNotExists();
         }
+
+        public void UploadDocument() { }
 
         private void CreateTemporaryDirectoryIfNotExists()
         {
