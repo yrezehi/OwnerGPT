@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OwnerGPT.Plugins.Parsers.WEB.Utilities
+﻿namespace OwnerGPT.Plugins.Parsers.WEB.Utilities
 {
     // TODO: set proper agent
     // TODO: everything is dynamic nowdays ahhh
