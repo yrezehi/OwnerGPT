@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OwnerGPT.LLM.Models.LLama;
+using System.IO;
+using System;
 
 namespace OwnerGPT.WebUI.Admin.Controllers
 {
@@ -14,9 +16,18 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult Replay([FromBody] string message)
+        public async void Replay(string message)
         {
-            return Ok(StatelessGPT.Replay(message));
+            Response.StatusCode = 200;
+            Response.ContentType = "text/plain";
+
+            var streamWriter = new StreamWriter(Response.Body);
+            
+            foreach(var replay in StatelessGPT.Replay(message))
+            {
+                await streamWriter.WriteLineAsync(replay);
+                await streamWriter.FlushAsync();
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using LLama.Common;
 using OwnerGPT.LLM.Configuration;
 using OwnerGPT.LLM.Interfaces;
+using System.Collections;
 using System.Text;
 
 namespace OwnerGPT.LLM.Models.LLama
@@ -32,21 +33,12 @@ namespace OwnerGPT.LLM.Models.LLama
             };
         }
 
-        public async Task<string> Replay(string prompt)
+        public IEnumerable<string> Replay(string prompt)
         {
-            StringBuilder responseBuilder = new StringBuilder();
-
-            await foreach (var response in Executor.InferAsync(prompt, InferenceParams))
+            foreach (var response in Executor.Infer(prompt, InferenceParams))
             {
-                responseBuilder.Append(response);
+                yield return response;
             }
-
-            return responseBuilder.ToString();
-        }
-
-        public async Task<string> ReplayWithInstruction(string instruction, string prompt)
-        {
-            return await this.Replay(instruction +  prompt);
         }
 
     }
