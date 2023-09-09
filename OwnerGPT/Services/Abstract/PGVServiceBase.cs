@@ -1,5 +1,5 @@
-﻿using OwnerGPT.DocumentEmbedding.Encoder;
-using OwnerGPT.Repositores.PGVDB;
+﻿using OwnerGPT.DB.Repositores.PGVDB;
+using OwnerGPT.DocumentEmbedding.Encoder;
 using Pgvector;
 
 namespace OwnerGPT.Services.Abstract

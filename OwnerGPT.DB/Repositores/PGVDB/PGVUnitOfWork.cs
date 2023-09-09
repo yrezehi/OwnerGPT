@@ -1,7 +1,6 @@
 ﻿using Npgsql;
+using OwnerGPT.DB.Repositores.Extensions;
 using OwnerGPT.DB.Repositores.PGVDB.Interfaces;
-using OwnerGPT.Utilities;
-using OwnerGPT.Utilities.Extenstions;
 using Pgvector;
 using Pgvector.Npgsql;
 
@@ -14,7 +13,7 @@ namespace OwnerGPT.DB.Repositores.PGVDB
 
         public PGVUnitOfWork()
         {
-            NpgsqlDataSourceBuilder builder = new NpgsqlDataSourceBuilder(ConfigurationUtil.GetValue<string>("PG_V_CONNECTION_STRING"));
+            NpgsqlDataSourceBuilder builder = new NpgsqlDataSourceBuilder("Host=localhost;Database=ownergpt;User ID=owner;Password=owner;");
 
             builder.UseVector();
 

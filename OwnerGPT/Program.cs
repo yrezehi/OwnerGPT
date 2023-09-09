@@ -1,6 +1,6 @@
 using OwnerGPT.Services;
-using OwnerGPT.Repositores.RDBMS;
 using OwnerGPT.Configuration;
+using OwnerGPT.DB.Repositores.RDBMS;
 
 var builder = WebApplication.CreateBuilder(args);
 

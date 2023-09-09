@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 
-namespace OwnerGPT.Utilities.Extenstions
+namespace OwnerGPT.DB.Repositores.Extensions
 {
     public static class PGVQueryExtension
     {
@@ -38,13 +38,13 @@ namespace OwnerGPT.Utilities.Extenstions
             return entity;
         }
 
-       // converts snake case to camel case
-       public static string TablePropertyToOjbectProperty(this string propertyName) =>
-            propertyName.Split(new[] { "_" }, StringSplitOptions.RemoveEmptyEntries).Select(s => char.ToUpperInvariant(s[0]) + s.Substring(1, s.Length - 1)).Aggregate(string.Empty, (s1, s2) => s1 + s2);
+        // converts snake case to camel case
+        public static string TablePropertyToOjbectProperty(this string propertyName) =>
+             propertyName.Split(new[] { "_" }, StringSplitOptions.RemoveEmptyEntries).Select(s => char.ToUpperInvariant(s[0]) + s.Substring(1, s.Length - 1)).Aggregate(string.Empty, (s1, s2) => s1 + s2);
 
         // converts entity name to snake case
         public static string EntityToTableName<T>() =>
             string.Concat(typeof(T).Name.Select((character, index) => index > 0 && char.IsUpper(character) ? "_" + character.ToString() : character.ToString())).ToLower();
-        
+
     }
 }
