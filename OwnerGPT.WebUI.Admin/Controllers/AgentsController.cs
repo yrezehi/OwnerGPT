@@ -23,7 +23,15 @@ namespace OwnerGPT.WebUI.Admin.Controllers
                 return BadRequest(ModelState.ValidationState);
             }
 
-            return Ok(await Service.Create(agent));
+            await Service.Create(agent);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult Configure()
+        {
+            return View();
         }
     }
 }
