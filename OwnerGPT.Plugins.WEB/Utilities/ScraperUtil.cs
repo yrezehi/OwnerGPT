@@ -12,7 +12,28 @@ namespace OwnerGPT.Plugins.Parsers.WEB.Utilities
        
         public async static Task<string> GetHTML(string url)
         {
-            return await Client.GetStringAsync(url);
+            HttpResponseMessage response = await Client.GetAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception("Response status code ain't valid");
+
+            if(!IsValidContentType(response))
+                throw new Exception("Response type ain't valid");
+
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public static bool IsValidContentType(HttpResponseMessage response)
+        {
+            var responseHeaders = response.Content.Headers.ContentType;
+
+            if (responseHeaders == null)
+                return false;
+
+            if (responseHeaders.MediaType == null || !responseHeaders.MediaType.Contains("text/html"))
+                return false;
+
+            return true;
         }
 
         public static bool IsValidSchema(string url)
