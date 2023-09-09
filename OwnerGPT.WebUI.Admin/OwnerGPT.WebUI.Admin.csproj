@@ -12,6 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\OwnerGPT.Models\OwnerGPT.Models.csproj" />
 	  <ProjectReference Include="..\OwnerGPT\OwnerGPT.csproj" />
 	</ItemGroup>
 

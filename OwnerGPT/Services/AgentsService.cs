@@ -1,5 +1,5 @@
 ﻿using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
-using OwnerGPT.Models.Models.Agents;
+using OwnerGPT.Models.Entities.Agents;
 using OwnerGPT.Services.Abstract;
 
 namespace OwnerGPT.Services

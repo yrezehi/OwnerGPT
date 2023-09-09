@@ -1,5 +1,5 @@
 ﻿using OwnerGPT.DB.Repositores.PGVDB;
-using OwnerGPT.Models.Models;
+using OwnerGPT.Models.Entities;
 using OwnerGPT.Services.Abstract;
 
 namespace OwnerGPT.Services

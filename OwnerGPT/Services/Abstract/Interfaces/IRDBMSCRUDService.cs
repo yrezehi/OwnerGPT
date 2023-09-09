@@ -1,4 +1,4 @@
-﻿using OwnerGPT.Models.Models.DTO;
+﻿using OwnerGPT.Models.Entities.DTO;
 using System.Linq.Expressions;
 
 namespace OwnerGPT.Services.Abstract.Interfaces

@@ -4,8 +4,8 @@ using System.Linq.Expressions;
 using OwnerGPT.Services.Abstract.Interfaces;
 using OwnerGPT.Utilities.Extenstions;
 using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
-using OwnerGPT.Models.Models.Interfaces;
-using OwnerGPT.Models.Models.DTO;
+using OwnerGPT.Models.Entities.DTO;
+using OwnerGPT.Models.Entities.Interfaces;
 
 namespace OwnerGPT.Services.Abstract
 {

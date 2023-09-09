@@ -1,4 +1,4 @@
-﻿namespace OwnerGPT.Models.Models.Agents
+﻿namespace OwnerGPT.Models.Entities.Agents
 {
     public class Agent
     {

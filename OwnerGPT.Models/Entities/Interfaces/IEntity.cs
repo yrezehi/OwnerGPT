@@ -1,4 +1,4 @@
-﻿namespace OwnerGPT.Models.Models.Interfaces
+﻿namespace OwnerGPT.Models.Entities.Interfaces
 {
     public interface IEntity { int Id { set; get; } }
 }

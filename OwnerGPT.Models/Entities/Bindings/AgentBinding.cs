@@ -1,4 +1,4 @@
-﻿namespace OwnerGPT.Models.Models.Bindings
+﻿namespace OwnerGPT.Models.Entities.Bindings
 {
     public class AgentBinding
     {

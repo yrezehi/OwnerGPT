@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using OwnerGPT.Models.Models.Interfaces;
+using OwnerGPT.Models.Entities.Interfaces;
 using Pgvector;
 
-namespace OwnerGPT.Models.Models
+namespace OwnerGPT.Models.Entities
 {
     public class VectorEmbedding : IEntity
     {

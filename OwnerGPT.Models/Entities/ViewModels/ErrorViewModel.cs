@@ -1,4 +1,4 @@
-namespace OwnerGPT.Models.Models.ViewModels
+namespace OwnerGPT.Models.Entities.ViewModels
 {
     public class ErrorViewModel
     {

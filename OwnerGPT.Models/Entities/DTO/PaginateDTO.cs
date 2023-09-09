@@ -1,4 +1,4 @@
-﻿namespace OwnerGPT.Models.Models.DTO
+﻿namespace OwnerGPT.Models.Entities.DTO
 {
     public class PaginateDTO<T> where T : class
     {
