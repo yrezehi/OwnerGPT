@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace OwnerGPT.Plugins.Parsers.WEB.Utilities
 {
+    // TODO: set proper agent
+    // TODO: everything is dynamic nowdays ahhh
     public class ScraperUtil
     {
         private static HttpClient Client { get; set; } = new HttpClient();
@@ -14,6 +16,7 @@ namespace OwnerGPT.Plugins.Parsers.WEB.Utilities
         {
             HttpResponseMessage response = await Client.GetAsync(url);
 
+            // TODO: handle non-200 errors with proper messages
             if (!response.IsSuccessStatusCode)
                 throw new Exception("Response status code ain't valid");
 
@@ -30,7 +33,10 @@ namespace OwnerGPT.Plugins.Parsers.WEB.Utilities
             if (responseHeaders == null)
                 return false;
 
-            if (responseHeaders.MediaType == null || !responseHeaders.MediaType.Contains("text/html"))
+            if (responseHeaders.MediaType == null)
+                return false;
+
+            if(!responseHeaders.MediaType.Contains("text/html"))
                 return false;
 
             return true;
