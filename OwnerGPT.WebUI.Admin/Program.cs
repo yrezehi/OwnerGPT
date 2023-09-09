@@ -1,7 +1,16 @@
+using OwnerGPT.Services;
+using OwnerGPT.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.RegisterPGVDB();
+builder.RegisterRDBMS();
+
+builder.Services.AddTransient(typeof(VectorEmbeddingService), typeof(VectorEmbeddingService));
+builder.Services.AddTransient(typeof(AgentsService), typeof(AgentsService));
 
 var app = builder.Build();
 

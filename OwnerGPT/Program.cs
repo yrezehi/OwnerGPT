@@ -15,6 +15,7 @@ builder.RegisterRDBMS();
 builder.RegisterPGVDB();
 
 builder.Services.AddTransient(typeof(VectorEmbeddingService), typeof(VectorEmbeddingService));
+builder.Services.AddTransient(typeof(AgentsService), typeof(AgentsService));
 
 var app = builder.Build();
 
