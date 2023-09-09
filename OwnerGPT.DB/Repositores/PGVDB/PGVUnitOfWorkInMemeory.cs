@@ -1,7 +1,7 @@
 ﻿using Pgvector;
 using System.Collections.Concurrent;
-using OwnerGPT.Models;
 using OwnerGPT.DB.Repositores.PGVDB.Interfaces;
+using OwnerGPT.Models.Models;
 
 namespace OwnerGPT.DB.Repositores.PGVDB
 {

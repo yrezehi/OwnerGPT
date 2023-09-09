@@ -1,6 +1,6 @@
-﻿using OwnerGPT.DocumentEncoder.Encoder.BERTTokenizers.Extensions;
+﻿using OwnerGPT.DocumentEmbedding.Encoder.BERTTokenizers.Extensions;
 
-namespace OwnerGPT.DocumentEncoder.Encoder.BERTTokenizers.Base
+namespace OwnerGPT.DocumentEmbedding.Encoder.BERTTokenizers.Base
 {
     public abstract class CasedTokenizer : TokenizerBase
     {

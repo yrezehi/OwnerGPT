@@ -1,4 +1,4 @@
-﻿namespace OwnerGPT.Models.Agents
+﻿namespace OwnerGPT.Models.Models.Agents
 {
     public class AgentInstruction
     {

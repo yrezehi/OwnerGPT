@@ -1,11 +1,11 @@
-﻿using OwnerGPT.DocumentEncoder.Encoder.BERTTokenizers.Helpers;
+﻿using OwnerGPT.DocumentEmbedding.Encoder.BERTTokenizers.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace OwnerGPT.DocumentEncoder.Encoder.BERTTokenizers.Base
+namespace OwnerGPT.DocumentEmbedding.Encoder.BERTTokenizers.Base
 {
     public abstract class TokenizerBase
     {

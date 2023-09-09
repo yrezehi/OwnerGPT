@@ -1,10 +1,10 @@
-﻿using OwnerGPT.DocumentEncoder.Encoder.BERTTokenizers.Extensions;
+﻿using OwnerGPT.DocumentEmbedding.Encoder.BERTTokenizers.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace OwnerGPT.DocumentEncoder.Encoder.BERTTokenizers.Base
+namespace OwnerGPT.DocumentEmbedding.Encoder.BERTTokenizers.Base
 {
     public abstract class UncasedTokenizer : TokenizerBase
     {

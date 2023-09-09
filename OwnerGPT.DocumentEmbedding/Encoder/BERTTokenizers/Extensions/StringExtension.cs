@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OwnerGPT.DocumentEncoder.Encoder.BERTTokenizers.Extensions
+namespace OwnerGPT.DocumentEmbedding.Encoder.BERTTokenizers.Extensions
 {
     static class StringExtension
     {

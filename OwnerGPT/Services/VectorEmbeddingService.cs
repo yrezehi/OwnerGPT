@@ -1,4 +1,4 @@
-﻿using OwnerGPT.Models;
+﻿using OwnerGPT.Models.Models;
 using OwnerGPT.Repositores.PGVDB;
 using OwnerGPT.Services.Abstract;
 

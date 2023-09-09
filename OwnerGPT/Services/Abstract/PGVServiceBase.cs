@@ -1,4 +1,4 @@
-﻿using OwnerGPT.DocumentEncoder.Encoder;
+﻿using OwnerGPT.DocumentEmbedding.Encoder;
 using OwnerGPT.Repositores.PGVDB;
 using Pgvector;
 

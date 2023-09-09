@@ -1,9 +1,9 @@
 ﻿using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
-using static OwnerGPT.DocumentEncoder.Encoder.DenseTensorHelpers;
-using OwnerGPT.DocumentEncoder.Encoder.BERTTokenizers.Base;
+using static OwnerGPT.DocumentEmbedding.Encoder.DenseTensorHelpers;
+using OwnerGPT.DocumentEmbedding.Encoder.BERTTokenizers.Base;
 
-namespace OwnerGPT.DocumentEncoder.Encoder;
+namespace OwnerGPT.DocumentEmbedding.Encoder;
 
 public record struct EncodedChunk(string Text, float[] Vector);
 
@@ -142,12 +142,12 @@ public sealed class SentenceEncoder : IDisposable
 
     public float[][] EncodeDocument(params string[] documents)
     {
-        return this.Encode(documents);
+        return Encode(documents);
     }
 
     public float[] EncodeDocument(string document)
     {
-        var encodedDocuments = this.Encode(new string[] { document });
+        var encodedDocuments = Encode(new string[] { document });
 
         if (encodedDocuments.Length != 0)
             return encodedDocuments[0];

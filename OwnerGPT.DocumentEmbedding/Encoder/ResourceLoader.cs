@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace OwnerGPT.DocumentEncoder.Encoder;
+namespace OwnerGPT.DocumentEmbedding.Encoder;
 
 public static class ResourceLoader
 {
