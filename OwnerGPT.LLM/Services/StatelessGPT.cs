@@ -24,7 +24,7 @@ namespace OwnerGPT.LLM.Services
         {
             StringBuilder replayBuilder = new StringBuilder();
 
-            foreach(var replaySegment in StatelessExecutor.Infer($"Question: {question} Answer: ", inferenceParams: InferenceParameters))
+            await foreach(var replaySegment in StatelessExecutor.InferAsync($"Question: {question} Answer: ", inferenceParams: InferenceParameters))
             {
                 replayBuilder.AppendLine(replaySegment);
             }

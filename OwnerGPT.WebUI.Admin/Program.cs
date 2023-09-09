@@ -1,5 +1,6 @@
 using OwnerGPT.Services;
 using OwnerGPT.Configuration;
+using OwnerGPT.LLM.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.RegisterRDBMS();
 
 builder.Services.AddTransient(typeof(VectorEmbeddingService), typeof(VectorEmbeddingService));
 builder.Services.AddTransient(typeof(AgentsService), typeof(AgentsService));
+builder.Services.AddTransient(typeof(StatelessGPTService), typeof(StatelessGPTService));
 
 var app = builder.Build();
 
