@@ -1,44 +1,36 @@
 ﻿using LLama.Common;
 using LLama;
 using System.Text;
-using static LLama.LLamaTransforms;
 
 namespace OwnerGPT.LLM.Services
 {
     public class StatelessGPTService
     {
         private readonly StatelessExecutor StatelessExecutor;
+        private InferenceParams InferenceParameters;
 
         public StatelessGPTService()
         {
-            // TODO: replace with a stateless executor
             StatelessExecutor = new StatelessExecutor((new LLamaModel(new ModelParams("C:\\llm_model\\wizardLM.bin", contextSize: 1024, seed: 1337, gpuLayerCount: 5))));
+            InferenceParameters = new InferenceParams
+            {
+                Temperature = 1.0f,
+                AntiPrompts = new List<string> { "Question:", "#", "Question: ", ".\n" },
+                MaxTokens = 256
+            };
         }
 
-        public async Task<string> Replay(ChatHistory history)
+        public async Task<string> Replay(string question)
         {
-            var result = _session.ChatAsync(history, new InferenceParams()
-            {
-                AntiPrompts = new string[] { "User:" },
-            });
+            StringBuilder replayBuilder = new StringBuilder();
 
-            var sb = new StringBuilder();
-            await foreach (var r in result)
+            foreach(var replaySegment in StatelessExecutor.Infer($"Question: {question} Answer: ", inferenceParams: InferenceParameters))
             {
-                Console.Write(r);
-                sb.Append(r);
+                replayBuilder.AppendLine(replaySegment);
             }
 
-            return sb.ToString();
-
+            return replayBuilder.ToString();
         }
     }
-    public class HistoryTransform : DefaultHistoryTransform
-    {
-        public override string HistoryToText(ChatHistory history)
-        {
-            return base.HistoryToText(history) + "\n Assistant:";
-        }
 
-    }
 }
