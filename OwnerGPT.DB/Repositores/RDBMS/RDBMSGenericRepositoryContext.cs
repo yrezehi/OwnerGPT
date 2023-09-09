@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OwnerGPT.Models.Entities.Agents;
+using System.Numerics;
 
 namespace OwnerGPT.DB.Repositores.RDBMS
 {
     public class RDBMSGenericRepositoryContext : DbContext
     {
         public RDBMSGenericRepositoryContext(DbContextOptions options) : base(options) { }
+        public virtual DbSet<Agent> Agents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -10,7 +10,7 @@ namespace OwnerGPT.WebUI.Admin.Controllers
     {
         public AgentsController(AgentsService Service) : base(Service) { }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         public async Task<IActionResult> Index()
         {
             return View(await Service.GetAll());
