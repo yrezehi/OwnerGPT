@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OwnerGPT.DB.Repositores.PGVDB;
 using OwnerGPT.DB.Repositores.RDBMS;
+using OwnerGPT.DB.Repositores.RDBMS.Abstracts;
+using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
 using OwnerGPT.Utilities;
 
 namespace OwnerGPT.Configuration
@@ -33,6 +35,7 @@ namespace OwnerGPT.Configuration
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
             builder.Services.AddDbContext<RDBMSGenericRepositoryContext>(option => option.UseInMemoryDatabase(ConfigurationUtil.GetValue<string>("INMEMEORYDBNAME")));
+            builder.Services.AddTransient<IRDBMSUnitOfWork, RDBMSUnitOfWork<RDBMSGenericRepositoryContext>>();
 
             return builder;
         }
