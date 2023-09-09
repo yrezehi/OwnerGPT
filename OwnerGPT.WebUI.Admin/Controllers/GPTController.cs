@@ -2,6 +2,7 @@
 using OwnerGPT.LLM.Models.LLama;
 using System.IO;
 using System;
+using OwnerGPT.Models.Entities.DTO;
 
 namespace OwnerGPT.WebUI.Admin.Controllers
 {
@@ -16,14 +17,14 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         }
 
         [HttpPost("[action]")]
-        public async void Replay(string message)
+        public async void Replay(GPTMessageInputDTO messageInput)
         {
             Response.StatusCode = 200;
             Response.ContentType = "text/plain";
 
             var streamWriter = new StreamWriter(Response.Body);
             
-            foreach(var replay in StatelessGPT.Replay(message))
+            foreach(var replay in StatelessGPT.Replay(messageInput.Message))
             {
                 await streamWriter.WriteLineAsync(replay);
                 await streamWriter.FlushAsync();
