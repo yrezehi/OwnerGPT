@@ -14,5 +14,15 @@ namespace OwnerGPT.Plugins.Parsers.WEB.Utilities
         {
             return await Client.GetStringAsync(url);
         }
+
+        public static bool IsValidSchema(string url)
+        {
+            var uri = new Uri(url);
+
+            if (uri.Scheme.StartsWith("http"))
+                return false;
+
+            return true;
+        }
     }
 }

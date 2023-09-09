@@ -31,15 +31,17 @@
         
         @foreach(var agent in Model)
         {
-            <div class="card px-2 py-2 m-2 cursor-pointer border border-gray-400 rounded-lg border-indigo-600 hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200">
-                <div class="m-3">
-                    <h2 class="text-lg mb-2">
-                        @agent.Name
-                        <span class="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">Chatbot</span>
-                    </h2>
-                    <p class="font-light font-mono text-sm text-gray-700 hover:text-gray-900 transition-all duration-200">@agent.Description</p>
+            <a href="@Url.Action("Configure", "Agents")">
+                <div class="card px-2 py-2 m-2 cursor-pointer border border-gray-400 rounded-lg border-indigo-600 hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200">
+                    <div class="m-3">
+                        <h2 class="text-lg mb-2">
+                            @agent.Name
+                            <span class="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">Chatbot</span>
+                        </h2>
+                        <p class="font-light font-mono text-sm text-gray-700 hover:text-gray-900 transition-all duration-200">@agent.Description</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         }
     </div>
 </div>
