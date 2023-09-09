@@ -1,8 +1,9 @@
 ﻿using Pgvector;
 
-namespace OwnerGPT.Repositores.PGVDB.Interfaces
+namespace OwnerGPT.DB.Repositores.PGVDB.Interfaces
 {
-    public interface IPGVUnitOfWork {
+    public interface IPGVUnitOfWork
+    {
 
         Task<IEnumerable<T>> NearestVectorNeighbor<T>(Vector vector);
 

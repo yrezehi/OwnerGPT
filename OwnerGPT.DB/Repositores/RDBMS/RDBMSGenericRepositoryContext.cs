@@ -1,15 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OwnerGPT.Models.Agents;
-using static System.Net.Mime.MediaTypeNames;
 
-namespace OwnerGPT.Repositores.RDBMS
+namespace OwnerGPT.DB.Repositores.RDBMS
 {
     public class RDBMSGenericRepositoryContext : DbContext
     {
         public RDBMSGenericRepositoryContext(DbContextOptions options) : base(options) { }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            modelBuilder.Entity<Agent>().HasData(
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            /*modelBuilder.Entity<Agent>().HasData(
                 new Agent
                 {
                     Id = 1,
@@ -24,7 +23,7 @@ namespace OwnerGPT.Repositores.RDBMS
                     Description = "Internal Portal Chatbot",
                     Name = "Agent #2",
                 }
-            );
+            );*/
         }
     }
 }

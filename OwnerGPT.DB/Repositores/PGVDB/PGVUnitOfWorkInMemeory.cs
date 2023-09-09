@@ -1,9 +1,9 @@
-﻿using OwnerGPT.Repositores.PGVDB.Interfaces;
-using Pgvector;
+﻿using Pgvector;
 using System.Collections.Concurrent;
 using OwnerGPT.Models;
+using OwnerGPT.DB.Repositores.PGVDB.Interfaces;
 
-namespace OwnerGPT.Repositores.PGVDB
+namespace OwnerGPT.DB.Repositores.PGVDB
 {
     public class PGVUnitOfWorkInMemeory : IPGVUnitOfWork
     {
@@ -11,9 +11,10 @@ namespace OwnerGPT.Repositores.PGVDB
         private readonly ConcurrentDictionary<int, VectorEmbedding> Database;
         private int IncrementIdentity;
 
-        private int DEFAULT_NEAREST_NEIGHBORS = 5; 
+        private int DEFAULT_NEAREST_NEIGHBORS = 5;
 
-        public PGVUnitOfWorkInMemeory() {
+        public PGVUnitOfWorkInMemeory()
+        {
             Database = new ConcurrentDictionary<int, VectorEmbedding>();
             IncrementIdentity = 1;
         }
@@ -22,13 +23,14 @@ namespace OwnerGPT.Repositores.PGVDB
         {
             List<VectorEmbedding> vectors = (await All<VectorEmbedding>()).ToList();
 
-            var nearestVectorNeighbor = vectors.Select(vectrorEmbedding => new {
+            var nearestVectorNeighbor = vectors.Select(vectrorEmbedding => new
+            {
                 VectorEmbedding = vectrorEmbedding,
-                Similarity = CosineSimilarity(vector.ToArray(), vectrorEmbedding.Embedding.ToArray()) 
+                Similarity = CosineSimilarity(vector.ToArray(), vectrorEmbedding.Embedding.ToArray())
             }).OrderBy(vectorEmbedding => vectorEmbedding.Similarity).Take(DEFAULT_NEAREST_NEIGHBORS)
             .Select(vectorEmbedding => vectorEmbedding.VectorEmbedding);
-            
-            return (IEnumerable<T>) nearestVectorNeighbor;
+
+            return (IEnumerable<T>)nearestVectorNeighbor;
         }
 
         public async Task<Vector> InsertVector<T>(Vector vector, string context)
@@ -46,7 +48,7 @@ namespace OwnerGPT.Repositores.PGVDB
         }
 
         public async Task<IEnumerable<T>> All<T>() =>
-            (IEnumerable<T>) Database.Values.ToList();
+            (IEnumerable<T>)Database.Values.ToList();
 
         public async Task CreateTable<T>() { }
 

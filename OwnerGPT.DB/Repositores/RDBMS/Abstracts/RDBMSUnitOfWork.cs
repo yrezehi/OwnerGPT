@@ -1,8 +1,8 @@
 ﻿using OwnerGPT.Repositores.RDBMS.Abstracts;
 using Microsoft.EntityFrameworkCore;
-using OwnerGPT.Repositores.RDBMS.Abstracts.Interfaces;
+using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
 
-namespace OwnerGPT.Repositores.RDBMS.Abstracts
+namespace OwnerGPT.DB.Repositores.RDBMS.Abstracts
 {
     public class RDBMSUnitOfWork<TContext> : IRDBMSUnitOfWork<TContext>, IRDBMSUnitOfWork where TContext : DbContext, IDisposable
     {

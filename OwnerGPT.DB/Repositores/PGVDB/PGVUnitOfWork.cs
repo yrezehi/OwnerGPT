@@ -1,11 +1,11 @@
 ﻿using Npgsql;
-using OwnerGPT.Repositores.PGVDB.Interfaces;
+using OwnerGPT.DB.Repositores.PGVDB.Interfaces;
 using OwnerGPT.Utilities;
 using OwnerGPT.Utilities.Extenstions;
 using Pgvector;
 using Pgvector.Npgsql;
 
-namespace OwnerGPT.Repositores.PGVDB
+namespace OwnerGPT.DB.Repositores.PGVDB
 {
     public class PGVUnitOfWork : IPGVUnitOfWork
     {
