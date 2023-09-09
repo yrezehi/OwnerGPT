@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OwnerGPT.Repositores.PGVDB;
-using OwnerGPT.Repositores.RDBMS;
+using OwnerGPT.DB.Repositores.PGVDB;
+using OwnerGPT.DB.Repositores.RDBMS;
 using OwnerGPT.Utilities;
 
 namespace OwnerGPT.Configuration
