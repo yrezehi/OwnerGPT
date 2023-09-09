@@ -38,7 +38,6 @@ namespace OwnerGPT.LLM.Models.LLama
 
             await foreach (var response in Executor.InferAsync(prompt, InferenceParams))
             {
-                Console.Write(response);
                 responseBuilder.Append(response);
             }
 

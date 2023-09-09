@@ -1,22 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OwnerGPT.LLM.Services;
+using OwnerGPT.LLM.Models.LLama;
 
 namespace OwnerGPT.WebUI.Admin.Controllers
 {
     [Route("api/[controller]")]
     public class GPTController : Controller
     {
-        private readonly StatelessGPTService StatelessGPTService;
+        private readonly LLAMAModel StatelessGPT;
 
-        public GPTController(StatelessGPTService statelessGPTService)
+        public GPTController(LLAMAModel statelessGPT)
         {
-            StatelessGPTService = statelessGPTService;
+            StatelessGPT = statelessGPT;
         }
 
         [HttpPost("[action]")]
         public IActionResult Replay([FromBody] string message)
         {
-            return Ok(StatelessGPTService.Replay(message));
+            return Ok(StatelessGPT.Replay(message));
         }
     }
 }

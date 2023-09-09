@@ -1,6 +1,6 @@
 using OwnerGPT.Services;
 using OwnerGPT.Configuration;
-using OwnerGPT.LLM.Services;
+using OwnerGPT.LLM.Models.LLama;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +12,7 @@ builder.RegisterRDBMS();
 
 builder.Services.AddTransient(typeof(VectorEmbeddingService), typeof(VectorEmbeddingService));
 builder.Services.AddTransient(typeof(AgentsService), typeof(AgentsService));
-builder.Services.AddTransient(typeof(StatelessGPTService), typeof(StatelessGPTService));
+builder.Services.AddSingleton(typeof(LLAMAModel), typeof(LLAMAModel));
 
 var app = builder.Build();
 
