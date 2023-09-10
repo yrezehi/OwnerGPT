@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="PromptEnginner\Prompts\DAN_11.txt">
+    <None Update="PromptEnginnering\Prompts\DAN_11.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

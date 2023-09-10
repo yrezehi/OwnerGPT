@@ -1,5 +1,4 @@
-﻿
-namespace OwnerGPT.LLM.PromptEnginner
+﻿namespace OwnerGPT.LLM.PromptEnginnering
 {
     public class PromptEnginner
     {
