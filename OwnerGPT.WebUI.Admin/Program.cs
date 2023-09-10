@@ -16,6 +16,9 @@ builder.Services.AddSingleton(typeof(LLAMAModel), typeof(LLAMAModel));
 
 var app = builder.Build();
 
+// Activate (pre-heat) LLama Model immediately  
+app.Services.GetService<LLAMAModel>();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
