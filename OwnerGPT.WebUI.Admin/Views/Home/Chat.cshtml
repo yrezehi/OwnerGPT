@@ -64,17 +64,17 @@
             partialViewLoader.appendTo("Chat/Replay/_UserReplay", chatInputElement.value, chatDialogContainer)
                 .then(_ => {
                     chatInputElement.value = ""
-                    getReplay(chatInputElement.value);
+                    getStreamReplay(chatInputElement.value);
                 });
         }
 
-        async function getReplay(message) {
+        async function getStreamReplay(message) {
             chatSubmitElement.disabled = true;
 
             var replayElement = createReplayElement();
 
             try {
-                const response = await fetch("http://localhost:5027/api/GPT/Replay", {
+                const response = await fetch("http://localhost:5027/api/GPT/StreamReplay", {
                     method: 'POST',
                     headers: {
                         "Connection": "keep-alive"

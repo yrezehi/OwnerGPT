@@ -18,18 +18,24 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         }
 
         [HttpPost("[action]")]
-        public async void Replay(GPTMessageInputDTO messageInput)
+        public async void StreamReplay(GPTMessageInputDTO messageInput)
         {
             Response.StatusCode = 200;
             Response.ContentType = "text/plain";
 
             var streamWriter = new StreamWriter(Response.Body);
             
-            foreach(var replay in StatelessGPT.Replay(messageInput.Message))
+            foreach(var replay in StatelessGPT.StreamReplay(messageInput.Message))
             {
                 await streamWriter.WriteLineAsync(replay);
                 await streamWriter.FlushAsync();
             }
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult Replay(GPTMessageInputDTO messageInput)
+        {
+            return Ok(StatelessGPT.Replay(messageInput.Message));
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     interface ILLMModel
     {
-        IEnumerable<string> Replay(string prompt);
+        IEnumerable<string> StreamReplay(string prompt);
     }
 }

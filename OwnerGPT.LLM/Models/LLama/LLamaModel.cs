@@ -33,12 +33,24 @@ namespace OwnerGPT.LLM.Models.LLama
             };
         }
 
-        public IEnumerable<string> Replay(string prompt)
+        public IEnumerable<string> StreamReplay(string prompt)
         {
             foreach (var response in Executor.Infer(prompt, InferenceParams))
             {
                 yield return response;
             }
+        }
+
+        public string Replay(string prompt)
+        {
+            StringBuilder responseBuilder = new StringBuilder();
+
+            foreach (var response in Executor.Infer(prompt, InferenceParams))
+            {
+                responseBuilder.Append(response);
+            }
+
+            return responseBuilder.ToString();
         }
 
     }
