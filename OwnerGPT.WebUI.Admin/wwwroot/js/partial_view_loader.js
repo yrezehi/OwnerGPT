@@ -11,10 +11,7 @@ var partialViewLoader = function () {
 
     return function () {
         return Object.freeze({
-            setElement: function () { },
-            unsetElement: function () { },
-            setSVG: function () { },
-            unsetSVG: function () { }
+            appendTo: appendTo,
         });
     }();
 }();
