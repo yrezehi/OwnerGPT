@@ -3,11 +3,12 @@ using OwnerGPT.LLM.Models.LLama;
 using System.IO;
 using System;
 using OwnerGPT.Models.Entities.DTO;
+using OwnerGPT.WebUI.Admin.Controllers.Abstract;
 
 namespace OwnerGPT.WebUI.Admin.Controllers
 {
     [Route("api/[controller]")]
-    public class GPTController : Controller
+    public class GPTController : BasePartialViewController
     {
         private readonly LLAMAModel StatelessGPT;
 

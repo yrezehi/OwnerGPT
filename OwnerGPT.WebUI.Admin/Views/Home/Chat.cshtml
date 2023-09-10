@@ -38,13 +38,67 @@
     <script>
         var chatInputElement = document.querySelector("#chat-input");
         var chatDialogContainer = document.querySelector("#chat-dialog-container");
+        var chatSubmitElement = document.querySelector("#chat-submit");
 
-        document.querySelector("#chat-submit").onclick = function (event) {
+        // TODO: no!
+        function createReplayElement() {
+            var identifier = "dialog-" + Math.random().toString(36).slice(-6);
+
+            chatDialogContainer.innerHTML += `
+                        <div class="relative mb-6 text-left">
+                            <div class="text-gray-700">
+                                <div class="relative float-left inline-block rounded-md bg-gray-100 py-3 px-4">
+                                    <p id="${identifier}" class="text-sm"></p>
+                                </div>
+                            </div>
+                            <div class="clear-both flex text-gray-700"></div>
+                        </div>
+                    `;
+
+            return document.querySelector(`#${identifier}`);
+        }
+
+        chatSubmitElement.onclick = function (event) {
             if (!chatInputElement.value) return;
 
-            appendPartialView("Chat/Replay/_UserReplay", chatInputElement.value, chatDialogContainer);
-
-            chatInputElement.value = "";
+            partialViewLoader.appendTo("Chat/Replay/_UserReplay", chatInputElement.value, chatDialogContainer)
+                .then(_ => {
+                    chatInputElement.value = ""
+                    getReplay(chatInputElement.value);
+                });
         }
+
+        async function getReplay(message) {
+            chatSubmitElement.disabled = true;
+
+            var replayElement = createReplayElement();
+
+            try {
+                const response = await fetch("http://localhost:5027/api/GPT/Replay", {
+                    method: 'POST',
+                    headers: {
+                        "Connection": "keep-alive"
+                    },
+                });
+
+                const reader = response.body.getReader();
+                while (true) {
+                    const { done, value } = await reader.read();
+                    var decodedValue = new TextDecoder().decode(value).trim();
+
+                    replayElement.innerHTML += " " + decodedValue;
+
+                    if (done) {
+                        chatSubmitElement.disabled = false;
+                        alert("Completed!");
+                        break;
+                    }
+                }
+            } catch (error) {
+                chatSubmitElement.disabled = false;
+                console.log('error', error);
+            }
+        }
+
     </script>
 }
