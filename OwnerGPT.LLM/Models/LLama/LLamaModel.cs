@@ -15,7 +15,14 @@ namespace OwnerGPT.LLM.Models.LLama
 
         public LLAMAModel()
         {
-            var parameters = new ModelParams(ModelConfiguration.LLAMA_MODEL_PATH)
+            string modelPath = Path.GetFullPath(ModelConfiguration.LLAMA_MODEL_PATH);
+
+            if (!Path.Exists(modelPath))
+            {
+                throw new Exception("Model Not Found!");
+            }
+
+            var parameters = new ModelParams(modelPath)
             {
                 ContextSize = ModelConfiguration.MODEL_CONTEXT_SIZE,
                 Seed = ModelConfiguration.MODEL_SEED_COUNT,

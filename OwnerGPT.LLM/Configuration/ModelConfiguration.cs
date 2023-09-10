@@ -9,7 +9,7 @@ namespace OwnerGPT.LLM.Configuration
     public static class ModelConfiguration
     {
         /* Paths of the actual models binary file */
-        public static string LLAMA_MODEL_PATH = "C:\\llm_models\\wizardLM.bin";
+        public static string LLAMA_MODEL_PATH = "C:\\llm_models\\llama-2-7b-guanaco-qlora.Q4_0.gguf";
 
         /* Model tunning parameters */
         public static int MODEL_CONTEXT_SIZE = 1024;
