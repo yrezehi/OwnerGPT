@@ -64,8 +64,29 @@
             partialViewLoader.appendTo("Chat/Replay/_UserReplay", chatInputElement.value, chatDialogContainer)
                 .then(_ => {
                     chatInputElement.value = ""
-                    getStreamReplay(chatInputElement.value);
+                    getReplay(chatInputElement.value);
                 });
+        }
+
+        function getReplay(message){
+            var replayElement = createReplayElement();
+
+            fetch("http://localhost:5027/api/GPT/Replay", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json; charset=utf-8',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({
+                    message: message,
+                })
+            }).then(response => 
+                response.text()
+            ).then(response => {
+                replayElement.innerHTML += " " + response;
+            }).catch((error) => {
+                console.log(error)
+            });
         }
 
         async function getStreamReplay(message) {
