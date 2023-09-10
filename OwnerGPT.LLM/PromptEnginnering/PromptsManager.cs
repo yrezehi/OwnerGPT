@@ -1,6 +1,6 @@
 ﻿namespace OwnerGPT.LLM.PromptEnginnering
 {
-    public class PromptEnginner
+    public class PromptsManager
     {
         private static string DAN_11 = "PromptEnginner/Prompts/DAN_11.txt";
 

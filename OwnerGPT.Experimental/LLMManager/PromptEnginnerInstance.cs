@@ -7,7 +7,7 @@ namespace OwnerGPT.Experimental.LLMManager
     {
         public async static Task Start()
         {
-            var prompt = PromptEnginner.GetPrompt();
+            var prompt = PromptsManager.GetPrompt();
 
             Console.WriteLine(prompt);
         }
