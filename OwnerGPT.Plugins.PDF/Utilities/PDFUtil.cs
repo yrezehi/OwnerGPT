@@ -2,6 +2,7 @@
 using UglyToad.PdfPig.Content;
 using UglyToad.PdfPig;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor;
+using UglyToad.PdfPig.Writer;
 
 namespace OwnerGPT.Plugins.Parsers.PDF.Utilities
 {
@@ -20,6 +21,11 @@ namespace OwnerGPT.Plugins.Parsers.PDF.Utilities
             }
 
             return contentBuilder.ToString();
+        }
+
+        public static string ManyToText(params byte[][] fileBytes)
+        {
+            return PDFUtil.ToText(PdfMerger.Merge(fileBytes));
         }
     }
 }
