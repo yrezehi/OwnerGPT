@@ -105,8 +105,13 @@
                 const response = await fetch("http://localhost:5027/api/GPT/StreamReplay", {
                     method: 'POST',
                     headers: {
-                        "Connection": "keep-alive"
+                        'Accept': 'application/json; charset=utf-8',
+                        'Content-Type': 'application/json;charset=UTF-8',
+                        'Connection': 'keep-alive'
                     },
+                    body: JSON.stringify({
+                        message: message,
+                    }),
                 });
 
                 const reader = response.body.getReader();

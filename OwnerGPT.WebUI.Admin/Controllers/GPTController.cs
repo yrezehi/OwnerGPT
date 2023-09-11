@@ -18,7 +18,7 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         }
 
         [HttpPost("[action]")]
-        public async void StreamReplay(GPTMessageInputDTO messageInput)
+        public async void StreamReplay([FromBody] GPTMessageInputDTO messageInput)
         {
             Response.StatusCode = 200;
             Response.ContentType = "text/plain";

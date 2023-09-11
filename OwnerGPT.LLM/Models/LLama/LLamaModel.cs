@@ -11,7 +11,7 @@ namespace OwnerGPT.LLM.Models.LLama
 {
     public class LLAMAModel : ILLMModel
     {
-        private StatelessExecutor Executor { get; set; }
+        private InstructExecutor Executor { get; set; }
         private InferenceParams InferenceParams { get; set; }
 
         public LLAMAModel()
@@ -26,19 +26,17 @@ namespace OwnerGPT.LLM.Models.LLama
             var parameters = new ModelParams(modelPath)
             {
                 ContextSize = ModelConfiguration.MODEL_CONTEXT_SIZE,
-                Seed = ModelConfiguration.MODEL_SEED_COUNT,
-                GpuLayerCount = ModelConfiguration.MODEL_GPU_LAYER_COUNT
             };
 
-            Executor = new StatelessExecutor(LLamaWeights.LoadFromFile(parameters).CreateContext(parameters));
+            Executor = new InstructExecutor(LLamaWeights.LoadFromFile(parameters).CreateContext(parameters));
 
             InferenceParams = new InferenceParams
             {
                 Temperature = 1.0f,
-                AntiPrompts = new List<string> { "User:" },
                 MaxTokens = 2560,
-                
             };
+
+            Executor.Infer(Prompts.BOB_ASSISTANT, InferenceParams);
         }
 
         public IEnumerable<string> StreamReplay(string prompt)
