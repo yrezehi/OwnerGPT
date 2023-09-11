@@ -12,9 +12,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\OwnerGPT.Core\OwnerGPT.Core.csproj" />
 	  <ProjectReference Include="..\OwnerGPT.LLM\OwnerGPT.LLM.csproj" />
 	  <ProjectReference Include="..\OwnerGPT.Models\OwnerGPT.Models.csproj" />
-	  <ProjectReference Include="..\OwnerGPT\OwnerGPT.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

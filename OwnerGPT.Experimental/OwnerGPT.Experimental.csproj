@@ -17,7 +17,6 @@
     <ProjectReference Include="..\OwnerGPT.Plugins.Providers\OwnerGPT.Plugins.Providers.Whatsapp.csproj" />
     <ProjectReference Include="..\OwnerGPT.Plugins.WEB\OwnerGPT.Plugins.Parsers.Web.csproj" />
     <ProjectReference Include="..\OwnerGPT.WebUI.Admin\OwnerGPT.WebUI.Admin.csproj" />
-    <ProjectReference Include="..\OwnerGPT\OwnerGPT.csproj" />
   </ItemGroup>
 
 </Project>

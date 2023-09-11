@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT", "OwnerGPT\OwnerGPT.csproj", "{F6C283D7-99D0-46CE-B528-2CCD01B59D19}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.LLM", "OwnerGPT.LLM\OwnerGPT.LLM.csproj", "{10D103D9-E928-4D47-B152-B690978F520A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.WebUI.Admin", "OwnerGPT.WebUI.Admin\OwnerGPT.WebUI.Admin.csproj", "{5C82DA1E-5E41-4998-A052-E52A3C1E2D38}"
@@ -43,16 +41,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Models", "OwnerGPT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwnerGPT.Translator", "OwnerGPT.Translator\OwnerGPT.Translator.csproj", "{21824EF1-8572-43EA-BBFF-7BC6EA5E134D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwnerGPT.Core", "OwnerGPT.Core\OwnerGPT.Core.csproj", "{0B5B8DAE-F513-4694-A356-23FE9F88E75A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F6C283D7-99D0-46CE-B528-2CCD01B59D19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6C283D7-99D0-46CE-B528-2CCD01B59D19}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6C283D7-99D0-46CE-B528-2CCD01B59D19}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6C283D7-99D0-46CE-B528-2CCD01B59D19}.Release|Any CPU.Build.0 = Release|Any CPU
 		{10D103D9-E928-4D47-B152-B690978F520A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{10D103D9-E928-4D47-B152-B690978F520A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10D103D9-E928-4D47-B152-B690978F520A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -117,6 +113,10 @@ Global
 		{21824EF1-8572-43EA-BBFF-7BC6EA5E134D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21824EF1-8572-43EA-BBFF-7BC6EA5E134D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21824EF1-8572-43EA-BBFF-7BC6EA5E134D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B5B8DAE-F513-4694-A356-23FE9F88E75A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B5B8DAE-F513-4694-A356-23FE9F88E75A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B5B8DAE-F513-4694-A356-23FE9F88E75A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B5B8DAE-F513-4694-A356-23FE9F88E75A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

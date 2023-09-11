@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using OwnerGPT.Utilities.Extenstions;
 using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
 using OwnerGPT.Models.Entities.DTO;
 using OwnerGPT.Models.Entities.Interfaces;
 using OwnerGPT.Core.Services.Abstract.Interfaces;
 using OwnerGPT.Core.Utilities;
+using OwnerGPT.Core.Utilities.Extenstions;
 
 namespace OwnerGPT.Core.Services.Abstract
 {

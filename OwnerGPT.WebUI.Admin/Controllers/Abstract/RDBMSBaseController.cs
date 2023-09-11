@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OwnerGPT.Services.Abstract.Interfaces;
+using OwnerGPT.Core.Services.Abstract.Interfaces;
 
 namespace OwnerGPT.Controllers.Abstract
 {
