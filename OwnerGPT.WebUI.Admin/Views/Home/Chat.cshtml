@@ -64,11 +64,13 @@
         function dialogSubmitHandler(event) {
             if (!chatInputElement.value) return;
 
-            chatInputElement.value = ""
+            var userInput = chatInputElement.value;
 
-            partialViewLoader.appendTo("Chat/Replay/_UserReplay", chatInputElement.value, chatDialogContainer)
+            chatInputElement.value = "";
+
+            partialViewLoader.appendTo("Chat/Replay/_UserReplay", userInput, chatDialogContainer)
                 .then(_ =>
-                    getStreamReplay(chatInputElement.value)
+                    getStreamReplay(userInput)
                 );
 
         }
