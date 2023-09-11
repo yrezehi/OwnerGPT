@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OwnerGPT.Utilities;
 using System.Linq.Expressions;
-using OwnerGPT.Services.Abstract.Interfaces;
 using OwnerGPT.Utilities.Extenstions;
 using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
 using OwnerGPT.Models.Entities.DTO;
 using OwnerGPT.Models.Entities.Interfaces;
+using OwnerGPT.Core.Services.Abstract.Interfaces;
+using OwnerGPT.Core.Utilities;
 
-namespace OwnerGPT.Services.Abstract
+namespace OwnerGPT.Core.Services.Abstract
 {
     public class RDBMSServiceBase<T> : IRDBMSCRUDService<T> where T : class
     {
@@ -67,7 +67,7 @@ namespace OwnerGPT.Services.Abstract
 
         public async Task<T> Update(IEntity entityToUpdate)
         {
-            T entity = await UnitOfWork.Repository<T>().DBSet.FirstOrDefaultAsync(entity => ((IEntity) entity).Id == ((IEntity)entityToUpdate).Id);
+            T entity = await UnitOfWork.Repository<T>().DBSet.FirstOrDefaultAsync(entity => ((IEntity)entity).Id == ((IEntity)entityToUpdate).Id);
 
             if (entity != null)
             {

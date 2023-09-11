@@ -2,14 +2,15 @@
 using OwnerGPT.DocumentEmbedding.Encoder;
 using Pgvector;
 
-namespace OwnerGPT.Services.Abstract
+namespace OwnerGPT.Core.Services.Abstract
 {
     public class PGVServiceBase<T> where T : class
     {
         private readonly PGVUnitOfWorkInMemeory PGVUnitOfWork;
         private readonly SentenceEncoder SentenceEncoder;
 
-        public PGVServiceBase(PGVUnitOfWorkInMemeory pgvUnitOfWork) {
+        public PGVServiceBase(PGVUnitOfWorkInMemeory pgvUnitOfWork)
+        {
             PGVUnitOfWork = pgvUnitOfWork;
             SentenceEncoder = new SentenceEncoder();
         }

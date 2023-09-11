@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Linq.Expressions;
 
-namespace OwnerGPT.Utilities
+namespace OwnerGPT.Core.Utilities
 {
     public static class ReflectionUtil
     {

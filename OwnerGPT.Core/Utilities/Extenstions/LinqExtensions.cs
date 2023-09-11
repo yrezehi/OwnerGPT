@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace OwnerGPT.Utilities.Extenstions
+namespace OwnerGPT.Core.Utilities.Extenstions
 {
     public static class LinqExtensions
     {

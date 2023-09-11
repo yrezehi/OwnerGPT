@@ -1,18 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OwnerGPT.Core.Utilities;
 using OwnerGPT.DB.Repositores.PGVDB;
 using OwnerGPT.DB.Repositores.RDBMS;
 using OwnerGPT.DB.Repositores.RDBMS.Abstracts;
 using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
-using OwnerGPT.Utilities;
 
-namespace OwnerGPT.Configuration
+namespace OwnerGPT.Core.Configuration
 {
     public static class OwnerGPTExtensions
     {
 
         public static WebApplicationBuilder UseStaticConfiguration(this WebApplicationBuilder builder)
         {
-            if(builder == null) throw new ArgumentNullException(nameof(builder));
+            if (builder == null) throw new ArgumentNullException(nameof(builder));
 
             // Inject configuration into static object
             ConfigurationUtil.Initialize(builder.Configuration);

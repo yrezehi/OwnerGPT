@@ -1,7 +1,7 @@
 ﻿using OwnerGPT.Models.Entities.DTO;
 using System.Linq.Expressions;
 
-namespace OwnerGPT.Services.Abstract.Interfaces
+namespace OwnerGPT.Core.Services.Abstract.Interfaces
 {
     public interface IRDBMSCRUDService<T> where T : class
     {

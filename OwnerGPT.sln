@@ -39,7 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.DocumentEmbedding"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.DB", "OwnerGPT.DB\OwnerGPT.DB.csproj", "{A9B40688-38A4-43A2-A8BB-809AAC5F4AA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwnerGPT.Models", "OwnerGPT.Models\OwnerGPT.Models.csproj", "{1882D501-6157-4DF9-869C-2E6F4B24C837}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Models", "OwnerGPT.Models\OwnerGPT.Models.csproj", "{1882D501-6157-4DF9-869C-2E6F4B24C837}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwnerGPT.Translator", "OwnerGPT.Translator\OwnerGPT.Translator.csproj", "{21824EF1-8572-43EA-BBFF-7BC6EA5E134D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +113,10 @@ Global
 		{1882D501-6157-4DF9-869C-2E6F4B24C837}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1882D501-6157-4DF9-869C-2E6F4B24C837}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1882D501-6157-4DF9-869C-2E6F4B24C837}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21824EF1-8572-43EA-BBFF-7BC6EA5E134D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21824EF1-8572-43EA-BBFF-7BC6EA5E134D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21824EF1-8572-43EA-BBFF-7BC6EA5E134D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21824EF1-8572-43EA-BBFF-7BC6EA5E134D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,8 +1,8 @@
-﻿using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
+﻿using OwnerGPT.Core.Services.Abstract;
+using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
 using OwnerGPT.Models.Entities.Agents;
-using OwnerGPT.Services.Abstract;
 
-namespace OwnerGPT.Services
+namespace OwnerGPT.Core.Services
 {
     public class AgentsService : RDBMSServiceBase<Agent>
     {

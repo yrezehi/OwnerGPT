@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace OwnerGPT.Utilities
+namespace OwnerGPT.Core.Utilities
 {
     public static class ConfigurationUtil
     {
