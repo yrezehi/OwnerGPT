@@ -15,7 +15,7 @@
         <form id="dialog-form">
             <label for="chat" class="sr-only">Your message</label>
             <div class="flex items-center px-3 py-2 bg-gray-100 rounded-lg">
-                <button type="submit" class="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100">
+                <button type="button" class="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100">
                     <svg class="w-5 h-5 stroke-current" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M.188 5H5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707c-.358.362-.617.81-.753 1.3C.148 5.011.166 5 .188 5ZM14 8a6 6 0 1 0 0 12 6 6 0 0 0 0-12Zm2 7h-1v1a1 1 0 0 1-2 0v-1h-1a1 1 0 0 1 0-2h1v-1a1 1 0 0 1 2 0v1h1a1 1 0 0 1 0 2Z" />
                         <path d="M6 14a7.969 7.969 0 0 1 10-7.737V2a1.97 1.97 0 0 0-1.933-2H7v5a2 2 0 0 1-2 2H.188A.909.909 0 0 1 0 6.962V18a1.969 1.969 0 0 0 1.933 2h6.793A7.976 7.976 0 0 1 6 14Z" />
@@ -23,7 +23,7 @@
                     <span class="sr-only">Upload image</span>
                 </button>
                 <textarea id="chat-input" rows="1" class="block min-h-[75px] resize-none mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border-0 focus:ring-blue-500 focus:border-blue-500" placeholder="Your message..."></textarea>
-                <button id="chat-submit" type="submit" class="inline-flex justify-center p-2 text-indigo-500 rounded-full cursor-pointer hover:bg-blue-100">
+                <button id="chat-submit" type="button" class="inline-flex justify-center p-2 text-indigo-500 rounded-full cursor-pointer hover:bg-blue-100">
                     <svg class="w-5 h-5 rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                         <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
                     </svg>
@@ -41,7 +41,7 @@
         var chatSubmitElement = document.querySelector("#chat-submit");
         var dialogFormElement = document.querySelector("#dialog-form");
 
-        keyboard.enterToSubmit(chatInputElement);
+        keyboard.enterToTrigger(chatInputElement, dialogSubmitHandler);
 
         // TODO: no!
         function createReplayElement() {
@@ -61,16 +61,15 @@
             return document.querySelector(`#${identifier}`);
         }
 
-        dialogFormElement.onsubmit = function (event) {
-            event.preventDefault();
-
+        function dialogSubmitHandler(event) {
             if (!chatInputElement.value) return;
 
+            chatInputElement.value = ""
+
             partialViewLoader.appendTo("Chat/Replay/_UserReplay", chatInputElement.value, chatDialogContainer)
-                .then(_ => {
-                    chatInputElement.value = ""
-                    getReplay(chatInputElement.value);
-                });
+                .then(_ =>
+                    getStreamReplay(chatInputElement.value)
+                );
 
         }
 

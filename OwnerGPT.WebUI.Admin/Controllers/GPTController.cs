@@ -25,7 +25,7 @@ namespace OwnerGPT.WebUI.Admin.Controllers
 
             var streamWriter = new StreamWriter(Response.Body);
             
-            foreach(var replay in StatelessGPT.StreamReplay(messageInput.Message))
+            await foreach(var replay in StatelessGPT.StreamReplay(messageInput.Message))
             {
                 await streamWriter.WriteLineAsync(replay);
                 await streamWriter.FlushAsync();
@@ -33,9 +33,9 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult Replay(GPTMessageInputDTO messageInput)
+        public async Task<IActionResult> Replay(GPTMessageInputDTO messageInput)
         {
-            return Ok(StatelessGPT.Replay(messageInput.Message));
+            return Ok(await StatelessGPT.Replay(messageInput.Message));
         }
     }
 }

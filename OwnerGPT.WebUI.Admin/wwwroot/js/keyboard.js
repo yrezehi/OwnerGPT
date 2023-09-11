@@ -9,6 +9,15 @@
         }
     }
 
+    function bindEnterToTrigger(event, callback) {
+        if (event.which === 13) {
+            if (!event.repeat) {
+                callback();
+            }
+            event.preventDefault();
+        }
+    }
+
     function bindEventLisnter(context, event, callback) {
         context.addEventListener(event, callback);
     }
@@ -18,6 +27,11 @@
             enterToSubmit: function (context) {
                 bindEventLisnter(context, "keydown", function (event) {
                     bindEnterToSubmit(event, context);
+                });
+            },
+            enterToTrigger: function (context, callback) {
+                bindEventLisnter(context, "keydown", function (event) {
+                    bindEnterToTrigger(event, callback);
                 });
             },
         });

@@ -39,19 +39,19 @@ namespace OwnerGPT.LLM.Models.LLama
             };
         }
 
-        public IEnumerable<string> StreamReplay(string prompt)
+        public async IAsyncEnumerable<string> StreamReplay(string prompt)
         {
-            foreach (var response in Executor.Infer(prompt, InferenceParams))
+            await foreach (var response in Executor.InferAsync(prompt, InferenceParams))
             {
                 yield return response;
             }
         }
 
-        public string Replay(string prompt)
+        public async Task<string> Replay(string prompt)
         {
             StringBuilder responseBuilder = new StringBuilder();
 
-            foreach (var response in Executor.Infer(prompt, InferenceParams))
+            await foreach (var response in Executor.InferAsync(prompt, InferenceParams))
             {
                 responseBuilder.Append(response);
             }
