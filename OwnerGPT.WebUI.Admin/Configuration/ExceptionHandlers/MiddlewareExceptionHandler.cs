@@ -48,7 +48,18 @@ namespace OwnerGPT.WebUI.Admin.Configuration.ExceptionHandlers
             // Convert logging error object to string and log it
             string serializedErrorObject = JsonSerializer.Serialize(loggingErrorObject);
             logger.LogError(serializedErrorObject);
-            context.Response.Redirect($"/Home/error?message=" + exceptionMessage + "&traceid=" + traceId);
+
+            if(context.Request.Path.StartsWithSegments("/api")) {
+                await context.Response.WriteAsync(JsonSerializer.Serialize(new
+                {
+                    StatusCode = statusCode,
+                    ErrorMessage = exceptionMessage,
+                    TraceId = traceId
+                }));
+            } else
+            {
+                context.Response.Redirect($"/Home/error?message=" + exceptionMessage + "&traceid=" + traceId);
+            }
         }
     }
 }
