@@ -12,7 +12,7 @@ namespace OwnerGPT.Core.Services
 
         public NotificationCenter() { }
 
-        public Notification GetUnreadNotificationsFor(int id)
+        public Notification GetUnreadNotificationsFor(int userId)
         {
             throw new NotImplementedException();
         }
@@ -22,7 +22,7 @@ namespace OwnerGPT.Core.Services
             throw new NotImplementedException();
         }
 
-        public void PushNotificationToTo(int id)
+        public void PushNotificationTo(int userId)
         {
             throw new NotImplementedException();
         }
