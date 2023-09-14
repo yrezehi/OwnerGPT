@@ -132,7 +132,7 @@
 
                 attachments.push(file);
 
-                attachmentElement.querySelector("#attachment-size").innerHTML = file.size;
+                attachmentElement.querySelector("#attachment-size").innerHTML = utility.sizeToReadableString(file.size);
                 attachmentElement.querySelector("#attachment-name").innerHTML = utility.stringEllipsis(file.name, 10);
 
                 (function(context, currentFile){
