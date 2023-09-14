@@ -127,7 +127,7 @@
                 }
             }
 
-            for (var file of [...files, ...attachments]) {
+            for (var file of files) {
                 var attachmentElement = createAttachmentElement();
 
                 attachments.push(file);
@@ -135,12 +135,14 @@
                 attachmentElement.querySelector("#attachment-size").innerHTML = file.size;
                 attachmentElement.querySelector("#attachment-name").innerHTML = file.name;
 
-                attachmentElement.querySelector("#drop-attachment").addEventListener("click", function (event) {
-                    attachmentElement.remove();
-                    attachments = attachments.filter(function (attachment){
-                        return attachment != file;
+                (function(context, currentFile){
+                    context.querySelector("#drop-attachment").addEventListener("click", function (event) {
+                        attachments = attachments.filter(function (attachment) {
+                            return currentFile.name !== attachment.name;
+                        });
+                        context.remove();
                     });
-                });
+                })(attachmentElement, file);
 
                 attachmentsContainer.appendChild(attachmentElement);
             }
