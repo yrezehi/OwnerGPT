@@ -36,12 +36,14 @@
 
 @section Scripts {
     <script>
+
         var chatInputElement = document.querySelector("#chat-input");
         var chatDialogContainer = document.querySelector("#chat-dialog-container");
         var chatSubmitElement = document.querySelector("#chat-submit");
         var dialogFormElement = document.querySelector("#dialog-form");
 
         keyboard.enterToTrigger(chatInputElement, dialogSubmitHandler);
+        keyboard.clickToSubmit(chatInputElement, dialogSubmitHandler);
 
         // TODO: no!
         function createReplayElement() {
@@ -67,11 +69,12 @@
             var userInput = chatInputElement.value;
 
             chatInputElement.value = "";
+            chatSubmitElement.disabled = true;
 
             partialViewLoader.appendTo("Chat/Replay/_UserReplay", userInput, chatDialogContainer)
-                .then(_ =>
-                    getStreamReplay(userInput)
-                );
+                .then(_ =>{
+                    getStreamReplay(userInput);
+                });
 
         }
 
@@ -91,13 +94,14 @@
                 response.text()
             ).then(response => {
                 replayElement.innerHTML += " " + response;
+                chatSubmitElement.disabled = false;
             }).catch((error) => {
-                console.log(error)
+                chatSubmitElement.disabled = false;
+                console.log(error);
             });
         }
 
         async function getStreamReplay(message) {
-            chatSubmitElement.disabled = true;
 
             var replayElement = createReplayElement();
 
@@ -123,7 +127,6 @@
 
                     if (done) {
                         chatSubmitElement.disabled = false;
-                        alert("Completed!");
                         break;
                     }
                 }

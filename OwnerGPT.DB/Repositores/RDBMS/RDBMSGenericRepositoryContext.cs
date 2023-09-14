@@ -38,7 +38,7 @@ namespace OwnerGPT.DB.Repositores.RDBMS
                 },
                 new Account
                 {
-                    Id = 1,
+                    Id = 2,
                     Email = "supervision@ownergpt.com",
                     LastLogin = DateTime.Now,
                 }

@@ -5,8 +5,8 @@
             if (!event.repeat) {
                 context.closest("form").submit();
             }
-            event.preventDefault();
         }
+        event.preventDefault();
     }
 
     function bindEnterToTrigger(event, callback) {
@@ -14,8 +14,13 @@
             if (!event.repeat) {
                 callback();
             }
-            event.preventDefault();
         }
+        event.preventDefault();
+    }
+
+    function bindClickToSubmit(event, callback) {
+        callback();
+        event.preventDefault();
     }
 
     function bindEventLisnter(context, event, callback) {
@@ -34,6 +39,11 @@
                     bindEnterToTrigger(event, callback);
                 });
             },
+            clickToSubmit: function (context, callback) {
+                bindEventLisnter(context, "click", function (event) {
+                    bindClickToSubmit(event, context);
+                });
+            }
         });
     }();
 }();
