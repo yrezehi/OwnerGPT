@@ -69,7 +69,7 @@
 
         // TODO: no!
         function createReplayElement() {
-            var identifier = "dialog-" + Math.random().toString(36).slice(-6);
+            var identifier = "dialog-" + utility.shortGUID();
 
             chatDialogContainer.innerHTML += `
                 <div class="relative mb-6 text-left">
