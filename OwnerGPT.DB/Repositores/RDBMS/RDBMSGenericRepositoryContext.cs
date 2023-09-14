@@ -22,7 +22,7 @@ namespace OwnerGPT.DB.Repositores.RDBMS
                 },
                 new Agent
                 {
-                    Id = 1,
+                    Id = 2,
                     CreationDate = DateTime.Now,
                     Description = "Internal Portal Chatbot",
                     Name = "Agent #2",

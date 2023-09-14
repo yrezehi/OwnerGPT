@@ -43,7 +43,7 @@
         var dialogFormElement = document.querySelector("#dialog-form");
 
         keyboard.enterToTrigger(chatInputElement, dialogSubmitHandler);
-        keyboard.clickToSubmit(chatInputElement, dialogSubmitHandler);
+        keyboard.clickToSubmit(chatSubmitElement);
 
         // TODO: no!
         function createReplayElement() {
@@ -64,7 +64,14 @@
         }
 
         function dialogSubmitHandler(event) {
-            if (!chatInputElement.value) return;
+
+            if (chatSubmitElement.disabled) return;
+
+            if (!chatInputElement.value)
+            {
+                notification.information("Enter anything at least!");
+                return;
+            }
 
             var userInput = chatInputElement.value;
 
@@ -102,7 +109,6 @@
         }
 
         async function getStreamReplay(message) {
-
             var replayElement = createReplayElement();
 
             try {
