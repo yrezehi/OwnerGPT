@@ -106,19 +106,25 @@
             return document.querySelector(`#${identifier}`);
         }
 
-        function createAttachmentsChat(attachments){
-            var identifier = "chat-attachment-" + utility.shortGUID();
+        function createAndBuildAttachmentsChat(){
+            var containerIdentifier = "chat-attachment-container-" + utility.shortGUID();
 
-            chatDialogContainer.innerHTML += `
+            chatDialogContainer.innerHTML += `<div id="${containerIdentifier}" class="flex flex-row-reverse p-2"></div>`;
+
+            var containerElement = document.querySelector(`#${containerIdentifier}`);
+
+            for(attachment of attachments){
+                var identifier = "chat-attachment-" + utility.shortGUID();
+
+                containerElement.innerHTML += `
                         <div id="${identifier}" class="relative mx-1 grow-0 max-w-[8rem] min-w-[4rem] p-1 px-2 bg-white border border-gray-200 rounded-lg shadow">
                             <div class="flex gap-1.5 mb-1" >
-                                <span id="attachment-name" class="text-xs font-semibold tracking-tight text-gray-900" > Yasser_Kha...</span>
+                                <span id="attachment-name" class="text-xs font-semibold tracking-tight text-gray-900" >${utility.stringEllipsis(attachment.name, 16)}</span>
                             </div>
-                            <p id="attachment-size" class="text-xs text-gray-500" ></p>
+                            <p id="attachment-size" class="text-xs text-gray-500">${utility.sizeToReadableString(attachment.size)}</p>
                         </div>
                     `;
-
-            return document.querySelector(`#${identifier}`);         
+            }
         }
 
         function resetDialog() {
@@ -180,14 +186,7 @@
 
             partialViewLoader.appendTo("Chat/Replay/_UserReplay", userInput, chatDialogContainer)
                 .then(_ => {
-
-                    for(attachment of attachments){
-                        var chatAttachmentElement = createAttachmentChat();
-
-                        chatAttachmentElement.querySelector("#attachment-size").innerHTML = utility.sizeToReadableString(attachment.size);
-                        chatAttachmentElement.querySelector("#attachment-name").innerHTML = utility.stringEllipsis(attachment.name, 16);
-                    }
-
+                    createAndBuildAttachmentsChat();
                     getStreamReplay(userInput);
                 });
         }
