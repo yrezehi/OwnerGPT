@@ -16,13 +16,38 @@
             <label for="chat" class="sr-only">Your message</label>
             <div class="flex items-center px-3 py-2 bg-gray-100 rounded-lg">
                 <button type="button" class="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100">
-                    <svg class="w-5 h-5 stroke-current" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M.188 5H5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707c-.358.362-.617.81-.753 1.3C.148 5.011.166 5 .188 5ZM14 8a6 6 0 1 0 0 12 6 6 0 0 0 0-12Zm2 7h-1v1a1 1 0 0 1-2 0v-1h-1a1 1 0 0 1 0-2h1v-1a1 1 0 0 1 2 0v1h1a1 1 0 0 1 0 2Z" />
-                        <path d="M6 14a7.969 7.969 0 0 1 10-7.737V2a1.97 1.97 0 0 0-1.933-2H7v5a2 2 0 0 1-2 2H.188A.909.909 0 0 1 0 6.962V18a1.969 1.969 0 0 0 1.933 2h6.793A7.976 7.976 0 0 1 6 14Z" />
+                    <svg class="w-5 h-5 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 20">
+                        <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M1 6v8a5 5 0 1 0 10 0V4.5a3.5 3.5 0 1 0-7 0V13a2 2 0 0 0 4 0V6" />
                     </svg>
                     <span class="sr-only">Upload image</span>
                 </button>
-                <textarea id="chat-input" rows="1" class="block min-h-[75px] resize-none mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border-0 focus:ring-blue-500 focus:border-blue-500" placeholder="Your message..."></textarea>
+                <!-- <textarea id="chat-input" rows="1" class="block min-h-[75px] resize-none mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border-0 focus:ring-blue-500 focus:border-blue-500" placeholder="Your message..."><textarea/>-->
+
+                <!--<textarea id="chat-input" rows="1" class="block min-h-[75px] resize-none mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border-0 focus:ring-blue-500 focus:border-blue-500" placeholder="Your message...">
+                     
+                    <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <svg class="w-7 h-7 text-gray-500 dark:text-gray-400 mb-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M18 5h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C8.4.842 6.949 0 5.5 0A3.5 3.5 0 0 0 2 3.5c.003.52.123 1.033.351 1.5H2a2 2 0 0 0-2 2v3a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V7a2 2 0 0 0-2-2ZM8.058 5H5.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM11 13H9v7h2v-7Zm-4 0H2v5a2 2 0 0 0 2 2h3v-7Zm6 0v7h3a2 2 0 0 0 2-2v-5h-5Z" />
+                        </svg>
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Need a help in Claim?</h5>
+                        </a>
+                        <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">Go to this step by step guideline process on how to certify for your weekly benefits:</p>
+                        <a href="#" class="inline-flex items-center text-blue-600 hover:underline">
+                            See our guideline
+                        <svg class="w-3 h-3 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778" />
+                        </svg>
+                        </a>
+                    </div>
+
+                </textarea>-->
+
+                <div class="block h-[75px] mx-4 w-full text-sm text-gray-900 flex flex-col bg-white rounded-lg border-0">
+                    <textarea class="resize-none p-2.5 w-full h-full rounded-lg border-0 focus:ring-0"></textarea>
+                    <div></div>
+                </div>
+
                 <button id="chat-submit" type="button" class="inline-flex justify-center p-2 text-indigo-500 rounded-full cursor-pointer hover:bg-blue-100">
                     <svg class="w-5 h-5 rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                         <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
@@ -50,15 +75,15 @@
             var identifier = "dialog-" + Math.random().toString(36).slice(-6);
 
             chatDialogContainer.innerHTML += `
-                        <div class="relative mb-6 text-left">
-                            <div class="text-gray-700">
-                                <div class="relative float-left inline-block rounded-md bg-gray-100 py-3 px-4">
-                                    <p id="${identifier}" class="text-sm"></p>
+                                <div class="relative mb-6 text-left">
+                                    <div class="text-gray-700">
+                                        <div class="relative float-left inline-block rounded-md bg-gray-100 py-3 px-4">
+                                            <p id="${identifier}" class="text-sm"></p>
+                                        </div>
+                                    </div>
+                                    <div class="clear-both flex text-gray-700"></div>
                                 </div>
-                            </div>
-                            <div class="clear-both flex text-gray-700"></div>
-                        </div>
-                    `;
+                            `;
 
             return document.querySelector(`#${identifier}`);
         }
@@ -67,8 +92,7 @@
 
             if (chatSubmitElement.disabled) return;
 
-            if (!chatInputElement.value)
-            {
+            if (!chatInputElement.value) {
                 notification.information("Enter anything at least!");
                 return;
             }
@@ -79,13 +103,13 @@
             chatSubmitElement.disabled = true;
 
             partialViewLoader.appendTo("Chat/Replay/_UserReplay", userInput, chatDialogContainer)
-                .then(_ =>{
+                .then(_ => {
                     getStreamReplay(userInput);
                 });
 
         }
 
-        function getReplay(message){
+        function getReplay(message) {
             var replayElement = createReplayElement();
 
             fetch("http://localhost:5027/api/GPT/Replay", {
@@ -97,14 +121,14 @@
                 body: JSON.stringify({
                     message: message,
                 })
-            }).then(response => 
+            }).then(response =>
                 response.text()
             ).then(response => {
                 replayElement.innerHTML += " " + response;
                 chatSubmitElement.disabled = false;
             }).catch((error) => {
                 chatSubmitElement.disabled = false;
-                console.log(error);
+                console.error(error);
             });
         }
 
