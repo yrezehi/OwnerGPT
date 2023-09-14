@@ -42,6 +42,11 @@
                 bindEventLisnter(context, "click", function (event) {
                     bindClickToSubmit(context);
                 });
+            },
+            uploadTrigger: function (context, callback) {
+                bindEventLisnter(context, "change", function (event) {
+                    callback(event);
+                });
             }
         });
     }();
