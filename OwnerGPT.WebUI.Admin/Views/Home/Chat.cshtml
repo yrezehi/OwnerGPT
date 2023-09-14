@@ -86,7 +86,7 @@
         }
 
         function createAttachmentElement() {
-            var identifier = "attachment-" + Math.random().toString(36).slice(-6);
+            var identifier = "attachment-" + utility.shortGUID();
 
             chatDialogContainer.innerHTML += `
                         <div id="${identifier}" class="relative mx-1 grow-0 max-w-sm p-1 px-2 bg-white border border-gray-200 rounded-lg shadow">
@@ -133,7 +133,7 @@
                 attachments.push(file);
 
                 attachmentElement.querySelector("#attachment-size").innerHTML = file.size;
-                attachmentElement.querySelector("#attachment-name").innerHTML = file.name;
+                attachmentElement.querySelector("#attachment-name").innerHTML = utility.stringEllipsis(file.name, 10);
 
                 (function(context, currentFile){
                     context.querySelector("#drop-attachment").addEventListener("click", function (event) {
