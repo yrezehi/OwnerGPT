@@ -18,24 +18,7 @@
                
                 <div class="block h-[144px] mx-4 w-full text-sm text-gray-900 flex flex-col bg-white rounded-lg border-gray-100 border-[1px]">
                     <textarea id="chat-input" class="resize-none hide-scrollbar min-h-[80px] p-2.5 w-full h-full rounded-lg border-0 focus:ring-0"></textarea>
-
-                    <div class="flex p-2">
-
-                        <div class="relative grow-0 max-w-sm p-1 px-2 bg-white border border-gray-200 rounded-lg shadow">
-                            <div class="flex gap-1.5 mb-1">
-                                <span class="text-xs font-semibold tracking-tight text-gray-900">anualreport.pdf</span>
-                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-sm text-sm w-3 h-3 ml-auto inline-flex justify-center items-center" data-modal-hide="staticModal">
-                                    <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                    </svg>
-                                    <span class="sr-only">Close modal</span>
-                                </button>
-                            </div>
-                            <p class="text-xs text-gray-500">32 KB</p>
-                        </div>
-
-                    </div>
-
+                    <div id="attachments-container" class="flex p-2"></div>
                 </div>
 
                 <div class="flex flex-col">
@@ -76,6 +59,7 @@
         var chatSubmitElement = document.querySelector("#chat-submit");
         var dialogFormElement = document.querySelector("#dialog-form");
         var attachmentInputElement = document.querySelector("#attachment-input");
+        var attachmentsContainer = document.querySelector("#attachments-container");
 
         keyboard.enterToTrigger(chatInputElement, dialogSubmitHandler);
         keyboard.clickToSubmit(chatSubmitElement);
@@ -101,11 +85,33 @@
             return document.querySelector(`#${identifier}`);
         }
 
+        function createAttachmentElement() {
+            var identifier = "attachment-" + Math.random().toString(36).slice(-6);
+
+            chatDialogContainer.innerHTML += `
+                        <div id="${identifier}" class="relative mx-1 grow-0 max-w-sm p-1 px-2 bg-white border border-gray-200 rounded-lg shadow">
+                            <div class="flex gap-1.5 mb-1">
+                                <span id="attachment-name" class="text-xs font-semibold tracking-tight text-gray-900">anualreport.pdf</span>
+                                <button id="drop-attachment" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-sm text-sm w-3 h-3 ml-auto inline-flex justify-center items-center" data-modal-hide="staticModal">
+                                    <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                    </svg>
+                                    <span class="sr-only">Close modal</span>
+                                </button>
+                            </div>
+                            <p id="attachment-size" class="text-xs text-gray-500">32 KB</p>
+                        </div>
+                    `;
+
+            return document.querySelector(`#${identifier}`);
+        }
+
         function resetDialog() {
             chatSubmitElement.disabled = false;
         }
 
         function handleAttachment(event){
+            chatSubmitElement.disabled = true;
 
             var files = event.target.files;
             var totalSize = 0;
@@ -115,11 +121,31 @@
 
                 if(totalSize >= TOTAl_ALLOWED_FILE_SIZE){
                     notification.error("Nope, attachments limit is 20MB");
+                    chatSubmitElement.disabled = false;
+
                     return;
                 }
             }
 
-            attachments = [...attachments, ...files];
+            for (var file of [...files, ...attachments]) {
+                var attachmentElement = createAttachmentElement();
+
+                attachments.push(file);
+
+                attachmentElement.querySelector("#attachment-size").innerHTML = file.size;
+                attachmentElement.querySelector("#attachment-name").innerHTML = file.name;
+
+                attachmentElement.querySelector("#drop-attachment").addEventListener("click", function (event) {
+                    attachmentElement.remove();
+                    attachments = attachments.filter(function (attachment){
+                        return attachment != file;
+                    });
+                });
+
+                attachmentsContainer.appendChild(attachmentElement);
+            }
+
+            chatSubmitElement.disabled = false;
         }
 
         function dialogSubmitHandler(event) {
