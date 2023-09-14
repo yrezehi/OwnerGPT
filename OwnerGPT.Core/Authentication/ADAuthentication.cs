@@ -1,20 +1,14 @@
-﻿using System.DirectoryServices.Protocols;
+﻿using System.DirectoryServices.AccountManagement;
+using System.DirectoryServices.Protocols;
 using System.Runtime.InteropServices;
 
 namespace OwnerGPT.Core.Authentication
 {
     public class ADAuthentication
     {
-        private readonly string LDAP_HOST;
-        private readonly string LDAP_PORT;
-        
+        private readonly PrincipalContext LDAPContext;
+
         private readonly string LDAP_DOMAIN;
-        private readonly string LDAP_SUB_DOMAIN;
-
-        private readonly string LDAP_USER;
-        private readonly string LDAP_PASSWORD;
-
-        private readonly LdapConnection Connection;
 
         public ADAuthentication()
         {
@@ -22,6 +16,16 @@ namespace OwnerGPT.Core.Authentication
             {
                 throw new PlatformNotSupportedException("Only windows is supported at the moment for active directory");
             }
+
+            LDAP_DOMAIN = "GETMEFROMCONFIGURATION";
+
+            LDAPContext = new PrincipalContext(ContextType.Domain, LDAP_DOMAIN);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "<Pending>")]
+        private bool Authenticate(string email, string password)
+        {
+            return LDAPContext.ValidateCredentials(email, password);
         }
     }
 }
