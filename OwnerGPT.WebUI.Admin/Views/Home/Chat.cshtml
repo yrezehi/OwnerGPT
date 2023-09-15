@@ -53,6 +53,7 @@
 
         // 20MBs in bytes
         const TOTAl_ALLOWED_FILE_SIZE = 20000000;
+        const LEAST_WORDS_ALLOWED = 4;
 
         var chatInputElement = document.querySelector("#chat-input");
         var chatDialogContainer = document.querySelector("#chat-dialog-container");
@@ -174,8 +175,8 @@
         function dialogSubmitHandler(event) {
             if (chatSubmitElement.disabled) return;
 
-            if (!chatInputElement.value) {
-                notification.information("Enter anything at least!");
+            if (!utility.wordCount(chatInputElement.value) < LEAST_WORDS_ALLOWED) {
+                notification.information(`Enter at least ${LEAST_WORDS_ALLOWED + 1} words!`);
                 return;
             }
 
