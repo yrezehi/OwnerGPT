@@ -23,7 +23,7 @@
             <div class="flex items-center pr-3 py-2 bg-gray-100 rounded-lg border-[1px] border-gray-200">
                
                 <div class="block h-[144px] mx-4 w-full text-sm text-gray-900 flex flex-col bg-white rounded-lg border-gray-100 border-[1px]">
-                    <textarea id="chat-input" class="resize-none hide-scrollbar min-h-[80px] p-2.5 w-full h-full rounded-lg border-0 focus:ring-0"></textarea>
+                    <textarea id="chat-input" class="resize-none hide-scrollbar min-h-[80px] p-2.5 w-full h-full rounded-lg border-0 focus:ring-0">What is like being a human?</textarea>
                     <div id="attachments-container" class="flex p-2"></div>
                 </div>
 
@@ -76,11 +76,12 @@
         binding.enterToTrigger(chatInputElement, dialogSubmitHandler);
         binding.clickToSubmit(chatSubmitElement);
         binding.uploadTrigger(attachmentInputElement, handleAttachment);
+        binding.clickToTrigger(cancelReplayElement, handleCancelRequest);
 
         var attachments = [];
 
-        function toggleCancelReplay(off = true){
-            if (off) {
+        function toggleCancelReplay(show = false){
+            if (show) {
                 cancelReplayElement.classList.remove("hidden");
             } else {
                 cancelReplayElement.classList.add("hidden");
@@ -89,6 +90,16 @@
 
         function handleCancelRequest() {
 
+            if(readableStream != null){
+                readableStream.cancel();
+                readableStream = null;
+            }
+            else {
+                controllerSignal.abort();
+                controllerSignal = null;
+            }
+
+            toggleCancelReplay(false);
         }
 
         // TODO: no!
@@ -153,7 +164,7 @@
 
         function resetDialog() {
             chatSubmitElement.disabled = false;
-            toggleCancelReplay(true);
+            toggleCancelReplay(false);
         }
 
         function handleAttachment(event){
@@ -216,7 +227,7 @@
 
             partialViewLoader.appendTo("Chat/Replay/_UserReplay", userInput, chatDialogContainer)
                 .then(_ => {
-                    toggleCancelReplay(false);
+                    toggleCancelReplay(true);
                     createAndBuildAttachmentsChat();
                     getStreamReplay(userInput);
                 });
