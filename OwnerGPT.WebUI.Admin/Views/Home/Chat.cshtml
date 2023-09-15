@@ -12,6 +12,12 @@
         @await Html.PartialAsync("Chat/Replay/_SystemReplay", "Hi!")
     </div>
     <div class="absolute w-[100%] bottom-0 text-left text-gray-700 p-4">
+        <button id="cancel-replay" type="button" class="text-white hidden right-0 bg-indigo-600 hover:bg-indigo-600/90 focus:ring-4 focus:outline-none focus:ring-indigo-600/50 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center mr-2 mb-2">
+            <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9 13a1 1 0 0 1-2 0V7a1 1 0 0 1 2 0v6Zm4 0a1 1 0 0 1-2 0V7a1 1 0 0 1 2 0v6Z" />
+            </svg>
+            Cancel Replay
+        </button>
         <form id="dialog-form">
             <label for="chat" class="sr-only">Your message</label>
             <div class="flex items-center pr-3 py-2 bg-gray-100 rounded-lg border-[1px] border-gray-200">
@@ -42,7 +48,6 @@
                     </div>
                 </div>
 
-                
             </div>
         </form>
     </div>
@@ -62,12 +67,29 @@
         var dialogFormElement = document.querySelector("#dialog-form");
         var attachmentInputElement = document.querySelector("#attachment-input");
         var attachmentsContainer = document.querySelector("#attachments-container");
+        var cancelReplayElement = document.querySelector("#cancel-replay");
+
+        // to be used to cancel replay request
+        var readableStream = null;
+        var controllerSignal = null;
 
         binding.enterToTrigger(chatInputElement, dialogSubmitHandler);
         binding.clickToSubmit(chatSubmitElement);
         binding.uploadTrigger(attachmentInputElement, handleAttachment);
 
         var attachments = [];
+
+        function toggleCancelReplay(off = true){
+            if (off) {
+                cancelReplayElement.classList.remove("hidden");
+            } else {
+                cancelReplayElement.classList.add("hidden");
+            }
+        }
+
+        function handleCancelRequest() {
+
+        }
 
         // TODO: no!
         function createReplayElement() {
@@ -131,6 +153,7 @@
 
         function resetDialog() {
             chatSubmitElement.disabled = false;
+            toggleCancelReplay(true);
         }
 
         function handleAttachment(event){
@@ -176,12 +199,12 @@
         function dialogSubmitHandler(event) {
             if (chatSubmitElement.disabled) return;
 
-            if (!utility.wordCount(chatInputElement.value) < LEAST_WORDS_ALLOWED) {
+            if (utility.wordCount(chatInputElement.value) < LEAST_WORDS_ALLOWED) {
                 notification.information(`Enter at least ${LEAST_WORDS_ALLOWED + 1} words!`);
                 return;
             }
 
-            if (!utility.wordCount(chatInputElement.value) > TOTAL_WORDS_ALLOWED) {
+            if (utility.wordCount(chatInputElement.value) > TOTAL_WORDS_ALLOWED) {
                 notification.information(`Enter less than ${TOTAL_WORDS_ALLOWED} words!`);
                 return;
             }
@@ -193,6 +216,7 @@
 
             partialViewLoader.appendTo("Chat/Replay/_UserReplay", userInput, chatDialogContainer)
                 .then(_ => {
+                    toggleCancelReplay(false);
                     createAndBuildAttachmentsChat();
                     getStreamReplay(userInput);
                 });
@@ -200,6 +224,7 @@
 
         function getReplay(message) {
             var replayElement = createReplayElement();
+            controllerSignal = new AbortController().signal;
 
             fetch("http://localhost:5027/api/GPT/Replay", {
                 method: 'POST',
@@ -207,6 +232,7 @@
                     'Accept': 'application/json; charset=utf-8',
                     'Content-Type': 'application/json;charset=UTF-8'
                 },
+                signal: controllerSignal,
                 body: JSON.stringify({
                     message: message,
                 })
@@ -237,9 +263,10 @@
                     }),
                 });
 
-                const reader = response.body.getReader();
+                readableStream = response.body.getReader();
+
                 while (true) {
-                    const { done, value } = await reader.read();
+                    const { done, value } = await readableStream.read();
                     var decodedValue = new TextDecoder().decode(value).trim();
 
                     replayElement.innerHTML += " " + decodedValue;
