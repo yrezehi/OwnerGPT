@@ -1,6 +1,6 @@
-using OwnerGPT.Core.Configuration;
 using OwnerGPT.Core.Services;
 using OwnerGPT.LLM.Models.LLama;
+using OwnerGPT.WebUI.Admin.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 

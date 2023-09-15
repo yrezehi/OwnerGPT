@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OwnerGPT.Core.Services.Abstract.Interfaces;
 
-namespace OwnerGPT.Controllers.Abstract
+namespace OwnerGPT.WebUI.Admin.Controllers.Abstract
 {
     [Route("[controller]")]
     public class RDBMSBaseController<IService, T> : Controller where IService : IRDBMSCRUDService<T> where T : class

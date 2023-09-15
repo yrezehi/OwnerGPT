@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OwnerGPT.Experimental.Documents
+namespace OwnerGPT.Plugins.Manager.Documents
 {
     public class MagicalDocument
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OwnerGPT.Models
+namespace OwnerGPT.Models.Entities
 {
     public class Account
     {

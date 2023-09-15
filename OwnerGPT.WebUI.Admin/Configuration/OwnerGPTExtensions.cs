@@ -5,7 +5,7 @@ using OwnerGPT.DB.Repositores.RDBMS;
 using OwnerGPT.DB.Repositores.RDBMS.Abstracts;
 using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
 
-namespace OwnerGPT.Core.Configuration
+namespace OwnerGPT.WebUI.Admin.Configuration
 {
     public static class OwnerGPTExtensions
     {
