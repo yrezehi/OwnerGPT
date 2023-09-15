@@ -3,6 +3,7 @@ using LLama.Common;
 using OwnerGPT.LLM.Configuration;
 using OwnerGPT.LLM.Interfaces;
 using OwnerGPT.LLM.PromptEnginnering;
+using OwnerGPT.Models.Entities.Agents;
 using System.Collections;
 using System.Reflection;
 using System.Text;
@@ -33,10 +34,9 @@ namespace OwnerGPT.LLM.Models.LLama
             InferenceParams = new InferenceParams
             {
                 Temperature = 1.0f,
-                MaxTokens = 2560,
+                AntiPrompts = new List<string> { "User:" },
+                MaxTokens = 256,
             };
-
-            Executor.Infer(Prompts.BOB_ASSISTANT, InferenceParams);
         }
 
         public IEnumerable<string> StreamReplay(string prompt)

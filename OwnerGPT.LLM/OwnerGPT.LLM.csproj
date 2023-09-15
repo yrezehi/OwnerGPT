@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OwnerGPT.Models\OwnerGPT.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="PromptEnginnering\Prompts\DAN_11.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -1,4 +1,6 @@
-﻿namespace OwnerGPT.LLM.PromptEnginnering
+﻿using OwnerGPT.Models.Entities.Agents;
+
+namespace OwnerGPT.LLM.PromptEnginnering
 {
     public class PromptsManager
     {
@@ -7,6 +9,16 @@
         public static string GetPrompt()
         {
             return ReadTextFile(DAN_11);
+        }
+
+        public static string PutAgentSuffix(string content)
+        {
+            return content + $"\nBob: ";
+        }
+
+        public static string PutUserPrefix(string content)
+        {
+            return $"User: {content}";
         }
 
         private static string ReadTextFile(string path)
