@@ -35,25 +35,26 @@ namespace OwnerGPT.LLM.Models.LLama
             {
                 Temperature = 0.75f,
                 AntiPrompts = new List<string> { "User: " },
-                MaxTokens = 256,
+                MaxTokens = 512,
             };
         }
 
-        public IEnumerable<string> StreamReplay(string prompt)
+        public IEnumerable<string> StreamReplay(string prompt, CancellationToken cancellationToken)
         {
             var promptToExecute = Prompts.BOB_ASSISTANT + PromptsManager.PutAgentSuffix(PromptsManager.PutUserPrefix(prompt));
 
-            foreach (var response in Executor.Infer(promptToExecute, InferenceParams))
+            foreach (var response in Executor.Infer(promptToExecute, InferenceParams, cancellationToken))
             {
                 yield return response;
             }
         }
 
-        public string Replay(string prompt)
+        public string Replay(string prompt, CancellationToken cancellationToken)
         {
+            var promptToExecute = Prompts.BOB_ASSISTANT + PromptsManager.PutAgentSuffix(PromptsManager.PutUserPrefix(prompt));
             StringBuilder responseBuilder = new StringBuilder();
 
-            foreach (var response in Executor.Infer(prompt, InferenceParams))
+            foreach (var response in Executor.Infer(promptToExecute, InferenceParams, cancellationToken))
             {
                 responseBuilder.Append(response);
             }

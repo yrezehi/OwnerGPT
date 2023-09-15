@@ -18,7 +18,7 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         }
 
         [HttpPost("[action]")]
-        public async void StreamReplay([FromBody] GPTMessageInputDTO messageInput)
+        public async void StreamReplay([FromBody] GPTMessageInputDTO messageInput, CancellationToken cancellationToken)
         {
             Response.StatusCode = 200;
             Response.ContentType = "text/plain";
@@ -33,7 +33,7 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult Replay(GPTMessageInputDTO messageInput)
+        public IActionResult Replay(GPTMessageInputDTO messageInput, CancellationToken cancellationToken)
         {
             return Ok(StatelessGPT.Replay(messageInput.Message));
         }
