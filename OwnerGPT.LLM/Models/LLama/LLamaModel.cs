@@ -33,15 +33,17 @@ namespace OwnerGPT.LLM.Models.LLama
 
             InferenceParams = new InferenceParams
             {
-                Temperature = 1.0f,
-                AntiPrompts = new List<string> { "User:" },
+                Temperature = 0.75f,
+                AntiPrompts = new List<string> { "User: " },
                 MaxTokens = 256,
             };
         }
 
         public IEnumerable<string> StreamReplay(string prompt)
         {
-            foreach (var response in Executor.Infer(prompt, InferenceParams))
+            var promptToExecute = Prompts.BOB_ASSISTANT + PromptsManager.PutAgentSuffix(PromptsManager.PutUserPrefix(prompt));
+
+            foreach (var response in Executor.Infer(promptToExecute, InferenceParams))
             {
                 yield return response;
             }

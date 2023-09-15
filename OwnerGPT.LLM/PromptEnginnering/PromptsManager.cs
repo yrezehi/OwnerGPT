@@ -13,12 +13,12 @@ namespace OwnerGPT.LLM.PromptEnginnering
 
         public static string PutAgentSuffix(string content)
         {
-            return content + $"\nBob: ";
+            return content + $"\r\nBob: ";
         }
 
         public static string PutUserPrefix(string content)
         {
-            return $"User: {content}";
+            return $"\r\nUser: {content}";
         }
 
         private static string ReadTextFile(string path)
