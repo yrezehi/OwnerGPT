@@ -61,9 +61,9 @@
         var attachmentInputElement = document.querySelector("#attachment-input");
         var attachmentsContainer = document.querySelector("#attachments-container");
 
-        keyboard.enterToTrigger(chatInputElement, dialogSubmitHandler);
-        keyboard.clickToSubmit(chatSubmitElement);
-        keyboard.uploadTrigger(attachmentInputElement, handleAttachment);
+        binding.enterToTrigger(chatInputElement, dialogSubmitHandler);
+        binding.clickToSubmit(chatSubmitElement);
+        binding.uploadTrigger(attachmentInputElement, handleAttachment);
 
         var attachments = [];
 

@@ -1,4 +1,4 @@
-﻿var keyboard = function () {
+﻿var binding = function () {
 
     function bindEnterToSubmit(event, context) {
         if (event.which === 13) {
