@@ -21,6 +21,11 @@ namespace OwnerGPT.LLM.PromptEnginnering
             return $"\r\nUser: {content}";
         }
 
+        public static string CleanPromptInput(string input)
+        {
+            return input.Trim();
+        }
+
         private static string ReadTextFile(string path)
         {
             using (var streamReader = new StreamReader(path))

@@ -27,7 +27,7 @@ namespace OwnerGPT.WebUI.Admin.Controllers
             
             foreach(var replay in StatelessGPT.StreamReplay(messageInput.Message, cancellationToken))
             {
-                await streamWriter.WriteLineAsync(replay);
+                await streamWriter.WriteAsync(replay);
                 await streamWriter.FlushAsync();
             }
         }
