@@ -10,12 +10,12 @@ using System.Text;
 
 namespace OwnerGPT.LLM.Models.LLama
 {
-    public class LLAMAModel : ILLMModel
+    public class LLamaModel : ILLMModel
     {
-        private InstructExecutor Executor { get; set; }
-        private InferenceParams InferenceParams { get; set; }
+        public InstructExecutor Executor { get; set; }
+        public InferenceParams InferenceParams { get; set; }
 
-        public LLAMAModel()
+        public LLamaModel()
         {
             string modelPath = Path.GetFullPath(ModelConfiguration.LLAMA_MODEL_PATH);
 
@@ -40,29 +40,5 @@ namespace OwnerGPT.LLM.Models.LLama
                 MaxTokens = 512,
             };
         }
-
-        public IEnumerable<string> StreamReplay(string prompt, CancellationToken cancellationToken)
-        {
-            var promptToExecute = Prompts.BOB_ASSISTANT + PromptsManager.PutAgentSuffix(PromptsManager.PutUserPrefix(PromptsManager.CleanPromptInput(prompt)));
-
-            foreach (var response in Executor.Infer(promptToExecute, InferenceParams, cancellationToken))
-            {
-                yield return response;
-            }
-        }
-
-        public string Replay(string prompt, CancellationToken cancellationToken)
-        {
-            var promptToExecute = Prompts.BOB_ASSISTANT + PromptsManager.PutAgentSuffix(PromptsManager.PutUserPrefix(PromptsManager.CleanPromptInput(prompt)));
-            StringBuilder responseBuilder = new StringBuilder();
-
-            foreach (var response in Executor.Infer(promptToExecute, InferenceParams, cancellationToken))
-            {
-                responseBuilder.Append(response);
-            }
-
-            return responseBuilder.ToString();
-        }
-
     }
 }

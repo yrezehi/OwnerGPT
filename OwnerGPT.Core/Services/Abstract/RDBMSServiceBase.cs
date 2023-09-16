@@ -6,7 +6,6 @@ using OwnerGPT.Models.Entities.Interfaces;
 using OwnerGPT.Core.Services.Abstract.Interfaces;
 using OwnerGPT.Core.Utilities;
 using OwnerGPT.Core.Utilities.Extenstions;
-using OwnerGPT.Models.Entities.Agents;
 
 namespace OwnerGPT.Core.Services.Abstract
 {

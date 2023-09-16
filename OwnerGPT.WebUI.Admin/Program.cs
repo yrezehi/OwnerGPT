@@ -14,12 +14,12 @@ builder.RegisterRDBMS();
 builder.Services.AddTransient(typeof(VectorEmbeddingService), typeof(VectorEmbeddingService));
 builder.Services.AddTransient(typeof(AgentsService), typeof(AgentsService));
 builder.Services.AddTransient(typeof(AccountService), typeof(AccountService));
-builder.Services.AddSingleton(typeof(LLAMAModel), typeof(LLAMAModel));
+builder.Services.AddSingleton(typeof(LLamaModel), typeof(LLamaModel));
 
 var app = builder.Build();
 
 // Activate (pre-heat) LLama Model immediately  
-app.Services.GetService<LLAMAModel>();
+app.Services.GetService<LLamaModel>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

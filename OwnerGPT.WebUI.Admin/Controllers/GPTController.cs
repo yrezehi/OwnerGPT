@@ -10,22 +10,19 @@ namespace OwnerGPT.WebUI.Admin.Controllers
     [Route("api/[controller]")]
     public class GPTController : BasePartialViewController
     {
-        private readonly LLAMAModel StatelessGPT;
+        private readonly LLamaModel StatelessGPT;
 
-        public GPTController(LLAMAModel statelessGPT)
+        public GPTController(LLamaModel statelessGPT)
         {
             StatelessGPT = statelessGPT;
         }
 
-        [HttpPost("[action]")]
-        public async void StreamReplay([FromBody] GPTMessageInputDTO messageInput, CancellationToken cancellationToken)
+        [HttpPost("[action]/{agentId}")]
+        public async void StreamReplay([FromBody] GPTMessageInputDTO messageInput, int agentId, CancellationToken cancellationToken)
         {
-            Response.StatusCode = 200;
-            Response.ContentType = "text/plain";
-
             var streamWriter = new StreamWriter(Response.Body);
             
-            foreach(var replay in StatelessGPT.StreamReplay(messageInput.Message, cancellationToken))
+            foreach(var replay in StatelessGPT.StreamReplay(messageInput.Message, agentId, cancellationToken))
             {
                 await streamWriter.WriteAsync(replay);
                 await streamWriter.FlushAsync();
