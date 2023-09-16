@@ -1,5 +1,11 @@
 # OwnerGPT 
 
+<h1 align="center">
+  <br>
+  <img src="banner.png" alt="enOne-logo" width="800">
+  <br>
+</h1>
+
 <h4 align="center"> <b>OwnerGPT</b> is a private GPT platform for maintaining and building your own domain specific GPT.</h4>
 
 <p align="center">
