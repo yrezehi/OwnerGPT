@@ -13,10 +13,6 @@ namespace OwnerGPT.WebUI.Admin.Controllers
             View();
 
         [HttpGet("[action]")]
-        public IActionResult Chat() =>
-            View();
-
-        [HttpGet("[action]")]
         public IActionResult KnowledgeBase() =>
             View();
 
