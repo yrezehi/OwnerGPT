@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using OwnerGPT.Models.Entities.Interfaces;
+﻿using OwnerGPT.Models.Entities.Interfaces;
 using Pgvector;
 
 namespace OwnerGPT.Models.Entities

@@ -1,9 +1,4 @@
 ﻿using OwnerGPT.DocumentEmbedding.Encoder.BERTTokenizers.Helpers;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace OwnerGPT.DocumentEmbedding.Encoder.BERTTokenizers.Base
 {

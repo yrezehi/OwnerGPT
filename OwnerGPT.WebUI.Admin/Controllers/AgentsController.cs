@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using OwnerGPT.Core.Services;
 using OwnerGPT.Models.Entities.Agents;
 using OwnerGPT.Models.Entities.Bindings;

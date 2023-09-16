@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OwnerGPT.Core.Authentication.Abstracts
+﻿namespace OwnerGPT.Core.Authentication.Abstracts
 {
     public interface IAuthentication {
         bool Authenticate();
