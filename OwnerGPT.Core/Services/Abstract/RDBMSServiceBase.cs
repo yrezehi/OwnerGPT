@@ -12,9 +12,9 @@ namespace OwnerGPT.Core.Services.Abstract
     public class RDBMSServiceBase<T> : IRDBMSCRUDService<T> where T : class
     {
         public RDBMSServiceBase(IRDBMSUnitOfWork unitOfWork)
-        {
+        { 
+            DBSet = unitOfWork.Repository<T>().DBSet;
             UnitOfWork = unitOfWork;
-            DBSet = UnitOfWork.Repository<T>().DBSet;
         }
 
         protected internal IRDBMSUnitOfWork UnitOfWork { get; set; }

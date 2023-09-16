@@ -24,7 +24,6 @@ app.Services.GetService<LLAMAModel>();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-
     // TODO: toggle off on inmemeory removal 
     using (var scope = app.Services.CreateScope())
     using (var context = scope.ServiceProvider.GetService<RDBMSGenericRepositoryContext>())
