@@ -1,4 +1,5 @@
 using OwnerGPT.Core.Services;
+using OwnerGPT.DB.Repositores.RDBMS;
 using OwnerGPT.LLM.Models.LLama;
 using OwnerGPT.WebUI.Admin.Configuration;
 
@@ -23,6 +24,12 @@ app.Services.GetService<LLAMAModel>();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
+
+    // TODO: toggle off on inmemeory removal 
+    using (var scope = app.Services.CreateScope())
+    using (var context = scope.ServiceProvider.GetService<RDBMSGenericRepositoryContext>())
+        context!.Database.EnsureCreated();
+
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
