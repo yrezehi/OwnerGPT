@@ -28,20 +28,37 @@
         <input class="w-full px-2 py-5 rounded-md bg-gray-200 border-0 text-gray-700 leading-tight focus:outline-none focus:border-transparent focus:ring-0 focus:border-0 py-2 px-2" id="search" type="text" placeholder="Search Agents">
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-6">
-        
-        @foreach(var agent in Model)
+
+        @foreach (var agent in Model)
         {
-            <a href="@Url.Action("Configure", "Agents", new {agentId = agent.Id})">
-                <div class="card px-2 py-2 m-2 cursor-pointer border border-gray-400 rounded-lg border-indigo-600 hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200">
-                    <div class="m-3">
-                        <h2 class="text-lg mb-2">
-                            @agent.Name
-                            <span class="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">Chatbot</span>
-                        </h2>
+
+            <div class="card px-2 py-2 m-2 border border-gray-400 rounded-lg border-indigo-600 hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200">
+                <div class="m-3">
+                    <h2 class="text-lg mb-2">
+                        @agent.Name
+                        <span class="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">Chatbot</span>
+                    </h2>
+                    <div class="flex flex-row justify-between mt-[14px]">
                         <p class="font-light font-mono text-sm text-gray-700 hover:text-gray-900 transition-all duration-200">@agent.Description</p>
+                        <div>
+                            <a href="@Url.Action("Chat", "Agents", new {agentId = agent.Id})">
+                                <span class="text-sm text-white font-mono bg-indigo-600 inline rounded-sm p-[4px] border align-top float-right">
+                                    <svg class="w-4 h-4 stroke-current" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 13 5.7-5.326a.909.909 0 0 0 0-1.348L1 1" />
+                                    </svg>
+                                </span>
+                            </a>
+                            <a href="@Url.Action("Configure", "Agents", new {agentId = agent.Id})">
+                                <span class="text-sm text-indigo-600 font-mono bg-white inline rounded-sm mr-2 p-[4px] border border-indigo-600 align-top float-right">
+                                    <svg class="w-4 h-4 stroke-current" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M18 7.5h-.423l-.452-1.09.3-.3a1.5 1.5 0 0 0 0-2.121L16.01 2.575a1.5 1.5 0 0 0-2.121 0l-.3.3-1.089-.452V2A1.5 1.5 0 0 0 11 .5H9A1.5 1.5 0 0 0 7.5 2v.423l-1.09.452-.3-.3a1.5 1.5 0 0 0-2.121 0L2.576 3.99a1.5 1.5 0 0 0 0 2.121l.3.3L2.423 7.5H2A1.5 1.5 0 0 0 .5 9v2A1.5 1.5 0 0 0 2 12.5h.423l.452 1.09-.3.3a1.5 1.5 0 0 0 0 2.121l1.415 1.413a1.5 1.5 0 0 0 2.121 0l.3-.3 1.09.452V18A1.5 1.5 0 0 0 9 19.5h2a1.5 1.5 0 0 0 1.5-1.5v-.423l1.09-.452.3.3a1.5 1.5 0 0 0 2.121 0l1.415-1.414a1.5 1.5 0 0 0 0-2.121l-.3-.3.452-1.09H18a1.5 1.5 0 0 0 1.5-1.5V9A1.5 1.5 0 0 0 18 7.5Zm-8 6a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z" />
+                                    </svg>
+                                </span>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </a>
+            </div>
         }
     </div>
 </div>
