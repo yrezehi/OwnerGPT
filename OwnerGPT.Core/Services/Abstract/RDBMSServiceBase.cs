@@ -6,6 +6,7 @@ using OwnerGPT.Models.Entities.Interfaces;
 using OwnerGPT.Core.Services.Abstract.Interfaces;
 using OwnerGPT.Core.Utilities;
 using OwnerGPT.Core.Utilities.Extenstions;
+using Microsoft.ML;
 
 namespace OwnerGPT.Core.Services.Abstract
 {
@@ -101,11 +102,15 @@ namespace OwnerGPT.Core.Services.Abstract
 
         public async Task<T> Update(T entityToUpdate)
         {
-            var previousEntity = await this.NullableFindById(((IEntity)entityToUpdate).Id);
+            var previousEntitiy = await DBSet.AsNoTracking().FirstOrDefaultAsync(entity => ((IEntity)entityToUpdate).Id == ((IEntity)entity).Id);
 
-            if (previousEntity != null)
+            if (previousEntitiy != null)
             {
+
+
                 DBSet.Update(entityToUpdate);
+
+                await UnitOfWork.CompletedAsync();
 
                 return entityToUpdate;
             }
