@@ -16,6 +16,5 @@ namespace OwnerGPT.DB.Repositores.RDBMS.Abstracts
         public void Dispose() => Context.Dispose();
 
         public IRDBMSGenericRepository<TEntity> Repository<TEntity>() where TEntity : class => new RDBMSGenericRepository<TEntity>(Context);
-
     }
 }

@@ -14,23 +14,25 @@ namespace OwnerGPT.Core.Services.Abstract
         public RDBMSServiceBase(IRDBMSUnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
+            DBSet = UnitOfWork.Repository<T>().DBSet;
         }
 
         protected internal IRDBMSUnitOfWork UnitOfWork { get; set; }
+        protected DbSet<T> DBSet { get; set; }
 
         public virtual IEnumerable<T> Find(Expression<Func<T, bool>> expression) =>
-            UnitOfWork.Repository<T>().DBSet.Where(expression);
+            DBSet.Where(expression);
 
         public virtual IQueryable<T> OrderBy<TValue>(Expression<Func<T, TValue>> orderByExpression) =>
-            UnitOfWork.Repository<T>().DBSet.OrderBy(orderByExpression);
+            DBSet.OrderBy(orderByExpression);
 
         public virtual async Task<IEnumerable<T>> GetAll() =>
-            await UnitOfWork.Repository<T>().DBSet.ToListAsync();
+            await DBSet.ToListAsync();
 
         public virtual async Task<PaginateDTO<T>> Paginate(int currentPage, Expression<Func<T, bool>>? expression)
         {
-            var items = UnitOfWork.Repository<T>().DBSet.ConditionalWhere(expression != null, expression!).Skip(currentPage * 10);
-            var itemsCount = await UnitOfWork.Repository<T>().DBSet.ConditionalCount(expression!);
+            var items = DBSet.ConditionalWhere(expression != null, expression!).Skip(currentPage * 10);
+            var itemsCount = await DBSet.ConditionalCount(expression!);
 
             return new PaginateDTO<T>()
             {
@@ -43,7 +45,7 @@ namespace OwnerGPT.Core.Services.Abstract
 
         public virtual async Task<T> FindById(int id)
         {
-            var entity = await UnitOfWork.Repository<T>().DBSet.FindAsync(id);
+            var entity = await DBSet.FindAsync(id);
 
             if (entity == null)
                 throw new Exception("Entity Not Found");
@@ -53,11 +55,11 @@ namespace OwnerGPT.Core.Services.Abstract
 
         public virtual async Task<T> Delete(int id)
         {
-            var targetEntitiy = await UnitOfWork.Repository<T>().DBSet.FindAsync(id);
+            var targetEntitiy = await DBSet.FindAsync(id);
 
             if (targetEntitiy != null)
             {
-                UnitOfWork.Repository<T>().DBSet.Remove(targetEntitiy);
+                DBSet.Remove(targetEntitiy);
 
                 return targetEntitiy;
             }
@@ -67,7 +69,7 @@ namespace OwnerGPT.Core.Services.Abstract
 
         public async Task<T> Update(IEntity entityToUpdate)
         {
-            T entity = await UnitOfWork.Repository<T>().DBSet.FirstOrDefaultAsync(entity => ((IEntity)entity).Id == ((IEntity)entityToUpdate).Id);
+            T entity = await DBSet.FirstOrDefaultAsync(entity => ((IEntity)entity).Id == entityToUpdate.Id);
 
             if (entity != null)
             {
@@ -84,7 +86,7 @@ namespace OwnerGPT.Core.Services.Abstract
                     }
                 }
 
-                UnitOfWork.Repository<T>().DBSet.Update(entity);
+                DBSet.Update(entity);
 
                 return entity;
             }
@@ -94,9 +96,9 @@ namespace OwnerGPT.Core.Services.Abstract
 
         public async Task<T> Update(T entityToUpdate)
         {
-            if (await UnitOfWork.Repository<IEntity>().DBSet.AnyAsync(entity => entity.Id == ((IEntity)entityToUpdate).Id))
+            if (await DBSet.AnyAsync(entity => ((IEntity)entity).Id == ((IEntity)entityToUpdate).Id))
             {
-                UnitOfWork.Repository<T>().DBSet.Update(entityToUpdate);
+                DBSet.Update(entityToUpdate);
 
                 return entityToUpdate;
             }
@@ -105,7 +107,7 @@ namespace OwnerGPT.Core.Services.Abstract
 
         public async Task<T> Create(T entity)
         {
-            await UnitOfWork.Repository<T>().DBSet.AddAsync(entity);
+            await DBSet.AddAsync(entity);
 
             await UnitOfWork.CompletedAsync();
 
