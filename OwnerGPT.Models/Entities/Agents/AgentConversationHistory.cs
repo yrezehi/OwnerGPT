@@ -1,6 +1,8 @@
-﻿namespace OwnerGPT.Models.Entities.Agents
+﻿using OwnerGPT.Models.Entities.Interfaces;
+
+namespace OwnerGPT.Models.Entities.Agents
 {
-    public class AgentConversationHistory
+    public class AgentConversationHistory : IEntity
     {
         public int Id { get; set; }
         public int RoleId { get; set; }

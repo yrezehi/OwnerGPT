@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using OwnerGPT.Models.Entities.Interfaces;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OwnerGPT.Models.Entities
 {
     [Table("accounts")]
-    public class Account
+    public class Account : IEntity
     {
         [Key]
         [Column("id")]
