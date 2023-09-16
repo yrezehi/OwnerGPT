@@ -12,6 +12,7 @@ builder.RegisterRDBMS();
 
 builder.Services.AddTransient(typeof(VectorEmbeddingService), typeof(VectorEmbeddingService));
 builder.Services.AddTransient(typeof(AgentsService), typeof(AgentsService));
+builder.Services.AddTransient(typeof(AccountService), typeof(AccountService));
 builder.Services.AddSingleton(typeof(LLAMAModel), typeof(LLAMAModel));
 
 var app = builder.Build();

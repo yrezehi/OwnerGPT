@@ -5,8 +5,8 @@ using OwnerGPT.Models.Entities.Agents;
 
 namespace OwnerGPT.Core.Services
 {
-    public class AcountService : RDBMSServiceBase<Account>
+    public class AccountService : RDBMSServiceBase<Account>
     {
-        public AcountService(IRDBMSUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public AccountService(IRDBMSUnitOfWork unitOfWork) : base(unitOfWork) { }
     }
 }
