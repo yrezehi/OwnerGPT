@@ -13,27 +13,27 @@
         <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
             <input name="id" value="@Model.Id" hidden/>
             <div class="sm:col-span-2">
-                <label for="name" class="block text-sm font-semibold leading-6 text-gray-900">Name</label>
+                <label for="name" class="block text-sm font-semibold leading-6 text-gray-900">Name <span class="text-xs text-gray-500">(name of the AI agent)</span></label>
                 <div class="mt-2.5">
                     <input value="@Model.Name" type="text" name="name" id="name" autocomplete="name" class="bg-gray-100 cursor-not-allowed block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" readonly>
                 </div>
             </div>
             <div class="sm:col-span-2">
-                <label for="description" class="block text-sm font-semibold leading-6 text-gray-900">Description</label>
+                <label for="description" class="block text-sm font-semibold leading-6 text-gray-900">Description <span class="text-xs text-gray-500">(description for internal refrence)</span></label>
                 <div class="mt-2.5">
                     <input value="@Model.Description" type="text" name="description" id="description" autocomplete="organization" class="bg-gray-100 cursor-not-allowed block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" readonly>
                 </div>
             </div>
             <div class="sm:col-span-2">
-                <label for="introduction" class="block text-sm font-semibold leading-6 text-gray-900">Introduction <span class="text-xs text-gray-500">(welcoming statement)</span></label>
+                <label for="introduction" class="block text-sm font-semibold leading-6 text-gray-900">Introduction <span class="text-xs text-gray-500">(welcoming statement to be printed to user's dialog as welcome)</span></label>
                 <div class="mt-2.5">
-                    <input value="@Model.Introduction" type="text" name="introduction" id="introduction" autocomplete="organization" class="bg-gray-100 cursor-not-allowed block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" readonly>
+                    <input value="@(@Model.Introduction ?? $"Hi There! I'm your personal assistant {Model.Name}, ask me anything!")" type="text" name="introduction" id="introduction" autocomplete="organization" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                 </div>
             </div>
             <div class="sm:col-span-2">
                 <label for="instruction" class="block text-sm font-semibold leading-6 text-gray-900">Instruction <span class="text-xs text-gray-500">(define bot's identity and how the bot should react)</span></label>
                 <div class="mt-2.5">
-                    <textarea name="instruction" id="instruction" rows="4" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">@(Model.Instruction ?? "You are an AI assistant that helps people find information and responds in rhyme. If the user asks you a question you don't know the answer to, say so.")</textarea>
+                    <textarea name="instruction" id="instruction" rows="4" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">@(Model.Instruction ?? $"You are an AI assistant called {Model.Name} that helps people find information and responds in rhyme. If the user asks you a question you don't know the answer to, say so.")</textarea>
                 </div>
             </div>
             <label class="relative inline-flex items-center cursor-pointer">
