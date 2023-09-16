@@ -41,10 +41,10 @@ namespace OwnerGPT.WebUI.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet("[action]")]
-        public IActionResult Configure()
+        [HttpGet("[action]/{agentId}")]
+        public async Task<IActionResult> Configure(int agentId)
         {
-            return View();
+            return View(await Service.FindById(agentId));
         }
     }
 }

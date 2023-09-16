@@ -31,7 +31,7 @@
         
         @foreach(var agent in Model)
         {
-            <a href="@Url.Action("Configure", "Agents")">
+            <a href="@Url.Action("Configure", "Agents", new {agentId = agent.Id})">
                 <div class="card px-2 py-2 m-2 cursor-pointer border border-gray-400 rounded-lg border-indigo-600 hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200">
                     <div class="m-3">
                         <h2 class="text-lg mb-2">

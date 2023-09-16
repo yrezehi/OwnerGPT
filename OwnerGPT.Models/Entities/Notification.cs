@@ -7,5 +7,7 @@ using System.Threading.Tasks;
 
 namespace OwnerGPT.Models.Entities
 {
-    public class Notification : IEntity { }
+    public class Notification : IEntity {
+        public int Id { get; set; }
+    }
 }
