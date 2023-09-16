@@ -14,6 +14,8 @@ builder.RegisterRDBMS();
 builder.Services.AddTransient(typeof(VectorEmbeddingService), typeof(VectorEmbeddingService));
 builder.Services.AddTransient(typeof(AgentsService), typeof(AgentsService));
 builder.Services.AddTransient(typeof(AccountService), typeof(AccountService));
+builder.Services.AddTransient(typeof(GPTService), typeof(GPTService));
+
 builder.Services.AddSingleton(typeof(LLamaModel), typeof(LLamaModel));
 
 var app = builder.Build();

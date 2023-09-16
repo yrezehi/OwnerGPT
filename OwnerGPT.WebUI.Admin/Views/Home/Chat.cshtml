@@ -241,7 +241,7 @@
             var replayElement = createReplayElement();
             controllerSignal = new AbortController().signal;
 
-            fetch("http://localhost:5027/api/GPT/Replay", {
+            fetch("http://localhost:5027/api/GPT/Replay/", {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json; charset=utf-8',
@@ -267,7 +267,7 @@
             var replayElement = createReplayElement();
 
             try {
-                const response = await fetch("http://localhost:5027/api/GPT/StreamReplay", {
+                const response = await fetch("http://localhost:5027/api/GPT/StreamReplay/" + 1, {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json; charset=utf-8',

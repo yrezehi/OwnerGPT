@@ -53,6 +53,11 @@ namespace OwnerGPT.Core.Services.Abstract
             return entity;
         }
 
+        public virtual async Task<T?> NullableFindById(int id)
+        {
+            return await DBSet.FindAsync(id);
+        }
+
         public virtual async Task<T> Delete(int id)
         {
             var targetEntitiy = await DBSet.FindAsync(id);
@@ -96,13 +101,16 @@ namespace OwnerGPT.Core.Services.Abstract
 
         public async Task<T> Update(T entityToUpdate)
         {
-            if (await DBSet.AnyAsync(entity => ((IEntity)entity).Id == ((IEntity)entityToUpdate).Id))
+            var previousEntity = await this.NullableFindById(((IEntity)entityToUpdate).Id);
+
+            if (previousEntity != null)
             {
                 DBSet.Update(entityToUpdate);
 
                 return entityToUpdate;
             }
-            throw new Exception(nameof(T));
+
+            throw new Exception("Entity Not Found");
         }
 
         public async Task<T> Create(T entity)

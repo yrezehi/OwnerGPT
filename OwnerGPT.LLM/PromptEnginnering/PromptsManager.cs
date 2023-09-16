@@ -13,7 +13,7 @@ namespace OwnerGPT.LLM.PromptEnginnering
 
         public static string PutAgentSuffix(string content)
         {
-            return content + $"\r\nBob: ";
+            return content + $"\r\nAssistant: ";
         }
 
         public static string PutUserPrefix(string content)

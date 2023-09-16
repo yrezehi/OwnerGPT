@@ -13,6 +13,8 @@ namespace OwnerGPT.Core.Services.Abstract.Interfaces
 
         Task<T> FindById(int id);
 
+        Task<T?> NullableFindById(int id);
+
         Task<T> Delete(int id);
 
         Task<T> Update(T entityToUpdate);

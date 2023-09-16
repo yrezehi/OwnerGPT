@@ -6,15 +6,21 @@ namespace OwnerGPT.Core.Services
 {
     public class GPTService
     {
-        LLamaModel LLamaModel { get; set; }
 
-        public GPTService(LLamaModel llamaModel) { 
+        public readonly LLamaModel LLamaModel;
+
+        public readonly AgentsService AgentsService;
+
+        public GPTService(AgentsService agentsService, LLamaModel llamaModel) { 
             LLamaModel = llamaModel;
+            AgentsService = agentsService;
         }
 
-        public IEnumerable<string> StreamReplay(string prompt, CancellationToken cancellationToken)
+        public async IAsyncEnumerable<string> StreamReplay(string prompt, int agentId, CancellationToken cancellationToken)
         {
-            var promptToExecute = Prompts.BOB_ASSISTANT + PromptsManager.PutAgentSuffix(PromptsManager.PutUserPrefix(PromptsManager.CleanPromptInput(prompt)));
+            var agent = await AgentsService.NullableFindById(agentId);
+
+            var promptToExecute = ( agent?.Instruction ?? Prompts.BOB_ASSISTANT ) + PromptsManager.PutAgentSuffix(PromptsManager.CleanPromptInput(prompt)/*PromptsManager.PutUserPrefix(PromptsManager.CleanPromptInput(prompt))*/);
 
             foreach (var response in LLamaModel.Executor.Infer(promptToExecute, LLamaModel.InferenceParams, cancellationToken))
             {

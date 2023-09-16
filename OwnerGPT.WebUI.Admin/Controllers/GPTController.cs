@@ -4,15 +4,16 @@ using System.IO;
 using System;
 using OwnerGPT.Models.Entities.DTO;
 using OwnerGPT.WebUI.Admin.Controllers.Abstract;
+using OwnerGPT.Core.Services;
 
 namespace OwnerGPT.WebUI.Admin.Controllers
 {
     [Route("api/[controller]")]
     public class GPTController : BasePartialViewController
     {
-        private readonly LLamaModel StatelessGPT;
+        private readonly GPTService StatelessGPT;
 
-        public GPTController(LLamaModel statelessGPT)
+        public GPTController(GPTService statelessGPT)
         {
             StatelessGPT = statelessGPT;
         }
@@ -22,7 +23,7 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         {
             var streamWriter = new StreamWriter(Response.Body);
             
-            foreach(var replay in StatelessGPT.StreamReplay(messageInput.Message, agentId, cancellationToken))
+            await foreach(var replay in StatelessGPT.StreamReplay(messageInput.Message, agentId, cancellationToken))
             {
                 await streamWriter.WriteAsync(replay);
                 await streamWriter.FlushAsync();
