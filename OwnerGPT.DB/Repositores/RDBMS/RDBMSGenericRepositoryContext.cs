@@ -34,13 +34,15 @@ namespace OwnerGPT.DB.Repositores.RDBMS
                 {
                     Id = 1,
                     Email = "admin@ownergpt.com",
-                    LastLogin = DateTime.Now,
+                    LastSignin = DateTime.Now,
+                    Active = true,
                 },
                 new Account
                 {
                     Id = 2,
                     Email = "supervision@ownergpt.com",
-                    LastLogin = DateTime.Now,
+                    LastSignin = DateTime.Now,
+                    Active = true,
                 }
             );
         }

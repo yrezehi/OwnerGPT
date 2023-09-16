@@ -18,7 +18,7 @@
         }
     }
 
-    function bindClickToSubmit(context) {
+    function bindClickToSubmit(event, context) {
         context.closest("form").submit();
     }
 
@@ -40,7 +40,7 @@
             },
             clickToSubmit: function (context) {
                 bindEventLisnter(context, "click", function (event) {
-                    bindClickToSubmit(context);
+                    bindClickToSubmit(event, context);
                 });
             },
             clickToTrigger: function (context, callback) {

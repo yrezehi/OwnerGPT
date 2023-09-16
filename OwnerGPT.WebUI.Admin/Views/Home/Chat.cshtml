@@ -74,7 +74,7 @@
         var controllerSignal = null;
 
         binding.enterToTrigger(chatInputElement, dialogSubmitHandler);
-        binding.clickToSubmit(chatSubmitElement);
+        binding.clickToTrigger(chatSubmitElement, dialogSubmitHandler);
         binding.uploadTrigger(attachmentInputElement, handleAttachment);
         binding.clickToTrigger(cancelReplayElement, handleCancelRequest);
 
@@ -289,7 +289,7 @@
                     replayElement.innerHTML += decodedValue;
 
                     if (done) {
-                        chatSubmitElement.disabled = false;
+                        resetDialog();
                         break;
                     }
                 }

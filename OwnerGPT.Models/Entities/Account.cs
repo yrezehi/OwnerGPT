@@ -9,6 +9,8 @@ namespace OwnerGPT.Models.Entities
         [Column("email")]
         public string? Email { get; set; }
         [Column("last_login")]
-        public DateTime? LastLogin { get; set; }
+        public DateTime? LastSignin { get; set; }
+        [Column("active")]
+        public bool Active { get; set; }
     }
 }
