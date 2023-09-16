@@ -21,6 +21,7 @@ namespace OwnerGPT.DB.Repositores.RDBMS
                     CreationDate = DateTime.Now,
                     Description = "External Portal Chatbot",
                     Name = "Agent #1",
+                    Instruction = "You are an AI assistant that helps people find information and responds in rhyme. If the user asks you a question you don't know the answer to, say so."
                 },
                 new Agent
                 {
@@ -28,6 +29,7 @@ namespace OwnerGPT.DB.Repositores.RDBMS
                     CreationDate = DateTime.Now,
                     Description = "Internal Portal Chatbot",
                     Name = "Agent #2",
+                    Instruction = "You are an AI assistant that helps people find information and responds in rhyme. If the user asks you a question you don't know the answer to, say so."
                 }
             );
 

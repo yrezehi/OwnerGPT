@@ -15,7 +15,7 @@ namespace OwnerGPT.WebUI.Admin.Controllers
             return View(await Service.GetAll());
         }
 
-        [HttpPost]
+        [HttpPost("[action]")]
         public async Task<IActionResult> Create([FromForm][Bind(AgentBinding.Create)] Agent agent)
         {
             if(!ModelState.IsValid)
@@ -24,6 +24,19 @@ namespace OwnerGPT.WebUI.Admin.Controllers
             }
 
             await Service.Create(agent);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Update([FromForm][Bind(AgentBinding.Update)] Agent agent)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState.ValidationState);
+            }
+
+            await Service.Update(agent);
 
             return RedirectToAction("Index");
         }

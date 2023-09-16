@@ -17,9 +17,9 @@ namespace OwnerGPT.Models.Entities.Agents
         public string Description { get; set; }
 
         [Column("instruction")]
-        public string Instruction { get; set; }
+        public string? Instruction { get; set; }
 
         [Column("creation_date")]
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
     }
 }
