@@ -17,6 +17,9 @@ namespace OwnerGPT.Models.Entities.Agents
         [Column("description")]
         public string? Description { get; set; }
 
+        [Column("introduction")]
+        public string? Introduction { get; set; }
+
         [Column("instruction")]
         public string? Instruction { get; set; }
 

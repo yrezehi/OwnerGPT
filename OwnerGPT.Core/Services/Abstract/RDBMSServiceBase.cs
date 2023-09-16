@@ -100,13 +100,13 @@ namespace OwnerGPT.Core.Services.Abstract
             throw new Exception(nameof(T));
         }
 
-        public async Task<T> Update(T entityToUpdate)
+        public async Task<T> Update(T updatedEntity)
         {
-            var previousEntitiy = await DBSet.AsNoTracking().FirstOrDefaultAsync(entity => ((IEntity)entityToUpdate).Id == ((IEntity)entity).Id);
+            var entityToUpdate = await DBSet.AsNoTracking().FirstOrDefaultAsync(entity => ((IEntity)updatedEntity).Id == ((IEntity)entity).Id);
 
-            if (previousEntitiy != null)
+            if (entityToUpdate != null)
             {
-
+                ReflectionUtil.MapEntity<T>((IEntity) updatedEntity, (IEntity) entityToUpdate);
 
                 DBSet.Update(entityToUpdate);
 

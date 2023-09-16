@@ -24,9 +24,8 @@ namespace OwnerGPT.Core.Utilities
             (new Type[] { type })
                 .SelectMany(interfaceProperty => interfaceProperty.GetProperties());
 
-        public static T MapEntity<T>(IEntity entity, IEntity entityToUpdate)
+        public static IEntity MapEntity<T>(IEntity entity, IEntity entityToUpdate)
         {
-            T entityToInsert = (T)Activator.CreateInstance(typeof(T))!;
             var dtoProperties = ReflectionUtil.GetInterfacedObjectProperties(entity.GetType());
 
             foreach (var property in dtoProperties)
@@ -35,12 +34,12 @@ namespace OwnerGPT.Core.Utilities
 
                 if (!ReflectionUtil.IsNullOrDefault(dtoPropertyValue))
                 {
-                    if (ReflectionUtil.ContainsProperty(entityToInsert, property.Name))
-                        ReflectionUtil.SetValueOf(entityToInsert, property.Name, dtoPropertyValue);
+                    if (ReflectionUtil.ContainsProperty(entityToUpdate, property.Name))
+                        ReflectionUtil.SetValueOf(entityToUpdate, property.Name, dtoPropertyValue);
                 }
             }
 
-            return entityToInsert;
+            return entityToUpdate;
         }
 
         public static bool IsNullOrDefault<T>(T argument)
