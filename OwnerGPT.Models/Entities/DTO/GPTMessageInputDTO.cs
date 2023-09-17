@@ -4,7 +4,7 @@ namespace OwnerGPT.Models.Entities.DTO
 {
     public class GPTMessageInputDTO
     {
-        public string Message { get; set; } = "hi";
+        public string Message { get; set; }
         public IFormFile Attachment { get; set; }
     }
 }

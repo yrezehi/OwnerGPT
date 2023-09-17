@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Linq.Expressions;
 
 namespace OwnerGPT.DB.Repositores.Extensions
 {

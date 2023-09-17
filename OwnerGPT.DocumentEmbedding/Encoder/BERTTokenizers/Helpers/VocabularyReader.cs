@@ -1,4 +1,7 @@
-﻿namespace OwnerGPT.DocumentEmbedding.Encoder.BERTTokenizers.Helpers
+﻿using System.Collections.Generic;
+using System.IO;
+
+namespace OwnerGPT.DocumentEmbedding.Encoder.BERTTokenizers.Helpers
 {
     public class VocabularyReader
     {

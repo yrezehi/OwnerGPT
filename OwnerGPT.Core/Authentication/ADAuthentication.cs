@@ -1,4 +1,5 @@
 ﻿using System.DirectoryServices.AccountManagement;
+using System.DirectoryServices.Protocols;
 using System.Runtime.InteropServices;
 
 namespace OwnerGPT.Core.Authentication
