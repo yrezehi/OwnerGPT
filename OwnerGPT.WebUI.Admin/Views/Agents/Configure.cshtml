@@ -9,7 +9,7 @@
         <h3 class="mb-2 text-xl font-bold text-gray-900">Agents</h3>
         <span class="text-base font-normal text-gray-500">Configure agent's settings</span>
     </div>
-    <form action="@Url.Action("Update", "Agents")" method="post" class="mx-auto mt-4">
+    <form id="agent-configuration-form" action="@Url.Action("Update", "Agents")" method="post" class="mx-auto mt-4">
         <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
             <input name="id" value="@Model.Id" hidden/>
 
@@ -59,7 +59,7 @@
                             <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
                             <p class="text-xs text-gray-500">PDF or TXT (MAX. 10MB)</p>
                         </div>
-                        <input accept="text/plain,application/pdf" id="dropzone-file" type="file" class="hidden" />
+                        <input name="attachments" accept="text/plain,application/pdf" id="dropzone-file" type="file" class="hidden" multiple />
                     </label>
                 </div>
             </div>
@@ -94,18 +94,17 @@
         binding.clickToTrigger(submitConfigurationElement, configurationSubmitHandler);
 
         function configurationSubmitHandler(event){
+            const formAttributes = Object.fromEntries(new FormData(document.querySelector("#agent-configuration-form")));
+
+            var formToSubmit = new FormData();
+            formToSubmit.append("Agent.Id", formAttributes["id"]);
+            formToSubmit.append("Agent.Description", formAttributes["description"]);
+            formToSubmit.append("Agent.Introduction", formAttributes["introduction"]);
+            formToSubmit.append("Agent.Instruction", formAttributes["instruction"]);
 
             fetch("@Url.Action("Update", "Agents")", {
                 method: 'POST',
-                headers: {
-                    'Accept': '',
-                    'Content-Type': 'application/json;charset=UTF-8'
-                },
-                body: JSON.stringify({
-                    agent: {
-
-                    }
-                })
+                body: formToSubmit
             }).catch((error) => {
                 console.error(error);
             });
