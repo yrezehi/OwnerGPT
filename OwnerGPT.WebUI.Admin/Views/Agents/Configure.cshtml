@@ -15,7 +15,7 @@
 
             <div class="sm:col-span-2">
                 <label for="name" class="block text-sm font-semibold leading-6 text-gray-900">Name</label>
-                <label for="name" class="block text-sm font-semibold leading-6 text-gray-900  mt-1">
+                <label for="name" class="block text-sm font-semibold leading-6 text-gray-900 mt-1">
                     <span class="text-xs text-gray-500">(name of the agent)</span>
                 </label>
                 <div class="mt-2.5">
@@ -32,7 +32,7 @@
             </div>
 
             <div class="sm:col-span-2">
-                <label for="introduction" class="block text-sm font-semibold leading-6 text-gray-900">Introduction</span></label>
+                <label for="introduction" class="block text-sm font-semibold leading-6 text-gray-900">Introduction</label>
                 <label for="introduction" class="block text-sm font-semibold leading-6 text-gray-900 mt-1"><span class="text-xs text-gray-500">(welcoming statement to be printed to user's dialog as welcome)</span></label>
                 <div class="mt-2.5">
                     <input value="@(@Model.Introduction ?? $"Hi There! I'm your personal assistant {Model.Name}, ask me anything!")" type="text" name="introduction" id="introduction" autocomplete="organization" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
@@ -48,7 +48,7 @@
             </div>
 
             <div class="sm:col-span-2">
-                <label for="dropzone-file" class="block text-sm font-semibold leading-6 text-gray-900 mb-3">Knowledge base as file</label>
+                <label for="dropzone-file" class="block text-sm font-semibold leading-6 text-gray-900 mb-3">Knowledge base as file <span class="text-xs text-gray-500">(optional)</span></label>
                 <label for="dropzone-file" class="block text-sm font-semibold leading-6 text-gray-900 mb-3 mt-1"><span class="text-xs text-gray-500">(drop files to to be interacted with)</span></label>
                 <div class="flex items-center justify-center w-full">
                     <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
@@ -59,16 +59,16 @@
                             <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
                             <p class="text-xs text-gray-500">PDF or TXT (MAX. 10MB)</p>
                         </div>
-                        <input id="dropzone-file" type="file" class="hidden" />
+                        <input accept="text/plain,application/pdf" id="dropzone-file" type="file" class="hidden" />
                     </label>
                 </div>
             </div>
 
             <div class="sm:col-span-2">
-                <label for="urls" class="block text-sm font-semibold leading-6 text-gray-900">Or an URL</label>
+                <label for="urls" class="block text-sm font-semibold leading-6 text-gray-900">Or an URL <span class="text-xs text-gray-500">(optional)</span></label>
                 <label for="urls" class="block text-sm font-semibold leading-6 text-gray-900 mt-1"><span class="text-xs text-gray-500">(to be interacted with, enter single or more links 5 MAX seperated by spaces or new lines)</span></label>
                 <div class="mt-2.5">
-                    <textarea name="urls" id="urls" rows="4" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required></textarea>
+                    <textarea placeholder="https://example.com https://another-example.com" name="urls" id="urls" rows="4" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
                 </div>
             </div>
 
