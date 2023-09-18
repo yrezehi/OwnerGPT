@@ -64,24 +64,7 @@
                     </label>
                 </div>
 
-                <div class="flex items-center justify-between relative p-4 w-full text-gray-700 bg-white rounded-lg overflow-hidden shadow hover:shadow-md mt-2">
-                    <div class="flex items-center">
-                        <svg class="w-5 h-5 stroke-current" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 1v4a1 1 0 0 1-1 1H1m4 6 2 2 4-4m4-8v16a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V5.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 1h8.239A.97.97 0 0 1 15 2Z" />
-                        </svg>
-                        <div class="ml-3">
-                            <p class="font-bold text-sm text-gray-800">Annaulreport.pdf</p>
-                            <p class="text-xs text-gray-600">242 Kb</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center text-gray-600">
-                        <button>
-                            <svg class="w-4 h-4 stroke-current" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                                <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
+                <div id="attachments-container" class="mt-2"></div>
 
             </div>
 
@@ -113,6 +96,7 @@
 
         var submitConfigurationElement = document.querySelector("#submit-configuration");
         var attachmentInputElement = document.querySelector("#attachment-input");
+        var attachmentsContainer = document.querySelector("#attachments-container");
 
         binding.clickToTrigger(submitConfigurationElement, configurationSubmitHandler);
         binding.uploadTrigger(attachmentInputElement, handleAttachment);
@@ -129,12 +113,43 @@
             formToSubmit.append("Agent.Introduction", formAttributes["introduction"]);
             formToSubmit.append("Agent.Instruction", formAttributes["instruction"]);
 
+
             fetch("@Url.Action("Update", "Agents")", {
                 method: 'POST',
                 body: formToSubmit
+            }).then(_ => {
+                window.location.href = "@Url.Action("Index", "Agents")";
             }).catch((error) => {
                 console.error(error);
             });
+        }
+
+        function createAttachmentElement() {
+            var identifier = "attachment-" + utility.shortGUID();
+            var temporaryElement = document.createElement("div");
+
+            temporaryElement.innerHTML += `
+                <div id=${identifier} class="flex items-center justify-between relative p-4 w-full text-gray-700 bg-white rounded-lg overflow-hidden shadow hover:shadow-md mt-2">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 stroke-current" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 1v4a1 1 0 0 1-1 1H1m4 6 2 2 4-4m4-8v16a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V5.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 1h8.239A.97.97 0 0 1 15 2Z" />
+                        </svg>
+                        <div class="ml-3">
+                            <p class="attachment-name" class="font-bold text-sm text-gray-800">Annaulreport.pdf</p>
+                            <p class="attachment-size" class="text-xs text-gray-600">242 Kb</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center text-gray-600">
+                                <button type="button" class="drop-attachment">
+                            <svg class="w-4 h-4 stroke-current" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            return temporaryElement.querySelector(`#${identifier}`);
         }
 
         function handleAttachment(event){
@@ -149,8 +164,26 @@
                     return;
                 }
             }
-          
-            attachments = [...files, ...attachments];
+
+            for (var file of files) {
+                var attachmentElement = createAttachmentElement();
+
+                attachments.push(file);
+
+                attachmentElement.querySelector(".attachment-size").innerHTML = utility.sizeToReadableString(file.size);
+                attachmentElement.querySelector(".attachment-name").innerHTML = utility.stringEllipsis(file.name, 10);
+
+                (function (context, currentFile) {
+                    context.querySelector(".drop-attachment").addEventListener("click", function (event) {
+                        attachments = attachments.filter(function (attachment) {
+                            return currentFile.name !== attachment.name;
+                        });
+                        context.remove();
+                    });
+                })(attachmentElement, file);
+
+                attachmentsContainer.appendChild(attachmentElement);
+            }
         }
         
     </script>

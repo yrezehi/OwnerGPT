@@ -132,8 +132,9 @@
 
         function createAttachmentElement() {
             var identifier = "attachment-" + utility.shortGUID();
+            var temporaryElement = document.createElement("div");
 
-            attachmentsContainer.innerHTML += `
+            temporaryElement.innerHTML += `
                         <div id="${identifier}" class="relative mx-1 grow-0 max-w-sm p-1 px-2 bg-white border border-gray-200 rounded-lg shadow">
                             <div class="flex gap-1.5 mb-1">
                                 <span id="attachment-name" class="text-xs font-semibold tracking-tight text-gray-900"></span>
@@ -148,7 +149,7 @@
                         </div>
                     `;
 
-            return document.querySelector(`#${identifier}`);
+            return temporaryElement.querySelector(`#${identifier}`);
         }
 
         function createAndBuildAttachmentsChat(){
