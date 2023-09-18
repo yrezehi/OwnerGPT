@@ -116,11 +116,10 @@ public sealed class SentenceEncoder : IDisposable
             NamedOnnxValue.CreateFromTensor("token_type_ids", new DenseTensor<long>(flattenTokenTypeIds, dimensions))
         };
 
-        var runOptions = new RunOptions();
+        using var runOptions = new RunOptions();
         using var registration = cancellationToken.Register(() => runOptions.Terminate = true);
 
-        string[] outputNames = _session.OutputMetadata.Keys.ToArray();
-        using var output = _session.Run(input, outputNames, runOptions);
+        using var output = _session.Run(input, _outputNames, runOptions);
 
         cancellationToken.ThrowIfCancellationRequested();
 
