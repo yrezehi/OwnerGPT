@@ -24,8 +24,13 @@ namespace OwnerGPT.WebUI.Admin.Configuration
         {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
-            builder.Services.AddTransient(typeof(PGVUnitOfWork), typeof(PGVUnitOfWork));
-            builder.Services.AddSingleton(typeof(PGVUnitOfWorkInMemeory), typeof(PGVUnitOfWorkInMemeory));
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.Services.AddSingleton(typeof(PGVUnitOfWorkInMemeory), typeof(PGVUnitOfWorkInMemeory));
+            } else
+            {
+                builder.Services.AddTransient(typeof(PGVUnitOfWork), typeof(PGVUnitOfWork));
+            }
 
             return builder;
         }

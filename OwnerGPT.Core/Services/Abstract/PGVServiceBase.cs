@@ -1,4 +1,5 @@
 ﻿using OwnerGPT.DB.Repositores.PGVDB;
+using OwnerGPT.DB.Repositores.PGVDB.Interfaces;
 using OwnerGPT.DocumentEmbedding.Encoder;
 using Pgvector;
 
@@ -6,10 +7,10 @@ namespace OwnerGPT.Core.Services.Abstract
 {
     public class PGVServiceBase<T> where T : class
     {
-        private readonly PGVUnitOfWorkInMemeory PGVUnitOfWork;
+        private readonly IPGVUnitOfWork PGVUnitOfWork;
         private readonly SentenceEncoder SentenceEncoder;
 
-        public PGVServiceBase(PGVUnitOfWorkInMemeory pgvUnitOfWork)
+        public PGVServiceBase(IPGVUnitOfWork pgvUnitOfWork)
         {
             PGVUnitOfWork = pgvUnitOfWork;
             SentenceEncoder = new SentenceEncoder();

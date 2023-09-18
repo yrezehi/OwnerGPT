@@ -7,7 +7,6 @@ namespace OwnerGPT.DB.Repositores.PGVDB
 {
     public class PGVUnitOfWorkInMemeory : IPGVUnitOfWork
     {
-
         private readonly ConcurrentDictionary<int, VectorEmbedding> Database;
         private int IncrementIdentity;
 
