@@ -113,6 +113,11 @@
             formToSubmit.append("Agent.Introduction", formAttributes["introduction"]);
             formToSubmit.append("Agent.Instruction", formAttributes["instruction"]);
 
+            attachments.forEach(function (attachment, index) {
+                formToSubmit.append(`Attachments`, attachment);
+            });
+
+            formToSubmit.append("URLs", formAttributes["urls"]);
 
             fetch("@Url.Action("Update", "Agents")", {
                 method: 'POST',
