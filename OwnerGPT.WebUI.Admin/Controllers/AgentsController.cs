@@ -39,12 +39,12 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Update([FromForm] ConfigureAgentDTO agentConfiguration)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || agentConfiguration.Agent == null)
             {
                 return BadRequest(ModelState.ValidationState);
             }
 
-            //await Service.Update(agent);
+            await Service.Update(agentConfiguration.Agent);
 
             return RedirectToAction("Index");
         }

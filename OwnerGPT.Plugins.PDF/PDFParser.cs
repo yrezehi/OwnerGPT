@@ -1,12 +1,13 @@
 ﻿using OwnerGPT.Plugins.Manager.Interfaces;
+using OwnerGPT.Plugins.Parsers.PDF.Utilities;
 
 namespace OwnerGPT.Plugins.Parsers.PDF
 {
     public class PDFParser : IOwnerGPTParserPlugin<string, string>
     {
-        public Task<string> Process(string content)
+        public Task<string> Process(IFormFile formFile)
         {
-            throw new NotImplementedException();
+            return PDFUtil.ToText();
         }
     }
 }
