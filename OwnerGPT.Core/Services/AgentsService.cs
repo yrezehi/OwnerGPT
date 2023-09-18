@@ -1,7 +1,10 @@
-﻿using OwnerGPT.Core.Services.Abstract;
+﻿using Microsoft.AspNetCore.Http;
+using OwnerGPT.Core.Services.Abstract;
+using OwnerGPT.Core.Utilities.Extenstions;
 using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
 using OwnerGPT.Models.Entities.Agents;
 using OwnerGPT.Models.Entities.DTO;
+using OwnerGPT.Plugins.Parsers.PDF;
 
 namespace OwnerGPT.Core.Services
 {
@@ -13,10 +16,25 @@ namespace OwnerGPT.Core.Services
         {
              if(agentConfiguration.Agent == null)
             {
-                throw new Exception("Agent not found in configuration");
+                throw new Exception("Agent not found in configuration!");
             }
 
-             PDFPlugin
+            if(agentConfiguration.Attachments != null && agentConfiguration.Attachments.Length > 0)
+            {
+                IFormFile attachment = agentConfiguration.Attachments.First();
+
+                if(attachment != null)
+                {
+                    byte[] fileBytes = await attachment.GetBytes();
+
+                    if (fileBytes.Length == 0)
+                    {
+                        throw new Exception("Attachment is not valid!");
+                    }
+
+                    string processedFile = PDFParser.Process(fileBytes);
+                }
+            }
 
             return await this.Update(agentConfiguration.Agent);
         }
