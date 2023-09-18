@@ -16,10 +16,10 @@ namespace OwnerGPT.Core.Services.Abstract
         }
 
         public async Task<IEnumerable<T>> NearestNeighbor(string query) =>
-            await PGVUnitOfWork.NearestVectorNeighbor<T>(new Vector(SentenceEncoder.EncodeDocument(query)));
+            await PGVUnitOfWork.NearestVectorNeighbor<T>(SentenceEncoder.EncodeDocument(query));
 
         public async Task<Vector> Insert(string context) =>
-            await PGVUnitOfWork.InsertVector<T>(new Vector(SentenceEncoder.EncodeDocument(context)), context);
+            await PGVUnitOfWork.InsertVector<T>(SentenceEncoder.EncodeDocument(context), context);
 
         public async Task<int> Delete(int id) =>
             await PGVUnitOfWork.DeleteVector<T>(id);

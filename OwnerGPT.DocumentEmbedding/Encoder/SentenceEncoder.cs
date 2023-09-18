@@ -26,11 +26,16 @@ public sealed class SentenceEncoder : IDisposable
         _session.Dispose();
     }
 
-    private EncodedChunk[] ChunkAndEncode(string text, int chunkLength = 500, int chunkOverlap = 100, CancellationToken cancellationToken = default)
+    public EncodedChunk[] ChunkAndEncode(string text, int chunkLength = 500, int chunkOverlap = 100, CancellationToken cancellationToken = default)
     {
         var chunks = MergeSplits(text.Split(new char[] { '\n', '\r', ' ' }, StringSplitOptions.RemoveEmptyEntries), ' ', chunkLength, chunkOverlap);
         var vectors = Encode(chunks.ToArray(), cancellationToken: cancellationToken);
         return chunks.Zip(vectors, (c, v) => new EncodedChunk(c, v)).ToArray();
+    }
+
+    public IEnumerable<string> Chunk(string text, int chunkLength = 500, int chunkOverlap = 100, CancellationToken cancellationToken = default)
+    {
+        return MergeSplits(text.Split(new char[] { '\n', '\r', ' ' }, StringSplitOptions.RemoveEmptyEntries), ' ', chunkLength, chunkOverlap);
     }
 
     private List<string> MergeSplits(IEnumerable<string> splits, char separator, int chunkSize, int chunkOverlap)

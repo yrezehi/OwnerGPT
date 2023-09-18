@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using OwnerGPT.Core.Services.Abstract;
 using OwnerGPT.Core.Utilities.Extenstions;
+using OwnerGPT.DB.Repositores.PGVDB;
+using OwnerGPT.DB.Repositores.PGVDB.Interfaces;
 using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
+using OwnerGPT.DocumentEmbedding.Encoder;
+using OwnerGPT.Models.Entities;
 using OwnerGPT.Models.Entities.Agents;
 using OwnerGPT.Models.Entities.DTO;
 using OwnerGPT.Plugins.Parsers.PDF;
@@ -10,7 +14,14 @@ namespace OwnerGPT.Core.Services
 {
     public class AgentsService : RDBMSServiceBase<Agent>
     {
-        public AgentsService(IRDBMSUnitOfWork unitOfWork) : base(unitOfWork) { }
+
+        private readonly SentenceEncoder SentenceEncoder;
+        protected internal PGVUnitOfWorkInMemeory PGUnitOfWork { get; set; }
+
+        public AgentsService(IRDBMSUnitOfWork unitOfWork, PGVUnitOfWorkInMemeory pgUnitOfWork, SentenceEncoder sentenceEncoder) : base(unitOfWork) {
+            SentenceEncoder = sentenceEncoder;
+            PGUnitOfWork = pgUnitOfWork;
+        }
 
         public async Task<Agent> UpdateConfiguration(ConfigureAgentDTO agentConfiguration)
         {
@@ -33,6 +44,20 @@ namespace OwnerGPT.Core.Services
                     }
 
                     string processedFile = PDFParser.Process(fileBytes);
+
+                    var chunkedFiles = SentenceEncoder.Chunk(processedFile);
+
+                    foreach (var chunk in chunkedFiles)
+                    {
+                        await PGUnitOfWork.InsertVector<VectorEmbedding>(SentenceEncoder.EncodeDocument(chunk), chunk);
+                    }
+
+                    var nearstNeighbor = await PGUnitOfWork.NearestVectorNeighbor<VectorEmbedding>(SentenceEncoder.EncodeDocument("Flutter"));
+
+                    if (processedFile != null && processedFile.Length > 0)
+                    {
+                        agentConfiguration.Agent.Instruction += "\n Answer using below information if possible:\n" + processedFile;
+                    }
                 }
             }
 

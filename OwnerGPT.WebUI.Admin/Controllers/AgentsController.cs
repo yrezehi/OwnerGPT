@@ -44,7 +44,7 @@ namespace OwnerGPT.WebUI.Admin.Controllers
                 return BadRequest(ModelState.ValidationState);
             }
 
-            await Service.Update(agentConfiguration.Agent);
+            await Service.UpdateConfiguration(agentConfiguration);
 
             return RedirectToAction("Index");
         }

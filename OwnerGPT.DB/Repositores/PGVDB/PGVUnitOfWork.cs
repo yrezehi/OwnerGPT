@@ -20,7 +20,7 @@ namespace OwnerGPT.DB.Repositores.PGVDB
             Connection = builder.Build().OpenConnection();
         }
 
-        public async Task<IEnumerable<T>> NearestVectorNeighbor<T>(Vector vector)
+        public async Task<IEnumerable<T>> NearestVectorNeighbor<T>(float[] vector)
         {
             await using (var command = new NpgsqlCommand(PGVQueryExtension.NearestVectorNeighborsQuery<T>(DEFAULT_NEAREST_NEIGHBORS), Connection))
             {
@@ -39,16 +39,16 @@ namespace OwnerGPT.DB.Repositores.PGVDB
             }
         }
 
-        public async Task<Vector> InsertVector<T>(Vector vector, string context)
+        public async Task<Vector> InsertVector<T>(float[] vector, string context)
         {
             await using (var command = new NpgsqlCommand(PGVQueryExtension.InsertVectorQuery<T>(), Connection))
             {
-                command.Parameters.AddWithValue(vector);
+                command.Parameters.AddWithValue(new Vector(vector));
                 command.Parameters.AddWithValue(context);
 
                 await command.ExecuteNonQueryAsync();
 
-                return vector;
+                return new Vector(vector);
             }
         }
 

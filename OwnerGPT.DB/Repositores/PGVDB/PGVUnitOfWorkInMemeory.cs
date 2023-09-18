@@ -19,25 +19,25 @@ namespace OwnerGPT.DB.Repositores.PGVDB
             IncrementIdentity = 1;
         }
 
-        public async Task<IEnumerable<T>> NearestVectorNeighbor<T>(Vector vector)
+        public async Task<IEnumerable<T>> NearestVectorNeighbor<T>(float[] vector)
         {
             List<VectorEmbedding> vectors = (await All<VectorEmbedding>()).ToList();
 
             var nearestVectorNeighbor = vectors.Select(vectrorEmbedding => new
             {
                 VectorEmbedding = vectrorEmbedding,
-                Similarity = CosineSimilarity(vector.ToArray(), vectrorEmbedding.Embedding.ToArray())
+                Similarity = CosineSimilarity(vector, vectrorEmbedding.Embedding.ToArray())
             }).OrderBy(vectorEmbedding => vectorEmbedding.Similarity).Take(DEFAULT_NEAREST_NEIGHBORS)
             .Select(vectorEmbedding => vectorEmbedding.VectorEmbedding);
 
             return (IEnumerable<T>)nearestVectorNeighbor;
         }
 
-        public async Task<Vector> InsertVector<T>(Vector vector, string context)
+        public async Task<Vector> InsertVector<T>(float[] vector, string context)
         {
-            Database.TryAdd(IncrementIdentity++, new VectorEmbedding() { Context = context, Embedding = vector });
+            Database.TryAdd(IncrementIdentity++, new VectorEmbedding() { Context = context, Embedding = new Vector(vector) });
 
-            return vector;
+            return new Vector(vector);
         }
 
         public async Task<int> DeleteVector<T>(int id)
@@ -52,19 +52,20 @@ namespace OwnerGPT.DB.Repositores.PGVDB
 
         public async Task CreateTable<T>() { }
 
-        private float CosineSimilarity(float[] vec1, float[] vec2)
+        private double CosineSimilarity(float[] attributesOne, float[] attributesTwo)
         {
-            if (vec1.Length != vec2.Length)
-                throw new ArgumentException("Vectors must be of the same size.");
+            float dotProduct = 0;
+            float magnitudeOne = 0;
+            float magnitudeTwo = 0;
 
-            var dotProduct = vec1.Zip(vec2, (a, b) => a * b).Sum();
-            var normA = Math.Sqrt(vec1.Sum(a => Math.Pow(a, 2)));
-            var normB = Math.Sqrt(vec2.Sum(b => Math.Pow(b, 2)));
+            for (int i = 0; i < attributesOne.Length && i < attributesTwo.Length; i++)
+            {
+                dotProduct += (attributesOne[i] * attributesTwo[i]);
+                magnitudeOne += (attributesOne[i] * attributesOne[i]);
+                magnitudeTwo += (attributesTwo[i] * attributesTwo[i]);
+            }
 
-            if (normA == 0.0 || normB == 0.0)
-                throw new ArgumentException("Vectors must not be zero vectors.");
-
-            return (float)(dotProduct / (normA * normB));
+            return (float)Math.Max(0, 1 - (dotProduct / Math.Sqrt(magnitudeOne * magnitudeTwo)));
         }
     }
 }

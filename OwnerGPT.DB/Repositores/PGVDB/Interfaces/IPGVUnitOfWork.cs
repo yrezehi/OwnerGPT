@@ -5,9 +5,9 @@ namespace OwnerGPT.DB.Repositores.PGVDB.Interfaces
     public interface IPGVUnitOfWork
     {
 
-        Task<IEnumerable<T>> NearestVectorNeighbor<T>(Vector vector);
+        Task<IEnumerable<T>> NearestVectorNeighbor<T>(float[] vector);
 
-        Task<Vector> InsertVector<T>(Vector vector, string context);
+        Task<Vector> InsertVector<T>(float[] vector, string context);
 
         Task<int> DeleteVector<T>(int id);
 
