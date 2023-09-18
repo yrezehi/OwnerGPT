@@ -2,6 +2,7 @@
 using Microsoft.ML.OnnxRuntime.Tensors;
 using static OwnerGPT.DocumentEmbedding.Encoder.DenseTensorHelpers;
 using OwnerGPT.DocumentEmbedding.Encoder.BERTTokenizers.Base;
+using System.Linq;
 
 namespace OwnerGPT.DocumentEmbedding.Encoder;
 
@@ -28,11 +29,20 @@ public sealed class SentenceEncoder : IDisposable
         _session.Dispose();
     }
 
-    public EncodedChunk[] ChunkAndEncode(string text, int chunkLength = 500, int chunkOverlap = 100, CancellationToken cancellationToken = default)
+    public EncodedChunk[] ChunkAndEncode(string text, int chunkLength = 500, int chunkOverlap = 100, int maxChunks = -1, CancellationToken cancellationToken = default)
     {
         var chunks = ChunkText(text, ' ', chunkLength, chunkOverlap, maxChunks);
-        var vectors = Encode(chunks.ToArray(), cancellationToken: cancellationToken);
-        return chunks.Zip(vectors, (c, v) => new EncodedChunk(c, v)).ToArray();
+
+        var encodedChunks = new EncodedChunk[chunks.Count()];
+        var oneChunk = new string[1];
+        for (int i = 0; i < chunks.Count(); i++)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            oneChunk[0] = chunks.ElementAt(i);
+            var oneVector = Encode(oneChunk, cancellationToken: cancellationToken);
+            encodedChunks[i] = new EncodedChunk(oneChunk[0], oneVector[0]);
+        }
+        return encodedChunks;
     }
 
     public IEnumerable<string> ChunkText(string text, char separator = ' ', int chunkLength = 500, int chunkOverlap = 100, int maxChunks = -1)
