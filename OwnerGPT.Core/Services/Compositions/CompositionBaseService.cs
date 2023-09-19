@@ -1,4 +1,5 @@
 ﻿using OwnerGPT.Core.Services.Abstract;
+using OwnerGPT.Core.Services.Abstract.Interfaces;
 
 namespace OwnerGPT.Core.Services.Compositions
 {
@@ -7,7 +8,7 @@ namespace OwnerGPT.Core.Services.Compositions
         public readonly RDBMSServiceBase<T> RDBMSBaseService;
         public readonly PGVServiceBase<T> PGVServiceBaseSerivce;
 
-        public RDBMSPGVBaseService()
+        public RDBMSPGVBaseService(RDBMSServiceBase<T> RDBMSBaseService, PGVServiceBase<T> PGVServiceBase)
         {
 
         }

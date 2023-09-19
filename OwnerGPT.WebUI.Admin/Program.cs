@@ -1,4 +1,5 @@
 using OwnerGPT.Core.Services;
+using OwnerGPT.Core.Services.Compositions;
 using OwnerGPT.DB.Repositores.RDBMS;
 using OwnerGPT.DocumentEmbedding.Encoder;
 using OwnerGPT.LLM.Models.LLama;
@@ -19,6 +20,8 @@ builder.Services.AddTransient(typeof(GPTService), typeof(GPTService));
 
 builder.Services.AddSingleton(typeof(SentenceEncoder), typeof(SentenceEncoder));
 builder.Services.AddSingleton(typeof(LLamaModel), typeof(LLamaModel));
+
+builder.Services.AddTransient(typeof(CompositionBaseService<>), typeof(CompositionBaseService<>));
 
 var app = builder.Build();
 
