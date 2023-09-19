@@ -25,7 +25,7 @@ namespace OwnerGPT.Core.Services
 
         public async Task<Agent> UpdateConfiguration(ConfigureAgentDTO agentConfiguration)
         {
-             if(agentConfiguration.Agent == null)
+            if(agentConfiguration.Agent == null)
             {
                 throw new Exception("Agent not found in configuration!");
             }
@@ -51,7 +51,6 @@ namespace OwnerGPT.Core.Services
                         await PGUnitOfWork.InsertVector<VectorEmbedding>(SentenceEncoder.EncodeDocument(chunk), chunk);
                     }
 
-                    var nearstNeighbor = await PGUnitOfWork.NearestVectorNeighbor<VectorEmbedding>(SentenceEncoder.EncodeDocument("Flutter"));
 
                     if (processedFile != null && processedFile.Length > 0)
                     {

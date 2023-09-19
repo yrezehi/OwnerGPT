@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace OwnerGPT.Core.Services.Abstract.Interfaces
 {
-    public interface IRDBMSCRUDService<T> where T : class
+    public interface IRDBMSServiceBase<T> where T : class
     {
         IEnumerable<T> Find(Expression<Func<T, bool>> expression);
 

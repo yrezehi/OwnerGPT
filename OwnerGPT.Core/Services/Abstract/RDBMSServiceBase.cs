@@ -10,7 +10,7 @@ using Microsoft.ML;
 
 namespace OwnerGPT.Core.Services.Abstract
 {
-    public class RDBMSServiceBase<T> : IRDBMSCRUDService<T> where T : class
+    public class RDBMSServiceBase<T> : IRDBMSServiceBase<T> where T : class
     {
         public RDBMSServiceBase(IRDBMSUnitOfWork unitOfWork)
         { 
