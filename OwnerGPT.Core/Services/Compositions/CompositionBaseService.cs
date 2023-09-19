@@ -5,12 +5,13 @@ namespace OwnerGPT.Core.Services.Compositions
 {
     public class CompositionBaseService<T> where T : class
     {
-        public readonly RDBMSServiceBase<T> RDBMSBaseService;
-        public readonly PGVServiceBase<T> PGVServiceBaseSerivce;
+        public readonly RDBMSServiceBase<T> RDBMSServiceBase;
+        public readonly PGVServiceBase<T> PGVServiceBase;
 
-        public CompositionBaseService(RDBMSServiceBase<T> RDBMSBaseService, PGVServiceBase<T> PGVServiceBase)
+        public CompositionBaseService(RDBMSServiceBase<T> RDBMSServiceBase, PGVServiceBase<T> PGVServiceBase)
         {
-            RDBMSBaseService
+            this.RDBMSServiceBase = RDBMSServiceBase;
+            this.PGVServiceBase = PGVServiceBase;
         }
     }
 }

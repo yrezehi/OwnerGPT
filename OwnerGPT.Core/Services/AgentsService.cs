@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using OwnerGPT.Core.Services.Abstract;
+using OwnerGPT.Core.Services.Compositions;
 using OwnerGPT.Core.Utilities.Extenstions;
 using OwnerGPT.DB.Repositores.PGVDB;
 using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
@@ -11,15 +12,13 @@ using OwnerGPT.Plugins.Parsers.PDF;
 
 namespace OwnerGPT.Core.Services
 {
-    public class AgentsService : RDBMSServiceBase<Agent>
+    public class AgentsService : CompositionBaseService<Agent>
     {
 
         private readonly SentenceEncoder SentenceEncoder;
-        protected internal PGVUnitOfWorkInMemeory PGUnitOfWork { get; set; }
 
-        public AgentsService(IRDBMSUnitOfWork unitOfWork, PGVUnitOfWorkInMemeory pgUnitOfWork, SentenceEncoder sentenceEncoder) : base(unitOfWork) {
+        public AgentsService(RDBMSServiceBase<Agent> RDBMSServiceBase, PGVServiceBase<Agent> PGVServiceBase, SentenceEncoder sentenceEncoder) : base(RDBMSServiceBase, PGVServiceBase) {
             SentenceEncoder = sentenceEncoder;
-            PGUnitOfWork = pgUnitOfWork;
         }
 
         public async Task<Agent> UpdateConfiguration(ConfigureAgentDTO agentConfiguration)
@@ -47,7 +46,7 @@ namespace OwnerGPT.Core.Services
 
                     foreach (var chunk in chunkedFiles)
                     {
-                        await PGUnitOfWork.InsertVector<VectorEmbedding>(SentenceEncoder.EncodeDocument(chunk), chunk);
+                        await PGVServiceBase.Insert(chunk);
                     }
 
 
@@ -58,7 +57,7 @@ namespace OwnerGPT.Core.Services
                 }
             }
 
-            return await this.Update(agentConfiguration.Agent);
+            return await RDBMSServiceBase.Update(agentConfiguration.Agent);
         }
     }
 }
