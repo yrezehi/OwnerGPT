@@ -10,6 +10,6 @@ namespace OwnerGPT.Core.Services
     public class AccountService : CompositionBaseService<Account>
     {
 
-        public AccountService(RDBMSServiceBase<Account> RDBMSServiceBase, PGVServiceBase<Account> PGVServiceBase) : base(RDBMSServiceBase, PGVServiceBase) { }
+        public AccountService(RDBMSServiceBase<Account> RDBMSServiceBase, PGVServiceBase<VectorEmbedding> PGVServiceBase) : base(RDBMSServiceBase, PGVServiceBase) { }
     }
 }

@@ -19,8 +19,9 @@ namespace OwnerGPT.Core.Services
         public async IAsyncEnumerable<string> StreamReplay(string prompt, int agentId, CancellationToken cancellationToken)
         {
             var agent = await AgentsService.RDBMSServiceBase.NullableFindById(agentId);
+            var context = await AgentsService.PGVServiceBase.NearestNeighbor(prompt);
 
-            var promptToExecute = ( agent?.Instruction ?? Prompts.BOB_ASSISTANT ) + PromptsManager.PutAgentSuffix(PromptsManager.CleanPromptInput(prompt)/*PromptsManager.PutUserPrefix(PromptsManager.CleanPromptInput(prompt))*/);
+            var promptToExecute = ( agent?.Instruction + context ?? Prompts.BOB_ASSISTANT ) + PromptsManager.PutAgentSuffix(PromptsManager.CleanPromptInput(prompt)/*PromptsManager.PutUserPrefix(PromptsManager.CleanPromptInput(prompt))*/);
 
             foreach (var response in LLamaModel.Executor.Infer(promptToExecute, LLamaModel.InferenceParams, cancellationToken))
             {

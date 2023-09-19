@@ -17,7 +17,7 @@ namespace OwnerGPT.Core.Services
 
         private readonly SentenceEncoder SentenceEncoder;
 
-        public AgentsService(RDBMSServiceBase<Agent> RDBMSServiceBase, PGVServiceBase<Agent> PGVServiceBase, SentenceEncoder sentenceEncoder) : base(RDBMSServiceBase, PGVServiceBase) {
+        public AgentsService(RDBMSServiceBase<Agent> RDBMSServiceBase, PGVServiceBase<VectorEmbedding> PGVServiceBase, SentenceEncoder sentenceEncoder) : base(RDBMSServiceBase, PGVServiceBase) {
             SentenceEncoder = sentenceEncoder;
         }
 
@@ -52,7 +52,7 @@ namespace OwnerGPT.Core.Services
 
                     if (processedFile != null && processedFile.Length > 0)
                     {
-                        agentConfiguration.Agent.Instruction += "\n Answer using below information if possible:\n" + processedFile;
+                        agentConfiguration.Agent.Instruction += "\n Answer the question based on the context below:\n" + processedFile;
                     }
                 }
             }

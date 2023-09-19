@@ -28,28 +28,18 @@ public sealed class SentenceEncoder : IDisposable
         _session.Dispose();
     }
 
-    public EncodedChunk[] ChunkAndEncode(string text, int chunkLength = 500, int chunkOverlap = 100, int maxChunks = -1, CancellationToken cancellationToken = default)
+    public EncodedChunk[] ChunkAndEncode(string text, int chunkLength = 500, int chunkOverlap = 100, CancellationToken cancellationToken = default)
     {
-        var chunks = ChunkText(text, ' ', chunkLength, chunkOverlap, maxChunks);
-
-        var encodedChunks = new EncodedChunk[chunks.Count()];
-        var oneChunk = new string[1];
-        for (int i = 0; i < chunks.Count(); i++)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-            oneChunk[0] = chunks.ElementAt(i);
-            var oneVector = Encode(oneChunk, cancellationToken: cancellationToken);
-            encodedChunks[i] = new EncodedChunk(oneChunk[0], oneVector[0]);
-        }
-        return encodedChunks;
+        var chunks = MergeSplits(text.Split(new char[] { '\n', '\r', ' ' }, StringSplitOptions.RemoveEmptyEntries), ' ', chunkLength, chunkOverlap);
+        var vectors = Encode(chunks.ToArray(), cancellationToken: cancellationToken);
+        return chunks.Zip(vectors, (c, v) => new EncodedChunk(c, v)).ToArray();
     }
 
-    public IEnumerable<string> ChunkText(string text, char separator = ' ', int chunkLength = 500, int chunkOverlap = 100, int maxChunks = -1)
+    public IEnumerable<string> ChunkText(string text, int chunkLength = 500, int chunkOverlap = 100, CancellationToken cancellationToken = default)
     {
-        return MergeSplits(text.Split(new char[] { '\n', '\r', ' ', '.' }, StringSplitOptions.RemoveEmptyEntries), separator, chunkLength, chunkOverlap, maxChunks);
+        return MergeSplits(text.Split(new char[] { '\n', '\r', ' ' }, StringSplitOptions.RemoveEmptyEntries), ' ', chunkLength, chunkOverlap);
     }
-
-    private static List<string> MergeSplits(IEnumerable<string> splits, char separator, int chunkLength, int chunkOverlap, int maxChunks)
+    private List<string> MergeSplits(IEnumerable<string> splits, char separator, int chunkSize, int chunkOverlap)
     {
         const int separatorLength = 1;
         var docs = new List<string>();
@@ -58,19 +48,19 @@ public sealed class SentenceEncoder : IDisposable
         foreach (string d in splits)
         {
             int len = d.Length;
-            
-            if (total + len + (currentDoc.Count > 0 ? separatorLength : 0) > chunkLength)
+
+            if (total + len + (currentDoc.Count > 0 ? separatorLength : 0) > chunkSize)
             {
                 if (currentDoc.Count > 0)
                 {
                     string doc = string.Join(separator, currentDoc);
-                    
+
                     if (!string.IsNullOrWhiteSpace(doc))
                     {
                         docs.Add(doc);
                     }
 
-                    while (total > chunkOverlap || (total + len + (currentDoc.Count > 0 ? separatorLength : 0) > chunkLength && total > 0))
+                    while (total > chunkOverlap || total + len + (currentDoc.Count > 0 ? separatorLength : 0) > chunkSize && total > 0)
                     {
                         total -= currentDoc[0].Length + (currentDoc.Count > 1 ? separatorLength : 0);
                         currentDoc.RemoveAt(0);
@@ -79,8 +69,6 @@ public sealed class SentenceEncoder : IDisposable
             }
             currentDoc.Add(d);
             total += len + (currentDoc.Count > 1 ? separatorLength : 0);
-
-            if (docs.Count > maxChunks) return docs;
         }
 
         string final_doc = string.Join(separator, currentDoc);
@@ -92,6 +80,7 @@ public sealed class SentenceEncoder : IDisposable
 
         return docs;
     }
+
 
     private float[][] Encode(string[] sentences, CancellationToken cancellationToken = default)
     {
