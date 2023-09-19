@@ -21,7 +21,7 @@ builder.Services.AddTransient(typeof(GPTService), typeof(GPTService));
 builder.Services.AddSingleton(typeof(SentenceEncoder), typeof(SentenceEncoder));
 builder.Services.AddSingleton(typeof(LLamaModel), typeof(LLamaModel));
 
-builder.Services.AddTransient(typeof(CompositionBaseService<>), typeof(CompositionBaseService<>));
+builder.Services.AddTransient(typeof(ICompositionBaseService<>), typeof(ICompositionBaseService<>));
 
 var app = builder.Build();
 
