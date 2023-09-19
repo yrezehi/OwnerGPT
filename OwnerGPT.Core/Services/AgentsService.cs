@@ -44,7 +44,7 @@ namespace OwnerGPT.Core.Services
                     }
 
                     string processedFile = PDFParser.Process(fileBytes);
-                    var chunkedFiles = SentenceEncoder.Chunk(processedFile);
+                    var chunkedFiles = SentenceEncoder.ChunkText(processedFile);
 
                     foreach (var chunk in chunkedFiles)
                     {

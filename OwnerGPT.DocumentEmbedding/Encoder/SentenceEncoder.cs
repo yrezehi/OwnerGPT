@@ -47,7 +47,7 @@ public sealed class SentenceEncoder : IDisposable
 
     public IEnumerable<string> ChunkText(string text, char separator = ' ', int chunkLength = 500, int chunkOverlap = 100, int maxChunks = -1)
     {
-        return MergeSplits(text.Split(new char[] { '\n', '\r', ' ' }, StringSplitOptions.RemoveEmptyEntries), separator, chunkLength, chunkOverlap, maxChunks);
+        return MergeSplits(text.Split(new char[] { '\n', '\r', ' ', '.' }, StringSplitOptions.RemoveEmptyEntries), separator, chunkLength, chunkOverlap, maxChunks);
     }
 
     private static List<string> MergeSplits(IEnumerable<string> splits, char separator, int chunkLength, int chunkOverlap, int maxChunks)
