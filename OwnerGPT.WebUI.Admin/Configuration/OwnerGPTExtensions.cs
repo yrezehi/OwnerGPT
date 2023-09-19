@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OwnerGPT.Core.Services.Abstract;
+using OwnerGPT.Core.Services.Abstract.Interfaces;
 using OwnerGPT.Core.Utilities;
 using OwnerGPT.DB.Repositores.PGVDB;
 using OwnerGPT.DB.Repositores.RDBMS;
@@ -24,6 +26,8 @@ namespace OwnerGPT.WebUI.Admin.Configuration
         {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
+            builder.Services.AddTransient(typeof(PGVServiceBase<>), typeof(PGVServiceBase<>));
+
             if (builder.Environment.IsDevelopment())
             {
                 builder.Services.AddSingleton(typeof(PGVUnitOfWorkInMemeory), typeof(PGVUnitOfWorkInMemeory));
@@ -38,6 +42,8 @@ namespace OwnerGPT.WebUI.Admin.Configuration
         public static WebApplicationBuilder RegisterRDBMS(this WebApplicationBuilder builder)
         {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
+
+            builder.Services.AddTransient(typeof(RDBMSServiceBase<>), typeof(RDBMSServiceBase<>));
 
             builder.Services.AddDbContext<RDBMSGenericRepositoryContext>(option => option.UseInMemoryDatabase("OWNERGPT"));
             builder.Services.AddTransient<IRDBMSUnitOfWork, RDBMSUnitOfWork<RDBMSGenericRepositoryContext>>();
