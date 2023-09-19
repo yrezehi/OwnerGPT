@@ -1,11 +1,4 @@
-﻿using OwnerGPT.DB.Repositores.PGVDB;
-using OwnerGPT.DocumentEmbedding.Encoder;
-using Pgvector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Pgvector;
 
 namespace OwnerGPT.Core.Services.Abstract.Interfaces
 {

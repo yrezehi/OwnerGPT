@@ -1,6 +1,4 @@
-﻿using OwnerGPT.Models.Entities.Agents;
-
-namespace OwnerGPT.LLM.PromptEnginnering
+﻿namespace OwnerGPT.LLM.PromptEnginnering
 {
     public class PromptsManager
     {

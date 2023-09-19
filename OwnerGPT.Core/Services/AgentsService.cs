@@ -2,7 +2,6 @@
 using OwnerGPT.Core.Services.Abstract;
 using OwnerGPT.Core.Utilities.Extenstions;
 using OwnerGPT.DB.Repositores.PGVDB;
-using OwnerGPT.DB.Repositores.PGVDB.Interfaces;
 using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
 using OwnerGPT.DocumentEmbedding.Encoder;
 using OwnerGPT.Models.Entities;

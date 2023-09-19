@@ -2,7 +2,6 @@
 using Microsoft.ML.OnnxRuntime.Tensors;
 using static OwnerGPT.DocumentEmbedding.Encoder.DenseTensorHelpers;
 using OwnerGPT.DocumentEmbedding.Encoder.BERTTokenizers.Base;
-using System.Linq;
 
 namespace OwnerGPT.DocumentEmbedding.Encoder;
 

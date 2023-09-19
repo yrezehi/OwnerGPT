@@ -1,5 +1,4 @@
 ﻿using OwnerGPT.LLM.PromptEnginnering;
-using System.Reflection.Metadata;
 
 namespace OwnerGPT.Experimental.LLMManager
 {
