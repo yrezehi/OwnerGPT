@@ -16,6 +16,6 @@ namespace OwnerGPT.WebUI.Admin.Controllers
 
         [HttpGet("[controller]/[action]")]
         public async Task<IActionResult> Manager() =>
-            View(await Service.GetAll());
+            View(await Service.RDBMSServiceBase.GetAll());
     }
 }

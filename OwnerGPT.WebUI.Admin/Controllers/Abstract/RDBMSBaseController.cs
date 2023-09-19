@@ -5,7 +5,7 @@ using OwnerGPT.Core.Services.Compositions;
 namespace OwnerGPT.WebUI.Admin.Controllers.Abstract
 {
     [Route("[controller]")]
-    public class RDBMSBaseController<IService, T> : Controller where IService : ICompositionBaseService<T> where T : class
+    public class RDBMSBaseController<IService, T> : Controller where IService : CompositionBaseService<T> where T : class
     {
         public IService Service { get; set; }
 

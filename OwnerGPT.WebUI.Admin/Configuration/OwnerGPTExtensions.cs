@@ -3,6 +3,7 @@ using OwnerGPT.Core.Services.Abstract;
 using OwnerGPT.Core.Services.Abstract.Interfaces;
 using OwnerGPT.Core.Utilities;
 using OwnerGPT.DB.Repositores.PGVDB;
+using OwnerGPT.DB.Repositores.PGVDB.Interfaces;
 using OwnerGPT.DB.Repositores.RDBMS;
 using OwnerGPT.DB.Repositores.RDBMS.Abstracts;
 using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
@@ -30,10 +31,10 @@ namespace OwnerGPT.WebUI.Admin.Configuration
 
             if (builder.Environment.IsDevelopment())
             {
-                builder.Services.AddSingleton(typeof(PGVUnitOfWorkInMemeory), typeof(PGVUnitOfWorkInMemeory));
+                builder.Services.AddSingleton(typeof(IPGVUnitOfWork), typeof(PGVUnitOfWorkInMemeory));
             } else
             {
-                builder.Services.AddTransient(typeof(PGVUnitOfWork), typeof(PGVUnitOfWork));
+                builder.Services.AddTransient(typeof(IPGVUnitOfWork), typeof(PGVUnitOfWork));
             }
 
             return builder;

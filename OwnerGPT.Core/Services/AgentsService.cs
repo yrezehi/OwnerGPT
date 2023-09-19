@@ -12,7 +12,7 @@ using OwnerGPT.Plugins.Parsers.PDF;
 
 namespace OwnerGPT.Core.Services
 {
-    public class AgentsService : ICompositionBaseService<Agent>
+    public class AgentsService : CompositionBaseService<Agent>
     {
 
         private readonly SentenceEncoder SentenceEncoder;
