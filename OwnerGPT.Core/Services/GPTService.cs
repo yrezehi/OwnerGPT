@@ -47,8 +47,8 @@ namespace OwnerGPT.Core.Services
                     var contextEmbedding = retreviedContext.First();
 
                     // TODO: move below string to prompt enginner module
-                    promptToExecute += "Answer the question based on the Context below. Keep the answer short and concise. Respond \"Unsure about answer\" if you don't know.\n";
-                    promptToExecute += "Question: " + prompt + "\n";
+                    promptToExecute += "Answer the Question based on the Context below. Keep the answer short and concise. Respond \"Unsure about answer\" if you don't know.\n\n";
+                    promptToExecute += "Question: " + prompt + "\n\n";
                     promptToExecute += "Context: " + contextEmbedding.Context;
                 }
                 else
@@ -58,7 +58,7 @@ namespace OwnerGPT.Core.Services
 
                 // TODO: change inference-params's anti-prompt to be "Answer: " 
                 // TODO: create prompt manager put answer suffix
-                promptToExecute += "\nAnswer: ";
+                promptToExecute += "\n\nAnswer: ";
 
             }
             else

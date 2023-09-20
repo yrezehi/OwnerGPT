@@ -3,6 +3,7 @@ using UglyToad.PdfPig.Content;
 using UglyToad.PdfPig;
 using UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor;
 using UglyToad.PdfPig.Writer;
+using System.Text.RegularExpressions;
 
 namespace OwnerGPT.Plugins.Parsers.PDF.Utilities
 {
@@ -16,11 +17,16 @@ namespace OwnerGPT.Plugins.Parsers.PDF.Utilities
             {
                 foreach (Page page in document.GetPages())
                 {
-                    contentBuilder.AppendLine(ContentOrderTextExtractor.GetText(page));
+                    contentBuilder.AppendLine(PDFUtil.Clean(ContentOrderTextExtractor.GetText(page)));
                 }
             }
 
             return contentBuilder.ToString();
+        }
+
+        public static string Clean(string content)
+        {
+            return Regex.Replace(content, @"[^\w\s\-]*", "");
         }
 
         public static string ManyToText(params byte[][] fileBytes)
