@@ -52,7 +52,7 @@ namespace OwnerGPT.Core.Services
 
                     if (processedFile != null && processedFile.Length > 0)
                     {
-                        agentConfiguration.Agent.Instruction += "\n Answer the question based on the context below:\n" + processedFile;
+                        agentConfiguration.Agent.Instruction += "\n Answer the question based on the context below:\n";// + processedFile;
                     }
                 }
             }
