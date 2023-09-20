@@ -18,10 +18,7 @@ namespace OwnerGPT.Core.Services
 
         public async IAsyncEnumerable<string> StreamReplay(string prompt, int agentId, CancellationToken cancellationToken)
         {
-            var agent = await AgentsService.RDBMSServiceBase.NullableFindById(agentId);
-            var context = (await AgentsService.PGVServiceBase.NearestNeighbor(prompt)).FirstOrDefault();
-
-            var promptToExecute = ( agent?.Instruction + context.Context + "\nQuestion:" + prompt ?? Prompts.BOB_ASSISTANT ) /*+ PromptsManager.PutAgentSuffix(PromptsManager.CleanPromptInput(prompt)/*PromptsManager.PutUserPrefix(PromptsManager.CleanPromptInput(prompt))*/;
+            var promptToExecute = await this.ConstructPrompt(prompt, agentId);
 
             foreach (var response in LLamaModel.Executor.Infer(promptToExecute, LLamaModel.InferenceParams, cancellationToken))
             {
@@ -30,7 +27,7 @@ namespace OwnerGPT.Core.Services
         }
 
         // TODO: remove prompt logic from replay functionallity
-        public async Task<string> ConstructPrompt(string prompt, int agentId, CancellationToken cancellationToken)
+        public async Task<string> ConstructPrompt(string prompt, int agentId)
         {
             var agent = await AgentsService.RDBMSServiceBase.NullableFindById(agentId);
 
@@ -47,11 +44,12 @@ namespace OwnerGPT.Core.Services
                 // there is relative context
                 if (retreviedContext.Count() > 0)
                 {
-                    var context = retreviedContext.First();
+                    var contextEmbedding = retreviedContext.First();
 
                     // TODO: move below string to prompt enginner module
-                    promptToExecute += "Answer the question based on the Context below. Keep the answer short and concise. Respond \"Unsure about answer\"\n";
-                    promptToExecute += "Context: \n" + context;
+                    promptToExecute += "Answer the question based on the Context below. Keep the answer short and concise. Respond \"Unsure about answer\" if you don't know.\n";
+                    promptToExecute += "Question: " + prompt + "\n";
+                    promptToExecute += "Context: " + contextEmbedding.Context;
                 }
                 else
                 { // there is no relative context
