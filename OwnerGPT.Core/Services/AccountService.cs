@@ -32,7 +32,7 @@ namespace OwnerGPT.Core.Services
 
             var account = await this.RDBMSServiceBase.FindByProperty(entity => entity.Email!, credentials.Identifier);
             
-            CookieAuthenticationSignIn(account);
+            this.CookieAuthenticationSignIn(account);
 
             return account;
         }
