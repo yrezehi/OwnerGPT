@@ -27,14 +27,18 @@ namespace OwnerGPT.Core.Services
             HttpContextAccessor = httpContextAccessor;
         }
 
-        public async void SignIn(CredentialsDTO credentials)
+        public async Task<Account> SignIn(CredentialsDTO credentials)
         {
             if (!ADAuthentication.Authenticate(credentials.Identifier, credentials.Password))
                 throw new Exception("Invalid authentication attempt!");
 
+            await RDBMSServiceBase.Create(new Account { Email = "yasser@gmail.com", Active = true, LastSignin = new DateTime() });
+
             var account = await this.RDBMSServiceBase.FindByProperty<string>(entity => entity.Email!, credentials.Identifier);
             
             CookieAuthenticationSignIn(account);
+
+            return account;
         }
 
         private async void CookieAuthenticationSignIn(Account account)

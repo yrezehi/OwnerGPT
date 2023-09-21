@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OwnerGPT.Core.Services;
 using OwnerGPT.Models.Entities;
+using OwnerGPT.Models.Entities.DTO;
 using OwnerGPT.WebUI.Admin.Controllers.Abstract;
 
 namespace OwnerGPT.WebUI.Admin.Controllers
@@ -17,5 +18,9 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         [HttpGet("[controller]/[action]")]
         public async Task<IActionResult> Manager() =>
             View(await Service.RDBMSServiceBase.GetAll());
+
+        [HttpPost("[controller]/[action]")]
+        public async Task<IActionResult> SignIn([FromBody] CredentialsDTO credintalsDTO) =>
+            Ok(await Service.SignIn(credintalsDTO));
     }
 }
