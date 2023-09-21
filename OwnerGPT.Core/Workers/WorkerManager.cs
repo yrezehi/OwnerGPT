@@ -1,12 +1,12 @@
 ﻿namespace OwnerGPT.Core.Threads
 {
-    public class ThreadJobManager
+    public class WorkerManager
     {
-        public readonly Queue<ThreadJob> Queue;
+        public readonly Queue<WorkerJob> Queue;
 
-        public ThreadJobManager()
+        public WorkerManager()
         {
-            Queue = new Queue<ThreadJob>();
+            Queue = new Queue<WorkerJob>();
         }
 
         public bool IsAnyJobAvailable()

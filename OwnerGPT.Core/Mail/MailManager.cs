@@ -61,13 +61,12 @@ namespace OwnerGPT.Core.Mail
 
         private SmtpClient CreateSMTPClient()
         {
-            return new SmtpClient
-                {
-                    Host = SMTP_SERVER,
-                    Port = SMTP_PORT,
-                    EnableSsl = false,
-                    Credentials = new NetworkCredential(SMTP_EMAIL, SMTP_PASSWORD)
-                };
+            return new SmtpClient {
+                Host = SMTP_SERVER,
+                Port = SMTP_PORT,
+                EnableSsl = false,
+                Credentials = new NetworkCredential(SMTP_EMAIL, SMTP_PASSWORD)
+            };
         }
     }
 }

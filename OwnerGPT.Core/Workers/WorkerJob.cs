@@ -1,6 +1,6 @@
 ﻿namespace OwnerGPT.Core.Threads
 {
-    public class ThreadJob
+    public class WorkerJob
     {
         public int Id { get; set; }
         public readonly string Description;
@@ -9,7 +9,7 @@
         public Thread JobThread { get; }
         public readonly ParameterizedThreadStart JonAction;
 
-        public ThreadJob(string description, ParameterizedThreadStart jobAction, bool triggerImmediately = false)
+        public WorkerJob(string description, ParameterizedThreadStart jobAction, bool triggerImmediately = false)
         {
             CreationTime = DateTime.Now;
             Description = description;
