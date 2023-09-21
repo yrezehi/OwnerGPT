@@ -23,5 +23,11 @@ namespace OwnerGPT.WebUI.Admin.Controllers.Abstract
             return Ok(await Service.RDBMSServiceBase.GetAll());
         }
 
+        [HttpGet("api/[action]")]
+        public virtual async Task<IActionResult> Search(string property, string value)
+        {
+            return Ok(await Service.RDBMSServiceBase.SearchByProperty<string>(property, value));
+        }
+
     }
 }
