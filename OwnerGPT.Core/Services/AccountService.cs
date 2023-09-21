@@ -32,8 +32,6 @@ namespace OwnerGPT.Core.Services
             if (!ADAuthentication.Authenticate(credentials.Identifier, credentials.Password))
                 throw new Exception("Invalid authentication attempt!");
 
-            await RDBMSServiceBase.Create(new Account { Email = "yasser@gmail.com", Active = true, LastSignin = new DateTime() });
-
             var account = await this.RDBMSServiceBase.FindByProperty<string>(entity => entity.Email!, credentials.Identifier);
             
             CookieAuthenticationSignIn(account);

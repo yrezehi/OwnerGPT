@@ -51,7 +51,7 @@ namespace OwnerGPT.Core.Services.Abstract
                     Expression.Constant(value, typeof(TValue))
                 ), selector.Parameters);
 
-            T? entity = await DBSet.FindAsync(predicate);
+            T? entity = await DBSet.FirstOrDefaultAsync(predicate);
 
             if (entity == null)
                 throw new Exception($"Find by property was not found!");
