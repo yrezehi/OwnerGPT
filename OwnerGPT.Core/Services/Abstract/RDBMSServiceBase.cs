@@ -43,6 +43,22 @@ namespace OwnerGPT.Core.Services.Abstract
             };
         }
 
+        public async Task<T> FindByProperty<TValue>(Expression<Func<T, TValue>> selector, TValue value)
+        {
+            var predicate = Expression.Lambda<Func<T, bool>>(
+                Expression.Equal(
+                    selector.Body,
+                    Expression.Constant(value, typeof(TValue))
+                ), selector.Parameters);
+
+            T? entity = await DBSet.FindAsync(predicate);
+
+            if (entity == null)
+                throw new Exception($"Find by property was not found!");
+
+            return entity;
+        }
+
         public virtual async Task<T> FindById(int id)
         {
             var entity = await DBSet.FindAsync(id);
