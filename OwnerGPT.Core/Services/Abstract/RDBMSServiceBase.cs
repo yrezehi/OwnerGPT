@@ -45,11 +45,7 @@ namespace OwnerGPT.Core.Services.Abstract
 
         public async Task<T> FindByProperty<TValue>(Expression<Func<T, TValue>> selector, TValue value)
         {
-            var predicate = Expression.Lambda<Func<T, bool>>(
-                Expression.Equal(
-                    selector.Body,
-                    Expression.Constant(value, typeof(TValue))
-                ), selector.Parameters);
+            var predicate = Expression.Lambda<Func<T, bool>>(Expression.Equal(selector.Body, Expression.Constant(value, typeof(TValue))), selector.Parameters);
 
             T? entity = await DBSet.FirstOrDefaultAsync(predicate);
 
