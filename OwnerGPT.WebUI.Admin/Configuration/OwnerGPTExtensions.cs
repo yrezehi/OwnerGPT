@@ -2,11 +2,11 @@
 using OwnerGPT.Core.Services.Abstract;
 using OwnerGPT.Core.Services.Abstract.Interfaces;
 using OwnerGPT.Core.Utilities;
-using OwnerGPT.DB.Repositores.PGVDB;
-using OwnerGPT.DB.Repositores.PGVDB.Interfaces;
-using OwnerGPT.DB.Repositores.RDBMS;
-using OwnerGPT.DB.Repositores.RDBMS.Abstracts;
-using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
+using OwnerGPT.Databases.Repositores.PGVDB;
+using OwnerGPT.Databases.Repositores.PGVDB.Interfaces;
+using OwnerGPT.Databases.Repositores.RDBMS;
+using OwnerGPT.Databases.Repositores.RDBMS.Abstracts;
+using OwnerGPT.Databases.Repositores.RDBMS.Abstracts.Interfaces;
 
 namespace OwnerGPT.WebUI.Admin.Configuration
 {

@@ -2,7 +2,7 @@
 using OwnerGPT.Models.Entities;
 using OwnerGPT.Models.Entities.Agents;
 
-namespace OwnerGPT.DB.Repositores.RDBMS
+namespace OwnerGPT.Databases.Repositores.RDBMS
 {
     public class RDBMSGenericRepositoryContext : DbContext
     {

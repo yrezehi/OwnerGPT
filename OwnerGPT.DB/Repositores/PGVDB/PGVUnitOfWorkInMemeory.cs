@@ -1,9 +1,9 @@
 ﻿using Pgvector;
 using System.Collections.Concurrent;
-using OwnerGPT.DB.Repositores.PGVDB.Interfaces;
 using OwnerGPT.Models.Entities;
+using OwnerGPT.Databases.Repositores.PGVDB.Interfaces;
 
-namespace OwnerGPT.DB.Repositores.PGVDB
+namespace OwnerGPT.Databases.Repositores.PGVDB
 {
     public class PGVUnitOfWorkInMemeory : IPGVUnitOfWork
     {
@@ -59,12 +59,12 @@ namespace OwnerGPT.DB.Repositores.PGVDB
 
             for (int i = 0; i < attributesOne.Length && i < attributesTwo.Length; i++)
             {
-                dotProduct += (attributesOne[i] * attributesTwo[i]);
-                magnitudeOne += (attributesOne[i] * attributesOne[i]);
-                magnitudeTwo += (attributesTwo[i] * attributesTwo[i]);
+                dotProduct += attributesOne[i] * attributesTwo[i];
+                magnitudeOne += attributesOne[i] * attributesOne[i];
+                magnitudeTwo += attributesTwo[i] * attributesTwo[i];
             }
 
-            return (float)Math.Max(0, 1 - (dotProduct / Math.Sqrt(magnitudeOne * magnitudeTwo)));
+            return (float)Math.Max(0, 1 - dotProduct / Math.Sqrt(magnitudeOne * magnitudeTwo));
         }
     }
 }

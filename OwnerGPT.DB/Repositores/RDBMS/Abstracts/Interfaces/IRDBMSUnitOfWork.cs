@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces
+namespace OwnerGPT.Databases.Repositores.RDBMS.Abstracts.Interfaces
 {
     public interface IRDBMSUnitOfWork : IDisposable
     {

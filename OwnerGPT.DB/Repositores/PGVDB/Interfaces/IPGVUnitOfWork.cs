@@ -1,6 +1,6 @@
 ﻿using Pgvector;
 
-namespace OwnerGPT.DB.Repositores.PGVDB.Interfaces
+namespace OwnerGPT.Databases.Repositores.PGVDB.Interfaces
 {
     public interface IPGVUnitOfWork
     {

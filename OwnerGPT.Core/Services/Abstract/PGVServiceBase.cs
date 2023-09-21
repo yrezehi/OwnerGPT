@@ -1,5 +1,5 @@
 ﻿using OwnerGPT.Core.Services.Abstract.Interfaces;
-using OwnerGPT.DB.Repositores.PGVDB.Interfaces;
+using OwnerGPT.Databases.Repositores.PGVDB.Interfaces;
 using OwnerGPT.DocumentEmbedding.Encoder;
 using Pgvector;
 

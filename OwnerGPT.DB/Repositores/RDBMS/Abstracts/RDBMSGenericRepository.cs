@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
+using OwnerGPT.Databases.Repositores.RDBMS.Abstracts.Interfaces;
 
-namespace OwnerGPT.DB.Repositores.RDBMS.Abstracts
+namespace OwnerGPT.Databases.Repositores.RDBMS.Abstracts
 {
     public class RDBMSGenericRepository<T> : IRDBMSGenericRepository<T> where T : class
     {

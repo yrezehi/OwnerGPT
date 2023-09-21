@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using OwnerGPT.Core.Authentication;
 using OwnerGPT.Core.Services;
 using OwnerGPT.Core.Services.Compositions;
-using OwnerGPT.DB.Repositores.RDBMS;
+using OwnerGPT.Databases.Repositores.RDBMS;
 using OwnerGPT.DocumentEmbedding.Encoder;
 using OwnerGPT.LLM.Models.LLama;
 using OwnerGPT.WebUI.Admin.Configuration;

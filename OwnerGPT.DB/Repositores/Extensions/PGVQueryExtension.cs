@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 
-namespace OwnerGPT.DB.Repositores.Extensions
+namespace OwnerGPT.Databases.Repositores.Extensions
 {
     public static class PGVQueryExtension
     {
