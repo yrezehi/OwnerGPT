@@ -6,13 +6,13 @@ namespace OwnerGPT.Core.Utilities
     public static class ReflectionUtil
     {
         public static object GetValueOf(object targetObject, string propertyName) =>
-        targetObject.GetType().GetProperty(propertyName)!.GetValue(targetObject, null)!;
+        targetObject.GetType().GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance)!.GetValue(targetObject, null)!;
 
         public static void SetValueOf(object targetObject, string propertyName, object value) =>
-            targetObject.GetType().GetProperty(propertyName)!.SetValue(targetObject, value);
+            targetObject.GetType().GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance)!.SetValue(targetObject, value);
 
         public static bool ContainsProperty(object targetObject, string propertyName) =>
-            targetObject.GetType().GetProperty(propertyName) != null;
+            targetObject.GetType().GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) != null;
 
         public static IEnumerable<PropertyInfo> GetInterfacedObjectProperties(Type type) =>
             (new Type[] { type })

@@ -6,6 +6,7 @@ using OwnerGPT.Core.Services.Abstract.Interfaces;
 using OwnerGPT.Core.Utilities;
 using OwnerGPT.Core.Utilities.Extenstions;
 using OwnerGPT.Databases.Repositores.RDBMS.Abstracts.Interfaces;
+using System.Reflection;
 
 namespace OwnerGPT.Core.Services.Abstract
 {
@@ -55,7 +56,12 @@ namespace OwnerGPT.Core.Services.Abstract
             if(!properties.Any(property => properties.Any(searchableProperty => searchableProperty.ToLower().Equals(propertyName.ToLower()))))
                 throw new Exception($"Property is not allowed to be searched or does not exists!");
 
-            var predicate = Expression.Lambda<Func<T, bool>>(Expression.Equal(selector.Body, Expression.Constant(value, typeof(TValue))), selector.Parameters);
+            var parameter = Expression.Parameter(typeof(T), "property");
+            var body = Expression.PropertyOrField(parameter, propertyName);
+            MethodInfo containsMethod = typeof(string).GetMethod("Contains", new[] { typeof(string), typeof(StringComparison) })!;
+            var expression = Expression.Call(body, containsMethod, Expression.Constant(value, typeof(string)), Expression.Constant(StringComparison.OrdinalIgnoreCase));
+
+            var predicate = Expression.Lambda<Func<T, bool>>(expression, parameter);
 
             T? entity = await DBSet.FirstOrDefaultAsync(predicate);
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Formatters.Internal;
 using OwnerGPT.Core.Authentication;
 using OwnerGPT.Core.Services.Abstract;
 using OwnerGPT.Core.Services.Abstract.Interfaces;
@@ -30,10 +31,15 @@ namespace OwnerGPT.Core.Services
             if (!ADAuthentication.Authenticate(credentials.Identifier, credentials.Password))
                 throw new Exception("Invalid authentication attempt!");
 
-            var account = await this.RDBMSServiceBase.FindByProperty(entity => entity.Email!, credentials.Identifier);
-            
-            this.CookieAuthenticationSignIn(account);
+            await this.RDBMSServiceBase.Create(new Account
+            {
+                Active = true,
+                Email = "yasser@gmail.com",
+                LastSignin = DateTime.Now
+            });
 
+            var account = await this.RDBMSServiceBase.FindByProperty(entity => entity.Email!, credentials.Identifier);
+        
             return account;
         }
 
