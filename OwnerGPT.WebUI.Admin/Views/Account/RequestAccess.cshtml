@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Request Access";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OwnerGPT Admin</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- TODO: Siwtch back to ~/dist/site.css on deployment -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="wrapper-container">
+
+        <main role="main">
+            <section class="flex flex-col md:flex-row h-screen items-center">
+
+                <div alt="" class="w-full h-full object-cover">
+                    <div class="h-[100%] w-[100%] absolute overflow-hidden">
+                        @await Html.PartialAsync("_DynamicBackground")
+                    </div>
+                </div>
+
+            </section>
+        </main>
+
+        <footer></footer>
+    </div>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

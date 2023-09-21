@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OwnerGPT.Databases.Repositores.RDBMS.Abstracts.Interfaces;
-using OwnerGPT.DB.Repositores.RDBMS.Abstracts;
 
 namespace OwnerGPT.Databases.Repositores.RDBMS.Abstracts
 {

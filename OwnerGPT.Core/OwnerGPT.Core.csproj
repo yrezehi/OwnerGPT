@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OwnerGPT.DB\OwnerGPT.DB.csproj" />
+    <ProjectReference Include="..\OwnerGPT.Databases\OwnerGPT.Databases.csproj" />
     <ProjectReference Include="..\OwnerGPT.DocumentEmbedding\OwnerGPT.DocumentEmbedding.csproj" />
     <ProjectReference Include="..\OwnerGPT.LLM\OwnerGPT.LLM.csproj" />
     <ProjectReference Include="..\OwnerGPT.Plugins.PDF\OwnerGPT.Plugins.Parsers.PDF.csproj" />
