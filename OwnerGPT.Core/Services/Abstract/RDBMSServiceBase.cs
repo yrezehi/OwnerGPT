@@ -45,10 +45,10 @@ namespace OwnerGPT.Core.Services.Abstract
         }
 
         // meant to be used by external API calls, that's why there is an extra validation layer
-        public async Task<T> SearchByProperty<TValue>(string propertyName, TValue value)
+        public async Task<IEnumerable<T>> SearchByProperty<TValue>(string propertyName, TValue value)
         {
-            var enetityInstance = ((IEntity)Activator.CreateInstance(typeof(T))!);
-            var properties = enetityInstance.SearchableProperties();
+            IEntity enetityInstance = ((IEntity)Activator.CreateInstance(typeof(T))!);
+            List<string> properties = enetityInstance.SearchableProperties();
 
             if (!ReflectionUtil.ContainsProperty(enetityInstance, propertyName))
                 throw new Exception($"Property is not allowed to be searched or does not exists!");
@@ -56,19 +56,19 @@ namespace OwnerGPT.Core.Services.Abstract
             if(!properties.Any(property => properties.Any(searchableProperty => searchableProperty.ToLower().Equals(propertyName.ToLower()))))
                 throw new Exception($"Property is not allowed to be searched or does not exists!");
 
-            var parameter = Expression.Parameter(typeof(T), "property");
-            var body = Expression.PropertyOrField(parameter, propertyName);
+            ParameterExpression parameter = Expression.Parameter(typeof(T), "property");
+            MemberExpression body = Expression.PropertyOrField(parameter, propertyName);
             MethodInfo containsMethod = typeof(string).GetMethod("Contains", new[] { typeof(string), typeof(StringComparison) })!;
-            var expression = Expression.Call(body, containsMethod, Expression.Constant(value, typeof(string)), Expression.Constant(StringComparison.OrdinalIgnoreCase));
+            MethodCallExpression expression = Expression.Call(body, containsMethod, Expression.Constant(value, typeof(string)), Expression.Constant(StringComparison.OrdinalIgnoreCase));
 
             var predicate = Expression.Lambda<Func<T, bool>>(expression, parameter);
 
-            T? entity = await DBSet.FirstOrDefaultAsync(predicate);
+            IEnumerable<T> enetities = await DBSet.Where(predicate).ToListAsync();
 
-            if (entity == null)
+            if (enetities.Count() == 0)
                 throw new Exception($"Find by property was not found!");
 
-            return entity;
+            return enetities;
         }
 
         public async Task<T> FindByProperty<TValue>(Expression<Func<T, TValue>> selector, TValue value)
