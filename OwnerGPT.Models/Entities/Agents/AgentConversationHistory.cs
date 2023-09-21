@@ -8,5 +8,10 @@ namespace OwnerGPT.Models.Entities.Agents
         public int RoleId { get; set; }
         public string? Message { get; set; }
         public int AgentId { get; set; }
+
+        public List<string> SearchableProperties()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

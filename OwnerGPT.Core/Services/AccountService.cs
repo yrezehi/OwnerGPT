@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using OwnerGPT.Core.Authentication;
 using OwnerGPT.Core.Services.Abstract;
+using OwnerGPT.Core.Services.Abstract.Interfaces;
 using OwnerGPT.Core.Services.Compositions;
 using OwnerGPT.Models.Entities;
 using OwnerGPT.Models.Entities.Agents;

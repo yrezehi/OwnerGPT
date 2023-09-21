@@ -19,5 +19,10 @@ namespace OwnerGPT.Models.Entities
 
         [Column("active")]
         public bool Active { get; set; }
+
+        public List<string> SearchableProperties()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

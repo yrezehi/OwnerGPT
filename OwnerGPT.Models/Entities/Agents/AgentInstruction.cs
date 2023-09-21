@@ -7,5 +7,10 @@ namespace OwnerGPT.Models.Entities.Agents
         public int Id { get; set; }
         public string? Title { get; set; }
         public string? Context { get; set; }
+
+        public List<string> SearchableProperties()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

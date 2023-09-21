@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using OwnerGPT.Core.Services.Abstract;
+using OwnerGPT.Core.Services.Abstract.Interfaces;
 using OwnerGPT.Core.Services.Compositions;
 using OwnerGPT.DocumentEmbedding.Encoder;
 using OwnerGPT.Models.Entities;
@@ -10,14 +11,16 @@ using OwnerGPT.Plugins.Parsers.PDF;
 
 namespace OwnerGPT.Core.Services
 {
-    public class AgentsService : CompositionBaseService<Agent>
+    public class AgentsService : CompositionBaseService<Agent>, IService
     {
 
         private readonly SentenceEncoder SentenceEncoder;
+        public string SearchableProperties { get; set; }
 
         public AgentsService(RDBMSServiceBase<Agent> RDBMSServiceBase, PGVServiceBase<VectorEmbedding> PGVServiceBase, SentenceEncoder sentenceEncoder) : base(RDBMSServiceBase, PGVServiceBase) {
             SentenceEncoder = sentenceEncoder;
         }
+
 
         public async Task<Agent> UpdateConfiguration(ConfigureAgentDTO agentConfiguration)
         {
