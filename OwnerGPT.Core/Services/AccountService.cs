@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using OwnerGPT.Core.Authentication;
 using OwnerGPT.Core.Services.Abstract;
 using OwnerGPT.Core.Services.Compositions;
@@ -16,11 +18,13 @@ namespace OwnerGPT.Core.Services
     {
 
         private readonly ADAuthentication ADAuthentication;
+        private readonly IHttpContextAccessor HttpContextAccessor;
 
-        public AccountService(ADAuthentication adAuthentication, RDBMSServiceBase<Account> RDBMSServiceBase, PGVServiceBase<VectorEmbedding> PGVServiceBase)
+        public AccountService(IHttpContextAccessor httpContextAccessor, ADAuthentication adAuthentication, RDBMSServiceBase<Account> RDBMSServiceBase, PGVServiceBase<VectorEmbedding> PGVServiceBase)
             : base(RDBMSServiceBase, PGVServiceBase) 
         {
             ADAuthentication = adAuthentication;
+            HttpContextAccessor = httpContextAccessor;
         }
 
         public void SignIn(CredentialsDTO credentials)
@@ -28,12 +32,19 @@ namespace OwnerGPT.Core.Services
             if (!ADAuthentication.Authenticate(credentials.Identifier, credentials.Password))
                 throw new Exception("Invalid authentication attempt!");
 
-            CookieAuthenticationSignIn();
+            var account = new Account();
+            
+            CookieAuthenticationSignIn(account);
         }
 
-        private void CookieAuthenticationSignIn()
+        private async void CookieAuthenticationSignIn(Account account)
         {
+            await HttpContextAccessor.HttpContext.SignInAsync(this.GenerateClaimsPrincipal(account));
+        }
 
+        private ClaimsPrincipal GenerateClaimsPrincipal(Account account)
+        {
+            return new ClaimsPrincipal(this.GenerateClaimsIdentity(account));
         }
 
         private ClaimsIdentity GenerateClaimsIdentity(Account account)
