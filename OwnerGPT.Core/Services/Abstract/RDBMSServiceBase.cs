@@ -59,6 +59,18 @@ namespace OwnerGPT.Core.Services.Abstract
             return entity;
         }
 
+        public async Task<IEnumerable<T>> FindAllByProperty<TValue>(Expression<Func<T, TValue>> selector, TValue value)
+        {
+            var predicate = Expression.Lambda<Func<T, bool>>(Expression.Equal(selector.Body, Expression.Constant(value, typeof(TValue))), selector.Parameters);
+
+            IEnumerable<T> entites = await DBSet.Where(predicate).ToListAsync();
+
+            if (!entites.Any())
+                throw new Exception($"Find all by property was not found!");
+
+            return entites;
+        }
+
         public virtual async Task<T> FindById(int id)
         {
             var entity = await DBSet.FindAsync(id);

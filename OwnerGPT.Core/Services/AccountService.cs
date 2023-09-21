@@ -5,12 +5,10 @@ using OwnerGPT.Core.Authentication;
 using OwnerGPT.Core.Services.Abstract;
 using OwnerGPT.Core.Services.Compositions;
 using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
-using OwnerGPT.DocumentEmbedding.Encoder;
 using OwnerGPT.Models.Entities;
 using OwnerGPT.Models.Entities.Agents;
 using OwnerGPT.Models.Entities.DTO;
 using System.Security.Claims;
-using System.Security.Principal;
 
 namespace OwnerGPT.Core.Services
 {
