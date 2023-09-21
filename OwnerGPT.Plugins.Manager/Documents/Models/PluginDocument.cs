@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using OwnerGPT.Plugins.Manager.Documents.Configuration;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace OwnerGPT.Plugins.Manager.Documents.Models
 {
@@ -13,13 +10,19 @@ namespace OwnerGPT.Plugins.Manager.Documents.Models
         public byte[] Bytes { get; set; }
         public string Extension { get; set; }
 
-        public PluginDocument(IFormFile file) { 
+        public async static Task<PluginDocument> Create(IFormFile file)
+        {
+            PluginDocument document = new PluginDocument();
 
-            if(file == null || file.Length == 0)
+            if (file == null || file.Length == 0)
                 throw new Exception("File is not valid!");
 
-            Name = file.Name;
-            Bytes = file.GetBytes();
+            document.Name = file.Name;
+            document.Extension = Path.GetExtension(file.Name);
+
+            document.Bytes = await file.GetBytes();
+
+            return document;
         }
     }
 }
