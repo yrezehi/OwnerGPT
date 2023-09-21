@@ -13,6 +13,8 @@ namespace OwnerGPT.Core.Services.Abstract.Interfaces
 
         Task<T> FindById(int id);
 
+        Task<T> FindByProperty<TValue>(Expression<Func<T, TValue>> selector, TValue value);
+
         Task<T?> NullableFindById(int id);
 
         Task<T> Delete(int id);

@@ -27,12 +27,12 @@ namespace OwnerGPT.Core.Services
             HttpContextAccessor = httpContextAccessor;
         }
 
-        public void SignIn(CredentialsDTO credentials)
+        public async void SignIn(CredentialsDTO credentials)
         {
             if (!ADAuthentication.Authenticate(credentials.Identifier, credentials.Password))
                 throw new Exception("Invalid authentication attempt!");
 
-            var account = new Account();
+            var account = await this.RDBMSServiceBase.FindByProperty<string>(entity => entity.Email!, credentials.Identifier);
             
             CookieAuthenticationSignIn(account);
         }
