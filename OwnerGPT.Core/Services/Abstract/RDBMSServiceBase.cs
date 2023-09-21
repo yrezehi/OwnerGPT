@@ -46,9 +46,13 @@ namespace OwnerGPT.Core.Services.Abstract
         // meant to be used by external API calls, that's why there is an extra validation layer
         public async Task<T> SearchByProperty<TValue>(string propertyName, TValue value)
         {
-            var properties = ((IEntity)Activator.CreateInstance(typeof(T))!).SearchableProperties();
+            var enetityInstance = ((IEntity)Activator.CreateInstance(typeof(T))!);
+            var properties = enetityInstance.SearchableProperties();
 
-            if (!selector.Parameters.Any(property => properties.Any(searchableProperty => searchableProperty.Equals(property.Name))))
+            if (!ReflectionUtil.ContainsProperty(enetityInstance, propertyName))
+                throw new Exception($"Property is not allowed to be searched or does not exists!");
+
+            if(!properties.Any(property => properties.Any(searchableProperty => searchableProperty.ToLower().Equals(propertyName.ToLower()))))
                 throw new Exception($"Property is not allowed to be searched or does not exists!");
 
             var predicate = Expression.Lambda<Func<T, bool>>(Expression.Equal(selector.Body, Expression.Constant(value, typeof(TValue))), selector.Parameters);
