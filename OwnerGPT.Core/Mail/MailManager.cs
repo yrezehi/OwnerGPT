@@ -1,18 +1,13 @@
 ﻿using OwnerGPT.Core.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
+using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OwnerGPT.Core.Mail
 {
     public class MailManager
     {
         private readonly string SMTP_EMAIL;
-        private readonly string SMTP_USERNAME;
         private readonly string SMTP_PASSWORD;
 
         private readonly string SMTP_SERVER;
@@ -27,9 +22,52 @@ namespace OwnerGPT.Core.Mail
             SMTP_SYSTEM_NAME = ConfigurationUtil.GetValue<string>("SYSTEM_NAME");
 
             SMTP_EMAIL = ConfigurationUtil.GetValue<string>("EMAIL:EMAIL");
-            SMTP_USERNAME = ConfigurationUtil.GetValue<string>("EMAIL:USERNAME");
             SMTP_PASSWORD = ConfigurationUtil.GetValue<string>("EMAIL:PASSWORD");
         }
 
+        public void SendMail(string subject, string content, params string[] toEmails)
+        {
+            MailMessage message = this.SetupMailMessage();
+
+            message.Subject = subject;
+            message.Body = content;
+
+            this.SetMailReceivers(message, toEmails);
+
+            this.SendIt(message);
+        }
+
+        private void SendIt(MailMessage mailMessage)
+        {
+            this.CreateSMTPClient().SendAsync(mailMessage, null);
+        }
+
+        private void SetMailReceivers(MailMessage mailMessage, string[] toEmails)
+        {
+            foreach (string toEmail in toEmails)
+            {
+                mailMessage.To.Add(new MailAddress(toEmail));
+            }
+        }
+
+        private MailMessage SetupMailMessage()
+        {
+            return new MailMessage {
+                From = new MailAddress(SMTP_EMAIL, SMTP_SYSTEM_NAME),
+                Priority = MailPriority.Normal,
+                IsBodyHtml = true,
+            };
+        }
+
+        private SmtpClient CreateSMTPClient()
+        {
+            return new SmtpClient
+                {
+                    Host = SMTP_SERVER,
+                    Port = SMTP_PORT,
+                    EnableSsl = false,
+                    Credentials = new NetworkCredential(SMTP_EMAIL, SMTP_PASSWORD)
+                };
+        }
     }
 }
