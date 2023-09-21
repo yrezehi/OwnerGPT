@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using OwnerGPT.Core.Services.Abstract;
 using OwnerGPT.Core.Services.Compositions;
-using OwnerGPT.Core.Utilities.Extenstions;
-using OwnerGPT.DB.Repositores.PGVDB;
-using OwnerGPT.DB.Repositores.RDBMS.Abstracts.Interfaces;
 using OwnerGPT.DocumentEmbedding.Encoder;
 using OwnerGPT.Models.Entities;
 using OwnerGPT.Models.Entities.Agents;
 using OwnerGPT.Models.Entities.DTO;
+using OwnerGPT.Plugins.Manager.Documents.Models;
 using OwnerGPT.Plugins.Parsers.PDF;
 
 namespace OwnerGPT.Core.Services
@@ -34,14 +32,9 @@ namespace OwnerGPT.Core.Services
 
                 if(attachment != null)
                 {
-                    byte[] fileBytes = await attachment.GetBytes();
+                    PluginDocument document = await PluginDocument.Create(attachment);
 
-                    if (fileBytes.Length == 0)
-                    {
-                        throw new Exception("Attachment is not valid!");
-                    }
-
-                    string processedFile = PDFParser.Process(fileBytes);
+                    string processedFile = PDFParser.Process(document.Bytes);
                     var chunkedFiles = SentenceEncoder.ChunkText(processedFile);
 
                     foreach (var chunk in chunkedFiles)
@@ -49,10 +42,9 @@ namespace OwnerGPT.Core.Services
                         await PGVServiceBase.Insert(chunk);
                     }
 
-
                     if (processedFile != null && processedFile.Length > 0)
                     {
-                        agentConfiguration.Agent.Instruction += "\n Answer the question based on the context below:\n";// + processedFile;
+                        agentConfiguration.Agent.Instruction += "\n Answer the question based on the context below:\n";
                     }
                 }
             }

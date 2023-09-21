@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using OwnerGPT.Plugins.Manager.Documents.Configuration;
+using System.Net.Mail;
 using System.Text;
 
 namespace OwnerGPT.Plugins.Manager.Documents.Models
@@ -21,6 +22,12 @@ namespace OwnerGPT.Plugins.Manager.Documents.Models
             document.Extension = Path.GetExtension(file.Name);
 
             document.Bytes = await file.GetBytes();
+            byte[] fileBytes = await file.GetBytes();
+
+            if (fileBytes.Length == 0)
+            {
+                throw new Exception("Attachment is not valid!");
+            }
 
             return document;
         }

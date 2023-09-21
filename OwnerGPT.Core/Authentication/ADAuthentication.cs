@@ -1,4 +1,5 @@
-﻿using System.DirectoryServices.AccountManagement;
+﻿using OwnerGPT.Core.Utilities;
+using System.DirectoryServices.AccountManagement;
 using System.Runtime.InteropServices;
 
 namespace OwnerGPT.Core.Authentication
@@ -16,7 +17,7 @@ namespace OwnerGPT.Core.Authentication
                 throw new PlatformNotSupportedException("Only windows is supported at the moment for active directory");
             }
 
-            LDAP_DOMAIN = "GETMEFROMCONFIGURATION";
+            LDAP_DOMAIN = ConfigurationUtil.GetValue<string>("LDAP_DOMAIN");
 
             LDAPContext = new PrincipalContext(ContextType.Domain, LDAP_DOMAIN);
         }
