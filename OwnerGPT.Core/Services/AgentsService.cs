@@ -11,11 +11,10 @@ using OwnerGPT.Plugins.Parsers.PDF;
 
 namespace OwnerGPT.Core.Services
 {
-    public class AgentsService : CompositionBaseService<Agent>, IService
+    public class AgentsService : CompositionBaseService<Agent>
     {
 
         private readonly SentenceEncoder SentenceEncoder;
-        public string SearchableProperties { get; set; }
 
         public AgentsService(RDBMSServiceBase<Agent> RDBMSServiceBase, PGVServiceBase<VectorEmbedding> PGVServiceBase, SentenceEncoder sentenceEncoder) : base(RDBMSServiceBase, PGVServiceBase) {
             SentenceEncoder = sentenceEncoder;

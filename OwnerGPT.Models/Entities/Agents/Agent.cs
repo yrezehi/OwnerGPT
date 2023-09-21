@@ -29,9 +29,6 @@ namespace OwnerGPT.Models.Entities.Agents
         [Column("creation_date")]
         public DateTime? CreationDate { get; set; }
 
-        public List<string> SearchableProperties()
-        {
-            return "Name,Description".Split(",").ToList();
-        }
+        public List<string> SearchableProperties() => "Name,Description".Split(",").ToList();
     }
 }
