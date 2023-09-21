@@ -1,3 +1,5 @@
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using OwnerGPT.Core.Authentication;
 using OwnerGPT.Core.Services;
 using OwnerGPT.Core.Services.Compositions;
 using OwnerGPT.DB.Repositores.RDBMS;
@@ -13,13 +15,17 @@ builder.Services.AddControllersWithViews();
 builder.RegisterPGVDB();
 builder.RegisterRDBMS();
 
+builder.UseStaticConfiguration();
+
+builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddSingleton(typeof(SentenceEncoder), typeof(SentenceEncoder));
+builder.Services.AddSingleton(typeof(LLamaModel), typeof(LLamaModel));
+builder.Services.AddSingleton(typeof(ADAuthentication), typeof(ADAuthentication));
+
 builder.Services.AddTransient(typeof(VectorEmbeddingService), typeof(VectorEmbeddingService));
 builder.Services.AddTransient(typeof(AgentsService), typeof(AgentsService));
 builder.Services.AddTransient(typeof(AccountService), typeof(AccountService));
 builder.Services.AddTransient(typeof(GPTService), typeof(GPTService));
-
-builder.Services.AddSingleton(typeof(SentenceEncoder), typeof(SentenceEncoder));
-builder.Services.AddSingleton(typeof(LLamaModel), typeof(LLamaModel));
 
 builder.Services.AddTransient(typeof(CompositionBaseService<>), typeof(CompositionBaseService<>));
 
