@@ -14,7 +14,12 @@ namespace OwnerGPT.Plugins.Manager.Documents.Models
         public string Extension { get; set; }
 
         public PluginDocument(IFormFile file) { 
+
+            if(file == null || file.Length == 0)
+                throw new Exception("File is not valid!");
+
             Name = file.Name;
+            Bytes = file.GetBytes();
         }
     }
 }
