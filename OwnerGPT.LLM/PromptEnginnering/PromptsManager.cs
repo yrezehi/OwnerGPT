@@ -1,14 +1,7 @@
 ﻿namespace OwnerGPT.LLM.PromptEnginnering
 {
-    public class PromptsManager
+    public static class PromptsManager
     {
-        private static string DAN_11 = "PromptEnginner/Prompts/DAN_11.txt";
-
-        public static string GetPrompt()
-        {
-            return ReadTextFile(DAN_11);
-        }
-
         public static string PutAgentSuffix(string content)
         {
             return content + $"\r\nAssistant: ";
@@ -30,6 +23,11 @@
             {
                 return streamReader.ReadToEnd();
             }
+        }
+
+        private static string Render()
+        {
+
         }
     }
 }

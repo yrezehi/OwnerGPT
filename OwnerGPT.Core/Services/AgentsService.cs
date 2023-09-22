@@ -53,7 +53,7 @@ namespace OwnerGPT.Core.Services
 
                         if (chunkedFiles.Any())
                         {
-                            agentConfiguration.Agent.Instruction += $"\n{Prompts.ANSWER_CONTEXT}\n";
+                            agentConfiguration.Agent.Instruction += $"\n{PromptContexts.ANSWER_CONTEXT}\n";
                         }
                     }
                 }
