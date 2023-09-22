@@ -3,6 +3,7 @@ using OwnerGPT.Core.Services.Abstract;
 using OwnerGPT.Core.Services.Abstract.Interfaces;
 using OwnerGPT.Core.Services.Compositions;
 using OwnerGPT.DocumentEmbedding.Encoder;
+using OwnerGPT.LLM.PromptEnginnering;
 using OwnerGPT.Models.Entities;
 using OwnerGPT.Models.Entities.Agents;
 using OwnerGPT.Models.Entities.DTO;
@@ -40,16 +41,20 @@ namespace OwnerGPT.Core.Services
                     PluginDocument pluginDocument = await PluginDocument.GetPluginDocumentInstance(attachment);
 
                     string processedFile = PDFParser.Process(pluginDocument.Bytes);
-                    var chunkedFiles = SentenceEncoder.ChunkText(processedFile);
-
-                    foreach (var chunk in chunkedFiles)
-                    {
-                        await PGVServiceBase.Insert(chunk);
-                    }
 
                     if (processedFile != null && processedFile.Length > 0)
                     {
-                        agentConfiguration.Agent.Instruction += "\n Answer the question based on the context below:\n";
+                        var chunkedFiles = SentenceEncoder.ChunkText(processedFile);
+
+                        foreach (var chunk in chunkedFiles)
+                        {
+                            await PGVServiceBase.Insert(chunk);
+                        }
+
+                        if (chunkedFiles.Any())
+                        {
+                            agentConfiguration.Agent.Instruction += $"\n{Prompts.ANSWER_CONTEXT}\n";
+                        }
                     }
                 }
             }
