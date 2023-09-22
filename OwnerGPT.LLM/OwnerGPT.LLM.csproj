@@ -7,8 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="PromptEnginnering\Prompts\GENERIC_ASSISTANT.txt" />
+    <None Remove="PromptEnginnering\Prompts\QUESTION_ANSWER.txt" />
+    <None Remove="PromptEnginnering\Prompts\SUMMARIZE.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="LLamaSharp" Version="0.5.1" />
     <PackageReference Include="LLamaSharp.Backend.Cpu" Version="0.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="PromptEnginnering\Prompts\GENERIC_ASSISTANT.txt" />
+    <Page Include="PromptEnginnering\Prompts\QUESTION_ANSWER.txt" />
+    <Page Include="PromptEnginnering\Prompts\SUMMARIZE.txt" />
   </ItemGroup>
 
   <ItemGroup>

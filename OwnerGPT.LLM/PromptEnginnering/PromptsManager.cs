@@ -17,12 +17,5 @@
             return input.Trim();
         }
 
-        private static string ReadTextFile(string path)
-        {
-            using (var streamReader = new StreamReader(path))
-            {
-                return streamReader.ReadToEnd();
-            }
-        }
     }
 }
