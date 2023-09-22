@@ -9,7 +9,18 @@ namespace OwnerGPT.Databases.Repositores.RDBMS
         public RDBMSGenericRepositoryContext(DbContextOptions options) : base(options) { }
 
         public virtual DbSet<Agent> Agents { get; set; }
+        public virtual DbSet<AgentConversationHistory> AgentConversationHistories { get; set; }
+        public virtual DbSet<AgentDocument> AgentDocuments { get; set; }
+        public virtual DbSet<AgentInstruction> AgentInstructions { get; set; }
+
         public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<AccountStatus> AccountStatus { get; set; }
+
+        public virtual DbSet<Document> Documents { get; set; }
+        public virtual DbSet<VectorEmbedding> VectorEmbeddings { get; set; }
+
+        public virtual DbSet<Notification> Notifications { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

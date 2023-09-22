@@ -27,6 +27,7 @@ builder.Services.AddTransient(typeof(AgentsService), typeof(AgentsService));
 builder.Services.AddTransient(typeof(AccountService), typeof(AccountService));
 builder.Services.AddTransient(typeof(GPTService), typeof(GPTService));
 builder.Services.AddTransient(typeof(DocumentService), typeof(DocumentService));
+builder.Services.AddTransient(typeof(AgentDocumentsService), typeof(AgentDocumentsService));
 
 builder.Services.AddTransient(typeof(CompositionBaseService<>), typeof(CompositionBaseService<>));
 
