@@ -24,10 +24,5 @@
                 return streamReader.ReadToEnd();
             }
         }
-
-        private static string Render()
-        {
-
-        }
     }
 }
