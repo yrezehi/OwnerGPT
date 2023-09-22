@@ -8,7 +8,14 @@ namespace OwnerGPT.Core.Services
 {
     public class DocumentService : RDBMSServiceBase<Document>
     {
-        public DocumentService(IRDBMSUnitOfWork unitOfWork) : base(unitOfWork) { }
+        public DocumentService(IRDBMSUnitOfWork unitOfWork) : base(unitOfWork) {
+
+            if (!Directory.Exists(DEFAULT_PERSISTENCE_PATH))
+                Directory.CreateDirectory(DEFAULT_PERSISTENCE_PATH);
+        
+        }
+
+        private static string DEFAULT_PERSISTENCE_PATH = "C:\\ownergpt_files";
 
         public async Task<Document> Persist(IFormFile file)
         {
@@ -24,10 +31,10 @@ namespace OwnerGPT.Core.Services
             return await this.Create(document);
         }
 
-        /*private async void PersistToLocal(IFormFile file)
+        private async void PersistToLocal(IFormFile file)
         {
-            string 
-        }*/
+            
+        }
 
     }
 }
