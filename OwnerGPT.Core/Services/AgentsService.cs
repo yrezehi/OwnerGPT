@@ -20,7 +20,6 @@ namespace OwnerGPT.Core.Services
             SentenceEncoder = sentenceEncoder;
         }
 
-
         public async Task<Agent> UpdateConfiguration(ConfigureAgentDTO agentConfiguration)
         {
             if(agentConfiguration.Agent == null)
@@ -34,9 +33,9 @@ namespace OwnerGPT.Core.Services
 
                 if(attachment != null)
                 {
-                    PluginDocument document = await PluginDocument.Create(attachment);
+                    PluginDocument pluginDocument = await PluginDocument.Create(attachment);
 
-                    string processedFile = PDFParser.Process(document.Bytes);
+                    string processedFile = PDFParser.Process(pluginDocument.Bytes);
                     var chunkedFiles = SentenceEncoder.ChunkText(processedFile);
 
                     foreach (var chunk in chunkedFiles)
