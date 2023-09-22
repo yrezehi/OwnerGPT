@@ -63,7 +63,7 @@ namespace OwnerGPT.Core.Services
             }
             else
             { // setup default instruction which should be defined TODO: globally? make it generic assistant, make bob you own..
-                promptToExecute = TemplateEngine.Render(Prompts.GENERIC_ASSISTANT);
+                promptToExecute = PromptEngine.Render(Prompts.GENERIC_ASSISTANT);
             }
 
             return promptToExecute;
@@ -72,7 +72,7 @@ namespace OwnerGPT.Core.Services
         public string Replay(string prompt, CancellationToken cancellationToken)
         {
             // TODO: fix me!
-            var promptToExecute = TemplateEngine.Render(Prompts.GENERIC_ASSISTANT) + PromptsManager.PutAgentSuffix(PromptsManager.PutUserPrefix(PromptsManager.CleanPromptInput(prompt)));
+            var promptToExecute = PromptEngine.Render(Prompts.GENERIC_ASSISTANT) + PromptsManager.PutAgentSuffix(PromptsManager.PutUserPrefix(PromptsManager.CleanPromptInput(prompt)));
             StringBuilder responseBuilder = new StringBuilder();
 
             foreach (var response in LLamaModel.Executor.Infer(promptToExecute, LLamaModel.InferenceParams, cancellationToken))

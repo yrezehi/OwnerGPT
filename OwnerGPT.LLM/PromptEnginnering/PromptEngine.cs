@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OwnerGPT.LLM.PromptEnginnering
 {
-    public static class TemplateEngine
+    public static class PromptEngine
     {
 
         private static string DEFAULT_PROMPTS_PATH = "PromptEnginnering\\Prompts\\";
@@ -16,7 +16,7 @@ namespace OwnerGPT.LLM.PromptEnginnering
 
         public static string Render(Prompts prompt, params string[] values)
         {
-            string plainTemplate = TemplateEngine.LoadPrompt(prompt);
+            string plainTemplate = PromptEngine.LoadPrompt(prompt);
             int substituteCounter = 0;
 
             return Regex.Replace(plainTemplate, Regex.Escape(DEFAULT_INPUT_PLACEHOLDER),(match) => values[substituteCounter <= values.Length ? values.Length : substituteCounter++]);
@@ -29,7 +29,7 @@ namespace OwnerGPT.LLM.PromptEnginnering
             if (!Path.Exists(filePath))
                 throw new Exception("File does not exists!");
 
-            return TemplateEngine.ReadTextFile(filePath);
+            return PromptEngine.ReadTextFile(filePath);
         }
 
         public static string BuildFilePath(Prompts prompt)
