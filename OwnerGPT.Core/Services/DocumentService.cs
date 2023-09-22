@@ -35,6 +35,9 @@ namespace OwnerGPT.Core.Services
         {
             using (Stream fileStream = new FileStream(Path.Combine(DEFAULT_PERSISTENCE_PATH, fileName), FileMode.Create))
             {
+                // in case file stream position been moved in previous logic
+                fileStream.Position = 0;
+                
                 await file.CopyToAsync(fileStream);
             }
         }

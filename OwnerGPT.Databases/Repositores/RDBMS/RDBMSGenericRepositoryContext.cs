@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OwnerGPT.Models.Entities;
 using OwnerGPT.Models.Entities.Agents;
+using System.Numerics;
 
 namespace OwnerGPT.Databases.Repositores.RDBMS
 {
@@ -17,13 +18,15 @@ namespace OwnerGPT.Databases.Repositores.RDBMS
         public virtual DbSet<AccountStatus> AccountStatus { get; set; }
 
         public virtual DbSet<Document> Documents { get; set; }
-        public virtual DbSet<VectorEmbedding> VectorEmbeddings { get; set; }
 
         public virtual DbSet<Notification> Notifications { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<AgentDocument>().HasOne(entity => entity.Document);
+
             modelBuilder.Entity<Agent>().HasData(
                 new Agent
                 {
