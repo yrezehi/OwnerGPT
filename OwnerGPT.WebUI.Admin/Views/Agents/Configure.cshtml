@@ -72,7 +72,7 @@
                 <label for="urls" class="block text-sm font-semibold leading-6 text-gray-900">Or an URL <span class="text-xs text-gray-500">(optional)</span></label>
                 <label for="urls" class="block text-sm font-semibold leading-6 text-gray-900 mt-1"><span class="text-xs text-gray-500">(to be interacted with, enter single or more links 5 MAX seperated by spaces or new lines)</span></label>
                 <div class="mt-2.5">
-                    <textarea placeholder="https://example.com https://another-example.com" name="urls" id="urls" rows="4" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                    <textarea placeholder="https://example.com https://another-example.com" name="urls" id="urls" rows="4" class="bg-gray-100 cursor-not-allowed block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" readonly></textarea>
                 </div>
             </div>
 
@@ -162,7 +162,7 @@
         function handleAttachment(event){
             var files = event.target.files;
 
-            if (!isValidAttachments(files)){
+            if (!isValidAttachments(files)) {
                 return;
             }
 
