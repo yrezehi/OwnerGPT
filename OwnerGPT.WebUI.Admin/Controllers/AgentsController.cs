@@ -14,7 +14,6 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         public async Task<IActionResult> Index(int? page) =>
             View(await Service.RDBMSServiceBase.GetAll(page));
 
-
         [HttpGet("[action]/{agentId}")]
         public async Task<IActionResult> Configure(int agentId) =>
             View(await Service.RDBMSServiceBase.FindById(agentId));

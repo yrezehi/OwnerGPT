@@ -2,10 +2,51 @@
     ViewData["Title"] = "Knowledge Base";
 }
 
-<div class="relative rounded-lg overflow-hidden box-shadow bg-white py-5 px-8 my-4">
-    <div class="mb-4 lg:mb-0 pb-5 pt-3">
+<div class="relative rounded-lg overflow-hidden box-shadow bg-white py-5 px-6 my-4">
+    <div class="mb-4 lg:mb-0 pb-8 pt-3">
         <h3 class="mb-2 text-xl font-bold text-gray-900">Agents</h3>
         <span class="text-base font-normal text-gray-500">Knowledge Base</span>
+    </div>
+    <div class="relative bg-white sm:rounded-1xl ">
+        <div class="grid sm:grid-cols-2 gap-4">
+            <div class="border-b sm:border-b-0 sm:border-r px-2 relative">
+                <h1 class="font-bold text-indigo-600 text-lg">Persisted Content</h1>
+                <p class="text-sm font-light text-gray-400 pt-4 pb-4">Content Uploaded Previously</p>
+                <div class="mt-4">
+                    <ul class="grid grid-cols-1 w-full gap-2">
+                        <li>
+                            <input type="radio" id="hosting-small" name="hosting" value="hosting-small" class="hidden peer" required>
+                            <label for="hosting-small" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                                <div class="block">
+                                    <div class="w-full text-base font-semibold">Attachment.md</div>
+                                    <div class="w-full text-xs mt-1">24 MB</div>
+                                </div>
+                                <svg class="w-5 h-5 ml-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                                </svg>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" id="hosting-big" name="hosting" value="hosting-big" class="hidden peer">
+                            <label for="hosting-big" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                                <div class="block">
+                                    <div class="w-full text-base font-semibold">Attachment2.md</div>
+                                    <div class="w-full text-xs mt-1">15 MB</div>
+                                </div>
+                                <svg class="w-5 h-5 ml-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                                </svg>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="px-2">
+                <h1 class="font-bold text-blue-500 text-lg">I want to buy</h1>
+                <p class="text-sm font-light text-gray-400 pt-4 pb-4">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>
+                <button class="bg-blue-500 text-white font-bold py-2 px-4">Buy</button>
+            </div>
+        </div>
     </div>
 </div>
 
