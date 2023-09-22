@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace OwnerGPT.LLM.PromptEnginnering
 {
-    public static class TemplateEngine
+    public enum Prompts
     {
-        public static string Render(Prompts promptName, params string[] values)
-        {
-            return "";
-        }
+        GENERIC_ASSISTANT,
+        QUESTION_ANSWER,
+        SUMMARIZE
     }
 }
