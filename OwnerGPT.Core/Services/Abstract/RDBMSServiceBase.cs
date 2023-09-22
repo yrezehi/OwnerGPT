@@ -21,14 +21,16 @@ namespace OwnerGPT.Core.Services.Abstract
         protected internal IRDBMSUnitOfWork UnitOfWork { get; set; }
         protected DbSet<T> DBSet { get; set; }
 
+        private static int DEFAULT_PAGE_SIZE = 10;
+
         public virtual IEnumerable<T> Find(Expression<Func<T, bool>> expression) =>
             DBSet.Where(expression);
 
         public virtual IQueryable<T> OrderBy<TValue>(Expression<Func<T, TValue>> orderByExpression) =>
             DBSet.OrderBy(orderByExpression);
 
-        public virtual async Task<IEnumerable<T>> GetAll() =>
-            await DBSet.ToListAsync();
+        public virtual async Task<IEnumerable<T>> GetAll(int? page) =>
+            (page == null) ? await DBSet.ToListAsync() : await DBSet.PaginateQuerable(page.Value, DEFAULT_PAGE_SIZE).ToListAsync();
 
         public virtual async Task<PaginateDTO<T>> Paginate(int currentPage, Expression<Func<T, bool>>? expression)
         {
@@ -45,7 +47,7 @@ namespace OwnerGPT.Core.Services.Abstract
         }
 
         // meant to be used by external API calls, that's why there is an extra validation layer
-        public async Task<IEnumerable<T>> SearchByProperty<TValue>(string propertyName, TValue value)
+        public async Task<IEnumerable<T>> SearchByProperty<TValue>(string propertyName, TValue value, int? page)
         {
             IEntity enetityInstance = ((IEntity)Activator.CreateInstance(typeof(T))!);
             List<string> properties = enetityInstance.SearchableProperties();
@@ -62,8 +64,8 @@ namespace OwnerGPT.Core.Services.Abstract
             MethodCallExpression expression = Expression.Call(body, containsMethod, Expression.Constant(value, typeof(string)), Expression.Constant(StringComparison.OrdinalIgnoreCase));
 
             var predicate = Expression.Lambda<Func<T, bool>>(expression, parameter);
-
-            IEnumerable<T> enetities = await DBSet.Where(predicate).ToListAsync();
+            
+            IEnumerable<T> enetities = (page == null) ? await DBSet.Where(predicate).ToListAsync() : await DBSet.Where(predicate).PaginateQuerable(page.Value, DEFAULT_PAGE_SIZE).ToListAsync();
 
             if (enetities.Count() == 0)
                 throw new Exception($"Find by property was not found!");

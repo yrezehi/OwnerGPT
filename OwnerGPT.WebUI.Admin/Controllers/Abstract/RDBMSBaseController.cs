@@ -18,15 +18,15 @@ namespace OwnerGPT.WebUI.Admin.Controllers.Abstract
         }
 
         [HttpGet("api")]
-        public virtual async Task<IActionResult> GetAll()
+        public virtual async Task<IActionResult> GetAll(int? page)
         {
-            return Ok(await Service.RDBMSServiceBase.GetAll());
+            return Ok(await Service.RDBMSServiceBase.GetAll(page));
         }
 
         [HttpGet("api/[action]")]
-        public virtual async Task<IActionResult> Search(string property, string value)
+        public virtual async Task<IActionResult> Search(string property, string value, int? page)
         {
-            return Ok(await Service.RDBMSServiceBase.SearchByProperty<string>(property, value));
+            return Ok(await Service.RDBMSServiceBase.SearchByProperty<string>(property, value, page));
         }
 
     }
