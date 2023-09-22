@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OwnerGPT.Models.Entities
+namespace OwnerGPT.Models
 {
     [Table("account_status")]
     public class AccountStatus

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OwnerGPT.Models.Entities;
-using OwnerGPT.Models.Entities.Agents;
+using OwnerGPT.Models;
+using OwnerGPT.Models.Agents;
 using System.Numerics;
 
 namespace OwnerGPT.Databases.Repositores.RDBMS
