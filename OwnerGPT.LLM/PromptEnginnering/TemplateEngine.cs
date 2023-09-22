@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace OwnerGPT.LLM.PromptEnginnering
     public static class TemplateEngine
     {
 
-        private static string DEFAULT_PROMPTS_PATH = "Prompts\\";
+        private static string DEFAULT_PROMPTS_PATH = "PromptEnginnering\\Prompts\\";
         private static string DEFAULT_INPUT_PLACEHOLDER = "<INPUT>";
 
         public static string Render(Prompts prompt, params string[] values)
@@ -23,12 +24,17 @@ namespace OwnerGPT.LLM.PromptEnginnering
 
         public static string LoadPrompt(Prompts prompt)
         {
-            string filePath = Path.Combine(DEFAULT_PROMPTS_PATH, nameof(prompt));
+            string filePath = BuildFilePath(prompt);
 
             if (!Path.Exists(filePath))
                 throw new Exception("File does not exists!");
 
             return TemplateEngine.ReadTextFile(filePath);
+        }
+
+        public static string BuildFilePath(Prompts prompt)
+        {
+            return Path.Combine(DEFAULT_PROMPTS_PATH, Enum.GetName(typeof(Prompts), prompt)! + ".txt");
         }
 
         private static string ReadTextFile(string path)

@@ -24,11 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-
     <Content Include="PromptEnginnering\Prompts\\**\*.*">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-</ItemGroup>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OwnerGPT.Models\OwnerGPT.Models.csproj" />
