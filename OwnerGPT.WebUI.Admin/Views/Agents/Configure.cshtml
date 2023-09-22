@@ -51,7 +51,7 @@
 
                 <label for="attachment-input" class="block text-sm font-semibold leading-6 text-gray-900 mb-3">Knowledge base as file <span class="text-xs text-gray-500">(optional)</span></label>
                 <label for="attachment-input" class="block text-sm font-semibold leading-6 text-gray-900 mb-3 mt-1"><span class="text-xs text-gray-500">(drop files to to be interacted with)</span></label>
-                <div class="flex items-center justify-center w-full">
+                <div id="drag-drop-area" class="flex items-center justify-center w-full">
                     <label for="attachment-input" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
@@ -96,12 +96,18 @@
 
         var submitConfigurationElement = document.querySelector("#submit-configuration");
         var attachmentInputElement = document.querySelector("#attachment-input");
-        var attachmentsContainer = document.querySelector("#attachments-container");
+        var attachmentsContainerElement = document.querySelector("#attachments-container");
+        var dragAreaElement = document.querySelector("#drag-drop-area");
 
         binding.clickToTrigger(submitConfigurationElement, configurationSubmitHandler);
         binding.uploadTrigger(attachmentInputElement, handleAttachment);
 
         var attachments = [];
+
+        dropAreaElement.addEventListener("drop", function(event) {
+            var files = event.dataTransfer.files;
+            console.log(files);
+        }, false);
 
         function configurationSubmitHandler(event){
             const formAttributes = Object.fromEntries(new FormData(document.querySelector("#agent-configuration-form")));
@@ -187,7 +193,7 @@
                     });
                 })(attachmentElement, file);
 
-                attachmentsContainer.appendChild(attachmentElement);
+                attachmentsContainerElement.appendChild(attachmentElement);
             }
         }
         
