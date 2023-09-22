@@ -2,6 +2,7 @@
 using OwnerGPT.Core.Services.Abstract;
 using Microsoft.AspNetCore.Http;
 using Document = OwnerGPT.Models.Entities.Document;
+using OwnerGPT.Core.Utilities.Extenstions;
 
 namespace OwnerGPT.Core.Services
 {
@@ -16,12 +17,17 @@ namespace OwnerGPT.Core.Services
             if (file == null || file.Length == 0)
                 throw new Exception("File is not valid!");
 
-            document.Name = file.Name;
-            document.Extension = Path.GetExtension(file.Name);
+            document.Name = file.GetUniqueFileName();
+            document.Extension = file.GetExtension();
             document.MimeType = ""; // TODO: nuget it or do it
 
             return await this.Create(document);
         }
+
+        /*private async void PersistToLocal(IFormFile file)
+        {
+            string 
+        }*/
 
     }
 }
