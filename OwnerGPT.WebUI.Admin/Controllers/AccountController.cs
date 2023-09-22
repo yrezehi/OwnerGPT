@@ -15,8 +15,8 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         public IActionResult Login() => View();
 
         [HttpGet("[controller]/[action]")]
-        public async Task<IActionResult> Manager() =>
-            View(await Service.RDBMSServiceBase.GetAll());
+        public async Task<IActionResult> Manager(int? page) =>
+            View(await Service.RDBMSServiceBase.GetAll(page));
 
         [HttpGet("[controller]/[action]")]
         public IActionResult RequestAccess() => View();
