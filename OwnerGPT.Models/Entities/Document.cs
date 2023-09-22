@@ -16,6 +16,9 @@ namespace OwnerGPT.Models.Entities
         [Column("upload_date")]
         public DateTime UploadDate { get; set; }
 
+        [Column("extension")]
+        public string Extension { get; set; }
+
         [Column("mime_type")]
         public string MimeType { get; set; }
     }

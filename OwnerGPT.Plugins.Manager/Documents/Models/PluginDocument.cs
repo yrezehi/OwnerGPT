@@ -11,7 +11,7 @@ namespace OwnerGPT.Plugins.Manager.Documents.Models
         public byte[] Bytes { get; set; }
         public string Extension { get; set; }
 
-        public async static Task<PluginDocument> Create(IFormFile file)
+        public async static Task<PluginDocument> GetInstance(IFormFile file)
         {
             PluginDocument document = new PluginDocument();
 
