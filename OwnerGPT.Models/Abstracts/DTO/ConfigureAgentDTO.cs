@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
-using OwnerGPT.Models.Entities.Agents;
+using OwnerGPT.Models.Agents;
 
-namespace OwnerGPT.Models.Entities.DTO
+namespace OwnerGPT.Models.Abstracts.DTO
 {
     public class ConfigureAgentDTO
     {

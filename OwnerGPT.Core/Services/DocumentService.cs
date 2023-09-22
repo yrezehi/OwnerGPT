@@ -1,7 +1,7 @@
 ﻿using OwnerGPT.Databases.Repositores.RDBMS.Abstracts.Interfaces;
 using OwnerGPT.Core.Services.Abstract;
 using Microsoft.AspNetCore.Http;
-using Document = OwnerGPT.Models.Entities.Document;
+using Document = OwnerGPT.Models.Document;
 using OwnerGPT.Core.Utilities.Extenstions;
 
 namespace OwnerGPT.Core.Services

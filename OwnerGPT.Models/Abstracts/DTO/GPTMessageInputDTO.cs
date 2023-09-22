@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace OwnerGPT.Models.Entities.DTO
+namespace OwnerGPT.Models.Abstracts.DTO
 {
     public class GPTMessageInputDTO
     {

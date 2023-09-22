@@ -1,6 +1,6 @@
-﻿using OwnerGPT.Models.Entities.Interfaces;
+﻿using OwnerGPT.Models.Abstracts.Interfaces;
 
-namespace OwnerGPT.Models.Entities
+namespace OwnerGPT.Models
 {
     public class Notification : IEntity
     {

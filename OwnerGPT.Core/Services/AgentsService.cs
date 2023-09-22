@@ -2,9 +2,9 @@
 using OwnerGPT.Core.Services.Abstract;
 using OwnerGPT.Core.Services.Compositions;
 using OwnerGPT.DocumentEmbedding.Encoder;
-using OwnerGPT.Models.Entities;
-using OwnerGPT.Models.Entities.Agents;
-using OwnerGPT.Models.Entities.DTO;
+using OwnerGPT.Models;
+using OwnerGPT.Models.Abstracts.DTO;
+using OwnerGPT.Models.Agents;
 using OwnerGPT.Plugins.Manager.Documents.Models;
 using OwnerGPT.Plugins.Parsers.PDF;
 

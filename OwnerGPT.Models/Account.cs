@@ -1,8 +1,8 @@
-﻿using OwnerGPT.Models.Entities.Interfaces;
+﻿using OwnerGPT.Models.Abstracts.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OwnerGPT.Models.Entities
+namespace OwnerGPT.Models
 {
     [Table("accounts")]
     public class Account : IEntity

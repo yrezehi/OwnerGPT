@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Http;
 using OwnerGPT.Core.Authentication;
 using OwnerGPT.Core.Services.Abstract;
 using OwnerGPT.Core.Services.Compositions;
-using OwnerGPT.Models.Entities;
-using OwnerGPT.Models.Entities.DTO;
+using OwnerGPT.Models;
+using OwnerGPT.Models.Abstracts.DTO;
 using System.Security.Claims;
 
 namespace OwnerGPT.Core.Services

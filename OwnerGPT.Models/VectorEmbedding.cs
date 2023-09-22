@@ -1,7 +1,7 @@
-﻿using OwnerGPT.Models.Entities.Interfaces;
+﻿using OwnerGPT.Models.Abstracts.Interfaces;
 using Pgvector;
 
-namespace OwnerGPT.Models.Entities
+namespace OwnerGPT.Models
 {
     public class VectorEmbedding : IEntity
     {

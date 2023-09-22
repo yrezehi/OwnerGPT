@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OwnerGPT.Models.Entities.Agents
+namespace OwnerGPT.Models.Agents
 {
     [Table("agent_document")]
     public class AgentDocument

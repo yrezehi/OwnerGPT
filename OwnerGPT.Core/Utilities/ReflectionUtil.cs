@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using OwnerGPT.Models.Entities.Interfaces;
+using OwnerGPT.Models.Abstracts.Interfaces;
 
 namespace OwnerGPT.Core.Utilities
 {

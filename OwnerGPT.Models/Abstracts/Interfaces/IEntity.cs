@@ -1,6 +1,7 @@
-﻿namespace OwnerGPT.Models.Entities.Interfaces
+﻿namespace OwnerGPT.Models.Abstracts.Interfaces
 {
-    public interface IEntity {
+    public interface IEntity
+    {
         int Id { set; get; }
         List<string> SearchableProperties() => new List<string>() { "" };
     }

@@ -1,8 +1,8 @@
-﻿using OwnerGPT.Models.Entities.Interfaces;
+﻿using OwnerGPT.Models.Abstracts.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OwnerGPT.Models.Entities.Agents
+namespace OwnerGPT.Models.Agents
 {
     [Table("agents")]
     public class Agent : IEntity

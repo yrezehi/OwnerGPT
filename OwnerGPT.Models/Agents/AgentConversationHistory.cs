@@ -1,6 +1,6 @@
-﻿using OwnerGPT.Models.Entities.Interfaces;
+﻿using OwnerGPT.Models.Abstracts.Interfaces;
 
-namespace OwnerGPT.Models.Entities.Agents
+namespace OwnerGPT.Models.Agents
 {
     public class AgentConversationHistory : IEntity
     {
