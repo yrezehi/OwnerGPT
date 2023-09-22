@@ -37,7 +37,6 @@ namespace OwnerGPT.Core.Services
                 if(attachment != null)
                 {
                     await DocumentService.Persist(attachment);
-
                     PluginDocument pluginDocument = await PluginDocument.GetPluginDocumentInstance(attachment);
 
                     string processedFile = PDFParser.Process(pluginDocument.Bytes);
