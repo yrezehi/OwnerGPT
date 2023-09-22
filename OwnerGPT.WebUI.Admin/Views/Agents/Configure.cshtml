@@ -105,14 +105,6 @@
 
         var attachments = [];
 
-        function handleFilesDrop(event){
-            var files = [...event.dataTransfer.files];
-
-
-
-            event.preventDefault();
-        }
-
         function configurationSubmitHandler(event){
             const formAttributes = Object.fromEntries(new FormData(document.querySelector("#agent-configuration-form")));
 
@@ -169,6 +161,27 @@
 
         function handleAttachment(event){
             var files = event.target.files;
+
+            if (!isValidAttachments(files)){
+                return;
+            }
+
+            createAttachmentElements(files);
+        }
+
+        function handleFilesDrop(event) {
+            var files = Array.from(event.dataTransfer.files);
+
+            if (!isValidAttachments(files)) {
+                return;
+            }
+
+            createAttachmentElements(files);
+
+            event.preventDefault();
+        }
+
+        function isValidAttachments(files){
             var totalSize = 0;
 
             for (var file of [...files, ...attachments]) {
@@ -176,10 +189,14 @@
 
                 if (totalSize >= TOTAl_ALLOWED_FILE_SIZE) {
                     notification.error("Nope, attachments limit is 20MB");
-                    return;
+                    return false;
                 }
             }
 
+            return true;
+        }
+
+        function createAttachmentElements(files) {
             for (var file of files) {
                 var attachmentElement = createAttachmentElement();
 
