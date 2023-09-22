@@ -16,5 +16,6 @@ namespace OwnerGPT.Core.Utilities.Extenstions
 
         public static string GetExtension(this IFormFile formFile) =>
             Path.GetExtension(formFile.Name);
+
     }
 }
