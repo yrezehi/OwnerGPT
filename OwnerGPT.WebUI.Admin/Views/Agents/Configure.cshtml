@@ -101,13 +101,17 @@
 
         binding.clickToTrigger(submitConfigurationElement, configurationSubmitHandler);
         binding.uploadTrigger(attachmentInputElement, handleAttachment);
+        binding.dropTrigger(dragAreaElement, handleFilesDrop);
 
         var attachments = [];
 
-        dropAreaElement.addEventListener("drop", function(event) {
-            var files = event.dataTransfer.files;
-            console.log(files);
-        }, false);
+        function handleFilesDrop(event){
+            var files = [...event.dataTransfer.files];
+
+
+
+            event.preventDefault();
+        }
 
         function configurationSubmitHandler(event){
             const formAttributes = Object.fromEntries(new FormData(document.querySelector("#agent-configuration-form")));

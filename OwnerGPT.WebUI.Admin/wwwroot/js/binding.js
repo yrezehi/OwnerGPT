@@ -52,6 +52,17 @@
                 bindEventLisnter(context, "change", function (event) {
                     callback(event);
                 });
+            },
+            dropTrigger: function (context, callback) {
+                ["dragover"].forEach(function (eventName) {
+                    bindEventLisnter(context, eventName, function (event) {
+                        event.preventDefault();
+                    });
+                });
+
+                bindEventLisnter(context, "drop", function (event) {
+                    callback(event);
+                }, false);
             }
         });
     }();
