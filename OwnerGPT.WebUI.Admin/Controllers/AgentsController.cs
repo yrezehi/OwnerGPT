@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OwnerGPT.Core.Services;
-using OwnerGPT.Models.Agents;
-using OwnerGPT.Models.Bindings;
-using OwnerGPT.Models.DTO;
 using OwnerGPT.WebUI.Admin.Controllers.Abstract;
 
 namespace OwnerGPT.WebUI.Admin.Controllers

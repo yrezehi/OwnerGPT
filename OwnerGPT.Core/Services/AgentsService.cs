@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using OwnerGPT.Core.Services.Abstract;
-using OwnerGPT.Core.Services.Abstract.Interfaces;
 using OwnerGPT.Core.Services.Compositions;
 using OwnerGPT.DocumentEmbedding.Encoder;
-using OwnerGPT.LLM.PromptEnginnering;
 using OwnerGPT.Models.Entities;
 using OwnerGPT.Models.Entities.Agents;
 using OwnerGPT.Models.Entities.DTO;

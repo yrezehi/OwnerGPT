@@ -1,5 +1,4 @@
 ﻿using OwnerGPT.Core.Services.Abstract;
-using OwnerGPT.Core.Services.Abstract.Interfaces;
 using OwnerGPT.Models.Entities;
 
 namespace OwnerGPT.Core.Services.Compositions

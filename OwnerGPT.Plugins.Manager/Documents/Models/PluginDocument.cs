@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using OwnerGPT.Plugins.Manager.Documents.Configuration;
-using System.Net.Mail;
 using System.Text;
 
 namespace OwnerGPT.Plugins.Manager.Documents.Models

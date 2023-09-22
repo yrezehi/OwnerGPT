@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OwnerGPT.Core.Services.Abstract;
-using OwnerGPT.Core.Services.Abstract.Interfaces;
 using OwnerGPT.Core.Utilities;
 using OwnerGPT.Databases.Repositores.PGVDB;
 using OwnerGPT.Databases.Repositores.PGVDB.Interfaces;

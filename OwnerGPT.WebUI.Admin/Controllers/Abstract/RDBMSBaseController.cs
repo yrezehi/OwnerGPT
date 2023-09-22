@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OwnerGPT.Core.Services.Abstract.Interfaces;
 using OwnerGPT.Core.Services.Compositions;
 
 namespace OwnerGPT.WebUI.Admin.Controllers.Abstract
