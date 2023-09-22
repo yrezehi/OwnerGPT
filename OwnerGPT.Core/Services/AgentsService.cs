@@ -16,12 +16,12 @@ namespace OwnerGPT.Core.Services
     {
 
         private readonly SentenceEncoder SentenceEncoder;
-        private readonly DocumentService DocumentService;
+        private readonly AgentDocumentsService AgentDocumentsService;
 
-        public AgentsService(RDBMSServiceBase<Agent> RDBMSServiceBase, PGVServiceBase<VectorEmbedding> PGVServiceBase, SentenceEncoder sentenceEncoder, DocumentService documentService) : base(RDBMSServiceBase, PGVServiceBase)
+        public AgentsService(RDBMSServiceBase<Agent> RDBMSServiceBase, PGVServiceBase<VectorEmbedding> PGVServiceBase, SentenceEncoder sentenceEncoder, AgentDocumentsService agentDocumentsService) : base(RDBMSServiceBase, PGVServiceBase)
         {
             SentenceEncoder = sentenceEncoder;
-            DocumentService = documentService;
+            AgentDocumentsService = agentDocumentsService;
         }
 
         public async Task<Agent> UpdateConfiguration(ConfigureAgentDTO agentConfiguration)
@@ -37,7 +37,7 @@ namespace OwnerGPT.Core.Services
 
                 if(attachment != null)
                 {
-                    Document document = await DocumentService.Persist(attachment);
+                    await AgentDocumentsService.Create(agentConfiguration.Agent.Id, attachment);
                     PluginDocument pluginDocument = await PluginDocument.GetPluginDocumentInstance(attachment);
 
                     string processedFile = PDFParser.Process(pluginDocument.Bytes);
