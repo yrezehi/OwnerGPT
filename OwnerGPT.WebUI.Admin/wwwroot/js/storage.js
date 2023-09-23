@@ -16,9 +16,25 @@
         return JSON.parse(window.localStorage.getItem(key));
     }
 
+    function setItem(key, value) {
+        if (value === Object(value)) {
+            setObject(key, value);
+        } else {
+            setValue(key, value);
+        }
+    }
+
+    function getItem(key) {
+        if (value === Object(value)) {
+            return getObject(key, value);
+        } else {
+            return getValue(key, value);
+        }
+    }
+
     function nuke(key) {
         if (key) {
-            window.localStorage.clear();
+            window.localStorage.removeItem(key);
         } else {
             window.localStorage.clear();
         }
@@ -26,12 +42,8 @@
     
     return function () {
         return Object.freeze({
-            setValue: setValue,
-            getValue: getValue,
-
-            setObject: setObject,
-            getObject: getObject, 
-
+            set: setItem,
+            get: getItem,
             nuke: nuke
         });
     }();
