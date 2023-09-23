@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using OwnerGPT.Core.Services.Abstract;
 using OwnerGPT.Core.Services.Compositions;
-using OwnerGPT.Databases.Repositores.RDBMS.Abstracts.Interfaces;
-using OwnerGPT.DocumentEmbedding.Encoder;
 using OwnerGPT.Models;
 using OwnerGPT.Models.Agents;
 
