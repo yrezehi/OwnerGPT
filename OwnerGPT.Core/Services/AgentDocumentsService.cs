@@ -11,7 +11,7 @@ namespace OwnerGPT.Core.Services
 
         private readonly DocumentService DocumentService;
         
-        public AgentDocumentsService(RDBMSServiceBase<Agent> RDBMSServiceBase, PGVServiceBase<VectorEmbedding> PGVServiceBase, DocumentService documentService) : base(RDBMSServiceBase, PGVServiceBase) {
+        public AgentDocumentsService(RDBMSServiceBase<AgentDocument> RDBMSServiceBase, PGVServiceBase<VectorEmbedding> PGVServiceBase, DocumentService documentService) : base(RDBMSServiceBase, PGVServiceBase) {
             DocumentService = documentService;
         }
 

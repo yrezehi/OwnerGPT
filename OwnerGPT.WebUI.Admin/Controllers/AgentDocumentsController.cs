@@ -22,7 +22,7 @@ namespace OwnerGPT.WebUI.Admin.Controllers
             string fileName = Path.GetFileName(file.FileName);
             List<string> progresses = new List<string>();
 
-            using (var streamWriter = new StreamWriter(Response.Body))
+            await using (var streamWriter = new StreamWriter(Response.Body))
             {
                 using (FileStream fileStream = System.IO.File.Create(Path.Combine(path, fileName)))
                 using (Stream stream = file.OpenReadStream())
