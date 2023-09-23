@@ -80,11 +80,8 @@
 
 
         function createAttachmentElement() {
-            var identifier = "attachment-" + utility.shortGUID();
-            var temporaryElement = document.createElement("div");
-
-            temporaryElement.innerHTML += `
-                <li id=${identifier}>
+            return dom.createElement(`
+                <li>
                     <input type="radio" id="hosting-big" name="hosting" value="hosting-big" class="hidden peer">
                     <div class="bg-white border border-gray-200 rounded-lg cursor-pointer px-5 py-4 peer-checked:border-indigo-600 peer-checked:text-indigo-600 hover:text-gray-600 hover:bg-gray-50">
                         <div class="items-center justify-between w-full text-gray-500">
@@ -95,7 +92,7 @@
                                         <span class="text-sm text-indigo-800 font-mono bg-indigo-100 inline rounded-full px-2 align-top float-right animate-pulse">Processing</span>
                                     </div>
                                 </div>
-                                <div class="attachment-size" class="w-full text-xs mt-2">Estimating size...</div>
+                                <div class="attachment-size w-full text-xs mt-2">Estimating size...</div>
                             </div>
                         </div>
                         <div class="progress-bar-container w-full bg-gray-200 rounded-full h-2.5 mt-3">
@@ -103,9 +100,7 @@
                         </div>
                     </div>
                 </li>
-            `;
-
-            return temporaryElement.querySelector(`#${identifier}`);
+            `);
         }
 
         async function streamUpload(file, context, callback) {
@@ -153,14 +148,9 @@
         }
 
         function createReadyFileStatusElement() {
-            var identifier = "status-" + utility.shortGUID();
-            var temporaryElement = document.createElement("div");
-
-            temporaryElement.innerHTML += `
-                <span id="${identifier}" class="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">Ready</span>
-            `;
-
-            return temporaryElement.querySelector(`#${identifier}`);
+            return dom.createElement(`
+                <span class="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">Ready</span>
+            `);
         }
 
         function handleAttachmentUpload(files){

@@ -1,14 +1,16 @@
-﻿var doom = function () {
+﻿var dom = function () {
 
-    function createElementWithIdentifier(prefix, serlizedElement) {
-        var identifier = prefix + "-" + utility.shortGUID();
-        chatDialogContainer.innerHTML += serlizedElement;
-        return document.querySelector(`#${identifier}`);
+    function createElementFromSerlized(serlizedElement) {
+        var temporaryElement = document.createElement("div");
+
+        temporaryElement.innerHTML += serlizedElement;
+
+        return temporaryElement.firstElementChild;
     }
 
     return function () {
         return Object.freeze({
-            createUniqueElement: createElementWithIdentifier
+            createElement: createElementFromSerlized
         });
     }();
 }();
