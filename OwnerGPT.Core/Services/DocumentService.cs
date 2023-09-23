@@ -3,7 +3,6 @@ using OwnerGPT.Core.Services.Abstract;
 using Microsoft.AspNetCore.Http;
 using Document = OwnerGPT.Models.Document;
 using OwnerGPT.Core.Utilities.Extenstions;
-using System.IO;
 
 namespace OwnerGPT.Core.Services
 {
@@ -22,7 +21,7 @@ namespace OwnerGPT.Core.Services
                 throw new Exception("File is not valid!");
 
             Document document = await this.PersistToStore(file);
-            this.PersistToLocal(document.Name, file);
+            this.PersistToLocal(file.FileName, file);
 
             return document;
         }
@@ -34,7 +33,7 @@ namespace OwnerGPT.Core.Services
 
             Document document = await this.PersistToStore(file);
 
-            using (FileStream fileStream = File.Create(this.GetDocumentPath(document.Name)))
+            using (FileStream fileStream = File.Create(this.GetDocumentPath(file.FileName)))
             using (Stream stream = file.OpenReadStream())
             {
 

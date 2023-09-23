@@ -25,5 +25,13 @@ namespace OwnerGPT.Core.Services
 
             return await RDBMSServiceBase.Create(agentDocument);
         }
+
+        public async IAsyncEnumerable<int> StreamCreate(IFormFile file)
+        {
+            await foreach(int progress in DocumentService.StreamPersist(file))
+            {
+                yield return progress;
+            }
+        }
     }
 }
