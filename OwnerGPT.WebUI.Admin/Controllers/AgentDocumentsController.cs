@@ -15,12 +15,8 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         [DisableRequestSizeLimit]
         public async void Upload(IFormFile file)
         {
-            Response.StatusCode = 200;
-            Response.ContentType = "text/html";
-
             string path = Path.GetFullPath("C:\\ownergpt_files");
             string fileName = Path.GetFileName(file.FileName);
-            List<string> progresses = new List<string>();
 
             await using (var streamWriter = new StreamWriter(Response.Body))
             {
@@ -38,7 +34,6 @@ namespace OwnerGPT.WebUI.Admin.Controllers
                         fileStream.Write(streamBuffer, 0, bytesToProcess);
                         totalReadBytes += bytesToProcess;
                         progress = (int)((float)totalReadBytes / (float)file.Length * 100.0);
-                        progresses.Add(progress.ToString());
 
                         await streamWriter.WriteLineAsync(progress.ToString());
                         await streamWriter.FlushAsync();

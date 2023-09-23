@@ -17,16 +17,30 @@ namespace OwnerGPT.Core.Services
 
         public async Task<Document> Persist(IFormFile file)
         {
-            Document document = new Document();
-
-            if (file == null || file.Length == 0)
+            if (!IsValidFile(file))
                 throw new Exception("File is not valid!");
+
+            Document document = await this.PersistToStore(file);
+            this.PersistToLocal(document.Name, file);
+
+            return document;
+        }
+
+        private bool IsValidFile(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return false;
+
+            return true;
+        }
+
+        private async Task<Document> PersistToStore(IFormFile file)
+        {
+            Document document = new Document();
 
             document.Name = file.GetUniqueFileName();
             document.Extension = file.GetExtension();
             document.MimeType = ""; // TODO: nuget it or do it
-
-            this.PersistToLocal(document.Name, file);
 
             return await this.Create(document);
         }
