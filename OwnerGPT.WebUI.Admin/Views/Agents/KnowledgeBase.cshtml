@@ -55,7 +55,7 @@
                     <h3 class="text-xl font-bold text-gray-900">Preview</h3>
                 </div>
                 <div class="mt-4">
-                    <div class="block p-4 bg-indigo-50 border-0 rounded-lg">
+                    <div class="block p-4 bg-gray-50 border-0 rounded-lg">
                         <p class="font-normal text-gray-700">
                             No content to preview, please pick a content from left-hand side!
                         </p>
@@ -97,13 +97,41 @@
                             </div>
                         </div>
                         <div class="w-full bg-gray-200 rounded-full h-2.5 mt-3">
-                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: 45%"></div>
+                            <div class="progress-bar bg-blue-600 h-2.5 rounded-full" style="width: 45%"></div>
                         </div>
                     </div>
                 </li>
             `;
 
             return temporaryElement.querySelector(`#${identifier}`);
+        }
+
+        function streamUpload(file, context) {
+            const formData = new FormData();
+            formData.append("file", file);
+
+            try {
+                const response = await fetch("https://localhost:5027/AgentDocuments", {
+                    method: 'POST',
+                    headers: {
+                        "Connection": "keep-alive"
+                    },
+                    body: formData,
+                });
+
+                const reader = response.body.getReader();
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    var progress = new TextDecoder().decode(value).trim();
+
+                    context.style.width = progress;
+
+                    if (done) { break; }
+                }
+            } catch (error) {
+                notification.error(error);
+            }
         }
 
         function handleAttachment(event) {
@@ -130,7 +158,7 @@
                 attachmentElement.querySelector(".attachment-name").innerHTML = utility.stringEllipsis(file.name, 10);
 
                 (function (context, currentFile) {
-                    
+                    streamUpload(file, context.querySelector(".progress-bar"));
                 })(attachmentElement, file);
 
                 attachmentsContainerElement.appendChild(attachmentElement);
