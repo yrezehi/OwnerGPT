@@ -128,43 +128,20 @@
         }
 
         function handleAttachment(event) {
-            var files = event.target.files;
-
-            if (!isValidAttachments(files)) {
-                return;
-            }
-
-            createAttachmentElements(files);
-        }
-
-        function handleFilesDrop(event) {
-            var files = Array.from(event.dataTransfer.files);
-
-            if (!isValidAttachments(files)) {
-                return;
-            }
-
-            createAttachmentElements(files);
+            handleAttachmentUpload(event.target.files);
 
             event.preventDefault();
         }
 
-        function isValidAttachments(files) {
-            var totalSize = 0;
-
-            for (var file of [...files, ...attachments]) {
-                totalSize += file.size;
-
-                if (totalSize >= TOTAl_ALLOWED_FILE_SIZE) {
-                    notification.error("Nope, attachments limit is 20MB");
-                    return false;
-                }
-            }
-
-            return true;
+        function handleFilesDrop(event) {
+            handleAttachmentUpload(Array.from(event.dataTransfer.files));
+            
+            event.preventDefault();
         }
 
-        function createAttachmentElements(files) {
+        function handleAttachmentUpload(files){
+            if (!isValidAttachments(files)) { return; }
+
             for (var file of files) {
                 var attachmentElement = createAttachmentElement();
 
@@ -185,5 +162,21 @@
                 attachmentsContainerElement.appendChild(attachmentElement);
             }
         }
+
+        function isValidAttachments(files) {
+            var totalSize = 0;
+
+            for (var file of [...files, ...attachments]) {
+                totalSize += file.size;
+
+                if (totalSize >= TOTAl_ALLOWED_FILE_SIZE) {
+                    notification.error("Nope, attachments limit is 20MB");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
     </script>
 }
