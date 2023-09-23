@@ -70,6 +70,11 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 7.5h11m0 0L8 3.786M12 7.5l-4 3.714M12 1h3c.53 0 1.04.196 1.414.544.375.348.586.82.586 1.313v9.286c0 .492-.21.965-.586 1.313A2.081 2.081 0 0 1 15 14h-3" />
                             </svg>
                         </a>
+                        <div class="flex items-center cursor-pointer justify-center w-12 h-8 mt-2 rounded hover:bg-gray-100" href="@Url.Action("Manager", "Account")">
+                            <p class="mt-1 font-extralight text-center">
+                                v@(ConfigurationUtil.GetValue<string>("VERSION"))
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -99,6 +104,7 @@
 
     <script>
         globalProperties.set("baseurl", "@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.PathBase}")");
+        globalProperties.set("version", "@(ConfigurationUtil.GetValue<string>("VERSION"))");
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
