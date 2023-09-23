@@ -27,7 +27,7 @@ namespace OwnerGPT.Core.Services
             return document;
         }
 
-        public async void StreamPersist(IFormFile file)
+        public async IAsyncEnumerable<int> StreamPersist(IFormFile file)
         {
             if (!IsValidFile(file))
                 throw new Exception("File is not valid!");
@@ -41,13 +41,13 @@ namespace OwnerGPT.Core.Services
                 byte[] streamBuffer = new byte[16 * 1024];
                 int bytesToProcess;
                 long totalReadBytes = 0;
-                int progress = 0;
 
                 while ((bytesToProcess = stream.Read(streamBuffer, 0, streamBuffer.Length)) > 0)
                 {
                     fileStream.Write(streamBuffer, 0, bytesToProcess);
                     totalReadBytes += bytesToProcess;
-                    progress = (int)((float)totalReadBytes / (float)file.Length * 100.0);
+
+                    yield return ((int)((float)totalReadBytes / (float)file.Length * 100.0));
                 }
             }
         }
