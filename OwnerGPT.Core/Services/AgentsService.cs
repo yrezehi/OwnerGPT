@@ -1,12 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using OwnerGPT.Core.Services.Abstract;
+﻿using OwnerGPT.Core.Services.Abstract;
 using OwnerGPT.Core.Services.Compositions;
 using OwnerGPT.DocumentEmbedding.Encoder;
 using OwnerGPT.Models;
-using OwnerGPT.Models.Abstracts.DTO;
 using OwnerGPT.Models.Agents;
-using OwnerGPT.Plugins.Manager.Documents.Models;
-using OwnerGPT.Plugins.Parsers.PDF;
 
 namespace OwnerGPT.Core.Services
 {
