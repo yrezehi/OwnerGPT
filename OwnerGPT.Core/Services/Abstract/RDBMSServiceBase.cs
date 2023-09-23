@@ -13,7 +13,7 @@ namespace OwnerGPT.Core.Services.Abstract
     public class RDBMSServiceBase<T> : IRDBMSServiceBase<T> where T : class
     {
         public RDBMSServiceBase(IRDBMSUnitOfWork unitOfWork)
-        { 
+        {
             DBSet = unitOfWork.Repository<T>().DBSet;
             UnitOfWork = unitOfWork;
         }
@@ -49,14 +49,21 @@ namespace OwnerGPT.Core.Services.Abstract
         // meant to be used by external API calls, that's why there is an extra validation layer
         public async Task<IEnumerable<T>> SearchByProperty<TValue>(string propertyName, TValue value, int? page)
         {
+            // TODO: nah, fix you laz..
+            if (value is string && string.IsNullOrEmpty(value as string))
+            {
+                return (page == null) ? await DBSet.ToListAsync() : await DBSet.PaginateQuerable(page.Value, DEFAULT_PAGE_SIZE).ToListAsync();
+            }
+
             IEntity enetityInstance = ((IEntity)Activator.CreateInstance(typeof(T))!);
             List<string> properties = enetityInstance.SearchableProperties();
 
             if (!ReflectionUtil.ContainsProperty(enetityInstance, propertyName))
                 throw new Exception($"Property is not allowed to be searched or does not exists!");
 
-            if(!properties.Any(property => properties.Any(searchableProperty => searchableProperty.ToLower().Equals(propertyName.ToLower()))))
+            if (!properties.Any(property => properties.Any(searchableProperty => searchableProperty.ToLower().Equals(propertyName.ToLower()))))
                 throw new Exception($"Property is not allowed to be searched or does not exists!");
+
 
             ParameterExpression parameter = Expression.Parameter(typeof(T), "property");
             MemberExpression body = Expression.PropertyOrField(parameter, propertyName);
@@ -64,11 +71,8 @@ namespace OwnerGPT.Core.Services.Abstract
             MethodCallExpression expression = Expression.Call(body, containsMethod, Expression.Constant(value, typeof(string)), Expression.Constant(StringComparison.OrdinalIgnoreCase));
 
             var predicate = Expression.Lambda<Func<T, bool>>(expression, parameter);
-            
-            IEnumerable<T> enetities = (page == null) ? await DBSet.Where(predicate).ToListAsync() : await DBSet.Where(predicate).PaginateQuerable(page.Value, DEFAULT_PAGE_SIZE).ToListAsync();
 
-            if (enetities.Count() == 0)
-                throw new Exception($"Find by property was not found!");
+            IEnumerable<T> enetities = (page == null) ? await DBSet.Where(predicate).ToListAsync() : await DBSet.Where(predicate).PaginateQuerable(page.Value, DEFAULT_PAGE_SIZE).ToListAsync();
 
             return enetities;
         }
@@ -159,7 +163,7 @@ namespace OwnerGPT.Core.Services.Abstract
 
             if (entityToUpdate != null)
             {
-                ReflectionUtil.MapEntity<T>((IEntity) updatedEntity, (IEntity) entityToUpdate);
+                ReflectionUtil.MapEntity<T>((IEntity)updatedEntity, (IEntity)entityToUpdate);
 
                 DBSet.Update(entityToUpdate);
 

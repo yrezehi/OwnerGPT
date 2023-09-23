@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using OwnerGPT.Core.Services;
 using OwnerGPT.Models.Abstracts.Bindings;
 using OwnerGPT.Models.Abstracts.DTO;
@@ -11,8 +12,8 @@ namespace OwnerGPT.WebUI.Admin.Controllers
     {
         public AgentsController(AgentsService Service) : base(Service) { }
 
-        public async Task<IActionResult> Index(int? page) =>
-            View(await Service.RDBMSServiceBase.GetAll(page));
+        public async Task<IActionResult> Index(int? page, string property = "name", string value = "") =>
+            View(await Service.RDBMSServiceBase.SearchByProperty(property, value, page));
 
         [HttpGet("[action]/{agentId}")]
         public async Task<IActionResult> Configure(int agentId) =>
