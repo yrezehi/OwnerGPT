@@ -88,6 +88,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
 
     <!-- scripts -->
+    <script src="~/js/globals.js" asp-append-version="true"></script>
     <script src="~/js/utility.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/partial_view_loader.js" asp-append-version="true"></script>
@@ -95,6 +96,10 @@
     <script src="~/js/exceptions.js" asp-append-version="true"></script>
     <script src="~/js/fetch.js" asp-append-version="true"></script>
     <script src="~/js/binding.js" asp-append-version="true"></script>
+
+    <script>
+        globalProperties.set("baseurl", "@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.PathBase}")");
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
