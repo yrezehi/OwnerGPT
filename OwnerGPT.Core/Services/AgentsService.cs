@@ -22,42 +22,7 @@ namespace OwnerGPT.Core.Services
             AgentDocumentsService = agentDocumentsService;
         }
 
-        public async Task<Agent> UpdateConfiguration(ConfigureAgentDTO agentConfiguration)
-        {
-            if(agentConfiguration.Agent == null)
-            {
-                throw new Exception("Agent not found in configuration!");
-            }
-
-            if(agentConfiguration.Attachments != null && agentConfiguration.Attachments.Length > 0)
-            {
-                IFormFile attachment = agentConfiguration.Attachments.First();
-
-                if(attachment != null)
-                {
-                    await AgentDocumentsService.Create(agentConfiguration.Agent.Id, attachment);
-                    PluginDocument pluginDocument = await PluginDocument.GetPluginDocumentInstance(attachment);
-
-                    string processedFile = PDFParser.Process(pluginDocument.Bytes);
-
-                    if (processedFile != null && processedFile.Length > 0)
-                    {
-                        var chunkedFiles = SentenceEncoder.ChunkText(processedFile);
-
-                        foreach (var chunk in chunkedFiles)
-                        {
-                            await PGVServiceBase.Insert(chunk);
-                        }
-
-                        if (chunkedFiles.Any())
-                        {
-                            //agentConfiguration.Agent.Instruction += $"\n{PromptContexts.ANSWER_CONTEXT}\n";
-                        }
-                    }
-                }
-            }
-
-            return await RDBMSServiceBase.Update(agentConfiguration.Agent);
-        }
+        public async Task<Agent> UpdateConfiguration(Agent agent) =>
+            await RDBMSServiceBase.Update(agent);
     }
 }
