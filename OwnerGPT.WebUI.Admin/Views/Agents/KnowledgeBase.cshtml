@@ -11,7 +11,7 @@
                     <span class="text-base font-normal text-gray-500">Modify agent's knowledge base</span>
                 </div>
                 <div class="mt-4">
-                    <ul class="grid grid-cols-1 w-full gap-2 mb-1">
+                    <ul id="attachments-container" class="grid grid-cols-1 w-full gap-2 mb-1">
                         <li>
                             <input type="radio" id="hosting-small" name="hosting" value="hosting-small" class="hidden peer" required>
                             <label for="hosting-small" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-indigo-600 peer-checked:text-indigo-600 hover:text-gray-600 hover:bg-gray-50">
@@ -22,24 +22,6 @@
                                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z" />
                                 </svg>
                             </label>
-                        </li>
-                        <li>
-                            <input type="radio" id="hosting-big" name="hosting" value="hosting-big" class="hidden peer">
-                            <div class="bg-white border border-gray-200 rounded-lg cursor-pointer px-5 py-4 peer-checked:border-indigo-600 peer-checked:text-indigo-600 hover:text-gray-600 hover:bg-gray-50">
-                                <div class="items-center justify-between w-full text-gray-500">
-                                    <div class="block">
-                                        <div class="w-full text-base font-semibold">
-                                            Attachment2.md
-                                            <span class="text-sm text-indigo-800 font-mono bg-indigo-100 inline rounded-full px-2 align-top float-right animate-pulse">Processing</span>
-
-                                        </div>
-                                        <div class="w-full text-xs mt-1">15 MB</div>
-                                    </div>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-3">
-                                    <div class="bg-blue-600 h-2.5 rounded-full" style="width: 45%"></div>
-                                </div>
-                            </div>
                         </li>
                     </ul>
                     <div class="sm:col-span-2 mt-5">
@@ -57,8 +39,6 @@
                                 <input id="attachment-input" name="attachments" accept="application/pdf" type="file" class="hidden" multiple />
                             </label>
                         </div>
-
-                        <div id="attachments-container" class="mt-2"></div>
                     </div>
 
                     <div class="sm:col-span-2 mt-5">
@@ -104,25 +84,24 @@
             var temporaryElement = document.createElement("div");
 
             temporaryElement.innerHTML += `
-                        <div id=${identifier} class="flex items-center justify-between relative p-4 w-full text-gray-700 bg-white rounded-lg overflow-hidden shadow hover:shadow-md mt-2">
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 stroke-current" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 1v4a1 1 0 0 1-1 1H1m4 6 2 2 4-4m4-8v16a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V5.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 1h8.239A.97.97 0 0 1 15 2Z" />
-                                </svg>
-                                <div class="ml-3">
-                                    <p class="attachment-name" class="font-bold text-sm text-gray-800">Annaulreport.pdf</p>
-                                    <p class="attachment-size" class="text-xs text-gray-600">242 Kb</p>
+                <li id=${identifier}>
+                    <input type="radio" id="hosting-big" name="hosting" value="hosting-big" class="hidden peer">
+                    <div class="bg-white border border-gray-200 rounded-lg cursor-pointer px-5 py-4 peer-checked:border-indigo-600 peer-checked:text-indigo-600 hover:text-gray-600 hover:bg-gray-50">
+                        <div class="items-center justify-between w-full text-gray-500">
+                            <div class="block">
+                                <div class="w-full text-base font-semibold">
+                                    <span class="attachment-name">Fetching name...</span>
+                                    <span class="text-sm text-indigo-800 font-mono bg-indigo-100 inline rounded-full px-2 align-top float-right animate-pulse">Processing</span>
                                 </div>
-                            </div>
-                            <div class="flex items-center text-gray-600">
-                                        <button type="button" class="drop-attachment">
-                                    <svg class="w-4 h-4 stroke-current" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                                        <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z" />
-                                    </svg>
-                                </button>
+                                <div class="attachment-size" class="w-full text-xs mt-1">Estimating size...</div>
                             </div>
                         </div>
-                    `;
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mt-3">
+                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: 45%"></div>
+                        </div>
+                    </div>
+                </li>
+            `;
 
             return temporaryElement.querySelector(`#${identifier}`);
         }
@@ -151,12 +130,7 @@
                 attachmentElement.querySelector(".attachment-name").innerHTML = utility.stringEllipsis(file.name, 10);
 
                 (function (context, currentFile) {
-                    context.querySelector(".drop-attachment").addEventListener("click", function (event) {
-                        attachments = attachments.filter(function (attachment) {
-                            return currentFile.name !== attachment.name;
-                        });
-                        context.remove();
-                    });
+                    
                 })(attachmentElement, file);
 
                 attachmentsContainerElement.appendChild(attachmentElement);
