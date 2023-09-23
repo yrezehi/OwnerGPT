@@ -3,6 +3,7 @@ using OwnerGPT.Core.Services.Abstract;
 using Microsoft.AspNetCore.Http;
 using Document = OwnerGPT.Models.Document;
 using OwnerGPT.Core.Utilities.Extenstions;
+using System.IO;
 
 namespace OwnerGPT.Core.Services
 {
@@ -26,6 +27,31 @@ namespace OwnerGPT.Core.Services
             return document;
         }
 
+        public async void StreamPersist(IFormFile file)
+        {
+            if (!IsValidFile(file))
+                throw new Exception("File is not valid!");
+
+            Document document = await this.PersistToStore(file);
+
+            using (FileStream fileStream = File.Create(this.GetDocumentPath(document.Name)))
+            using (Stream stream = file.OpenReadStream())
+            {
+
+                byte[] streamBuffer = new byte[16 * 1024];
+                int bytesToProcess;
+                long totalReadBytes = 0;
+                int progress = 0;
+
+                while ((bytesToProcess = stream.Read(streamBuffer, 0, streamBuffer.Length)) > 0)
+                {
+                    fileStream.Write(streamBuffer, 0, bytesToProcess);
+                    totalReadBytes += bytesToProcess;
+                    progress = (int)((float)totalReadBytes / (float)file.Length * 100.0);
+                }
+            }
+        }
+
         private bool IsValidFile(IFormFile file)
         {
             if (file == null || file.Length == 0)
@@ -47,13 +73,18 @@ namespace OwnerGPT.Core.Services
 
         private async void PersistToLocal(string fileName, IFormFile file)
         {
-            using (Stream fileStream = new FileStream(Path.Combine(DEFAULT_PERSISTENCE_PATH, fileName), FileMode.Create))
+            using (Stream fileStream = new FileStream(this.GetDocumentPath(fileName), FileMode.Create))
             {
                 // in case file stream position been moved in previous logic
                 fileStream.Position = 0;
                 
                 await file.CopyToAsync(fileStream);
             }
+        }
+
+        private string GetDocumentPath(string fileName)
+        {
+            return Path.Combine(DEFAULT_PERSISTENCE_PATH, fileName);
         }
 
     }
