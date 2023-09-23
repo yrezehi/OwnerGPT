@@ -3,6 +3,9 @@ using OwnerGPT.Core.Services.Abstract;
 using Microsoft.AspNetCore.Http;
 using Document = OwnerGPT.Models.Document;
 using OwnerGPT.Core.Utilities.Extenstions;
+using System.Drawing;
+using OwnerGPT.Plugins.Manager.Documents.Models;
+using OwnerGPT.Plugins.Parsers.PDF;
 
 namespace OwnerGPT.Core.Services
 {
@@ -78,6 +81,35 @@ namespace OwnerGPT.Core.Services
                 fileStream.Position = 0;
                 
                 await file.CopyToAsync(fileStream);
+            }
+        }
+
+        public async Task<string> PreProcessDocument(IFormFile file)
+        {
+            PluginDocument pluginDocument = await PluginDocument.GetPluginDocumentInstance(file);
+
+            string processedDocuemnt = PDFParser.Process(pluginDocument.Bytes);
+
+            if(processedDocuemnt == null)
+            {
+                throw new Exception("Porcessed document is corrupted");
+            }
+
+            return processedDocuemnt;
+        }
+
+        private async void PersistProcessedDocument(IFormFile file, string processedDocument)
+        {
+            string filePath = GetDocumentPath(file.Name);
+
+            if (!File.Exists(filePath))
+            {
+                File.Create(GetDocumentPath(file.Name)).Dispose();
+            }
+
+            using (TextWriter textWriter = new StreamWriter(filePath))
+            {
+                textWriter.WriteLine(processedDocument);
             }
         }
 

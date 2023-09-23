@@ -27,5 +27,10 @@ namespace OwnerGPT.WebUI.Admin.Controllers
                 }
             }
         }
+
+        // TODO: map agent
+        [HttpGet("[action]/{documentId}")]
+        public async Task<IActionResult> FetchPreview(int documentId) =>
+            Ok(await Service.FetchPreview(documentId));
     }
 }

@@ -33,5 +33,10 @@ namespace OwnerGPT.Core.Services
                 yield return progress;
             }
         }
+
+        public async Task<string> FetchPreview(int documentId)
+        {
+            return "";
+        }
     }
 }
