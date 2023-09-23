@@ -36,6 +36,8 @@ namespace OwnerGPT.Core.Services
 
             Document document = await this.PersistToStore(file);
 
+            this.PreProcessAndPersistDocument(file);
+
             using (FileStream fileStream = File.Create(this.GetDocumentPath(file.FileName)))
             using (Stream stream = file.OpenReadStream())
             {
@@ -84,7 +86,12 @@ namespace OwnerGPT.Core.Services
             }
         }
 
-        public async Task<string> PreProcessDocument(IFormFile file)
+        private async void PreProcessAndPersistDocument(IFormFile file)
+        {
+            this.PersistProcessedDocument(file, await PreProcessDocument(file));
+        }
+
+        private async Task<string> PreProcessDocument(IFormFile file)
         {
             PluginDocument pluginDocument = await PluginDocument.GetPluginDocumentInstance(file);
 
@@ -98,7 +105,7 @@ namespace OwnerGPT.Core.Services
             return processedDocuemnt;
         }
 
-        private async void PersistProcessedDocument(IFormFile file, string processedDocument)
+        private void PersistProcessedDocument(IFormFile file, string processedDocument)
         {
             string filePath = GetDocumentPath(file.Name);
 
