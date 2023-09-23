@@ -90,14 +90,16 @@
                         <div class="items-center justify-between w-full text-gray-500">
                             <div class="block">
                                 <div class="w-full text-base font-semibold">
-                                    <span class="attachment-name">Fetching name...</span>
-                                    <span class="text-sm text-indigo-800 font-mono bg-indigo-100 inline rounded-full px-2 align-top float-right animate-pulse">Processing</span>
+                                    <span class="attachment-name font-bold">Fetching name...</span>
+                                    <div class="file-status inline">
+                                        <span class="text-sm text-indigo-800 font-mono bg-indigo-100 inline rounded-full px-2 align-top float-right animate-pulse">Processing</span>
+                                    </div>
                                 </div>
-                                <div class="attachment-size" class="w-full text-xs mt-1">Estimating size...</div>
+                                <div class="attachment-size" class="w-full text-xs mt-2">Estimating size...</div>
                             </div>
                         </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5 mt-3">
-                        <div class="progress-bar bg-indigo-600 h-2.5 rounded-full" style="width: 0%"></div>
+                        <div class="progress-bar-container w-full bg-gray-200 rounded-full h-2.5 mt-3">
+                            <div class="progress-bar bg-indigo-600 h-2.5 rounded-full" style="width: 0%"></div>
                         </div>
                     </div>
                 </li>
@@ -106,7 +108,7 @@
             return temporaryElement.querySelector(`#${identifier}`);
         }
 
-        async function streamUpload(file, context) {
+        async function streamUpload(file, context, callback) {
             const formData = new FormData();
             formData.append("file", file);
 
@@ -127,7 +129,11 @@
 
                     context.style.width = progress + "%";
 
-                    if (done) { break; }
+                    if (done) {
+                        if(callback)
+                            callback();
+                        break;
+                    }
                 }
             } catch (error) {
                 notification.error(error);
@@ -146,6 +152,17 @@
             event.preventDefault();
         }
 
+        function createReadyFileStatusElement() {
+            var identifier = "status-" + utility.shortGUID();
+            var temporaryElement = document.createElement("div");
+
+            temporaryElement.innerHTML += `
+                <span id="${identifier}" class="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">Ready</span>
+            `;
+
+            return temporaryElement.querySelector(`#${identifier}`);
+        }
+
         function handleAttachmentUpload(files){
             if (!isValidAttachments(files)) { return; }
 
@@ -158,7 +175,16 @@
                 attachmentElement.querySelector(".attachment-name").innerHTML = utility.stringEllipsis(file.name, 50);
 
                 (function (context, currentFile) {
-                    streamUpload(file, context.querySelector(".progress-bar"));
+                    streamUpload(file, context.querySelector(".progress-bar"), function () {
+                        var fileStatusElement = context.querySelector(".file-status");
+                        
+                        fileStatusElement.innerHTML = "";
+                        fileStatusElement.appendChild(createReadyFileStatusElement());
+
+                        var progressbarContainer = context.querySelector(".progress-bar-container");
+
+                        progressbarContainer.remove();
+                    });
                 })(attachmentElement, file);
 
                 attachmentsContainerElement.appendChild(attachmentElement);

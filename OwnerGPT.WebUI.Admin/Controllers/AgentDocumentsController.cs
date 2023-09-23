@@ -42,7 +42,7 @@ namespace OwnerGPT.WebUI.Admin.Controllers
 
                         await streamWriter.WriteLineAsync(progress.ToString());
                         await streamWriter.FlushAsync();
-                        Thread.Sleep(1000);
+                        Thread.Sleep(100);
                     }
                 }
             }
