@@ -1,4 +1,14 @@
-﻿window.configuration = Object.freeze({
-    baseurl: "", // set the values from backend somehow, we need it due wonderful iis experience
-    version: "",
-});
+﻿var globalProperties = function () {
+    var properties = {};
+
+    function setProperty(key, value) {
+        setProperty = { ...properties, [key]: value };
+    }
+
+    return function () {
+        return Object.freeze({
+            set: setProperty,
+            ...properties
+        });
+    }();
+}();
