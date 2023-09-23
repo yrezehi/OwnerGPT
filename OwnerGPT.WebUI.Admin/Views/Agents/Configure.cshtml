@@ -11,7 +11,7 @@
     </div>
     <form id="agent-configuration-form" action="@Url.Action("Update", "Agents")" method="post" class="mx-auto mt-4">
         <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-            <input name="id" value="@Model.Id" hidden/>
+            <input name="id" value="@Model.Id" hidden />
 
             <div class="sm:col-span-2">
                 <label for="name" class="block text-sm font-semibold leading-6 text-gray-900">Name</label>
@@ -48,35 +48,6 @@
             </div>
 
             <div class="sm:col-span-2">
-
-                <label for="attachment-input" class="block text-sm font-semibold leading-6 text-gray-900 mb-3">Knowledge base as file <span class="text-xs text-gray-500">(optional)</span></label>
-                <label for="attachment-input" class="block text-sm font-semibold leading-6 text-gray-900 mb-3 mt-1"><span class="text-xs text-gray-500">(drop files to to be interacted with)</span></label>
-                <div id="drag-drop-area" class="flex items-center justify-center w-full">
-                    <label for="attachment-input" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
-                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                            <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                            </svg>
-                            <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                            <p class="text-xs text-gray-500">PDF or TXT (MAX. 10MB)</p>
-                        </div>
-                        <input id="attachment-input" name="attachments" accept="text/plain,application/pdf" type="file" class="hidden" multiple />
-                    </label>
-                </div>
-
-                <div id="attachments-container" class="mt-2"></div>
-
-            </div>
-
-            <div class="sm:col-span-2">
-                <label for="urls" class="block text-sm font-semibold leading-6 text-gray-900">Or an URL <span class="text-xs text-gray-500">(optional)</span></label>
-                <label for="urls" class="block text-sm font-semibold leading-6 text-gray-900 mt-1"><span class="text-xs text-gray-500">(to be interacted with, enter single or more links 5 MAX seperated by spaces or new lines)</span></label>
-                <div class="mt-2.5">
-                    <textarea placeholder="https://example.com https://another-example.com" name="urls" id="urls" rows="4" class="bg-gray-100 cursor-not-allowed block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" readonly></textarea>
-                </div>
-            </div>
-
-            <div class="sm:col-span-2">
                 <label class="relative inline-flex items-center cursor-pointer">
                     <input name="@Model.Active" type="checkbox" value="true" class="sr-only peer">
                     <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
@@ -92,20 +63,13 @@
 
 @section Scripts {
     <script>
-        const TOTAl_ALLOWED_FILE_SIZE = 20000000;
-
         var submitConfigurationElement = document.querySelector("#submit-configuration");
-        var attachmentInputElement = document.querySelector("#attachment-input");
-        var attachmentsContainerElement = document.querySelector("#attachments-container");
-        var dragAreaElement = document.querySelector("#drag-drop-area");
 
         binding.clickToTrigger(submitConfigurationElement, configurationSubmitHandler);
-        binding.uploadTrigger(attachmentInputElement, handleAttachment);
-        binding.dropTrigger(dragAreaElement, handleFilesDrop);
 
-        var attachments = [];
 
-        function configurationSubmitHandler(event){
+
+        function configurationSubmitHandler(event) {
             const formAttributes = Object.fromEntries(new FormData(document.querySelector("#agent-configuration-form")));
 
             var formToSubmit = new FormData();
@@ -114,12 +78,6 @@
             formToSubmit.append("Agent.Description", formAttributes["description"]);
             formToSubmit.append("Agent.Introduction", formAttributes["introduction"]);
             formToSubmit.append("Agent.Instruction", formAttributes["instruction"]);
-
-            attachments.forEach(function (attachment, index) {
-                formToSubmit.append(`Attachments`, attachment);
-            });
-
-            formToSubmit.append("URLs", formAttributes["urls"]);
 
             fetch("@Url.Action("Update", "Agents")", {
                 method: 'POST',
@@ -131,92 +89,5 @@
             });
         }
 
-        function createAttachmentElement() {
-            var identifier = "attachment-" + utility.shortGUID();
-            var temporaryElement = document.createElement("div");
-
-            temporaryElement.innerHTML += `
-                <div id=${identifier} class="flex items-center justify-between relative p-4 w-full text-gray-700 bg-white rounded-lg overflow-hidden shadow hover:shadow-md mt-2">
-                    <div class="flex items-center">
-                        <svg class="w-5 h-5 stroke-current" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 1v4a1 1 0 0 1-1 1H1m4 6 2 2 4-4m4-8v16a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V5.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 1h8.239A.97.97 0 0 1 15 2Z" />
-                        </svg>
-                        <div class="ml-3">
-                            <p class="attachment-name" class="font-bold text-sm text-gray-800">Annaulreport.pdf</p>
-                            <p class="attachment-size" class="text-xs text-gray-600">242 Kb</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center text-gray-600">
-                                <button type="button" class="drop-attachment">
-                            <svg class="w-4 h-4 stroke-current" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                                <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            `;
-
-            return temporaryElement.querySelector(`#${identifier}`);
-        }
-
-        function handleAttachment(event){
-            var files = event.target.files;
-
-            if (!isValidAttachments(files)) {
-                return;
-            }
-
-            createAttachmentElements(files);
-        }
-
-        function handleFilesDrop(event) {
-            var files = Array.from(event.dataTransfer.files);
-
-            if (!isValidAttachments(files)) {
-                return;
-            }
-
-            createAttachmentElements(files);
-
-            event.preventDefault();
-        }
-
-        function isValidAttachments(files){
-            var totalSize = 0;
-
-            for (var file of [...files, ...attachments]) {
-                totalSize += file.size;
-
-                if (totalSize >= TOTAl_ALLOWED_FILE_SIZE) {
-                    notification.error("Nope, attachments limit is 20MB");
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        function createAttachmentElements(files) {
-            for (var file of files) {
-                var attachmentElement = createAttachmentElement();
-
-                attachments.push(file);
-
-                attachmentElement.querySelector(".attachment-size").innerHTML = utility.sizeToReadableString(file.size);
-                attachmentElement.querySelector(".attachment-name").innerHTML = utility.stringEllipsis(file.name, 10);
-
-                (function (context, currentFile) {
-                    context.querySelector(".drop-attachment").addEventListener("click", function (event) {
-                        attachments = attachments.filter(function (attachment) {
-                            return currentFile.name !== attachment.name;
-                        });
-                        context.remove();
-                    });
-                })(attachmentElement, file);
-
-                attachmentsContainerElement.appendChild(attachmentElement);
-            }
-        }
-        
     </script>
 }
