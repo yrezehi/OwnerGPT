@@ -13,12 +13,11 @@ namespace OwnerGPT.Plugins.Parsers.PDF.Utilities
         {
             StringBuilder contentBuilder = new StringBuilder();
 
-            using (PdfDocument document = PdfDocument.Open(fileBytes))
+            PdfDocument document = PdfDocument.Open(fileBytes);
+             
+            foreach (Page page in document.GetPages())
             {
-                foreach (Page page in document.GetPages())
-                {
-                    contentBuilder.AppendLine(PDFUtil.Clean(ContentOrderTextExtractor.GetText(page)));
-                }
+                contentBuilder.AppendLine(PDFUtil.Clean(ContentOrderTextExtractor.GetText(page)));
             }
 
             return contentBuilder.ToString();

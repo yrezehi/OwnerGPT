@@ -10,7 +10,7 @@ namespace OwnerGPT.Plugins.Manager.Documents.Models
         public byte[] Bytes { get; set; }
         public string Extension { get; set; }
 
-        public async static Task<PluginDocument> GetPluginDocumentInstance(IFormFile file)
+        public static PluginDocument GetPluginDocumentInstance(IFormFile file)
         {
             PluginDocument document = new PluginDocument();
 
@@ -20,8 +20,9 @@ namespace OwnerGPT.Plugins.Manager.Documents.Models
             document.Name = file.Name;
             document.Extension = Path.GetExtension(file.Name);
 
-            document.Bytes = await file.GetBytes();
-            byte[] fileBytes = await file.GetBytes();
+            document.Bytes = file.GetBytes();
+
+            byte[] fileBytes = document.Bytes;
 
             if (fileBytes.Length == 0)
             {

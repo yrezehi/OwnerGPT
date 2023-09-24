@@ -15,17 +15,20 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         [DisableRequestSizeLimit]
         public async void Upload(IFormFile file)
         {
-            await using (var streamWriter = new StreamWriter(Response.Body))
-            {
-                await foreach (int progress in Service.StreamCreate(file))
-                {
-                    await streamWriter.WriteLineAsync(progress.ToString());
-                    
-                    await streamWriter.FlushAsync();
+            Response.StatusCode = 200;
+            Response.ContentType = "text/html";
 
-                    Thread.Sleep(100);
-                }
+            var streamWriter = new StreamWriter(Response.Body);
+
+            await foreach (int progress in Service.StreamCreate(file))
+            {
+                await streamWriter.WriteLineAsync(progress.ToString());
+
+                await streamWriter.FlushAsync();
+
+                Thread.Sleep(100);
             }
+
         }
 
         // TODO: map agent

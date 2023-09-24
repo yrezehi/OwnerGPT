@@ -6,12 +6,15 @@ using OwnerGPT.Core.Utilities.Extenstions;
 using System.Drawing;
 using OwnerGPT.Plugins.Manager.Documents.Models;
 using OwnerGPT.Plugins.Parsers.PDF;
+using System.IO;
+using System.IO.Pipes;
 
 namespace OwnerGPT.Core.Services
 {
     public class DocumentService : RDBMSServiceBase<Document>
     {
-        public DocumentService(IRDBMSUnitOfWork unitOfWork) : base(unitOfWork) {
+        public DocumentService(IRDBMSUnitOfWork unitOfWork) : base(unitOfWork)
+        {
             if (!Directory.Exists(DEFAULT_PERSISTENCE_PATH))
                 Directory.CreateDirectory(DEFAULT_PERSISTENCE_PATH);
         }
@@ -24,7 +27,7 @@ namespace OwnerGPT.Core.Services
                 throw new Exception("File is not valid!");
 
             Document document = await this.PersistToStore(file);
-            this.PersistToLocal(file.FileName, file);
+            await this.PersistToLocal(file.FileName, file);
 
             return document;
         }
@@ -35,24 +38,23 @@ namespace OwnerGPT.Core.Services
                 throw new Exception("File is not valid!");
 
             Document document = await this.PersistToStore(file);
-
             this.PreProcessAndPersistDocument(file);
 
-            using (FileStream fileStream = File.Create(this.GetDocumentPath(file.FileName)))
-            using (Stream stream = file.OpenReadStream())
+            FileStream fileStream = File.Create(this.GetDocumentPath(file.FileName));
+            fileStream.Seek(0, SeekOrigin.Begin);
+
+            Stream stream = file.OpenReadStream();
+
+            byte[] streamBuffer = new byte[16 * 1024];
+            int bytesToProcess;
+            long totalReadBytes = 0;
+
+            while ((bytesToProcess = stream.Read(streamBuffer, 0, streamBuffer.Length)) > 0)
             {
+                fileStream.Write(streamBuffer, 0, bytesToProcess);
+                totalReadBytes += bytesToProcess;
 
-                byte[] streamBuffer = new byte[16 * 1024];
-                int bytesToProcess;
-                long totalReadBytes = 0;
-
-                while ((bytesToProcess = stream.Read(streamBuffer, 0, streamBuffer.Length)) > 0)
-                {
-                    fileStream.Write(streamBuffer, 0, bytesToProcess);
-                    totalReadBytes += bytesToProcess;
-
-                    yield return ((int)((float)totalReadBytes / (float)file.Length * 100.0));
-                }
+                yield return ((int)((float)totalReadBytes / (float)file.Length * 100.0));
             }
         }
 
@@ -75,29 +77,24 @@ namespace OwnerGPT.Core.Services
             return await this.Create(document);
         }
 
-        private async void PersistToLocal(string fileName, IFormFile file)
+        private async Task PersistToLocal(string fileName, IFormFile file)
         {
-            using (Stream fileStream = new FileStream(this.GetDocumentPath(fileName), FileMode.Create))
-            {
-                // in case file stream position been moved in previous logic
-                fileStream.Position = 0;
-                
-                await file.CopyToAsync(fileStream);
-            }
+            Stream fileStream = new FileStream(this.GetDocumentPath(fileName), FileMode.Create);
+            fileStream.Seek(0, SeekOrigin.Begin);
+
+            await file.CopyToAsync(fileStream);
         }
 
-        private async void PreProcessAndPersistDocument(IFormFile file)
-        {
-            this.PersistProcessedDocument(file, await PreProcessDocument(file));
-        }
+        private void PreProcessAndPersistDocument(IFormFile file) =>
+            this.PersistProcessedDocument(file, PreProcessDocument(file));
 
-        private async Task<string> PreProcessDocument(IFormFile file)
+        private string PreProcessDocument(IFormFile file)
         {
-            PluginDocument pluginDocument = await PluginDocument.GetPluginDocumentInstance(file);
+            PluginDocument pluginDocument = PluginDocument.GetPluginDocumentInstance(file);
 
             string processedDocuemnt = PDFParser.Process(pluginDocument.Bytes);
 
-            if(processedDocuemnt == null)
+            if (processedDocuemnt == null)
             {
                 throw new Exception("Porcessed document is corrupted");
             }
@@ -105,25 +102,21 @@ namespace OwnerGPT.Core.Services
             return processedDocuemnt;
         }
 
-        private void PersistProcessedDocument(IFormFile file, string processedDocument)
+        private async void PersistProcessedDocument(IFormFile file, string processedDocument)
         {
-            string filePath = GetDocumentPath(file.Name);
+            string fileName = file.Name + ".text";
+            string filePath = this.GetDocumentPath(fileName);
 
-            if (!File.Exists(filePath))
-            {
-                File.Create(GetDocumentPath(file.Name)).Dispose();
-            }
+            var fileStream = new FileStream(filePath, FileMode.Create);
+            fileStream.Seek(0, SeekOrigin.Begin);
 
-            using (TextWriter textWriter = new StreamWriter(filePath))
-            {
-                textWriter.WriteLine(processedDocument);
-            }
+            var streamWriter = new StreamWriter(fileStream);
+
+            await streamWriter.WriteAsync(processedDocument);
         }
 
-        private string GetDocumentPath(string fileName)
-        {
-            return Path.Combine(DEFAULT_PERSISTENCE_PATH, fileName);
-        }
+        private string GetDocumentPath(string fileName) =>
+            Path.Combine(DEFAULT_PERSISTENCE_PATH, fileName);
 
     }
 }
