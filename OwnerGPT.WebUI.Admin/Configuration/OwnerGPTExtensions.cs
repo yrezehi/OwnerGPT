@@ -12,17 +12,15 @@ namespace OwnerGPT.WebUI.Admin.Configuration
     public static class OwnerGPTExtensions
     {
 
-        public static WebApplicationBuilder UseStaticConfiguration(this WebApplicationBuilder builder)
+        public static void UseStaticConfiguration(this WebApplicationBuilder builder)
         {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
             // Inject configuration into static object
             ConfigurationUtil.Initialize(builder.Configuration);
-
-            return builder;
         }
 
-        public static WebApplicationBuilder RegisterPGVDB(this WebApplicationBuilder builder)
+        public static void RegisterPGVDB(this WebApplicationBuilder builder)
         {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
@@ -35,11 +33,9 @@ namespace OwnerGPT.WebUI.Admin.Configuration
             {
                 builder.Services.AddTransient(typeof(IPGVUnitOfWork), typeof(PGVUnitOfWork));
             }
-
-            return builder;
         }
 
-        public static WebApplicationBuilder RegisterRDBMS(this WebApplicationBuilder builder)
+        public static void RegisterRDBMS(this WebApplicationBuilder builder)
         {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
 
@@ -54,17 +50,13 @@ namespace OwnerGPT.WebUI.Admin.Configuration
             }
 
             builder.Services.AddTransient<IRDBMSUnitOfWork, RDBMSUnitOfWork<RDBMSGenericRepositoryContext>>();
-
-            return builder;
         }
 
-        public static WebApplication PopulateSeed(this WebApplication application)
+        public static void PopulateRDBMSSeed(this WebApplication application)
         {
             using (var scope = application.Services.CreateScope())
             using (var context = scope.ServiceProvider.GetService<RDBMSGenericRepositoryContext>())
                 context!.Database.EnsureCreated();
-
-            return application;
         }
     }
 }
