@@ -3,11 +3,8 @@ using OwnerGPT.Core.Services.Abstract;
 using Microsoft.AspNetCore.Http;
 using Document = OwnerGPT.Models.Document;
 using OwnerGPT.Core.Utilities.Extenstions;
-using System.Drawing;
 using OwnerGPT.Plugins.Manager.Documents.Models;
 using OwnerGPT.Plugins.Parsers.PDF;
-using System.IO;
-using System.IO.Pipes;
 
 namespace OwnerGPT.Core.Services
 {

@@ -1,8 +1,4 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using OwnerGPT.Core.Authentication;
-using OwnerGPT.Core.Services;
-using OwnerGPT.Core.Services.Compositions;
-using OwnerGPT.DocumentEmbedding.Encoder;
 using OwnerGPT.LLM.Models.LLama;
 using OwnerGPT.WebUI.Admin.Configuration;
 
@@ -21,6 +17,9 @@ builder.RegisterSingletonServices();
 builder.RegisterTransientServices();
 
 var app = builder.Build();
+
+// Activate (pre-heat) LLama Model immediately  
+app.Services.GetService<LLamaModel>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -61,9 +61,6 @@ namespace OwnerGPT.WebUI.Admin.Configuration
             builder.Services.AddSingleton(typeof(SentenceEncoder), typeof(SentenceEncoder));
             builder.Services.AddSingleton(typeof(LLamaModel), typeof(LLamaModel));
             builder.Services.AddSingleton(typeof(ADAuthentication), typeof(ADAuthentication));
-
-            // Activate (pre-heat) LLama Model immediately  
-            app.Services.GetService<LLamaModel>();
         }
 
     public static void RegisterTransientServices(this WebApplicationBuilder builder)
