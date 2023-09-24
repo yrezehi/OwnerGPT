@@ -30,17 +30,8 @@ namespace OwnerGPT.Databases.Repositores.RDBMS
                 {
                     Id = 1,
                     CreationDate = DateTime.Now,
-                    Description = "External Portal Chatbot",
-                    Name = "Agent #1",
-                    Instruction = "You are an AI assistant that helps people find information and responds in rhyme. If the user asks you a question you don't know the answer to, say so."
-                },
-                new Agent
-                {
-                    Id = 2,
-                    CreationDate = DateTime.Now,
-                    Description = "Internal Portal Chatbot",
-                    Name = "Agent #2",
-                    Instruction = "You are an AI assistant that helps people find information and responds in rhyme. If the user asks you a question you don't know the answer to, say so."
+                    Description = "Usless agent to pass the time.",
+                    Name = "Uselessly",
                 }
             );
 
@@ -48,17 +39,29 @@ namespace OwnerGPT.Databases.Repositores.RDBMS
                 new Account
                 {
                     Id = 1,
-                    Email = "admin@ownergpt.com",
-                    LastSignin = DateTime.Now,
-                    Active = true,
-                },
-                new Account
-                {
-                    Id = 2,
-                    Email = "supervision@ownergpt.com",
+                    Email = "admin@domain.com",
                     LastSignin = DateTime.Now,
                     Active = true,
                 }
+            );
+
+            modelBuilder.Entity<Document>().HasData(
+                new Document 
+                {
+                    Id = 1,
+                    Extension = "pdf",
+                    Name = "file",
+                    UploadDate = DateTime.Now,
+                }    
+            );
+
+            modelBuilder.Entity<AgentDocument>().HasData(
+                new AgentDocument
+                {
+                    Id= 1,
+                    AgentId = 1,
+                    DocumentId = 1,
+                }    
             );
         }
     }

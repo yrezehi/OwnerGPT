@@ -13,6 +13,7 @@ builder.RegisterRDBMS();
 builder.UseStaticConfiguration();
 
 builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 builder.RegisterSingletonServices();
 builder.RegisterTransientServices();
 
