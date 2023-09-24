@@ -12,6 +12,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\OwnerGPT.Core\OwnerGPT.Core.csproj" />
 	  <ProjectReference Include="..\OwnerGPT.Databases\OwnerGPT.Databases.csproj" />
 	  <ProjectReference Include="..\OwnerGPT.LLM\OwnerGPT.LLM.csproj" />
