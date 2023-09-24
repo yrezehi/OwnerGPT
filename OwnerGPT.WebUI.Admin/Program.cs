@@ -38,11 +38,8 @@ app.Services.GetService<LLamaModel>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
-{
-    // TODO: toggle off on inmemeory removal 
-    using (var scope = app.Services.CreateScope())
-    using (var context = scope.ServiceProvider.GetService<RDBMSGenericRepositoryContext>())
-        context!.Database.EnsureCreated();
+{ 
+    app.PopulateSeed();
 
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.

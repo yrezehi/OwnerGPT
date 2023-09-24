@@ -45,10 +45,26 @@ namespace OwnerGPT.WebUI.Admin.Configuration
 
             builder.Services.AddTransient(typeof(RDBMSServiceBase<>), typeof(RDBMSServiceBase<>));
 
-            builder.Services.AddDbContext<RDBMSGenericRepositoryContext>(option => option.UseInMemoryDatabase("OWNERGPT"));
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.Services.AddDbContext<RDBMSGenericRepositoryContext>(option => option.UseInMemoryDatabase("OWNERGPT"));
+            } else
+            {
+                // TODO: acual ef here
+            }
+
             builder.Services.AddTransient<IRDBMSUnitOfWork, RDBMSUnitOfWork<RDBMSGenericRepositoryContext>>();
 
             return builder;
+        }
+
+        public static WebApplication PopulateSeed(this WebApplication application)
+        {
+            using (var scope = application.Services.CreateScope())
+            using (var context = scope.ServiceProvider.GetService<RDBMSGenericRepositoryContext>())
+                context!.Database.EnsureCreated();
+
+            return application;
         }
     }
 }
