@@ -13,15 +13,14 @@
                 <div class="mt-4">
                     <ul id="attachments-container" class="grid grid-cols-1 w-full gap-2 mb-1">
                         <li>
-                            <input type="radio" id="hosting-small" name="hosting" value="hosting-small" class="hidden peer" required>
-                            <label for="hosting-small" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-indigo-600 peer-checked:text-indigo-600 hover:text-gray-600 hover:bg-gray-50">
+                            <div for="hosting-small" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-indigo-600 peer-checked:text-indigo-600 hover:text-gray-600 hover:bg-gray-50">
                                 <div class="block">
                                     <div class="w-full text-base font-semibold">No content uploaded yet!</div>
                                 </div>
                                 <svg class="w-5 h-5 ml-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z" />
                                 </svg>
-                            </label>
+                            </div>
                         </li>
                     </ul>
                     <div class="sm:col-span-2 mt-5">
@@ -80,25 +79,29 @@
 
 
         function createAttachmentElement() {
+            var uniqueIdentifier = `file-${utility.shortGUID()}`;
+
             return dom.createElement(`
                 <li>
-                    <input type="radio" id="hosting-big" name="hosting" value="hosting-big" class="hidden peer">
-                    <div class="bg-white border border-gray-200 rounded-lg cursor-pointer px-5 py-4 peer-checked:border-indigo-600 peer-checked:text-indigo-600 hover:text-gray-600 hover:bg-gray-50">
-                        <div class="items-center justify-between w-full text-gray-500">
-                            <div class="block">
-                                <div class="w-full text-base font-semibold">
-                                    <span class="attachment-name font-bold">Fetching name...</span>
-                                    <div class="file-status inline">
-                                        <span class="text-sm text-indigo-800 font-mono bg-indigo-100 inline rounded-full px-2 align-top float-right animate-pulse">Processing</span>
+                    <input type="radio" id="${uniqueIdentifier}" name="${uniqueIdentifier}" value="${uniqueIdentifier}" class="hidden peer" >
+                        <label for="${uniqueIdentifier}" class="peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                        <div class="bg-white border border-gray-200 rounded-lg cursor-pointer px-5 py-4 peer-checked:border-indigo-600 peer-checked:text-indigo-600 hover:text-gray-600 hover:bg-gray-50">
+                            <div class="items-center justify-between w-full text-gray-500">
+                                <div class="block">
+                                    <div class="w-full text-base font-semibold">
+                                        <span class="attachment-name font-bold">Fetching name...</span>
+                                        <div class="file-status inline">
+                                            <span class="text-sm text-indigo-800 font-mono bg-indigo-100 inline rounded-full px-2 align-top float-right animate-pulse">Processing</span>
+                                        </div>
                                     </div>
+                                    <div class="attachment-size w-full text-xs mt-2">Estimating size...</div>
                                 </div>
-                                <div class="attachment-size w-full text-xs mt-2">Estimating size...</div>
+                            </div>
+                            <div class="progress-bar-container w-full bg-gray-200 rounded-full h-2.5 mt-3">
+                                <div class="progress-bar bg-indigo-600 h-2.5 rounded-full" style="width: 0%"></div>
                             </div>
                         </div>
-                        <div class="progress-bar-container w-full bg-gray-200 rounded-full h-2.5 mt-3">
-                            <div class="progress-bar bg-indigo-600 h-2.5 rounded-full" style="width: 0%"></div>
-                        </div>
-                    </div>
+                    </label>
                 </li>
             `);
         }
