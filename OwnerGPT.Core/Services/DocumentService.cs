@@ -104,7 +104,7 @@ namespace OwnerGPT.Core.Services
 
         private async void PersistProcessedDocument(IFormFile file, string processedDocument)
         {
-            string fileName = file.Name + ".text";
+            string fileName = file.Name + ".txt";
             string filePath = this.GetDocumentPath(fileName);
 
             var fileStream = new FileStream(filePath, FileMode.Create);
