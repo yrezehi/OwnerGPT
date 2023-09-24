@@ -1,11 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OwnerGPT.Core.Authentication;
+using OwnerGPT.Core.Services;
 using OwnerGPT.Core.Services.Abstract;
+using OwnerGPT.Core.Services.Compositions;
 using OwnerGPT.Core.Utilities;
 using OwnerGPT.Databases.Repositores.PGVDB;
 using OwnerGPT.Databases.Repositores.PGVDB.Interfaces;
 using OwnerGPT.Databases.Repositores.RDBMS;
 using OwnerGPT.Databases.Repositores.RDBMS.Abstracts;
 using OwnerGPT.Databases.Repositores.RDBMS.Abstracts.Interfaces;
+using OwnerGPT.DocumentEmbedding.Encoder;
+using OwnerGPT.LLM.Models.LLama;
 
 namespace OwnerGPT.WebUI.Admin.Configuration
 {
@@ -46,10 +51,31 @@ namespace OwnerGPT.WebUI.Admin.Configuration
                 builder.Services.AddDbContext<RDBMSGenericRepositoryContext>(option => option.UseInMemoryDatabase("OWNERGPT"));
             } else
             {
-                builder.Services.AddDbContext<RDBMSGenericRepositoryContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("OWNERGPT")) );
+                builder.Services.AddDbContext<RDBMSGenericRepositoryContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("OWNERGPT")));
             }
 
             builder.Services.AddTransient<IRDBMSUnitOfWork, RDBMSUnitOfWork<RDBMSGenericRepositoryContext>>();
+        }
+
+        public static void RegisterSingletonServices(this WebApplicationBuilder builder){
+            builder.Services.AddSingleton(typeof(SentenceEncoder), typeof(SentenceEncoder));
+            builder.Services.AddSingleton(typeof(LLamaModel), typeof(LLamaModel));
+            builder.Services.AddSingleton(typeof(ADAuthentication), typeof(ADAuthentication));
+
+            // Activate (pre-heat) LLama Model immediately  
+            app.Services.GetService<LLamaModel>();
+        }
+
+    public static void RegisterTransientServices(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddTransient(typeof(VectorEmbeddingService), typeof(VectorEmbeddingService));
+            builder.Services.AddTransient(typeof(AgentsService), typeof(AgentsService));
+            builder.Services.AddTransient(typeof(AccountService), typeof(AccountService));
+            builder.Services.AddTransient(typeof(GPTService), typeof(GPTService));
+            builder.Services.AddTransient(typeof(DocumentService), typeof(DocumentService));
+            builder.Services.AddTransient(typeof(AgentDocumentsService), typeof(AgentDocumentsService));
+
+            builder.Services.AddTransient(typeof(CompositionBaseService<>), typeof(CompositionBaseService<>));
         }
 
         public static void PopulateRDBMSSeed(this WebApplication application)
