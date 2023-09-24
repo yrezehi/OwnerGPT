@@ -23,7 +23,6 @@ namespace OwnerGPT.Databases.Repositores.RDBMS
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<AgentDocument>().HasOne(entity => entity.Document);
 
             modelBuilder.Entity<Agent>().HasData(

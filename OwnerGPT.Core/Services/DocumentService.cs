@@ -58,6 +58,12 @@ namespace OwnerGPT.Core.Services
             }
         }
 
+        public static string FetchPreview()
+        {
+            var streamReader = new StreamReader("file.txt");
+                return streamReader.ReadToEnd();
+        }
+
         private bool IsValidFile(IFormFile file)
         {
             if (file == null || file.Length == 0)

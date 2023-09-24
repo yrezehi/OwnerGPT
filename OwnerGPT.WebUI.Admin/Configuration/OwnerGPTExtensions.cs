@@ -46,10 +46,7 @@ namespace OwnerGPT.WebUI.Admin.Configuration
                 builder.Services.AddDbContext<RDBMSGenericRepositoryContext>(option => option.UseInMemoryDatabase("OWNERGPT"));
             } else
             {
-                builder.Services.AddDbContext<RDBMSGenericRepositoryContext>(options =>
-                {
-                    options.UseSqlServer(builder.Configuration.GetConnectionString("OWNERGPT"));
-                });
+                builder.Services.AddDbContext<RDBMSGenericRepositoryContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("OWNERGPT")) );
             }
 
             builder.Services.AddTransient<IRDBMSUnitOfWork, RDBMSUnitOfWork<RDBMSGenericRepositoryContext>>();
