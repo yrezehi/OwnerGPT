@@ -1,5 +1,5 @@
 ﻿using OwnerGPT.Experimental.LLMManager;
 
-await PromptEnginnerInstance.Start();
+await LLamaInstance.Start();
 
 Console.WriteLine("Class project finished execution!");

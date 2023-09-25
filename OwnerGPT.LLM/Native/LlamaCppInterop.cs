@@ -485,4 +485,5 @@ namespace OwnerGPT.LLM.Native
             Debug.Assert(check == -n_tokens);
             return result;
         }
+    }
 }
