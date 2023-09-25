@@ -1,0 +1,3 @@
+[submodule "OwnerGPT.LLM/Native/llama.cpp"]
+	path = OwnerGPT.LLM/Native/llama.cpp
+	url = https://github.com/ggerganov/llama.cpp.git
