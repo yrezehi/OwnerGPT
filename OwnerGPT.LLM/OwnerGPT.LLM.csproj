@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -10,7 +10,7 @@
 	<DefineConstants Condition="$([System.String]::new('$(OS)').StartsWith('Unix'))">LINUX</DefineConstants>
   </PropertyGroup>
 
-	<Target Name="CMakePrepareForBuild" BeforeTargets="PrepareForBuild;Clean">
+	<!--<Target Name="CMakePrepareForBuild" BeforeTargets="PrepareForBuild;Clean">
 		<PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
 			<Test>$(VsInstallRoot)</Test>
 			<CMakeBin Condition="Exists('$(Test)')">"$(VsInstallRoot)\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe"</CMakeBin>
@@ -20,24 +20,23 @@
 			<CMakeBin>cmake</CMakeBin>
 		</PropertyGroup>
 		<PropertyGroup>
-			<CMakeProject>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\..\llama.cpp'))</CMakeProject>
+			<CMakeProject>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)\Native\llama.cpp'))</CMakeProject>
 		</PropertyGroup>
-	</Target>
+	</Target>-->
 
-	<Target Name="CMakeConfigure" BeforeTargets="Build">
+	<!--<Target Name="CMakeConfigure" BeforeTargets="Build">
 		<PropertyGroup>
 			<CMakeCompilerFlags Condition="'$(OS)' == 'Windows_NT'">-DCMAKE_CXX_FLAGS="/W0 /EHsc /w /D _MBCS" -DCMAKE_C_FLAGS="/W0 /w"</CMakeCompilerFlags>
 			<CMakeCompilerFlags Condition="$([System.String]::new('$(OS)').StartsWith('Unix'))">-DCMAKE_CXX_FLAGS=-w -DCMAKE_C_FLAGS=-w</CMakeCompilerFlags>
 		</PropertyGroup>
-		<!-- https://github.com/ggerganov/llama.cpp/pull/1827#issuecomment-1588722643 -->
 		<Exec Command='$(CMakeBin) -DLLAMA_CUBLAS=ON -DLLAMA_CUDA_FORCE_DMMV=ON -DLLAMA_CUDA_DMMV_X=64 -DLLAMA_CUDA_MMV_Y=2 -DLLAMA_ALL_WARNINGS=OFF -DLLAMA_BUILD_TESTS=OFF -DBUILD_SHARED_LIBS=ON -S "$(CMakeProject)" -B "$(CMakeProject)" $(CMakeCompilerFlags)' />
-	</Target>
+	</Target>-->
 
-	<Target Name="CMakeBuild" AfterTargets="CMakeConfigure">
-		<Exec Command='$(CMakeBin) --build "$(CMakeProject)" -j8 --config $(Configuration)' />
-	</Target>
+	<!--<Target Name="CMakeBuild" AfterTargets="CMakeConfigure">
+		<Exec Command='$(CMakeBin) -VOID-build "$(CMakeProject)" -j8 -VOID-config $(Configuration)' />
+	</Target>-->
 
-	<Target Name="CMakeCopyOutput" AfterTargets="CMakeBuild">
+	<!--<Target Name="CMakeCopyOutput" AfterTargets="CMakeBuild">
 		<PropertyGroup>
 			<LibraryFileExtension Condition="'$(OS)' == 'Windows_NT'">*.dll</LibraryFileExtension>
 			<LibraryFileExtension Condition="$([System.String]::new('$(OS)').StartsWith('Unix'))">lib*.so</LibraryFileExtension>
@@ -47,7 +46,7 @@
 			<LibraryFiles Include="$(CMakeProject)/$(LibraryFileExtension)" />
 		</ItemGroup>
 		<Copy SourceFiles="@(LibraryFiles)" DestinationFolder="$(SolutionDir)/$(Platform)/$(Configuration)/$(MSBuildProjectName)" />
-	</Target>
+	</Target>-->
 
   <ItemGroup>
     <None Remove="PromptEnginnering\Prompts\GENERIC_ASSISTANT.txt" />

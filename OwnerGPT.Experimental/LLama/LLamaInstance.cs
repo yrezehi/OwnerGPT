@@ -9,8 +9,8 @@ namespace OwnerGPT.Experimental.LLMManager
         public async static Task Start()
         {
             var modelPath = "C:\\llm_models\\llama-2-7b-guanaco-qlora.Q5_K_S.gguf";
-            var gpuLayers = 5;
-            var contextLength = 1337;
+            var gpuLayers = 42;
+            var contextLength = 16384;
 
             var modelOptions = new LlamaCppModelOptions
             {

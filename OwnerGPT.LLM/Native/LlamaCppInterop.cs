@@ -159,7 +159,7 @@ namespace OwnerGPT.LLM.Native
             public int n_eval;
         }
 
-        private const string LibName = $"{nameof(OwnerGPT.LLM.Native)}/llama";
+        private const string LibName = $"C:\\Users\\Administrator\\Documents\\Projects\\llm\\OwnerGPT\\OwnerGPT.LLM\\Native\\llama.cpp\\llama";
 
         [DllImport(LibName)] public static extern llama_context_params llama_context_default_params();
         [DllImport(LibName)] public static extern llama_model_quantize_params llama_model_quantize_default_params();
