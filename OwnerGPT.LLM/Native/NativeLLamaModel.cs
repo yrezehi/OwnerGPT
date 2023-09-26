@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace OwnerGPT.LLM.Native
 {
     using LlamaModel = System.IntPtr;
-    using LlamaContext = System.IntPtr;
+    using NativeLLamaContext = System.IntPtr;
     using LlamaToken = System.Int32;
 
     public class NativeLLamaModel : IDisposable
     {
         private LlamaModel _model;
-        private LlamaContext _context;
+        private NativeLLamaContext _context;
         private NativeLLamaOptions _options = new();
         private byte[]? _initialState;
 
@@ -38,7 +38,7 @@ namespace OwnerGPT.LLM.Native
             NativeLLamaInteroperability.llama_backend_free();
         }
 
-        public LlamaContext Handle => _context;
+        public NativeLLamaContext Handle => _context;
 
         public NativeLLamaOptions Options { get => _options; }
 
