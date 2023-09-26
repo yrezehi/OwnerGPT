@@ -11,7 +11,7 @@ namespace OwnerGPT.LLM.Native
 
     public enum Mirostat { Disabled, Mirostat, Mirostat2 }
 
-    public class LlamaCppModelOptions
+    public class NativeLLamaOptions
     {
         public uint Seed { get; set; } = unchecked((uint)-1);
         public int ContextSize { get; set; } = 512;
@@ -23,9 +23,9 @@ namespace OwnerGPT.LLM.Native
         public float RopeFrequencyScale { get; set; } = 1.0f;
         public bool LowVRAM { get; set; } = false;
 
-        public static bool TryParse(string input, out LlamaCppModelOptions options)
+        public static bool TryParse(string input, out NativeLLamaOptions options)
         {
-            options = JsonSerializer.Deserialize<LlamaCppModelOptions>(input) ?? new();
+            options = JsonSerializer.Deserialize<NativeLLamaOptions>(input) ?? new();
             return true;
         }
     }

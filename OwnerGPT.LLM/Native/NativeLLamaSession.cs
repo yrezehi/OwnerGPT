@@ -8,15 +8,15 @@
         public int EvalOffset { get; set; } = 0;
     }
 
-    public class LlamaCppSession
+    public class NativeLLamaSession
     {
-        private LlamaCppModel _model;
+        private NativeLLamaModel _model;
         private LlamaCppSessionState _state = new();
         private Guid _id = Guid.NewGuid();
 
-        private static LlamaCppSession? _lastSessionToGenerate;
+        private static NativeLLamaSession? _lastSessionToGenerate;
 
-        internal LlamaCppSession(LlamaCppModel model) => _model = model;
+        internal NativeLLamaSession(NativeLLamaModel model) => _model = model;
 
         public Guid Id => _id;
 

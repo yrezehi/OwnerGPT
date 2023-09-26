@@ -11,43 +11,43 @@ namespace OwnerGPT.LLM.Native
     using LlamaContext = System.IntPtr;
     using LlamaToken = System.Int32;
 
-    public class LlamaCppModel : IDisposable
+    public class NativeLLamaModel : IDisposable
     {
         private LlamaModel _model;
         private LlamaContext _context;
-        private LlamaCppModelOptions _options = new();
+        private NativeLLamaOptions _options = new();
         private byte[]? _initialState;
 
-        public LlamaCppModel()
+        public NativeLLamaModel()
         { }
 
         public void Dispose()
         {
             if (_context != IntPtr.Zero)
             {
-                LlamaCppInterop.llama_free(_context);
+                NativeLLamaInteroperability.llama_free(_context);
                 _context = IntPtr.Zero;
             }
 
             if (_model != IntPtr.Zero)
             {
-                LlamaCppInterop.llama_free_model(_model);
+                NativeLLamaInteroperability.llama_free_model(_model);
                 _model = IntPtr.Zero;
             }
 
-            LlamaCppInterop.llama_backend_free();
+            NativeLLamaInteroperability.llama_backend_free();
         }
 
         public LlamaContext Handle => _context;
 
-        public LlamaCppModelOptions Options { get => _options; }
+        public NativeLLamaOptions Options { get => _options; }
 
         public List<LlamaToken> Tokenize(string text, bool addBos = false, bool addEos = false)
         {
-            LlamaCppInterop.llama_tokenize(_context, text, out var _tokens, addBos);
+            NativeLLamaInteroperability.llama_tokenize(_context, text, out var _tokens, addBos);
             var tokens = new List<LlamaToken>();
             for (var i = 0; i < _tokens.Length; i++) tokens.Add(_tokens[i]);
-            if (addEos) tokens.Add(LlamaCppInterop.llama_token_eos(_context));
+            if (addEos) tokens.Add(NativeLLamaInteroperability.llama_token_eos(_context));
             return tokens;
         }
 
@@ -59,20 +59,20 @@ namespace OwnerGPT.LLM.Native
             var bytes = new List<byte[]>();
             foreach (var tokenId in tokenIds)
             {
-                if (tokenId == LlamaCppInterop.llama_token_bos(_context))
+                if (tokenId == NativeLLamaInteroperability.llama_token_bos(_context))
                     bytes.Add(Encoding.UTF8.GetBytes("<s>"));
-                else if (tokenId == LlamaCppInterop.llama_token_eos(_context))
+                else if (tokenId == NativeLLamaInteroperability.llama_token_eos(_context))
                     bytes.Add(Encoding.UTF8.GetBytes("</s>"));
                 else
-                    bytes.Add(LlamaCppInterop.llama_token_to_bytes(_context, tokenId));
+                    bytes.Add(NativeLLamaInteroperability.llama_token_to_bytes(_context, tokenId));
             }
 
             return Encoding.UTF8.GetString(bytes.SelectMany(x => x).ToArray());
         }
 
         internal byte[] GetInitialState() => _initialState ?? new byte[0];
-        internal byte[] GetRawState() => LlamaCppInterop.llama_copy_state_data(_context);
-        internal void SetRawState(byte[] state) => LlamaCppInterop.llama_set_state_data(_context, state);
+        internal byte[] GetRawState() => NativeLLamaInteroperability.llama_copy_state_data(_context);
+        internal void SetRawState(byte[] state) => NativeLLamaInteroperability.llama_set_state_data(_context, state);
 
         public void ResetState()
         {
@@ -93,7 +93,7 @@ namespace OwnerGPT.LLM.Native
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="Exception"></exception>
-        public void Load(string modelPath, LlamaCppModelOptions options, string? loraPath = null, string? loraBaseModelPath = null)
+        public void Load(string modelPath, NativeLLamaOptions options, string? loraPath = null, string? loraBaseModelPath = null)
         {
             if (!File.Exists(modelPath))
                 throw new FileNotFoundException($"Model file not found \"{modelPath}\".");
@@ -106,7 +106,7 @@ namespace OwnerGPT.LLM.Native
             if (useLora && !File.Exists(loraPath))
                 throw new FileNotFoundException($"LoRA adapter file not found \"{loraPath}\".");
 
-            var cparams = LlamaCppInterop.llama_context_default_params();
+            var cparams = NativeLLamaInteroperability.llama_context_default_params();
             cparams.seed = options.Seed;
             cparams.n_ctx = options.ContextSize;
             cparams.n_gpu_layers = options.GpuLayers;
@@ -116,9 +116,9 @@ namespace OwnerGPT.LLM.Native
             cparams.use_mmap = useLora ? false : options.UseMemoryMapping;
             cparams.use_mlock = options.UseMemoryLocking;
 
-            _model = LlamaCppInterop.llama_load_model_from_file(modelPath, cparams);
-            _context = LlamaCppInterop.llama_new_context_with_model(_model, cparams);
-            _initialState = LlamaCppInterop.llama_copy_state_data(_context);
+            _model = NativeLLamaInteroperability.llama_load_model_from_file(modelPath, cparams);
+            _context = NativeLLamaInteroperability.llama_new_context_with_model(_model, cparams);
+            _initialState = NativeLLamaInteroperability.llama_copy_state_data(_context);
             _options = options;
 
             if (useLora)
@@ -132,13 +132,13 @@ namespace OwnerGPT.LLM.Native
                 if (loraBaseModelPath == null)
                     throw new ArgumentNullException(loraPath, nameof(loraBaseModelPath));
 
-                var result = LlamaCppInterop.llama_model_apply_lora_from_file(_model, loraPath, loraBaseModelPath, 4);
+                var result = NativeLLamaInteroperability.llama_model_apply_lora_from_file(_model, loraPath, loraBaseModelPath, 4);
                 if (result != 0)
                     throw new Exception($"Unable to load LoRA file (return code: {result}).");
             }
         }
 
-        public LlamaCppSession CreateSession() => new LlamaCppSession(this);
+        public NativeLLamaSession CreateSession() => new NativeLLamaSession(this);
 
         internal async IAsyncEnumerable<string> GenerateTokenStringAsync(LlamaCppGenerateOptions options, LlamaCppSessionState state, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
@@ -163,7 +163,7 @@ namespace OwnerGPT.LLM.Native
         {
             var mirostatMU = 2.0f * options.MirostatTAU;
 
-            while (LlamaCppInterop.llama_get_kv_cache_token_count(_context) < LlamaCppInterop.llama_n_ctx(_context) && !cancellationToken.IsCancellationRequested)
+            while (NativeLLamaInteroperability.llama_get_kv_cache_token_count(_context) < NativeLLamaInteroperability.llama_n_ctx(_context) && !cancellationToken.IsCancellationRequested)
             {
                 for (var offset = state.EvalOffset; offset < state.TokenIds.Count && !cancellationToken.IsCancellationRequested; offset += _options.BatchSize)
                 {
@@ -171,7 +171,7 @@ namespace OwnerGPT.LLM.Native
                     if (evalCount > _options.BatchSize)
                         evalCount = _options.BatchSize;
 
-                    LlamaCppInterop.llama_eval(
+                    NativeLLamaInteroperability.llama_eval(
                         _context,
                         state.TokenIds.Skip(offset).ToArray(),
                         evalCount,
@@ -183,29 +183,29 @@ namespace OwnerGPT.LLM.Native
                 }
 
                 //var logits = LlamaCppInterop.llama_get_logits(_context);
-                var n_vocab = LlamaCppInterop.llama_n_vocab(_context);
+                var n_vocab = NativeLLamaInteroperability.llama_n_vocab(_context);
 
-                var candidates = new LlamaCppInterop.llama_token_data[n_vocab];
+                var candidates = new NativeLLamaInteroperability.llama_token_data[n_vocab];
                 for (LlamaToken tokenId = 0; tokenId < n_vocab && !cancellationToken.IsCancellationRequested; tokenId++)
-                    candidates[tokenId] = new LlamaCppInterop.llama_token_data { id = tokenId, logit = LlamaCppInterop.llama_get_logits(_context)[tokenId], p = 0.0f };
+                    candidates[tokenId] = new NativeLLamaInteroperability.llama_token_data { id = tokenId, logit = NativeLLamaInteroperability.llama_get_logits(_context)[tokenId], p = 0.0f };
 
                 if (cancellationToken.IsCancellationRequested)
                     break;
 
-                var candidates_p = new LlamaCppInterop.llama_token_data_array { data = candidates.ToArray(), size = (nuint)candidates.Length, sorted = false };
+                var candidates_p = new NativeLLamaInteroperability.llama_token_data_array { data = candidates.ToArray(), size = (nuint)candidates.Length, sorted = false };
 
                 // Apply penalties
-                var newLineLogit = LlamaCppInterop.llama_get_logits(_context)[LlamaCppInterop.llama_token_nl(_context)];
-                var lastRepeatCount = Math.Min(Math.Min(state.TokenIds.Count, options.LastTokenCountPenalty), LlamaCppInterop.llama_n_ctx(_context));
+                var newLineLogit = NativeLLamaInteroperability.llama_get_logits(_context)[NativeLLamaInteroperability.llama_token_nl(_context)];
+                var lastRepeatCount = Math.Min(Math.Min(state.TokenIds.Count, options.LastTokenCountPenalty), NativeLLamaInteroperability.llama_n_ctx(_context));
 
-                LlamaCppInterop.llama_sample_repetition_penalty(
+                NativeLLamaInteroperability.llama_sample_repetition_penalty(
                     _context,
                     candidates_p,
                     state.TokenIds.Skip(state.TokenIds.Count - lastRepeatCount).Take(lastRepeatCount).ToArray(),
                     options.RepeatPenalty
                 );
 
-                LlamaCppInterop.llama_sample_frequency_and_presence_penalties(
+                NativeLLamaInteroperability.llama_sample_frequency_and_presence_penalties(
                     _context,
                     candidates_p,
                     state.TokenIds.Skip(state.TokenIds.Count - lastRepeatCount).Take(lastRepeatCount).ToArray(),
@@ -214,7 +214,7 @@ namespace OwnerGPT.LLM.Native
                 );
 
                 if (!options.PenalizeNewLine)
-                    LlamaCppInterop.llama_get_logits(_context)[LlamaCppInterop.llama_token_nl(_context)] = newLineLogit;
+                    NativeLLamaInteroperability.llama_get_logits(_context)[NativeLLamaInteroperability.llama_token_nl(_context)] = newLineLogit;
 
                 var id = default(LlamaToken);
 
@@ -222,37 +222,37 @@ namespace OwnerGPT.LLM.Native
                 if (options.Temperature <= 0.0f)
                 {
                     // Greedy
-                    id = LlamaCppInterop.llama_sample_token_greedy(_context, candidates_p);
+                    id = NativeLLamaInteroperability.llama_sample_token_greedy(_context, candidates_p);
                 }
                 else if (options.Mirostat == Mirostat.Mirostat)
                 {
                     // Mirostat
                     var mirostat_m = 100;
-                    LlamaCppInterop.llama_sample_temperature(_context, candidates_p, options.Temperature);
-                    id = LlamaCppInterop.llama_sample_token_mirostat(_context, candidates_p, options.MirostatTAU, options.MirostatETA, mirostat_m, ref mirostatMU);
+                    NativeLLamaInteroperability.llama_sample_temperature(_context, candidates_p, options.Temperature);
+                    id = NativeLLamaInteroperability.llama_sample_token_mirostat(_context, candidates_p, options.MirostatTAU, options.MirostatETA, mirostat_m, ref mirostatMU);
                 }
                 else if (options.Mirostat == Mirostat.Mirostat2)
                 {
                     // Mirostat2
-                    LlamaCppInterop.llama_sample_temperature(_context, candidates_p, options.Temperature);
-                    id = LlamaCppInterop.llama_sample_token_mirostat_v2(_context, candidates_p, options.MirostatTAU, options.MirostatETA, ref mirostatMU);
+                    NativeLLamaInteroperability.llama_sample_temperature(_context, candidates_p, options.Temperature);
+                    id = NativeLLamaInteroperability.llama_sample_token_mirostat_v2(_context, candidates_p, options.MirostatTAU, options.MirostatETA, ref mirostatMU);
                 }
                 else
                 {
                     // Temperature
-                    LlamaCppInterop.llama_sample_top_k(_context, candidates_p, options.TopK, 1);
-                    LlamaCppInterop.llama_sample_tail_free(_context, candidates_p, options.TfsZ, 1);
-                    LlamaCppInterop.llama_sample_typical(_context, candidates_p, options.TypicalP, 1);
-                    LlamaCppInterop.llama_sample_top_p(_context, candidates_p, options.TopP, 1);
-                    LlamaCppInterop.llama_sample_temperature(_context, candidates_p, options.Temperature);
-                    id = LlamaCppInterop.llama_sample_token(_context, candidates_p);
+                    NativeLLamaInteroperability.llama_sample_top_k(_context, candidates_p, options.TopK, 1);
+                    NativeLLamaInteroperability.llama_sample_tail_free(_context, candidates_p, options.TfsZ, 1);
+                    NativeLLamaInteroperability.llama_sample_typical(_context, candidates_p, options.TypicalP, 1);
+                    NativeLLamaInteroperability.llama_sample_top_p(_context, candidates_p, options.TopP, 1);
+                    NativeLLamaInteroperability.llama_sample_temperature(_context, candidates_p, options.Temperature);
+                    id = NativeLLamaInteroperability.llama_sample_token(_context, candidates_p);
                 }
 
                 state.TokenIds.Add(id);
 
-                yield return LlamaCppInterop.llama_token_to_bytes(_context, id);
+                yield return NativeLLamaInteroperability.llama_token_to_bytes(_context, id);
 
-                if (id == LlamaCppInterop.llama_token_eos(_context))
+                if (id == NativeLLamaInteroperability.llama_token_eos(_context))
                     break;
             }
 
