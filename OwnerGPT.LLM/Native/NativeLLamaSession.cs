@@ -28,7 +28,7 @@
 
         public string GetContextAsText() => _model.UntokenizeToText(_state.TokenIds);
 
-        public IAsyncEnumerable<byte[]> GenerateTokenBytesAsync(string prompt, LlamaCppGenerateOptions? options = default, CancellationToken cancellationToken = default)
+        public IAsyncEnumerable<byte[]> GenerateTokenBytesAsync(string prompt, NativeLlamaGenerateOptions? options = default, CancellationToken cancellationToken = default)
         {
             if (_lastSessionToGenerate != null && _lastSessionToGenerate != this)
                 _state.EvalOffset = 0;
@@ -45,7 +45,7 @@
         public IAsyncEnumerable<byte[]> GenerateTokenBytesAsync(string prompt, CancellationToken cancellationToken = default) =>
             GenerateTokenBytesAsync(prompt, default, cancellationToken);
 
-        public IAsyncEnumerable<string> GenerateTokenStringAsync(string prompt, LlamaCppGenerateOptions? options = default, CancellationToken cancellationToken = default)
+        public IAsyncEnumerable<string> GenerateTokenStringAsync(string prompt, NativeLlamaGenerateOptions? options = default, CancellationToken cancellationToken = default)
         {
             if (_lastSessionToGenerate != null && _lastSessionToGenerate != this)
                 _state.EvalOffset = 0;

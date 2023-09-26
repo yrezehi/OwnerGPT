@@ -140,7 +140,7 @@ namespace OwnerGPT.LLM.Native
 
         public NativeLLamaSession CreateSession() => new NativeLLamaSession(this);
 
-        internal async IAsyncEnumerable<string> GenerateTokenStringAsync(LlamaCppGenerateOptions options, LlamaCppSessionState state, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        internal async IAsyncEnumerable<string> GenerateTokenStringAsync(NativeLlamaGenerateOptions options, LlamaCppSessionState state, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             var bytesBuffer = new List<byte>();
             await foreach (var tokenBytes in GenerateTokenBytesAsync(options, state, cancellationToken))
@@ -159,7 +159,7 @@ namespace OwnerGPT.LLM.Native
             }
         }
 
-        internal async IAsyncEnumerable<byte[]> GenerateTokenBytesAsync(LlamaCppGenerateOptions options, LlamaCppSessionState state, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        internal async IAsyncEnumerable<byte[]> GenerateTokenBytesAsync(NativeLlamaGenerateOptions options, LlamaCppSessionState state, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             var mirostatMU = 2.0f * options.MirostatTAU;
 

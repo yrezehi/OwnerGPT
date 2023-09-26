@@ -30,7 +30,7 @@ namespace OwnerGPT.LLM.Native
         }
     }
 
-    public class LlamaCppGenerateOptions
+    public class NativeLlamaGenerateOptions
     {
         public int ThreadCount { get; set; } = 4;
         public int TopK { get; set; } = 40;
@@ -46,12 +46,12 @@ namespace OwnerGPT.LLM.Native
         public float FrequencyPenalty { get; set; } = 0.0f;
         public float PresencePenalty { get; set; } = 0.0f;
         public Mirostat Mirostat { get; set; } = Mirostat.Disabled;
-        public float MirostatTAU { get; set; } = 5.0f;
+        public static float MirostatTAU { get; set; } = 5.0f;
         public float MirostatETA { get; set; } = 0.1f;
 
-        public static bool TryParse(string input, out LlamaCppGenerateOptions options)
+        public static bool TryParse(string input, out NativeLlamaGenerateOptions options)
         {
-            options = JsonSerializer.Deserialize<LlamaCppGenerateOptions>(input) ?? new();
+            options = JsonSerializer.Deserialize<NativeLlamaGenerateOptions>(input) ?? new();
             return true;
         }
     }
