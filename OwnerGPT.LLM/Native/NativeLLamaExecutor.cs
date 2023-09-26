@@ -14,24 +14,45 @@ using LLama.Native;
 using static LLama.LLamaContext;
 using System.Runtime.CompilerServices;
 using System.Text.Unicode;
+using Microsoft.Extensions.Options;
 
 namespace OwnerGPT.LLM.Native
 {
     public class NativeLLamaExecutor
     {
         private NativeLLamaContext Context;
-        private NativeLLamaModel Model;
+        private LlamaModel Model;
 
-        public NativeLLamaExecutor(NativeLLamaContext context, NativeLLamaModel model)
+        public NativeLLamaExecutor()
         {
-            Context = context;
-            Model = model;
+            var cparams = NativeLLamaInteroperability.llama_context_default_params();
+
+            cparams.seed = NativeStaticLLamaOptions.Seed;
+            cparams.n_ctx = NativeStaticLLamaOptions.ContextSize;
+            cparams.n_gpu_layers = NativeStaticLLamaOptions.GpuLayers;
+            cparams.rope_freq_base = NativeStaticLLamaOptions.RopeFrequencyBase;
+            cparams.rope_freq_scale = NativeStaticLLamaOptions.RopeFrequencyScale;
+            cparams.low_vram = NativeStaticLLamaOptions.LowVRAM;
+            cparams.use_mmap = false;
+            cparams.use_mlock = NativeStaticLLamaOptions.UseMemoryLocking;
+
+            var modelPath = "C:\\llm_models\\llama-2-7b-guanaco-qlora.Q5_K_S.gguf";
+
+            Model = NativeLLamaInteroperability.llama_load_model_from_file(modelPath, cparams);
+            Context = NativeLLamaInteroperability.llama_new_context_with_model(Model, cparams);
         }
 
-        public async IAsyncEnumerable<string> ExecuteAsync(NativeLLamaOptions options, LlamaToken[] tokenizedContext, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        public IAsyncEnumerable<string> GenerateTokenStringAsync(string prompt, CancellationToken cancellationToken = default)
+        {
+            var tokens = Tokenize(prompt, true);
+
+            return ExecuteAsync(tokens, cancellationToken);
+        }
+
+        public async IAsyncEnumerable<string> ExecuteAsync( LlamaToken[] tokenizedContext, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             var bytesBuffer = new List<byte>();
-            await foreach (var tokenBytes in InferAsync(options, tokenizedContext, cancellationToken))
+            await foreach (var tokenBytes in InferAsync(tokenizedContext, cancellationToken))
             {
                 bytesBuffer.AddRange(tokenBytes);
 
@@ -45,7 +66,7 @@ namespace OwnerGPT.LLM.Native
             }
         }
 
-        internal async IAsyncEnumerable<byte[]> InferAsync(NativeLLamaOptions options, LlamaToken[] tokenizedContext, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        internal async IAsyncEnumerable<byte[]> InferAsync(LlamaToken[] tokenizedContext, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             var mirostatMU = 2.0f * 5.0f;
 
