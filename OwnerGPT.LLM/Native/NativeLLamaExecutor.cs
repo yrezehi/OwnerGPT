@@ -6,24 +6,32 @@ using System.Threading.Tasks;
 using LlamaModel = System.IntPtr;
 using NativeLLamaContext = System.IntPtr;
 using LlamaToken = System.Int32;
+using System.Buffers;
 
 namespace OwnerGPT.LLM.Native
 {
     public class NativeLLamaExecutor
     {
         private NativeLLamaContext Context;
+        private LlamaModel Model;
 
-        public List<LlamaToken> Tokenize(string context, bool addBos = false)
+        public LlamaToken[] Tokenize(string context, bool bos = false)
         {
-            var contextCount = this.GetBytesCount(context);
+            var contextCount = this.GetBytesCount(context) + (bos ? 1 : 0);
+            var rentedArray = ArrayPool<int>.Shared.Rent(contextCount);
 
-            NativeLLamaInteroperability.llama_tokenize(Context, text, out var _tokens, addBos);
-            var tokens = new List<LlamaToken>();
-            for (var i = 0; i < _tokens.Length; i++) tokens.Add(_tokens[i]);
-            return tokens;
+            LlamaToken tokenized = NativeLLamaInteroperability.llama_tokenize_with_model(Model, context, rentedArray, contextCount, bos);
+
+            var result = new int[tokenized];
+
+            Array.ConstrainedCopy(rentedArray, 0, result, 0, tokenized);
+
+            ArrayPool<int>.Shared.Return(rentedArray);
+
+            return result;
         }
 
-        private Int32 GetBytesCount(string context)
+        private LlamaToken GetBytesCount(string context)
         {
             return Encoding.UTF8.GetByteCount(context);
         }
