@@ -146,12 +146,54 @@ namespace OwnerGPT.LLM.Native
             {
                 var repeat_last_n = ModelConfiguration.CONTEXT_SIZE;
 
-                var tokenDataArray = this.ApplyPenalty(lastTokens, inferenceParams.LogitBias, repeat_last_n,
-                   inferenceParams.RepeatPenalty, inferenceParams.FrequencyPenalty, inferenceParams.PresencePenalty, inferenceParams.PenalizeNL);
+                var tokenDataArray = this.ApplyPenalty(lastTokens, null, repeat_last_n);
+
+                var id = _context.Sample(tokenDataArray, ref mu, inferenceParams.Temperature, inferenceParams.Mirostat, inferenceParams.MirostatTau,
+                    inferenceParams.MirostatEta, inferenceParams.TopK, inferenceParams.TopP, inferenceParams.TfsZ, inferenceParams.TypicalP);
             }
         }
 
-        public LLamaTokenDataArray ApplyPenalty(IEnumerable<LlamaToken> lastTokens, Dictionary<LlamaToken, float>? logitBias = null,
+        public LlamaToken Sample(llama_token_data_array candidates, ref float? mirostat_mu, float temperature = 0.8f, MirostatType mirostat = MirostatType.Disable,
+                                  float mirostatTau = 5.0f, float mirostatEta = 0.1f, int topK = 40, float topP = 0.95f, float tfsZ = 1.0f, float typicalP = 1.0f)
+        {
+            LlamaToken id;
+            if (temperature <= 0)
+            {
+                NativeLLamaInteroperability.llama_sample_token_greedy(Context, candidates);
+            }
+            else
+            {
+                var mu = mirostat_mu ?? (2 * mirostatTau);
+                {
+                    if (mirostat == MirostatType.Mirostat)
+                    {
+                        const int mirostat_m = 100;
+                        NativeLLamaInteroperability.llama_sample_temperature(Context, candidates, temperature);
+
+                        id = NativeLLamaInteroperability.llama_sample_token_mirostat(Context, candidates, mirostatTau, mirostatEta, mirostat_m, ref mu);
+                    }
+                    else if (mirostat == MirostatType.Mirostat2)
+                    {
+                        SamplingApi.llama_sample_temperature(_ctx, candidates, temperature);
+                        id = SamplingApi.llama_sample_token_mirostat_v2(_ctx, candidates, mirostatTau, mirostatEta, ref mu);
+                    }
+                    else
+                    {
+                        // Temperature sampling
+                        SamplingApi.llama_sample_top_k(_ctx, candidates, topK, 1);
+                        SamplingApi.llama_sample_tail_free(_ctx, candidates, tfsZ, 1);
+                        SamplingApi.llama_sample_typical(_ctx, candidates, typicalP, 1);
+                        SamplingApi.llama_sample_top_p(_ctx, candidates, topP, 1);
+                        SamplingApi.llama_sample_temperature(_ctx, candidates, temperature);
+                        id = SamplingApi.llama_sample_token(_ctx, candidates);
+                    }
+                }
+                mirostat_mu = mu;
+            }
+            return id;
+        }
+
+        public llama_token_data_array ApplyPenalty(IEnumerable<LlamaToken> lastTokens, Dictionary<LlamaToken, float>? logitBias = null,
             int repeatLastTokensCount = 64, float repeatPenalty = 1.1f, float alphaFrequency = .0f, float alphaPresence = .0f, bool penalizeNL = true)
         {
             var n_vocab = NativeLLamaInteroperability.llama_n_vocab(Context);
@@ -190,8 +232,6 @@ namespace OwnerGPT.LLM.Native
 
             llama_sample_repetition_penalty(Context, arrayCandidates, lastTokens.Skip(lastTokensCount - last_n_repeat).ToArray(),repeatPenalty);
 
-            LLamaTokenDataArray array = new LLamaTokenDataArray(candidatesData);
-
             NativeLLamaInteroperability.llama_sample_repetition_penalty(Context, arrayCandidates, lastTokens.Skip(lastTokensCount - last_n_repeat).ToArray(), repeatPenalty);
 
             NativeLLamaInteroperability.llama_sample_frequency_and_presence_penalties(Context, arrayCandidates,
@@ -203,7 +243,7 @@ namespace OwnerGPT.LLM.Native
                 logits[NativeLLamaInteroperability.llama_token_nl(Context)] = nl_logit;
             }
 
-            return array;
+            return arrayCandidates;
         }
 
         public Span<float> GetLogits(LlamaToken vocabCount)
