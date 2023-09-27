@@ -10,7 +10,7 @@
         public static int UNCHECKED_CONTEXT_SIZE = 16384;
 
         public static int SEED_COUNT = 1337;
-        public static uint UNCHECKED_SEED_COUNT = 0;
+        public static uint UNCHECKED_SEED_COUNT = 1337;
 
         public static int GPU_LAYER_COUNT = 5;
         public static int UNCHECKED_GPU_LAYER_COUNT = 42;

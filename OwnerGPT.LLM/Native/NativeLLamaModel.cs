@@ -7,6 +7,7 @@ using static OwnerGPT.LLM.Native.NativeLLamaInteroperability;
 using Microsoft.Extensions.Options;
 using OwnerGPT.LLM.Configuration;
 using System.Reflection;
+using LLama.Exceptions;
 
 namespace OwnerGPT.LLM.Native
 {
@@ -63,7 +64,15 @@ namespace OwnerGPT.LLM.Native
             var parameters = this.BuildDefaultParameters();
 
             Model = NativeLLamaInteroperability.llama_load_model_from_file(ModelConfiguration.LLAMA_MODEL_PATH, parameters);
+
+            if (Model == IntPtr.Zero)
+                throw new Exception("Failed to load model!");
+
             Context = NativeLLamaInteroperability.llama_new_context_with_model(Model, parameters);
+
+            if (Context == IntPtr.Zero)
+                throw new RuntimeError("Failed to create context from model");
+
             InitialState = NativeLLamaInteroperability.llama_copy_state_data(Context);
              
             _options = options;
@@ -107,6 +116,7 @@ namespace OwnerGPT.LLM.Native
         internal async IAsyncEnumerable<byte[]> StatelessGenerateTokenBytesAsync(NativeLlamaGenerateOptions options, List<LlamaToken> tokens, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             var mirostatMU = 2.0f * options.MirostatTAU;
+            StatelessEvaulateOffset = 0;
 
             while (NativeLLamaInteroperability.llama_get_kv_cache_token_count(Context) < NativeLLamaInteroperability.llama_n_ctx(Context) && !cancellationToken.IsCancellationRequested)
             {
