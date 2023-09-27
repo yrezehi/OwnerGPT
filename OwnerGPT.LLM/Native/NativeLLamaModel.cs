@@ -8,6 +8,8 @@ using Microsoft.Extensions.Options;
 using OwnerGPT.LLM.Configuration;
 using System.Reflection;
 using LLama.Exceptions;
+using LLama.Common;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace OwnerGPT.LLM.Native
 {
@@ -97,7 +99,7 @@ namespace OwnerGPT.LLM.Native
         {
             var bytesBuffer = new List<byte>();
 
-            await foreach (var tokenBytes in StatelessGenerateTokenBytesAsync(options, tokens, cancellationToken))
+            await foreach (var tokenBytes in AdvancedStatelessGenerateTokenBytesAsync(options, tokens, cancellationToken))
             {
                 bytesBuffer.AddRange(tokenBytes);
                 if (bytesBuffer.ToArray().TryGetUtf8String(out var tokenString) && tokenString != null)
@@ -113,11 +115,31 @@ namespace OwnerGPT.LLM.Native
             }
         }
 
+        internal async IAsyncEnumerable<byte[]> AdvancedStatelessGenerateTokenBytesAsync(NativeLlamaGenerateOptions options, List<LlamaToken> tokens, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        {
+            int n_past = 1;
+            List<LlamaToken> lastTokens = new(-1);
+            for (int i = 0; i < lastTokens.Count; i++)
+            {
+                lastTokens[i] = 0;
+            }
+            int n_prompt_tokens = tokens.Count;
+
+            NativeLLamaInteroperability.llama_eval(
+                Context,
+                tokens.ToArray(),
+                n_prompt_tokens,
+                n_past,
+                options.ThreadCount
+            );
+
+
+        }
+
         internal async IAsyncEnumerable<byte[]> StatelessGenerateTokenBytesAsync(NativeLlamaGenerateOptions options, List<LlamaToken> tokens, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             var mirostatMU = 2.0f * options.MirostatTAU;
             StatelessEvaulateOffset = 0;
-
             while (NativeLLamaInteroperability.llama_get_kv_cache_token_count(Context) < NativeLLamaInteroperability.llama_n_ctx(Context) && !cancellationToken.IsCancellationRequested)
             {
                 for (var offset = StatelessEvaulateOffset; offset < tokens.Count && !cancellationToken.IsCancellationRequested; offset += _options.BatchSize)
