@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
+using LlamaModel = System.IntPtr;
+using NativeLLamaContext = System.IntPtr;
+using LlamaToken = System.Int32;
 
 namespace OwnerGPT.LLM.Native
 {
-    using LlamaModel = System.IntPtr;
-    using NativeLLamaContext = System.IntPtr;
-    using LlamaToken = System.Int32;
-
     public class NativeLLamaModel : IDisposable
     {
         private LlamaModel _model;
@@ -18,25 +13,7 @@ namespace OwnerGPT.LLM.Native
         private NativeLLamaOptions _options = new();
         private byte[]? _initialState;
 
-        public NativeLLamaModel()
-        { }
 
-        public void Dispose()
-        {
-            if (_context != IntPtr.Zero)
-            {
-                NativeLLamaInteroperability.llama_free(_context);
-                _context = IntPtr.Zero;
-            }
-
-            if (_model != IntPtr.Zero)
-            {
-                NativeLLamaInteroperability.llama_free_model(_model);
-                _model = IntPtr.Zero;
-            }
-
-            NativeLLamaInteroperability.llama_backend_free();
-        }
 
         public NativeLLamaContext Handle => _context;
 
@@ -258,30 +235,22 @@ namespace OwnerGPT.LLM.Native
 
             await Task.CompletedTask;
         }
-    }
-    file static class Extensions
-    {
-        private static Encoding? _utf8;
 
-        public static bool TryGetUtf8String(this byte[] bytes, out string? str)
+        public void Dispose()
         {
-            if (_utf8 == null)
+            if (_context != IntPtr.Zero)
             {
-                _utf8 = (Encoding)Encoding.UTF8.Clone();
-                _utf8.DecoderFallback = new DecoderExceptionFallback();
+                NativeLLamaInteroperability.llama_free(_context);
+                _context = IntPtr.Zero;
             }
 
-            try
+            if (_model != IntPtr.Zero)
             {
-                _utf8.DecoderFallback = new DecoderExceptionFallback();
-                str = _utf8.GetString(bytes);
-                return true;
+                NativeLLamaInteroperability.llama_free_model(_model);
+                _model = IntPtr.Zero;
             }
-            catch (DecoderFallbackException)
-            {
-                str = null;
-                return false;
-            }
+
+            NativeLLamaInteroperability.llama_backend_free();
         }
     }
 }
