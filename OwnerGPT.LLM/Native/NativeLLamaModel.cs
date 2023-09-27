@@ -166,16 +166,27 @@ namespace OwnerGPT.LLM.Native
                 }
             }
 
-            var candidates = new LLamaTokenData[n_vocab];
-            for (llama_token token_id = 0; token_id < n_vocab; token_id++)
-                candidates[token_id] = new LLamaTokenData(token_id, logits[token_id], 0.0f);
-            LLamaTokenDataArray candidates_p = new LLamaTokenDataArray(candidates);
+            var candidates = new llama_token_data[n_vocab];
+            for (LlamaToken token_id = 0; token_id < n_vocab; token_id++)
+            {
+                var tokenData = new llama_token_data();
+
+                tokenData.id = token_id;
+                tokenData.logit = logits[token_id];
+                tokenData.p = 0.0f;
+            }
 
             // Apply penalties
-            float nl_logit = logits[NativeApi.llama_token_nl()];
+            float nl_logit = logits[NativeLLamaInteroperability.llama_token_nl(Context)];
             int lastTokensCount = lastTokens.Count();
-            var last_n_repeat = Math.Min(Math.Min(lastTokensCount, repeatLastTokensCount), ContextSize);
-            SamplingApi.llama_sample_repetition_penalty(_ctx, candidates_p,
+            var last_n_repeat = Math.Min(Math.Min(lastTokensCount, repeatLastTokensCount), ModelConfiguration.CONTEXT_SIZE);
+
+            var arrayCandidates = new NativeLLamaInteroperability.llama_token_data_array { data = candidates, size = (nuint)candidates.Length, sorted = false };
+
+            llama_sample_repetition_penalty(Context, arrayCandidates, lastTokens.Skip(lastTokensCount - last_n_repeat).ToArray(),repeatPenalty);
+
+
+            SamplingApi.llama_sample_repetition_penalty(Context, candidates_p,
                 lastTokens.Skip(lastTokensCount - last_n_repeat).ToArray(),
                 (ulong)last_n_repeat, repeatPenalty);
             SamplingApi.llama_sample_frequency_and_presence_penalties(_ctx, candidates_p,

@@ -12,7 +12,7 @@ namespace OwnerGPT.Experimental.LLMManager
             var gpuLayers = 42;
             var contextLength = 16384;
 
-            var modelOptions = new LlamaCppModelOptions
+            var modelOptions = new NativeLLamaOptions
             {
                 Seed = 0,
                 ContextSize = contextLength,
@@ -24,13 +24,14 @@ namespace OwnerGPT.Experimental.LLMManager
                 //UseMemoryMapping = false,
             };
 
-            using var model = new LlamaCppModel();
-            model.Load(modelPath, modelOptions);
+            using var model = new NativeLLamaModel();
+            model.Load(modelOptions);
 
             var cancellationTokenSource = new CancellationTokenSource();
             Console.CancelKeyPress += (s, e) => cancellationTokenSource.Cancel(!(e.Cancel = true));
 
-            var generateOptions = new LlamaCppGenerateOptions { Temperature = 0.0f, Mirostat = Mirostat.Disabled, ThreadCount = 4 };
+            var generateOptions = new NativeLlamaGenerateOptions { Temperature = 0.0f, Mirostat = Mirostat.Disabled, ThreadCount = 4 };
+
             var session = model.CreateSession();
 
             await Console.Out.WriteLineAsync(
@@ -61,10 +62,6 @@ namespace OwnerGPT.Experimental.LLMManager
             //     eos=True,
             // )
             // ------------------------------------------------------------------------------------------------------------------------------
-            const string B_INST = "[INST]";
-            const string E_INST = "[/INST]";
-            const string B_SYS = "<<SYS>>\n";
-            const string E_SYS = "\n<</SYS>>\n\n";
             const string SYS_PROMPT = "You are a helpful assistant.";
             // ------------------------------------------------------------------------------------------------------------------------------
 
@@ -78,54 +75,11 @@ namespace OwnerGPT.Experimental.LLMManager
                 if (String.IsNullOrWhiteSpace(userPrompt))
                     break;
 
-                var prompt = $"{B_INST} {(first ? $"{B_SYS}{SYS_PROMPT}{E_SYS}" : "")}{userPrompt} {E_INST} ";
-
-                var match = Regex.Match(userPrompt, @"^\/(?<Command>\w+)\s?""?(?<Arg>.*?)""?$");
-                if (match.Success)
-                {
-                    var command = match.Groups["Command"].Value.ToLower();
-                    var arg = match.Groups["Arg"].Value;
-
-                    if (command == "load")
-                    {
-                        var path = Path.GetFullPath(arg);
-                        await Console.Out.WriteAsync($"Loading prompt from \"{path}\"...");
-                        if (!File.Exists(path))
-                        {
-                            await Console.Out.WriteLineAsync($" [File not found].");
-                            continue;
-                        }
-                        prompt = File.ReadAllText(arg);
-                        var tokenCount = model.Tokenize(prompt, true).Count;
-                        await Console.Out.WriteLineAsync($" [{tokenCount} token(s)].");
-                        if (tokenCount == 0 || tokenCount >= contextLength - 4)
-                        {
-                            await Console.Out.WriteLineAsync($"Context limit reached ({contextLength}).");
-                            continue;
-                        }
-                        session.Reset();
-                        //model.ResetState();
-                    }
-                    else if (command == "reset")
-                    {
-                        session.Reset();
-                        model.ResetState();
-                        await Console.Out.WriteLineAsync($"Context reset.");
-                        continue;
-                    }
-                    else if (command == "dump")
-                    {
-                        var separator = new String('=', Console.WindowWidth);
-                        await Console.Out.WriteLineAsync(separator);
-                        await Console.Out.WriteLineAsync(session.GetContextAsText());
-                        await Console.Out.WriteLineAsync(separator);
-                        continue;
-                    }
-                }
+                var prompt = $"{SYS_PROMPT}";
 
                 await Console.Out.WriteLineAsync("\nOutput:");
 
-                await foreach (var tokenString in session.GenerateTokenStringAsync(prompt, generateOptions, cancellationTokenSource.Token))
+                await foreach (var tokenString in session.GenerateStatelessTokenStringAsync(prompt, generateOptions, cancellationTokenSource.Token))
                 {
                     await Console.Out.WriteAsync(tokenString);
                 }
