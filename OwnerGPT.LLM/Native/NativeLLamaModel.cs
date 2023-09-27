@@ -306,11 +306,9 @@ namespace OwnerGPT.LLM.Native
             for (LlamaToken token_id = 0; token_id < n_vocab; token_id++)
             {
                 var tokenData = new llama_token_data();
-
                 tokenData.id = token_id;
                 tokenData.logit = logits[token_id];
                 tokenData.p = 0.0f;
-
                 candidates[token_id] = tokenData;
                 candidatesData[token_id] = new LLamaTokenData(token_id, logits[token_id], 0.0f);
             }
