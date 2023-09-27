@@ -3,6 +3,9 @@ using System.Text;
 using LlamaModel = System.IntPtr;
 using NativeLLamaContext = System.IntPtr;
 using LlamaToken = System.Int32;
+using static OwnerGPT.LLM.Native.NativeLLamaInteroperability;
+using Microsoft.Extensions.Options;
+using OwnerGPT.LLM.Configuration;
 
 namespace OwnerGPT.LLM.Native
 {
@@ -10,23 +13,17 @@ namespace OwnerGPT.LLM.Native
     {
         private LlamaModel _model;
         private NativeLLamaContext _context;
-        private NativeLLamaOptions _options = new();
-        private byte[]? _initialState;
-
-
-
         public NativeLLamaContext Handle => _context;
 
+        private NativeLLamaOptions _options = new();
         public NativeLLamaOptions Options { get => _options; }
 
-        public List<LlamaToken> Tokenize(string text, bool addBos = false, bool addEos = false)
-        {
-            NativeLLamaInteroperability.llama_tokenize(_context, text, out var _tokens, addBos);
-            var tokens = new List<LlamaToken>();
-            for (var i = 0; i < _tokens.Length; i++) tokens.Add(_tokens[i]);
-            if (addEos) tokens.Add(NativeLLamaInteroperability.llama_token_eos(_context));
-            return tokens;
-        }
+        private byte[]? _initialState;
+        internal byte[] GetInitialState() => _initialState ?? new byte[0];
+
+        internal byte[] GetRawState() => NativeLLamaInteroperability.llama_copy_state_data(_context);
+        internal void SetRawState(byte[] state) => NativeLLamaInteroperability.llama_set_state_data(_context, state);
+        public NativeLLamaSession CreateSession() => new NativeLLamaSession(this);
 
         public string UntokenizeToText(IEnumerable<LlamaToken> tokenIds)
         {
@@ -47,10 +44,6 @@ namespace OwnerGPT.LLM.Native
             return Encoding.UTF8.GetString(bytes.SelectMany(x => x).ToArray());
         }
 
-        internal byte[] GetInitialState() => _initialState ?? new byte[0];
-        internal byte[] GetRawState() => NativeLLamaInteroperability.llama_copy_state_data(_context);
-        internal void SetRawState(byte[] state) => NativeLLamaInteroperability.llama_set_state_data(_context, state);
-
         public void ResetState()
         {
             if (_initialState == null)
@@ -59,17 +52,6 @@ namespace OwnerGPT.LLM.Native
             SetRawState(_initialState);
         }
 
-        /// <summary>
-        /// Load a model and optionally load a LoRA adapter
-        /// </summary>
-        /// <param name="modelPath">Specify the path to the LLaMA model file</param>
-        /// <param name="options">Model options</param>
-        /// <param name="loraPath">Apply a LoRA (Low-Rank Adaptation) adapter to the model (will override use_mmap=false). This allows you to adapt the pretrained model to specific tasks or domains.</param>
-        /// <param name="loraBaseModelPath">Optional model to use as a base for the layers modified by the LoRA adapter. This flag is used in conjunction with the lora model path, and specifies the base model for the adaptation.</param>
-        /// <exception cref="FileNotFoundException"></exception>
-        /// <exception cref="InvalidOperationException"></exception>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="Exception"></exception>
         public void Load(string modelPath, NativeLLamaOptions options, string? loraPath = null, string? loraBaseModelPath = null)
         {
             if (!File.Exists(modelPath))
@@ -83,15 +65,7 @@ namespace OwnerGPT.LLM.Native
             if (useLora && !File.Exists(loraPath))
                 throw new FileNotFoundException($"LoRA adapter file not found \"{loraPath}\".");
 
-            var cparams = NativeLLamaInteroperability.llama_context_default_params();
-            cparams.seed = options.Seed;
-            cparams.n_ctx = options.ContextSize;
-            cparams.n_gpu_layers = options.GpuLayers;
-            cparams.rope_freq_base = options.RopeFrequencyBase;
-            cparams.rope_freq_scale = options.RopeFrequencyScale;
-            cparams.low_vram = options.LowVRAM;
-            cparams.use_mmap = useLora ? false : options.UseMemoryMapping;
-            cparams.use_mlock = options.UseMemoryLocking;
+            var cparams = this.BuildDefaultParameters();
 
             _model = NativeLLamaInteroperability.llama_load_model_from_file(modelPath, cparams);
             _context = NativeLLamaInteroperability.llama_new_context_with_model(_model, cparams);
@@ -115,7 +89,22 @@ namespace OwnerGPT.LLM.Native
             }
         }
 
-        public NativeLLamaSession CreateSession() => new NativeLLamaSession(this);
+        private llama_context_params BuildDefaultParameters()
+        {
+            llama_context_params parameters = NativeLLamaInteroperability.llama_context_default_params();
+
+            parameters.seed = ModelConfiguration.UNCHECKED_SEED_COUNT;
+            parameters.n_ctx = ModelConfiguration.CONTEXT_SIZE;
+            parameters.n_gpu_layers = ModelConfiguration.GPU_LAYER_COUNT;
+            parameters.rope_freq_base = 10000.0f;
+            parameters.rope_freq_scale = 1.0f;
+            parameters.low_vram = false;
+            parameters.use_mmap = false;
+            parameters.use_mlock = false;
+
+            return parameters;
+        }
+
 
         internal async IAsyncEnumerable<string> GenerateTokenStringAsync(NativeLlamaGenerateOptions options, LlamaCppSessionState state, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
@@ -234,6 +223,15 @@ namespace OwnerGPT.LLM.Native
             }
 
             await Task.CompletedTask;
+        }
+
+        public List<LlamaToken> Tokenize(string text, bool addBos = false, bool addEos = false)
+        {
+            NativeLLamaInteroperability.llama_tokenize(_context, text, out var _tokens, addBos);
+            var tokens = new List<LlamaToken>();
+            for (var i = 0; i < _tokens.Length; i++) tokens.Add(_tokens[i]);
+            if (addEos) tokens.Add(NativeLLamaInteroperability.llama_token_eos(_context));
+            return tokens;
         }
 
         public void Dispose()

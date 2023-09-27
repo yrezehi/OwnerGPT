@@ -21,9 +21,9 @@ namespace OwnerGPT.LLM.Models.LLama
 
             var parameters = new ModelParams(modelPath)
             {
-                ContextSize = ModelConfiguration.MODEL_CONTEXT_SIZE,
-                Seed = ModelConfiguration.MODEL_SEED_COUNT,
-                GpuLayerCount = ModelConfiguration.MODEL_GPU_LAYER_COUNT,
+                ContextSize = ModelConfiguration.CONTEXT_SIZE,
+                Seed = ModelConfiguration.SEED_COUNT,
+                GpuLayerCount = ModelConfiguration.GPU_LAYER_COUNT,
             };
 
             Executor = new InstructExecutor(LLamaWeights.LoadFromFile(parameters).CreateContext(parameters));
