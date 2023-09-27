@@ -10,6 +10,10 @@ using System.Reflection;
 using LLama.Exceptions;
 using LLama.Common;
 using static System.Net.Mime.MediaTypeNames;
+using LLama.Abstractions;
+using LLama.Native;
+using System.Runtime.InteropServices;
+using System;
 
 namespace OwnerGPT.LLM.Native
 {
@@ -133,7 +137,65 @@ namespace OwnerGPT.LLM.Native
                 options.ThreadCount
             );
 
+            lastTokens.AddRange(tokens);
+            n_past += n_prompt_tokens;
+            var mu = (float?)null;
+            int max_tokens = int.MaxValue;
 
+            for (int i = 0; i < max_tokens; i++)
+            {
+                var repeat_last_n = ModelConfiguration.CONTEXT_SIZE;
+
+                //var tokenDataArray = _context.ApplyPenalty(lastTokens, inferenceParams.LogitBias, repeat_last_n,
+                   //inferenceParams.RepeatPenalty, inferenceParams.FrequencyPenalty, inferenceParams.PresencePenalty, inferenceParams.PenalizeNL);
+            }
+        }
+
+        public LLamaTokenDataArray ApplyPenalty(IEnumerable<LlamaToken> lastTokens, Dictionary<LlamaToken, float>? logitBias = null,
+            int repeatLastTokensCount = 64, float repeatPenalty = 1.1f, float alphaFrequency = .0f, float alphaPresence = .0f, bool penalizeNL = true)
+        {
+            var n_vocab = NativeLLamaInteroperability.llama_n_vocab(Context);
+            var logits = GetLogits(n_vocab);
+
+            // Apply params.logit_bias map
+            if (logitBias is not null)
+            {
+                foreach (var (key, value) in logitBias)
+                {
+                    logits[key] += value;
+                }
+            }
+
+            var candidates = new LLamaTokenData[n_vocab];
+            for (llama_token token_id = 0; token_id < n_vocab; token_id++)
+                candidates[token_id] = new LLamaTokenData(token_id, logits[token_id], 0.0f);
+            LLamaTokenDataArray candidates_p = new LLamaTokenDataArray(candidates);
+
+            // Apply penalties
+            float nl_logit = logits[NativeApi.llama_token_nl()];
+            int lastTokensCount = lastTokens.Count();
+            var last_n_repeat = Math.Min(Math.Min(lastTokensCount, repeatLastTokensCount), ContextSize);
+            SamplingApi.llama_sample_repetition_penalty(_ctx, candidates_p,
+                lastTokens.Skip(lastTokensCount - last_n_repeat).ToArray(),
+                (ulong)last_n_repeat, repeatPenalty);
+            SamplingApi.llama_sample_frequency_and_presence_penalties(_ctx, candidates_p,
+                lastTokens.Skip(lastTokensCount - last_n_repeat).ToArray(),
+                (ulong)last_n_repeat, alphaFrequency, alphaPresence);
+            if (!penalizeNL)
+            {
+                logits[NativeApi.llama_token_nl()] = nl_logit;
+            }
+
+            return candidates_p;
+        }
+
+        public Span<float> GetLogits(LlamaToken vocabCount)
+        {
+            unsafe
+            {
+                var logits = MemoryMarshal.GetReference(NativeLLamaInteroperability.llama_get_logits(Context));
+                return new Span<float>(Unsafe.AsPointer<float>(ref logits), vocabCount);
+            }
         }
 
         internal async IAsyncEnumerable<byte[]> StatelessGenerateTokenBytesAsync(NativeLlamaGenerateOptions options, List<LlamaToken> tokens, [EnumeratorCancellation] CancellationToken cancellationToken = default)
