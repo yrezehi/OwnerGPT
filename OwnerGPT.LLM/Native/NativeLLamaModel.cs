@@ -146,8 +146,8 @@ namespace OwnerGPT.LLM.Native
             {
                 var repeat_last_n = ModelConfiguration.CONTEXT_SIZE;
 
-                //var tokenDataArray = _context.ApplyPenalty(lastTokens, inferenceParams.LogitBias, repeat_last_n,
-                   //inferenceParams.RepeatPenalty, inferenceParams.FrequencyPenalty, inferenceParams.PresencePenalty, inferenceParams.PenalizeNL);
+                var tokenDataArray = this.ApplyPenalty(lastTokens, inferenceParams.LogitBias, repeat_last_n,
+                   inferenceParams.RepeatPenalty, inferenceParams.FrequencyPenalty, inferenceParams.PresencePenalty, inferenceParams.PenalizeNL);
             }
         }
 
@@ -167,6 +167,8 @@ namespace OwnerGPT.LLM.Native
             }
 
             var candidates = new llama_token_data[n_vocab];
+            var candidatesData = new LLamaTokenData[n_vocab];
+
             for (LlamaToken token_id = 0; token_id < n_vocab; token_id++)
             {
                 var tokenData = new llama_token_data();
@@ -174,6 +176,9 @@ namespace OwnerGPT.LLM.Native
                 tokenData.id = token_id;
                 tokenData.logit = logits[token_id];
                 tokenData.p = 0.0f;
+
+                candidates[token_id] = tokenData;
+                candidatesData[token_id] = new LLamaTokenData(token_id, logits[token_id], 0.0f);
             }
 
             // Apply penalties
@@ -185,19 +190,20 @@ namespace OwnerGPT.LLM.Native
 
             llama_sample_repetition_penalty(Context, arrayCandidates, lastTokens.Skip(lastTokensCount - last_n_repeat).ToArray(),repeatPenalty);
 
+            LLamaTokenDataArray array = new LLamaTokenDataArray(candidatesData);
 
-            SamplingApi.llama_sample_repetition_penalty(Context, candidates_p,
+            NativeLLamaInteroperability.llama_sample_repetition_penalty(Context, arrayCandidates, lastTokens.Skip(lastTokensCount - last_n_repeat).ToArray(), repeatPenalty);
+
+            NativeLLamaInteroperability.llama_sample_frequency_and_presence_penalties(Context, arrayCandidates,
                 lastTokens.Skip(lastTokensCount - last_n_repeat).ToArray(),
-                (ulong)last_n_repeat, repeatPenalty);
-            SamplingApi.llama_sample_frequency_and_presence_penalties(_ctx, candidates_p,
-                lastTokens.Skip(lastTokensCount - last_n_repeat).ToArray(),
-                (ulong)last_n_repeat, alphaFrequency, alphaPresence);
+                 alphaFrequency, alphaPresence);
+
             if (!penalizeNL)
             {
-                logits[NativeApi.llama_token_nl()] = nl_logit;
+                logits[NativeLLamaInteroperability.llama_token_nl(Context)] = nl_logit;
             }
 
-            return candidates_p;
+            return array;
         }
 
         public Span<float> GetLogits(LlamaToken vocabCount)
