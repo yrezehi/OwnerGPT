@@ -14,6 +14,7 @@ using LLama.Abstractions;
 using LLama.Native;
 using System.Runtime.InteropServices;
 using System;
+using LLama;
 
 namespace OwnerGPT.LLM.Native
 {
@@ -105,12 +106,8 @@ namespace OwnerGPT.LLM.Native
 
             await foreach (var tokenBytes in AdvancedStatelessGenerateTokenBytesAsync(options, tokens, cancellationToken))
             {
-                bytesBuffer.AddRange(tokenBytes);
-                if (bytesBuffer.ToArray().TryGetUtf8String(out var tokenString) && tokenString != null)
-                {
-                    yield return tokenString;
+                    yield return tokenBytes;
                     bytesBuffer.Clear();
-                }
             }
 
             if (bytesBuffer.Any())
@@ -119,10 +116,10 @@ namespace OwnerGPT.LLM.Native
             }
         }
 
-        internal async IAsyncEnumerable<byte[]> AdvancedStatelessGenerateTokenBytesAsync(NativeLlamaGenerateOptions options, List<LlamaToken> tokens, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        internal async IAsyncEnumerable<string> AdvancedStatelessGenerateTokenBytesAsync(NativeLlamaGenerateOptions options, List<LlamaToken> tokens, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             int n_past = 1;
-            List<LlamaToken> lastTokens = new(-1);
+            List<LlamaToken> lastTokens = new(0);
             for (int i = 0; i < lastTokens.Count; i++)
             {
                 lastTokens[i] = 0;
@@ -148,15 +145,110 @@ namespace OwnerGPT.LLM.Native
 
                 var tokenDataArray = this.ApplyPenalty(lastTokens, null, repeat_last_n);
 
-                var id = _context.Sample(tokenDataArray, ref mu, inferenceParams.Temperature, inferenceParams.Mirostat, inferenceParams.MirostatTau,
-                    inferenceParams.MirostatEta, inferenceParams.TopK, inferenceParams.TopP, inferenceParams.TfsZ, inferenceParams.TypicalP);
+                var id = Sample(tokenDataArray, ref mu);
+
+                lastTokens.Add(id);
+
+                string response = TokenToString(id, Encoding.UTF8);
+                yield return response;
+
+                tokens.Clear();
+                tokens.Add(id);
+
+                string last_output = "";
+                foreach (var token in lastTokens)
+                {
+                    last_output += TokenToString(token, Encoding.UTF8);
+                }
+
+                bool should_break = false;
+                foreach (var antiprompt in "Answer:")
+                {
+                    if (last_output.EndsWith(antiprompt))
+                    {
+                        should_break = true;
+                        break;
+                    }
+                }
+                if (should_break)
+                {
+                    break;
+                }
+
+                if (n_past + tokens.Count > ModelConfiguration.CONTEXT_SIZE)
+                {
+                    int n_left = n_past - 0;
+
+                    n_past = Math.Max(1, 0);
+
+                    // insert n_left/2 tokens at the start of embed from last_n_tokens
+                    tokens.InsertRange(0, lastTokens.Take(lastTokens.Count - tokens.Count).Skip(ModelConfiguration.CONTEXT_SIZE - n_left / 2 - tokens.Count));
+                }
+
+                n_past = Eval(tokens.ToArray(), n_past);
+            }
+        }
+
+        public LlamaToken Eval(LlamaToken[] tokens, LlamaToken pastTokensCount)
+        {
+            int total = tokens.Length;
+            for (int i = 0; i < total; i += 128)
+            {
+                int n_eval = total - i;
+                if (n_eval > 128)
+                {
+                    n_eval = 128;
+                }
+
+                if (!EEval(tokens, pastTokensCount, 12))
+                {
+                    throw new RuntimeError("Failed to eval.");
+                }
+
+                pastTokensCount += n_eval;
+            }
+            return pastTokensCount;
+        }
+
+        public bool EEval(LlamaToken[] tokens, int n_past, int n_threads)
+        {
+            unsafe
+            {
+                return NativeLLamaInteroperability.llama_eval(Context, tokens, tokens.Length, n_past, n_threads) == 0;
+            }
+        }
+
+        public string TokenToString(int llama_token, Encoding encoding)
+        {
+            var span = TokenToSpan(llama_token);
+
+            if (span.Length == 0)
+                return "";
+
+            unsafe
+            {
+                fixed (byte* ptr = &span[0])
+                {
+                    return encoding.GetString(ptr, span.Length);
+                }
+            }
+        }
+
+        public ReadOnlySpan<byte> TokenToSpan(LlamaToken llama_token)
+        {
+            unsafe
+            {
+                var logits = MemoryMarshal.GetReference<byte>(NativeLLamaInteroperability.llama_token_to_bytes(Context, llama_token));
+                var bytes = new Span<byte>(Unsafe.AsPointer<byte>(ref logits), int.MaxValue);
+                var terminator = bytes.IndexOf((byte)0);
+                return bytes.Slice(0, terminator);
             }
         }
 
         public LlamaToken Sample(llama_token_data_array candidates, ref float? mirostat_mu, float temperature = 0.8f, MirostatType mirostat = MirostatType.Disable,
                                   float mirostatTau = 5.0f, float mirostatEta = 0.1f, int topK = 40, float topP = 0.95f, float tfsZ = 1.0f, float typicalP = 1.0f)
         {
-            LlamaToken id;
+            LlamaToken id = 0;
             if (temperature <= 0)
             {
                 NativeLLamaInteroperability.llama_sample_token_greedy(Context, candidates);
@@ -174,18 +266,18 @@ namespace OwnerGPT.LLM.Native
                     }
                     else if (mirostat == MirostatType.Mirostat2)
                     {
-                        SamplingApi.llama_sample_temperature(_ctx, candidates, temperature);
-                        id = SamplingApi.llama_sample_token_mirostat_v2(_ctx, candidates, mirostatTau, mirostatEta, ref mu);
+                        NativeLLamaInteroperability.llama_sample_temperature(Context, candidates, temperature);
+                        id = NativeLLamaInteroperability.llama_sample_token_mirostat_v2(Context, candidates, mirostatTau, mirostatEta, ref mu);
                     }
                     else
                     {
                         // Temperature sampling
-                        SamplingApi.llama_sample_top_k(_ctx, candidates, topK, 1);
-                        SamplingApi.llama_sample_tail_free(_ctx, candidates, tfsZ, 1);
-                        SamplingApi.llama_sample_typical(_ctx, candidates, typicalP, 1);
-                        SamplingApi.llama_sample_top_p(_ctx, candidates, topP, 1);
-                        SamplingApi.llama_sample_temperature(_ctx, candidates, temperature);
-                        id = SamplingApi.llama_sample_token(_ctx, candidates);
+                        NativeLLamaInteroperability.llama_sample_top_k(Context, candidates, topK, 1);
+                        NativeLLamaInteroperability.llama_sample_tail_free(Context, candidates, tfsZ, 1);
+                        NativeLLamaInteroperability.llama_sample_typical(Context, candidates, typicalP, 1);
+                        NativeLLamaInteroperability.llama_sample_top_p(Context, candidates, topP, 1);
+                        NativeLLamaInteroperability.llama_sample_temperature(Context, candidates, temperature);
+                        id = NativeLLamaInteroperability.llama_sample_token(Context, candidates);
                     }
                 }
                 mirostat_mu = mu;
