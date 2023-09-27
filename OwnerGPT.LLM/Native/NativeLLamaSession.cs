@@ -63,5 +63,11 @@
 
         public IAsyncEnumerable<string> GenerateTokenStringAsync(string prompt, CancellationToken cancellationToken = default) =>
             GenerateTokenStringAsync(prompt, default, cancellationToken);
+
+        public IAsyncEnumerable<string> GenerateStatelessTokenStringAsync(string prompt, NativeLlamaGenerateOptions? options = default, CancellationToken cancellationToken = default)
+        {
+            return _model.GenerateStatlessTokenStringAsync(options, _model.Tokenize(prompt, !_state.TokenIds.Any()), cancellationToken);
+        }
+
     }
 }
