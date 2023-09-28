@@ -52,6 +52,7 @@ namespace OwnerGPT.Databases.Repositores.RDBMS
                     Extension = "pdf",
                     Name = "file",
                     UploadDate = DateTime.Now,
+                    MimeType = ""
                 }    
             );
 

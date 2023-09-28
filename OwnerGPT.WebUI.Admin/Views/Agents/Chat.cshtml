@@ -109,11 +109,11 @@
         }
 
         function createReplayElement() {
-            return dom.createElement(`
+            var replayElement = dom.createElement(`
                 <div class="relative mb-6 text-left">
                     <div class="text-gray-700">
                         <div class="relative float-left inline-block rounded-md bg-gray-100 py-3 px-4 shadow-md">
-                            <div class="text-sm">
+                            <div class="dialog-context text-sm">
                                 <div class="px-3 py-1 text-xs font-medium leading-none text-center text-bg-indigo-600 text-white bg-indigo-600 rounded animate-pulse">
                                     loading...
                                 </div>
@@ -123,6 +123,10 @@
                     <div class="clear-both flex text-gray-700"></div>
                 </div>
             `);
+
+            chatDialogContainer.appendChild(replayElement);
+
+            return replayElement.querySelector(".dialog-context");
         }
 
         function createAttachmentElement() {

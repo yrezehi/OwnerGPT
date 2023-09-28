@@ -12,7 +12,7 @@
         public static int SEED_COUNT = 1337;
         public static uint UNCHECKED_SEED_COUNT = 1337;
 
-        public static int GPU_LAYER_COUNT = 5;
+        public static int GPU_LAYER_COUNT = 12;
         public static int UNCHECKED_GPU_LAYER_COUNT = 42;
         /* Inference parameters */
 
@@ -21,5 +21,8 @@
 
         // Idk what would happen when exceeding the limit? 
         public static float CONTEXT_LIMIT = 4096;
+
+        public static float TEMPERATURE = 0.75f;
+        public static int MAX_TOKENS = 512;
     }
 }

@@ -30,9 +30,9 @@ namespace OwnerGPT.LLM.Models.LLama
 
             InferenceParams = new InferenceParams
             {
-                Temperature = 0.75f,
+                Temperature = ModelConfiguration.TEMPERATURE,
                 AntiPrompts = new List<string> { "Answer:" },
-                MaxTokens = 512,
+                MaxTokens = ModelConfiguration.MAX_TOKENS,
             };
         }
     }
