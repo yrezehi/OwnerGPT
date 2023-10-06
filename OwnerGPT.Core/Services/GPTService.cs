@@ -11,11 +11,9 @@ namespace OwnerGPT.Core.Services
 
         public readonly AgentsService AgentsService;
 
-        public GPTService(AgentsService agentsService, LLamaModel llamaModel) { 
-            LLamaModel = llamaModel;
-            AgentsService = agentsService;
-        }
-
+        public GPTService(AgentsService agentsService, LLamaModel llamaModel) =>
+            (LLamaModel, AgentsService ) = (llamaModel, agentsService);
+        
         public async IAsyncEnumerable<string> StreamReplay(string prompt, int agentId, CancellationToken cancellationToken)
         {
             var promptToExecute = await this.ConstructPrompt(prompt, agentId);

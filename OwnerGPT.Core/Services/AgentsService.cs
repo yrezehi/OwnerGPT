@@ -12,11 +12,8 @@ namespace OwnerGPT.Core.Services
         private readonly SentenceEncoder SentenceEncoder;
         private readonly AgentDocumentsService AgentDocumentsService;
 
-        public AgentsService(RDBMSServiceBase<Agent> RDBMSServiceBase, PGVServiceBase<VectorEmbedding> PGVServiceBase, SentenceEncoder sentenceEncoder, AgentDocumentsService agentDocumentsService) : base(RDBMSServiceBase, PGVServiceBase)
-        {
-            SentenceEncoder = sentenceEncoder;
-            AgentDocumentsService = agentDocumentsService;
-        }
+        public AgentsService(RDBMSServiceBase<Agent> RDBMSServiceBase, PGVServiceBase<VectorEmbedding> PGVServiceBase, SentenceEncoder sentenceEncoder, AgentDocumentsService agentDocumentsService) : base(RDBMSServiceBase, PGVServiceBase) => 
+            (SentenceEncoder, AgentDocumentsService) = (sentenceEncoder, agentDocumentsService);
 
         public async Task<Agent> UpdateConfiguration(Agent agent) =>
             await RDBMSServiceBase.Update(agent);

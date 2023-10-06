@@ -17,11 +17,8 @@ namespace OwnerGPT.Core.Services
         private readonly IHttpContextAccessor HttpContextAccessor;
 
         public AccountService(IHttpContextAccessor httpContextAccessor, ADAuthentication adAuthentication, RDBMSServiceBase<Account> RDBMSServiceBase, PGVServiceBase<VectorEmbedding> PGVServiceBase)
-            : base(RDBMSServiceBase, PGVServiceBase) 
-        {
-            ADAuthentication = adAuthentication;
-            HttpContextAccessor = httpContextAccessor;
-        }
+            : base(RDBMSServiceBase, PGVServiceBase) =>
+            (ADAuthentication, HttpContextAccessor) = (adAuthentication, httpContextAccessor);
 
         public async Task<Account> SignIn(CredentialsDTO credentials)
         {
