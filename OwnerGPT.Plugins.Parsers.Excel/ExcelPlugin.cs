@@ -11,16 +11,23 @@ namespace OwnerGPT.Plugins.Parsers.Excel
 
         public static string Serilize(List<dynamic?> rows)
         {
+            Dictionary<string, List<string>> serilizedRows = new();
+
             foreach (var row in rows.Cast<IDictionary<string, object>>())
             {
                 foreach (var cell in row)
                 {
-                    var value = cell.Value;
-                    var key = cell.Key;
+                    if (!serilizedRows.ContainsKey(cell.Key))
+                        serilizedRows.TryAdd(cell.Key, new List<string>());
+
+                    if (cell.Value != null)
+                    {
+                        serilizedRows[cell.Key].Add(cell.Value.ToString()!);
+                    }
                 }
             }
 
-            return rows.ToString();
+            return serilizedRows.ToString();
         }
     }
 }
