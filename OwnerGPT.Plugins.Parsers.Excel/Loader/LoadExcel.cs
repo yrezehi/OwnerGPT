@@ -15,7 +15,7 @@ namespace OwnerGPT.Plugins.Parsers.Excel.Loader
             MiniExcel.ConvertXlsxToCsv(await file.AsStream(), csvStream);
             csvStream.Position = 0;
 
-            return MiniExcel.Query(csvStream);
+            return MiniExcel.Query(csvStream, excelType: ExcelType.CSV);
         }
 
         private async static Task<Stream> AsStream(this IFormFile file)
