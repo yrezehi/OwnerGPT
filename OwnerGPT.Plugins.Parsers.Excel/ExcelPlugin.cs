@@ -9,8 +9,17 @@ namespace OwnerGPT.Plugins.Parsers.Excel
         public static async Task<string> Process(IFormFile file) =>
             CSVPromptFriendly(await LoadExcel.LoadAsCSV(file));
 
-        private static string CSVPromptFriendly(IEnumerable<dynamic?> entites) =>
-            string.Join("\n", entites.Where(entity => entity != null));
-        
+        private static string CSVPromptFriendly(IEnumerable<dynamic?> entites)
+        {
+            var enteries = new List<string>();
+
+            foreach (var entity in entites.Cast<IDictionary<string, object>>())
+            {
+                enteries.Add(string.Join(", ", entity.Select(entity => $"{entity.Key}: {entity.Value}")));
+            }
+
+            return string.Join("\n", enteries);
+        }
+
     }
 }
