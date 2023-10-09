@@ -21,6 +21,7 @@
 	  <ProjectReference Include="..\OwnerGPT.Databases\OwnerGPT.Databases.csproj" />
 	  <ProjectReference Include="..\OwnerGPT.LLM\OwnerGPT.LLM.csproj" />
 	  <ProjectReference Include="..\OwnerGPT.Models\OwnerGPT.Models.csproj" />
+	  <ProjectReference Include="..\OwnerGPT.Plugins.Parsers.Excel\OwnerGPT.Plugins.Parsers.Excel.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

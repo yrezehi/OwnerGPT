@@ -5,6 +5,7 @@ using Document = OwnerGPT.Models.Document;
 using OwnerGPT.Core.Utilities.Extenstions;
 using OwnerGPT.Plugins.Manager.Documents.Models;
 using OwnerGPT.Plugins.Parsers.PDF;
+using OwnerGPT.Plugins.Parsers.Excel;
 
 namespace OwnerGPT.Core.Services
 {
@@ -95,14 +96,14 @@ namespace OwnerGPT.Core.Services
         {
             PluginDocument pluginDocument = PluginDocument.GetPluginDocumentInstance(file);
 
-            string processedDocuemnt = PDFParser.Process(pluginDocument.Bytes);
+            var processedDocuemnt = ExcelPlugin.Process(file);
 
             if (processedDocuemnt == null)
             {
                 throw new Exception("Porcessed document is corrupted");
             }
 
-            return processedDocuemnt;
+            return "";
         }
 
         private async void PersistProcessedDocument(IFormFile file, string processedDocument)
