@@ -103,7 +103,7 @@ namespace OwnerGPT.Core.Services
                 throw new Exception("Porcessed document is corrupted");
             }
 
-            return processedDocuemnt;
+            return "";
         }
 
         private async void PersistProcessedDocument(IFormFile file, string processedDocument)
