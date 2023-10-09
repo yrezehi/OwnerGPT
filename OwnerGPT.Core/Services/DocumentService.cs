@@ -36,7 +36,7 @@ namespace OwnerGPT.Core.Services
                 throw new Exception("File is not valid!");
 
             Document document = await this.PersistToStore(file);
-            this.PreProcessAndPersistDocument(file);
+            await this.PreProcessAndPersistDocument(file);
 
             FileStream fileStream = File.Create(this.GetDocumentPath(file.FileName));
             fileStream.Seek(0, SeekOrigin.Begin);
@@ -89,21 +89,21 @@ namespace OwnerGPT.Core.Services
             await file.CopyToAsync(fileStream);
         }
 
-        private void PreProcessAndPersistDocument(IFormFile file) =>
-            this.PersistProcessedDocument(file, PreProcessDocument(file));
+        private async Task PreProcessAndPersistDocument(IFormFile file) =>
+            this.PersistProcessedDocument(file, await PreProcessDocument(file));
 
-        private string PreProcessDocument(IFormFile file)
+        private async Task<string> PreProcessDocument(IFormFile file)
         {
             PluginDocument pluginDocument = PluginDocument.GetPluginDocumentInstance(file);
 
-            var processedDocuemnt = ExcelPlugin.Process(file);
+            var processedDocuemnt = await ExcelPlugin.Process(file);
 
             if (processedDocuemnt == null)
             {
                 throw new Exception("Porcessed document is corrupted");
             }
 
-            return "";
+            return processedDocuemnt;
         }
 
         private async void PersistProcessedDocument(IFormFile file, string processedDocument)
