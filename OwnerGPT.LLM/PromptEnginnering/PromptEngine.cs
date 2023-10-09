@@ -13,7 +13,7 @@ namespace OwnerGPT.LLM.PromptEnginnering
             string plainTemplate = PromptEngine.LoadPrompt(prompt);
             int substituteCounter = 0;
 
-            return Regex.Replace(plainTemplate, Regex.Escape(DEFAULT_INPUT_PLACEHOLDER),(match) => values[substituteCounter <= values.Length ? values.Length : substituteCounter++]);
+            return Regex.Replace(plainTemplate, Regex.Escape(DEFAULT_INPUT_PLACEHOLDER), (match) => values[substituteCounter <= values.Length ? values.Length : substituteCounter++]);
         }
 
         public static string LoadPrompt(Prompts prompt)

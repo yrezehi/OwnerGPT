@@ -4,14 +4,10 @@
     {
         public readonly Queue<WorkerJob> Queue;
 
-        public WorkerManager()
-        {
+        public WorkerManager() =>
             Queue = new Queue<WorkerJob>();
-        }
 
-        public bool IsAnyJobAvailable()
-        {
-            return Queue.Count > 0;
-        }
+        public bool IsAnyJobAvailable() =>
+            Queue.Count > 0;
     }
 }
