@@ -16,10 +16,10 @@ namespace OwnerGPT.Core.Services
 {
     public class DocumentService : RDBMSServiceBase<Document>
     {
-        protected internal PGVUnitOfWork PGVUnitOfWork { get; set; }
+        protected internal IPGVUnitOfWork PGVUnitOfWork { get; set; }
         private readonly SentenceEncoder SentenceEncoder;
 
-        public DocumentService(IRDBMSUnitOfWork unitOfWork, PGVUnitOfWork pgvUnitOfWork, SentenceEncoder sentenceEncoder) : base(unitOfWork)
+        public DocumentService(IRDBMSUnitOfWork unitOfWork, IPGVUnitOfWork pgvUnitOfWork, SentenceEncoder sentenceEncoder) : base(unitOfWork)
         {
             if (!Directory.Exists(DEFAULT_PERSISTENCE_PATH))
                 Directory.CreateDirectory(DEFAULT_PERSISTENCE_PATH);
@@ -101,7 +101,7 @@ namespace OwnerGPT.Core.Services
         }
 
         private async Task PreProcessAndPersistDocument(IFormFile file) =>
-            this.PersistProcessedDocument(file, await PreProcessDocument(file));
+            PersistProcessedDocument(file, await PreProcessDocument(file));
 
         private async Task<string> PreProcessDocument(IFormFile file)
         {
@@ -147,12 +147,6 @@ namespace OwnerGPT.Core.Services
                 await PGVUnitOfWork.InsertVector<VectorEmbedding>(SentenceEncoder.EncodeDocument(chunk), chunk);
             }
 
-            var nearstNeighbor = await PGVUnitOfWork.NearestVectorNeighbor<VectorEmbedding>(SentenceEncoder.EncodeDocument("Flutter"));
-
-            if (processedFile != null && processedFile.Length > 0)
-            {
-                agentConfiguration.Agent.Instruction += "\n Answer using below information if possible:\n" + processedFile;
-            }
         }
 
         private string GetDocumentPath(string fileName) =>
