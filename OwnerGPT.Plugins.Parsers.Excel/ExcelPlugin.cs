@@ -14,9 +14,7 @@ namespace OwnerGPT.Plugins.Parsers.Excel
             var enteries = new List<string>();
 
             foreach (var entity in entites.Cast<IDictionary<string, object>>())
-            {
                 enteries.Add(string.Join(", ", entity.Select(entity => $"{entity.Key}: {entity.Value}")));
-            }
 
             return string.Join("\n", enteries);
         }
