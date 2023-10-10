@@ -128,18 +128,13 @@ namespace OwnerGPT.Core.Services
             var streamWriter = new StreamWriter(fileStream);
 
             await streamWriter.WriteAsync(processedDocument);
+
+            await ChunkAndPersistDocument(file);
         }
 
         private async Task ChunkAndPersistDocument(IFormFile file)
         {
-            byte[] fileBytes = file.GetBytes();
-
-            if (fileBytes.Length == 0)
-            {
-                throw new Exception("Attachment is not valid!");
-            }
-
-            string processedFile = PDFParser.Process(fileBytes);
+            string processedFile = ExcelPlugin.Process(file);
             var chunkedFiles = SentenceEncoder.ChunkText(processedFile);
 
             foreach (var chunk in chunkedFiles)
