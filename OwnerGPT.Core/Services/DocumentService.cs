@@ -6,15 +6,26 @@ using OwnerGPT.Core.Utilities.Extenstions;
 using OwnerGPT.Plugins.Manager.Documents.Models;
 using OwnerGPT.Plugins.Parsers.PDF;
 using OwnerGPT.Plugins.Parsers.Excel;
+using OwnerGPT.Databases.Repositores.PGVDB.Interfaces;
+using OwnerGPT.Databases.Repositores.PGVDB;
+using OwnerGPT.DocumentEmbedding.Encoder;
+using OwnerGPT.Models;
+using System.Net.Mail;
 
 namespace OwnerGPT.Core.Services
 {
     public class DocumentService : RDBMSServiceBase<Document>
     {
-        public DocumentService(IRDBMSUnitOfWork unitOfWork) : base(unitOfWork)
+        protected internal PGVUnitOfWork PGVUnitOfWork { get; set; }
+        private readonly SentenceEncoder SentenceEncoder;
+
+        public DocumentService(IRDBMSUnitOfWork unitOfWork, PGVUnitOfWork pgvUnitOfWork, SentenceEncoder sentenceEncoder) : base(unitOfWork)
         {
             if (!Directory.Exists(DEFAULT_PERSISTENCE_PATH))
                 Directory.CreateDirectory(DEFAULT_PERSISTENCE_PATH);
+
+            PGVUnitOfWork = pgvUnitOfWork;
+            SentenceEncoder = sentenceEncoder;
         }
 
         private static string DEFAULT_PERSISTENCE_PATH = "C:\\ownergpt_files";
@@ -35,10 +46,10 @@ namespace OwnerGPT.Core.Services
             if (!IsValidFile(file))
                 throw new Exception("File is not valid!");
 
-            Document document = await this.PersistToStore(file);
+            await this.PersistToStore(file);
             await this.PreProcessAndPersistDocument(file);
 
-            FileStream fileStream = File.Create(this.GetDocumentPath(file.FileName));
+            FileStream fileStream = File.Create(GetDocumentPath(file.FileName));
             fileStream.Seek(0, SeekOrigin.Begin);
 
             Stream stream = file.OpenReadStream();
@@ -100,13 +111,13 @@ namespace OwnerGPT.Core.Services
 
             if (processedDocuemnt == null)
             {
-                throw new Exception("Porcessed document is corrupted");
+                throw new ArgumentException("Porcessed document is corrupted");
             }
 
             return processedDocuemnt;
         }
 
-        private async void PersistProcessedDocument(IFormFile file, string processedDocument)
+        private async Task PersistProcessedDocument(IFormFile file, string processedDocument)
         {
             string fileName = file.Name + ".txt";
             string filePath = this.GetDocumentPath(fileName);
@@ -117,6 +128,31 @@ namespace OwnerGPT.Core.Services
             var streamWriter = new StreamWriter(fileStream);
 
             await streamWriter.WriteAsync(processedDocument);
+        }
+
+        private async Task ChunkAndPersistDocument(IFormFile file)
+        {
+            byte[] fileBytes = file.GetBytes();
+
+            if (fileBytes.Length == 0)
+            {
+                throw new Exception("Attachment is not valid!");
+            }
+
+            string processedFile = PDFParser.Process(fileBytes);
+            var chunkedFiles = SentenceEncoder.ChunkText(processedFile);
+
+            foreach (var chunk in chunkedFiles)
+            {
+                await PGVUnitOfWork.InsertVector<VectorEmbedding>(SentenceEncoder.EncodeDocument(chunk), chunk);
+            }
+
+            var nearstNeighbor = await PGVUnitOfWork.NearestVectorNeighbor<VectorEmbedding>(SentenceEncoder.EncodeDocument("Flutter"));
+
+            if (processedFile != null && processedFile.Length > 0)
+            {
+                agentConfiguration.Agent.Instruction += "\n Answer using below information if possible:\n" + processedFile;
+            }
         }
 
         private string GetDocumentPath(string fileName) =>

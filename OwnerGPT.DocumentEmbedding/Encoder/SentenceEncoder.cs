@@ -35,11 +35,11 @@ public sealed class SentenceEncoder : IDisposable
         return chunks.Zip(vectors, (c, v) => new EncodedChunk(c, v)).ToArray();
     }
 
-    public IEnumerable<string> ChunkText(string text, int chunkLength = 512, int chunkOverlap = 40, CancellationToken cancellationToken = default)
+    public static IEnumerable<string> ChunkText(string text, int chunkLength = 512, int chunkOverlap = 40, CancellationToken cancellationToken = default)
     {
         return MergeSplits(text.Split(new char[] { '\n', '.' }, StringSplitOptions.RemoveEmptyEntries), ' ', chunkLength, chunkOverlap);
     }
-    private List<string> MergeSplits(IEnumerable<string> splits, char separator, int chunkSize, int chunkOverlap)
+    private static List<string> MergeSplits(IEnumerable<string> splits, char separator, int chunkSize, int chunkOverlap)
     {
         const int separatorLength = 1;
         var docs = new List<string>();
