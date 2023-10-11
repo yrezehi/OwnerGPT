@@ -1,6 +1,4 @@
-﻿@model List<OwnerGPT.Models.Agents.AgentDocument>
-
-@{
+﻿@{
     ViewData["Title"] = "Knowledge Base";
 }
 
@@ -15,7 +13,7 @@
                 <div class="mt-4">
                     <ul id="attachments-container" class="grid grid-cols-1 w-full gap-2 mb-1">
                         <li>
-                            <div for="hosting-small" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-indigo-600 peer-checked:text-indigo-600 hover:text-gray-600 hover:bg-gray-50">
+                            <div class="no-content-context inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-indigo-600 peer-checked:text-indigo-600 hover:text-gray-600 hover:bg-gray-50">
                                 <div class="block">
                                     <div class="w-full text-base font-semibold">No content uploaded yet!</div>
                                 </div>
@@ -75,15 +73,16 @@
         var attachmentsContainerElement = document.querySelector("#attachments-container");
         var dragAreaElement = document.querySelector("#drag-drop-area");
 
+        var FILE_READY_STATUS = "ready";
+        var FILE_UPLOADING_STATUS = "uploading";
+
         binding.uploadTrigger(attachmentInputElement, handleAttachment);
         binding.dropTrigger(dragAreaElement, handleFilesDrop);
 
         var attachments = [];
 
-
-        function createAttachmentElement() {
+        function createDocumentElement(name, size, status) {
             var uniqueIdentifier = `file-${utility.shortGUID()}`;
-
             return dom.createElement(`
                 <li>
                    <input type="radio" id="${uniqueIdentifier}" name="${uniqueIdentifier}" value="${uniqueIdentifier}" class="hidden peer" >
@@ -91,13 +90,13 @@
                       <div class="items-center justify-between w-full text-gray-500">
                          <div class="block">
                             <div class="w-full text-base font-semibold">
-                               <span class="attachment-name font-bold">Fetching name...</span>
+                               <span class="attachment-name font-bold">${name}</span>
                                <div class="file-status inline">
-                                  <span class="text-sm text-indigo-800 font-mono bg-indigo-100 inline rounded-full px-2 align-top float-right animate-pulse">Processing</span>
+                                    <span class="text-sm text-indigo-800 font-mono bg-${status === FILE_READY_STATUS ? "indigo" : "teal"} -100 inline rounded - full px - 2 align - top float - right animate - pulse">${status}</span>
                                </div>
                             </div>
                          </div>
-                         <div class="attachment-size w-full text-xs mt-2">Estimating size...</div>
+                         <div class="attachment-size w-full text-xs mt-2">${status}</div>
                       </div>
                       <div class="progress-bar-container w-full bg-gray-200 rounded-full h-2.5 mt-3">
                          <div class="progress-bar bg-indigo-600 h-2.5 rounded-full" style="width: 0%"></div>
@@ -105,6 +104,16 @@
                    </label>
                 </li>
             `);
+        }
+
+        function fetchPreviousDocuments(){
+            fetch("http://localhost:5027/AgentDocuments")
+                .then(response => response.json())
+                    .then(documents => {
+                        for(var document in documents){
+                            createDocumentElement(document["name"], "...", FILE_READY_STATUS);
+                        }
+                    });
         }
 
         async function streamUpload(file, context, callback) {
@@ -161,12 +170,9 @@
             if (!isValidAttachments(files)) { return; }
 
             for (var file of files) {
-                var attachmentElement = createAttachmentElement();
+                var attachmentElement = createDocumentElement(utility.stringEllipsis(file.name, 50), utility.sizeToReadableString(file.size), FILE_UPLOADING_STATUS);
 
                 attachments.push(file);
-
-                attachmentElement.querySelector(".attachment-size").innerHTML = utility.sizeToReadableString(file.size);
-                attachmentElement.querySelector(".attachment-name").innerHTML = utility.stringEllipsis(file.name, 50);
 
                 (function (context, currentFile) {
                     streamUpload(file, context.querySelector(".progress-bar"), function () {
