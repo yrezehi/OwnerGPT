@@ -110,6 +110,7 @@
             fetch("http://localhost:5027/AgentDocuments")
                 .then(response => response.json())
                     .then(documents => {
+                        console.log(documents);
                         for(var document in documents){
                             createDocumentElement(document["name"], "...", FILE_READY_STATUS);
                         }
