@@ -72,7 +72,7 @@ namespace OwnerGPT.Core.Services.Abstract
 
             var predicate = Expression.Lambda<Func<T, bool>>(expression, parameter);
 
-            IEnumerable<T> enetities = (page == null) ? await DBSet.Where(predicate).IncludeSurface().ToListAsync() : await DBSet.Where(predicate).IncludeSurface().PaginateQuerable(page.Value, DEFAULT_PAGE_SIZE).ToListAsync();
+            IEnumerable<T> enetities = (page == null) ? await DBSet.IncludeSurface().Where(predicate).IncludeSurface().ToListAsync() : await DBSet.IncludeSurface().Where(predicate).IncludeSurface().PaginateQuerable(page.Value, DEFAULT_PAGE_SIZE).ToListAsync();
 
             return enetities;
         }
@@ -81,7 +81,7 @@ namespace OwnerGPT.Core.Services.Abstract
         {
             var predicate = Expression.Lambda<Func<T, bool>>(Expression.Equal(selector.Body, Expression.Constant(value, typeof(TValue))), selector.Parameters);
 
-            T? entity = await DBSet.FirstOrDefaultAsync(predicate);
+            T? entity = await DBSet.IncludeSurface().FirstOrDefaultAsync(predicate);
 
             if (entity == null)
                 throw new Exception($"Find by property was not found!");
