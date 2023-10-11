@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
+using OwnerGPT.Models.Abstracts.Interfaces;
 
 namespace OwnerGPT.Core.Utilities.Extenstions
 {
@@ -13,5 +16,20 @@ namespace OwnerGPT.Core.Utilities.Extenstions
 
         public static IQueryable<IEntity> PaginateQuerable<IEntity>(this IQueryable<IEntity> source, int page, int size) where IEntity : class =>
             source.Skip(page).Take(size);
+        
+        // includes first level of properties
+        public static IQueryable<IEntity> IncludeSurface(this IQueryable<IEntity> source)
+        {
+            foreach (var property in ReflectionUtil.GetObjectProperties(typeof(IEntity)))
+            {
+                var publicAccessor = property.GetGetMethod();
+
+                if (publicAccessor != null && publicAccessor.IsVirtual)
+                {
+                    source = source.Include(property.Name);
+                }
+            }
+            return source;
+        }
     }
 }

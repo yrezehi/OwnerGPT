@@ -8,12 +8,11 @@ namespace OwnerGPT.Core.Services
 {
     public class AgentDocumentsService : CompositionBaseService<AgentDocument>
     {
-
         private readonly DocumentService DocumentService;
-        
+
         public AgentDocumentsService(RDBMSServiceBase<AgentDocument> RDBMSServiceBase, PGVServiceBase<VectorEmbedding> PGVServiceBase, DocumentService documentService) : base(RDBMSServiceBase, PGVServiceBase) =>
             DocumentService = documentService;
-    
+
         public async Task<AgentDocument> Create(int agnetId, IFormFile file)
         {
             AgentDocument agentDocument = new AgentDocument();
@@ -27,7 +26,7 @@ namespace OwnerGPT.Core.Services
 
         public async IAsyncEnumerable<int> StreamCreate(IFormFile file)
         {
-            await foreach(int progress in DocumentService.StreamPersist(file))
+            await foreach (int progress in DocumentService.StreamPersist(file))
             {
                 yield return progress;
             }
@@ -37,7 +36,5 @@ namespace OwnerGPT.Core.Services
         {
             return "";
         }
-
-        public async Task<IEnumerable<AgentDocument>> 
     }
 }

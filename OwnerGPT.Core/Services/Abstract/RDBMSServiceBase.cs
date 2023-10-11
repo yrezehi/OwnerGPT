@@ -32,6 +32,11 @@ namespace OwnerGPT.Core.Services.Abstract
         public virtual async Task<IEnumerable<T>> GetAll(int? page = null) =>
             (page == null) ? await DBSet.ToListAsync() : await DBSet.PaginateQuerable(page.Value, DEFAULT_PAGE_SIZE).ToListAsync();
 
+        public virtual async IncludeFirstLevel()
+        {
+
+        }
+
         public virtual async Task<PaginateDTO<T>> Paginate(int currentPage, Expression<Func<T, bool>>? expression)
         {
             var items = DBSet.ConditionalWhere(expression != null, expression!).Skip(currentPage * 10);
