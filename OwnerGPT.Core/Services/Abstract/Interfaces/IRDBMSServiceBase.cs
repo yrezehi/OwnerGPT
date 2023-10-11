@@ -7,7 +7,7 @@ namespace OwnerGPT.Core.Services.Abstract.Interfaces
     {
         IEnumerable<T> Find(Expression<Func<T, bool>> expression);
 
-        Task<IEnumerable<T>> GetAll(int? page);
+        Task<IEnumerable<T>> GetAll(int? page = null);
 
         Task<PaginateDTO<T>> Paginate(int currentPage, Expression<Func<T, bool>>? expression);
 

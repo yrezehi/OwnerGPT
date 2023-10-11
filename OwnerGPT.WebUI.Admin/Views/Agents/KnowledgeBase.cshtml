@@ -92,7 +92,7 @@
                             <div class="w-full text-base font-semibold">
                                <span class="attachment-name font-bold">${name}</span>
                                <div class="file-status inline">
-                                    <span class="text-sm text-indigo-800 font-mono bg-${status === FILE_READY_STATUS ? "indigo" : "teal"} -100 inline rounded - full px - 2 align - top float - right animate - pulse">${status}</span>
+                                    <span class="text-sm text-indigo-800 font-mono bg-${status === FILE_READY_STATUS ? "indigo" : "teal"}-100 inline rounded-full px-2 align-top float-right animate-pulse">${status}</span>
                                </div>
                             </div>
                          </div>
@@ -106,16 +106,15 @@
             `);
         }
 
-        function fetchPreviousDocuments(){
-            fetch("http://localhost:5027/AgentDocuments")
+        (function fetchPreviousDocuments(){
+            fetch("http://localhost:5027/AgentDocuments/api")
                 .then(response => response.json())
                     .then(documents => {
-                        console.log(documents);
                         for(var document in documents){
-                            createDocumentElement(document["name"], "...", FILE_READY_STATUS);
+                            attachmentsContainerElement.appendChild(createDocumentElement(document["name"], "...", FILE_READY_STATUS));
                         }
                     });
-        }
+        })();
 
         async function streamUpload(file, context, callback) {
             const formData = new FormData();

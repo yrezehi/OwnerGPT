@@ -29,7 +29,7 @@ namespace OwnerGPT.Core.Services.Abstract
         public virtual IQueryable<T> OrderBy<TValue>(Expression<Func<T, TValue>> orderByExpression) =>
             DBSet.OrderBy(orderByExpression);
 
-        public virtual async Task<IEnumerable<T>> GetAll(int? page) =>
+        public virtual async Task<IEnumerable<T>> GetAll(int? page = null) =>
             (page == null) ? await DBSet.ToListAsync() : await DBSet.PaginateQuerable(page.Value, DEFAULT_PAGE_SIZE).ToListAsync();
 
         public virtual async Task<PaginateDTO<T>> Paginate(int currentPage, Expression<Func<T, bool>>? expression)

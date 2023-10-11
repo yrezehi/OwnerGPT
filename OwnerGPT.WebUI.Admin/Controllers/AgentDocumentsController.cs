@@ -33,5 +33,12 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         [HttpGet("[action]/{documentId}")]
         public async Task<IActionResult> FetchPreview(int documentId) =>
             Ok(await Service.FetchPreview(documentId));
+
+
+        [HttpGet("api")]
+        public virtual async Task<IActionResult> GetAll()
+        {
+            return Ok(await Service.RDBMSServiceBase.GetAll());
+        }
     }
 }
