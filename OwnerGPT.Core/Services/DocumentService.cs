@@ -134,7 +134,7 @@ namespace OwnerGPT.Core.Services
 
         private async Task ChunkAndPersistDocument(IFormFile file)
         {
-            string processedFile = ExcelPlugin.Process(file);
+            string processedFile = await ExcelPlugin.Process(file);
             var chunkedFiles = SentenceEncoder.ChunkText(processedFile);
 
             foreach (var chunk in chunkedFiles)
