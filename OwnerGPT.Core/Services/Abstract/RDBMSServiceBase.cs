@@ -59,10 +59,10 @@ namespace OwnerGPT.Core.Services.Abstract
             List<string> properties = enetityInstance.SearchableProperties();
 
             if (!ReflectionUtil.ContainsProperty(enetityInstance, propertyName))
-                throw new Exception($"Property is not allowed to be searched or does not exists!");
+                throw new ArgumentException($"Property is not allowed to be searched or does not exists!");
 
-            if (!properties.Any(property => properties.Any(searchableProperty => searchableProperty.ToLower().Equals(propertyName.ToLower()))))
-                throw new Exception($"Property is not allowed to be searched or does not exists!");
+            if (!properties.Exists(property => properties.Exists(searchableProperty => searchableProperty.ToLower().Equals(propertyName.ToLower()))))
+                throw new ArgumentException($"Property is not allowed to be searched or does not exists!");
 
 
             ParameterExpression parameter = Expression.Parameter(typeof(T), "property");
@@ -96,7 +96,7 @@ namespace OwnerGPT.Core.Services.Abstract
             IEnumerable<T> entites = await DBSet.Where(predicate).IncludeSurface().ToListAsync();
 
             if (!entites.Any())
-                throw new Exception($"Find all by property was not found!");
+                throw new ArgumentException($"Find all by property was not found!");
 
             return entites;
         }
@@ -106,7 +106,7 @@ namespace OwnerGPT.Core.Services.Abstract
             var entity = await DBSet.FindAsync(id);
 
             if (entity == null)
-                throw new Exception("Entity Not Found");
+                throw new ArgumentException("Entity Not Found");
 
             return entity;
         }
@@ -154,7 +154,7 @@ namespace OwnerGPT.Core.Services.Abstract
                 return entity;
             }
 
-            throw new Exception(nameof(T));
+            throw new ArgumentException(nameof(T));
         }
 
         public async Task<T> Update(T updatedEntity)
@@ -172,7 +172,7 @@ namespace OwnerGPT.Core.Services.Abstract
                 return entityToUpdate;
             }
 
-            throw new Exception("Entity Not Found");
+            throw new ArgumentException("Entity Not Found");
         }
 
         public async Task<T> Create(T entity)

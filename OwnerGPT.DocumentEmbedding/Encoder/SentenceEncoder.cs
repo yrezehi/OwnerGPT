@@ -14,7 +14,7 @@ public sealed class SentenceEncoder : IDisposable
     private readonly TokenizerBase _tokenizer;
     private readonly string[] _outputNames;
 
-    public SentenceEncoder(SessionOptions sessionOptions = null)
+    public SentenceEncoder(SessionOptions? sessionOptions = null)
     {
         _sessionOptions = sessionOptions ?? new SessionOptions();
         _session = new InferenceSession(ResourceLoader.GetResource(typeof(SentenceEncoder).Assembly, "model.onnx"), _sessionOptions);
@@ -87,7 +87,7 @@ public sealed class SentenceEncoder : IDisposable
         var numSentences = sentences.Length;
 
         var encoded = _tokenizer.Encode(sentences);
-        var tokenCount = encoded.First().InputIds.Length;
+        var tokenCount = encoded.FirstOrDefault().InputIds.Length;
 
         long[] flattenIDs = new long[encoded.Sum(s => s.InputIds.Length)];
         long[] flattenAttentionMask = new long[encoded.Sum(s => s.AttentionMask.Length)];
@@ -159,6 +159,6 @@ public sealed class SentenceEncoder : IDisposable
             return encodedDocuments[0];
 
 
-        throw new Exception();
+        throw new ArgumentException("Encoded documents has no length");
     }
 }

@@ -101,7 +101,7 @@ namespace OwnerGPT.Core.Services
         }
 
         private async Task PreProcessAndPersistDocument(IFormFile file) =>
-            PersistProcessedDocument(file, await PreProcessDocument(file));
+            await PersistProcessedDocument(file, await PreProcessDocument(file));
 
         private async Task<string> PreProcessDocument(IFormFile file)
         {

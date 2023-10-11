@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
-using System.Data.Entity;
 using OwnerGPT.Models.Abstracts.Interfaces;
 
 namespace OwnerGPT.Core.Utilities.Extenstions

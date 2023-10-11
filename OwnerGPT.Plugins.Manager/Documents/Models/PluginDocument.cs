@@ -15,7 +15,7 @@ namespace OwnerGPT.Plugins.Manager.Documents.Models
             PluginDocument document = new PluginDocument();
 
             if (file == null || file.Length == 0)
-                throw new Exception("File is not valid!");
+                throw new ArgumentException("File is not valid!");
 
             document.Name = file.Name;
             document.Extension = Path.GetExtension(file.Name);
@@ -26,7 +26,7 @@ namespace OwnerGPT.Plugins.Manager.Documents.Models
 
             if (fileBytes.Length == 0)
             {
-                throw new Exception("Attachment is not valid!");
+                throw new ArgumentException("Attachment is not valid!");
             }
 
             return document;

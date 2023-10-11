@@ -37,7 +37,7 @@ namespace OwnerGPT.Core.Services
             return account;
         }
 
-        private async void CookieAuthenticationSignIn(Account account)
+        private async Task CookieAuthenticationSignIn(Account account)
         {
             await HttpContextAccessor.HttpContext.SignInAsync(this.GenerateClaimsPrincipal(account));
         }
