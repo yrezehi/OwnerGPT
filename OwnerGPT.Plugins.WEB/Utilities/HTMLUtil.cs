@@ -8,10 +8,8 @@ namespace OwnerGPT.Plugins.Parsers.WEB.Utilities
         private static string[] TAGS_EXCLUDED = new string[] { "a", "nav", "aside", "noscript", "footer", "form", "header", "svg", "script", "img", "head", "video", "canvas", "style" };
         private static string[] NOISES_SYMBOLS = new string[] { "\r\n", "\n", "\\s+", "\\", "#" };
 
-        private static void RemoveTags(HtmlDocument document)
-        {
+        private static void RemoveTags(HtmlDocument document) =>
             document.DocumentNode.SelectNodes(string.Join("|", UnwantedTags())).ToList().ForEach(n => n.Remove());
-        }
 
         private static string RemoveNoises(string page)
         {
@@ -22,10 +20,9 @@ namespace OwnerGPT.Plugins.Parsers.WEB.Utilities
             return pageBuilder.ToString();
         }
 
-        private static string UnwantedTags()
-        {
-            return string.Join("|", TAGS_EXCLUDED.Select(tag => $"//{tag}"));
-        }
+        private static string UnwantedTags() =>
+            string.Join("|", TAGS_EXCLUDED.Select(tag => $"//{tag}"));
+        
 
         public static string Clean(string page)
         {

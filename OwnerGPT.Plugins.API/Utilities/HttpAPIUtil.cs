@@ -7,27 +7,20 @@ namespace OwnerGPT.Plugins.Parsers.API.Utilities
     {
         private readonly IHttpClientFactory HttpClientFactory;
 
-        public HttpAPIUtil(IHttpClientFactory httpClientFactory) {
+        public HttpAPIUtil(IHttpClientFactory httpClientFactory) =>
             HttpClientFactory = httpClientFactory;
-        }
 
         public HttpClient GetClientInstance() =>
             HttpClientFactory.CreateClient();
         
-        public async Task<T> GetAsync<T>(string endpoint)
-        {
-            return Deserialize<T>(await (await GetClientInstance().GetAsync(endpoint)).Content.ReadAsStringAsync());
-        }
+        public async Task<T> GetAsync<T>(string endpoint) =>
+            Deserialize<T>(await (await GetClientInstance().GetAsync(endpoint)).Content.ReadAsStringAsync());
+        
 
-        public async Task<T> PostAsync<T, B>(string endpoint, B body)
-        {
-            return Deserialize<T>(await (await GetClientInstance().PostAsJsonAsync(endpoint, body)).Content.ReadAsStringAsync());
-        }
+        public async Task<T> PostAsync<T, B>(string endpoint, B body) =>
+            Deserialize<T>(await (await GetClientInstance().PostAsJsonAsync(endpoint, body)).Content.ReadAsStringAsync());
 
-        private T Deserialize<T>(string json)
-        {
-            return JsonSerializer.Deserialize<T>(json)!;
-        }
-
+        private T Deserialize<T>(string json) =>
+            JsonSerializer.Deserialize<T>(json)!;
     }
 }

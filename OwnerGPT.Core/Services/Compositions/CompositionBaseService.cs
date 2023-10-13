@@ -1,4 +1,5 @@
 ﻿using OwnerGPT.Core.Services.Abstract;
+using OwnerGPT.Core.Services.Abstract.Interfaces;
 using OwnerGPT.Models;
 
 namespace OwnerGPT.Core.Services.Compositions
@@ -8,10 +9,7 @@ namespace OwnerGPT.Core.Services.Compositions
         public readonly RDBMSServiceBase<T> RDBMSServiceBase;
         public readonly PGVServiceBase<VectorEmbedding> PGVServiceBase;
 
-        public CompositionBaseService(RDBMSServiceBase<T> RDBMSServiceBase, PGVServiceBase<VectorEmbedding> PGVServiceBase)
-        {
-            this.RDBMSServiceBase = RDBMSServiceBase;
-            this.PGVServiceBase = PGVServiceBase;
-        }
+        public CompositionBaseService(RDBMSServiceBase<T> RDBMSServiceBase, PGVServiceBase<VectorEmbedding> PGVServiceBase) =>
+            (this.RDBMSServiceBase, this.PGVServiceBase) = (RDBMSServiceBase, PGVServiceBase);
     }
 }

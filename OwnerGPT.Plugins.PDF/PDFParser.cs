@@ -5,9 +5,7 @@ namespace OwnerGPT.Plugins.Parsers.PDF
 {
     public class PDFParser : IOwnerGPTParserPlugin<string, string>
     {
-        public static string Process(byte[] file)
-        {
-            return PDFUtil.ToText(file);
-        }
+        public static string Process(byte[] file) => 
+            PDFUtil.ToText(file);
     }
 }

@@ -23,14 +23,11 @@ namespace OwnerGPT.Plugins.Parsers.PDF.Utilities
             return contentBuilder.ToString();
         }
 
-        public static string Clean(string content)
-        {
-            return Regex.Replace(content, @"[^\w\s\-]*", "");
-        }
+        public static string Clean(string content) =>
+            Regex.Replace(content, @"[^\w\s\-]*", "");
+        
 
-        public static string ManyToText(params byte[][] fileBytes)
-        {
-            return PDFUtil.ToText(PdfMerger.Merge(fileBytes));
-        }
+        public static string ManyToText(params byte[][] fileBytes) => 
+            PDFUtil.ToText(PdfMerger.Merge(fileBytes));
     }
 }
