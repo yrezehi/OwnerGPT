@@ -1,7 +1,4 @@
 ﻿namespace OwnerGPT.Translator
 {
-    public class Translate
-    {
-
-    }
+    public class Translate { }
 }

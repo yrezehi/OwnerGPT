@@ -26,10 +26,9 @@ namespace OwnerGPT.LLM.PromptEnginnering
             return PromptEngine.ReadTextFile(filePath);
         }
 
-        public static string BuildFilePath(Prompts prompt)
-        {
-            return Path.Combine(DEFAULT_PROMPTS_PATH, Enum.GetName(typeof(Prompts), prompt)! + ".txt");
-        }
+        public static string BuildFilePath(Prompts prompt) =>
+            Path.Combine(DEFAULT_PROMPTS_PATH, Enum.GetName(typeof(Prompts), prompt)! + ".txt");
+       
 
         private static string ReadTextFile(string path)
         {

@@ -10,13 +10,11 @@ namespace OwnerGPT.WebUI.Admin.Controllers
     {
         private readonly GPTService StatelessGPT;
 
-        public GPTController(GPTService statelessGPT)
-        {
+        public GPTController(GPTService statelessGPT) =>
             StatelessGPT = statelessGPT;
-        }
 
         [HttpPost("[action]/{agentId}")]
-        public async void StreamReplay([FromBody] GPTMessageInputDTO messageInput, int agentId, CancellationToken cancellationToken)
+        public async Task StreamReplay([FromBody] GPTMessageInputDTO messageInput, int agentId, CancellationToken cancellationToken)
         {
             var streamWriter = new StreamWriter(Response.Body);
             
@@ -28,9 +26,8 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         }
 
         [HttpPost("[action]")]
-        public IActionResult Replay(GPTMessageInputDTO messageInput, CancellationToken cancellationToken)
-        {
-            return Ok(StatelessGPT.Replay(messageInput.Message, cancellationToken));
-        }
+        public IActionResult Replay(GPTMessageInputDTO messageInput, CancellationToken cancellationToken) =>
+            Ok(StatelessGPT.Replay(messageInput.Message, cancellationToken));
+        
     }
 }

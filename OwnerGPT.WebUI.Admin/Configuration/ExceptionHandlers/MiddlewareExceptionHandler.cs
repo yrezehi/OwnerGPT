@@ -4,20 +4,16 @@ namespace OwnerGPT.WebUI.Admin.Configuration.ExceptionHandlers
 {
     public class MiddlewareExceptionHandler
     {
+        private readonly RequestDelegate Next;
+        private readonly ILogger<MiddlewareExceptionHandler> Logger;
 
-        private readonly RequestDelegate _next;
-        private readonly ILogger<MiddlewareExceptionHandler> _logger;
-
-        public MiddlewareExceptionHandler(RequestDelegate next, ILogger<MiddlewareExceptionHandler> logger)
-        {
-            _next = next;
-            _logger = logger;
-        }
+        public MiddlewareExceptionHandler(RequestDelegate next, ILogger<MiddlewareExceptionHandler> logger) =>
+            (Next, Logger) = (next, logger);
 
         public async Task Invoke(HttpContext context)
         {
-            try { await _next(context); }
-            catch (Exception exception) { await HandleExceptionAsync(context, exception, _logger); }
+            try { await Next(context); }
+            catch (Exception exception) { await HandleExceptionAsync(context, exception, Logger); }
         }
 
         private static async Task HandleExceptionAsync(
