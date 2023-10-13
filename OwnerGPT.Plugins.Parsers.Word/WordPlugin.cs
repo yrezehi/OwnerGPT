@@ -6,6 +6,5 @@ namespace OwnerGPT.Plugins.Parsers.Word
     {
         public static string Process(byte[] file) =>
             "";
-        
     }
 }

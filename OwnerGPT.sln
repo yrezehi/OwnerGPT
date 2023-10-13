@@ -41,6 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Core", "OwnerGPT.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Databases", "OwnerGPT.Databases\OwnerGPT.Databases.csproj", "{9A47E57C-A9D1-46B6-8689-64EA2E7003AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwnerGPT.Plugins.Parsers.Word", "OwnerGPT.Plugins.Parsers.Word\OwnerGPT.Plugins.Parsers.Word.csproj", "{9A512BE8-E150-4934-9DED-4902F0336B90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{9A47E57C-A9D1-46B6-8689-64EA2E7003AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A47E57C-A9D1-46B6-8689-64EA2E7003AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A47E57C-A9D1-46B6-8689-64EA2E7003AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A512BE8-E150-4934-9DED-4902F0336B90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A512BE8-E150-4934-9DED-4902F0336B90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A512BE8-E150-4934-9DED-4902F0336B90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A512BE8-E150-4934-9DED-4902F0336B90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -125,6 +131,7 @@ Global
 		{A4E8DDE8-71FA-4481-845F-A950CE57D979} = {4CBDAA98-8ED1-4C68-A805-6F3835D4309D}
 		{4CF39FA7-DC04-40EB-BE42-38D8C34BECF3} = {4CBDAA98-8ED1-4C68-A805-6F3835D4309D}
 		{F0D47CBA-793F-4BDC-A140-291802786A7A} = {ED50596D-B45D-403D-B8A9-D3500D86F631}
+		{9A512BE8-E150-4934-9DED-4902F0336B90} = {ED50596D-B45D-403D-B8A9-D3500D86F631}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {204BB901-6CAB-465B-920D-4D8095F79F4F}

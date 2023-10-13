@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="DocX" Version="2.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OwnerGPT.Plugins.Manager\OwnerGPT.Plugins.Manager.csproj" />
+  </ItemGroup>
+
 </Project>
