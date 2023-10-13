@@ -10,12 +10,9 @@ namespace OwnerGPT.Core.Services.Abstract
         private readonly IPGVUnitOfWork PGVUnitOfWork;
         private readonly SentenceEncoder SentenceEncoder;
 
-        public PGVServiceBase(IPGVUnitOfWork pgvUnitOfWork)
-        {
-            PGVUnitOfWork = pgvUnitOfWork;
-            SentenceEncoder = new SentenceEncoder();
-        }
-
+        public PGVServiceBase(IPGVUnitOfWork pgvUnitOfWork) =>
+            (SentenceEncoder, PGVUnitOfWork) = (new SentenceEncoder(), pgvUnitOfWork);
+        
         public async Task<IEnumerable<T>> NearestNeighbor(string query) =>
             await PGVUnitOfWork.NearestVectorNeighbor<T>(SentenceEncoder.EncodeDocument(query));
 

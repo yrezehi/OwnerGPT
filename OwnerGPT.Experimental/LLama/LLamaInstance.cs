@@ -5,9 +5,6 @@ namespace OwnerGPT.Experimental.LLMManager
 {
     public class LLamaInstance
     {
-        public async static Task Start()
-        {
-           
-        }
+        public async static Task Start() { }
     }
 }

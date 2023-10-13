@@ -4,7 +4,6 @@ namespace OwnerGPT.Databases.Repositores.Extensions
 {
     public static class PGVQueryExtension
     {
-
         // This query assumes all vectors has properties have column named embedding as embedding vector
         public static string InsertVectorQuery<T>() =>
             $"INSERT INTO {EntityToTableName<T>()} (embedding, context) VALUES($1, $2)";

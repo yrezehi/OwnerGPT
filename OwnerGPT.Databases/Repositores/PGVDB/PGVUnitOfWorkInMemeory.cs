@@ -12,11 +12,8 @@ namespace OwnerGPT.Databases.Repositores.PGVDB
 
         private int DEFAULT_NEAREST_NEIGHBORS = 5;
 
-        public PGVUnitOfWorkInMemeory()
-        {
-            Database = new ConcurrentDictionary<int, VectorEmbedding>();
-            IncrementIdentity = 1;
-        }
+        public PGVUnitOfWorkInMemeory() =>
+            (Database, IncrementIdentity) = (new ConcurrentDictionary<int, VectorEmbedding>(), 1);
 
         public async Task<IEnumerable<T>> NearestVectorNeighbor<T>(float[] vector)
         {
@@ -48,8 +45,6 @@ namespace OwnerGPT.Databases.Repositores.PGVDB
 
         public async Task<IEnumerable<T>> All<T>() =>
             (IEnumerable<T>)Database.Values.ToList();
-
-        public async Task CreateTable<T>() { }
 
         private double CosineSimilarity(float[] attributesOne, float[] attributesTwo)
         {

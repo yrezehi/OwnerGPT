@@ -12,11 +12,8 @@ namespace OwnerGPT.Core.Services.Abstract
 {
     public class RDBMSServiceBase<T> : IRDBMSServiceBase<T> where T : class
     {
-        public RDBMSServiceBase(IRDBMSUnitOfWork unitOfWork)
-        {
-            DBSet = unitOfWork.Repository<T>().DBSet;
-            UnitOfWork = unitOfWork;
-        }
+        public RDBMSServiceBase(IRDBMSUnitOfWork unitOfWork) =>
+            (DBSet, UnitOfWork) = (unitOfWork.Repository<T>().DBSet, unitOfWork);        
 
         protected internal IRDBMSUnitOfWork UnitOfWork { get; set; }
         protected DbSet<T> DBSet { get; set; }
@@ -111,10 +108,9 @@ namespace OwnerGPT.Core.Services.Abstract
             return entity;
         }
 
-        public virtual async Task<T?> NullableFindById(int id)
-        {
-            return await DBSet.FindAsync(id);
-        }
+        public virtual async Task<T?> NullableFindById(int id) =>
+            await DBSet.FindAsync(id);
+        
 
         public virtual async Task<T> Delete(int id)
         {

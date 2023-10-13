@@ -8,12 +8,9 @@ namespace OwnerGPT.Databases.Repositores.RDBMS.Abstracts
         protected readonly DbContext Context;
         public DbSet<T> DBSet { get; }
 
-        public RDBMSGenericRepository(DbContext context)
-        {
-            Context = context;
-            DBSet = Context.Set<T>();
-        }
-
+        public RDBMSGenericRepository(DbContext context) =>
+            (Context, DBSet) = (context, Context.Set<T>());
+        
         public void Dispose() => throw new NotImplementedException();
     }
 }

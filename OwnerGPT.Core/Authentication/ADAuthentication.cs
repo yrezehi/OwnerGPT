@@ -23,9 +23,8 @@ namespace OwnerGPT.Core.Authentication
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "<Pending>")]
-        public bool Authenticate(string email, string password)
-        {
-            return true; // LDAPContext.ValidateCredentials(email, password);
-        }
+        public bool Authenticate(string email, string password) =>
+            true; // LDAPContext.ValidateCredentials(email, password);
+        
     }
 }
