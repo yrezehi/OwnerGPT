@@ -22,7 +22,7 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         public IActionResult RequestAccess() => View();
 
         [HttpPost("[controller]/[action]")]
-        public async Task<IActionResult> SignIn([FromBody] CredentialsDTO credintalsDTO) =>
+        public async Task<IActionResult> SignIn([FromForm] CredentialsDTO credintalsDTO) =>
             Ok(await Service.SignIn(credintalsDTO));
     }
 }

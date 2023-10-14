@@ -9,7 +9,7 @@ namespace OwnerGPT.Databases.Repositores.RDBMS.Abstracts
         public DbSet<T> DBSet { get; }
 
         public RDBMSGenericRepository(DbContext context) =>
-            (Context, DBSet) = (context, Context.Set<T>());
+            (Context, DBSet) = (context, context.Set<T>());
         
         public void Dispose() => throw new NotImplementedException();
     }

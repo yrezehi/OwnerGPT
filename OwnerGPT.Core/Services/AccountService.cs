@@ -23,42 +23,28 @@ namespace OwnerGPT.Core.Services
         public async Task<Account> SignIn(CredentialsDTO credentials)
         {
             if (!ADAuthentication.Authenticate(credentials.Identifier, credentials.Password))
-                throw new Exception("Invalid authentication attempt!");
-
-            await this.RDBMSServiceBase.Create(new Account
-            {
-                Active = true,
-                Email = "yasser@gmail.com",
-                LastSignin = DateTime.Now
-            });
+                throw new ArgumentException("Invalid authentication attempt!");
 
             var account = await this.RDBMSServiceBase.FindByProperty(entity => entity.Email!, credentials.Identifier);
         
             return account;
         }
 
-        private async Task CookieAuthenticationSignIn(Account account)
-        {
+        private async Task CookieAuthenticationSignIn(Account account) =>
             await HttpContextAccessor.HttpContext.SignInAsync(this.GenerateClaimsPrincipal(account));
-        }
 
-        private ClaimsPrincipal GenerateClaimsPrincipal(Account account)
-        {
-            return new ClaimsPrincipal(this.GenerateClaimsIdentity(account));
-        }
+        private ClaimsPrincipal GenerateClaimsPrincipal(Account account) =>
+            new ClaimsPrincipal(this.GenerateClaimsIdentity(account));
+     
 
-        private ClaimsIdentity GenerateClaimsIdentity(Account account)
-        {
-            return new ClaimsIdentity(this.GenerateClaims(account), CookieAuthenticationDefaults.AuthenticationScheme);
-        }
+        private ClaimsIdentity GenerateClaimsIdentity(Account account) =>
+            new ClaimsIdentity(this.GenerateClaims(account), CookieAuthenticationDefaults.AuthenticationScheme);
+        
 
-        private List<Claim> GenerateClaims(Account account)
-        {
-            return new List<Claim>()
-            {
+        private List<Claim> GenerateClaims(Account account) => 
+            new() {
                 new Claim(ClaimTypes.Email, account.Email!),
             };
-        }
 
     }
 }

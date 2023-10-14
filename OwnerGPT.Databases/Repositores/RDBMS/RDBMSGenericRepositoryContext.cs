@@ -41,6 +41,7 @@ namespace OwnerGPT.Databases.Repositores.RDBMS
                     Id = 1,
                     Email = "admin@domain.com",
                     LastSignin = DateTime.Now,
+                    Password = "admin",
                     Active = true,
                 }
             );

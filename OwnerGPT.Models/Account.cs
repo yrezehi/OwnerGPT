@@ -20,6 +20,9 @@ namespace OwnerGPT.Models
         [Column("active")]
         public bool Active { get; set; }
 
+        [Column("password")]
+        public string Password { get; set; }
+
         public List<string> SearchableProperties()
         {
             throw new NotImplementedException();
