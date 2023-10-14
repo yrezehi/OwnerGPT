@@ -12,7 +12,7 @@ namespace OwnerGPT.Core.Services
 {
     public class AccountService : CompositionBaseService<Account>
     {
-
+        // Interface it with generic authentiucation as provider...
         private readonly ADAuthentication ADAuthentication;
         private readonly IHttpContextAccessor HttpContextAccessor;
 
