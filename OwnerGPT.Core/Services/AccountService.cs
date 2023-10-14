@@ -22,7 +22,7 @@ namespace OwnerGPT.Core.Services
 
         public async Task<Account> SignIn(CredentialsDTO credentials)
         {
-            if (!ADAuthentication.Authenticate(credentials.Identifier, credentials.Password))
+            if (!ADAuthentication.IsAuthenticated(credentials))
                 throw new ArgumentException("Invalid authentication attempt!");
 
             var account = await this.RDBMSServiceBase.FindByProperty(entity => entity.Email!, credentials.Identifier);
