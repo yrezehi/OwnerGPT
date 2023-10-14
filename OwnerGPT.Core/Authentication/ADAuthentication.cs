@@ -1,13 +1,14 @@
-﻿using OwnerGPT.Core.Utilities;
+﻿using OwnerGPT.Core.Authentication.Abstracts;
+using OwnerGPT.Core.Utilities;
+using OwnerGPT.Models.Abstracts.DTO;
 using System.DirectoryServices.AccountManagement;
 using System.Runtime.InteropServices;
 
 namespace OwnerGPT.Core.Authentication
 {
-    public class ADAuthentication
+    public class ADAuthentication : IAuthentication
     {
         private readonly PrincipalContext LDAPContext;
-
         private readonly string LDAP_DOMAIN;
 
         public ADAuthentication()
@@ -23,7 +24,7 @@ namespace OwnerGPT.Core.Authentication
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "<Pending>")]
-        public bool Authenticate(string email, string password) =>
+        public bool IsAuthenticated(CredentialsDTO credentials) =>
             true; // LDAPContext.ValidateCredentials(email, password);
         
     }

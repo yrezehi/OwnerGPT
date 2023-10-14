@@ -1,6 +1,8 @@
-﻿namespace OwnerGPT.Core.Authentication.Abstracts
+﻿using OwnerGPT.Models.Abstracts.DTO;
+
+namespace OwnerGPT.Core.Authentication.Abstracts
 {
     public interface IAuthentication {
-        bool Authenticate();
+        bool IsAuthenticated(CredentialsDTO credentials);
     }
 }

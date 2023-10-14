@@ -1,11 +1,12 @@
-﻿using OwnerGPT.Core.Services.Abstract;
+﻿using OwnerGPT.Core.Authentication.Abstracts;
+using OwnerGPT.Core.Services.Abstract;
 using OwnerGPT.Databases.Repositores.RDBMS.Abstracts.Interfaces;
 using OwnerGPT.Models;
 using OwnerGPT.Models.Abstracts.DTO;
 
 namespace OwnerGPT.Core.Authentication
 {
-    public class DBAuthentication : RDBMSServiceBase<Account>
+    public class DBAuthentication : RDBMSServiceBase<Account>, IAuthentication
     {
         public DBAuthentication(IRDBMSUnitOfWork unitOfWork) : base(unitOfWork) { }
 
