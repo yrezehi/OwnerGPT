@@ -11,7 +11,5 @@ namespace OwnerGPT.Databases.Repositores.PGVDB.Interfaces
         Task<int> DeleteVector<T>(int id);
 
         Task<IEnumerable<T>> All<T>();
-
-        Task CreateTable<T>();
     }
 }

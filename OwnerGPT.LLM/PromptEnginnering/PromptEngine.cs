@@ -21,14 +21,13 @@ namespace OwnerGPT.LLM.PromptEnginnering
             string filePath = BuildFilePath(prompt);
 
             if (!Path.Exists(filePath))
-                throw new Exception("File does not exists!");
+                throw new FileNotFoundException("File does not exists!");
 
             return PromptEngine.ReadTextFile(filePath);
         }
 
         public static string BuildFilePath(Prompts prompt) =>
             Path.Combine(DEFAULT_PROMPTS_PATH, Enum.GetName(typeof(Prompts), prompt)! + ".txt");
-       
 
         private static string ReadTextFile(string path)
         {
