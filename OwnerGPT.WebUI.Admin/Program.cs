@@ -17,6 +17,8 @@ builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.RegisterSingletonServices();
 builder.RegisterTransientServices();
 
+builder.RegisterSecurityLayer();
+
 var app = builder.Build();
 
 // Activate (pre-heat) LLama Model immediately  

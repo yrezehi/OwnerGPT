@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OwnerGPT.Core.Services;
 using OwnerGPT.Models.Abstracts.Bindings;
 using OwnerGPT.Models.Agents;
@@ -6,6 +7,8 @@ using OwnerGPT.WebUI.Admin.Controllers.Abstract;
 
 namespace OwnerGPT.WebUI.Admin.Controllers
 {
+    [Authorize]
+    [Route("api/[controller]")]
     public class AgentsController : RDBMSBaseController<AgentsService, Agent>
     {
         public AgentsController(AgentsService Service) : base(Service) { }

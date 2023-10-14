@@ -2,9 +2,11 @@
 using OwnerGPT.WebUI.Admin.Controllers.Abstract;
 using OwnerGPT.Core.Services;
 using OwnerGPT.Models.Abstracts.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OwnerGPT.WebUI.Admin.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class GPTController : BasePartialViewController
     {
