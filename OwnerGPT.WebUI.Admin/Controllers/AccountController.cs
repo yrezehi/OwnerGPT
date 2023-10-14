@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OwnerGPT.Core.Extensions;
 using OwnerGPT.Core.Services;
 using OwnerGPT.Models;
 using OwnerGPT.Models.Abstracts.DTO;
@@ -23,6 +24,7 @@ namespace OwnerGPT.WebUI.Admin.Controllers
 
         [HttpPost("[controller]/[action]")]
         public async Task<IActionResult> SignIn([FromForm] CredentialsDTO credintalsDTO) =>
-            Ok(await Service.SignIn(credintalsDTO));
+            await Service.SignIn(credintalsDTO)
+                .Then(_ => RedirectToAction("Index", "Home"));
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using OwnerGPT.Core.Authentication;
+using OwnerGPT.Core.Extensions;
 using OwnerGPT.Core.Services.Abstract;
 using OwnerGPT.Core.Services.Compositions;
 using OwnerGPT.Models;
@@ -25,13 +26,16 @@ namespace OwnerGPT.Core.Services
             if (!ADAuthentication.IsAuthenticated(credentials))
                 throw new ArgumentException("Invalid authentication attempt!");
 
-            var account = await this.RDBMSServiceBase.FindByProperty(entity => entity.Email!, credentials.Identifier);
-        
-            return account;
+            return await this.RDBMSServiceBase.FindByProperty(entity => entity.Email!, credentials.Identifier)
+                .Then(CookieAuthenticationSignIn).Then(account => account.Result);
         }
 
-        private async Task CookieAuthenticationSignIn(Account account) =>
+        private async Task<Account> CookieAuthenticationSignIn(Account account)
+        {
             await HttpContextAccessor.HttpContext.SignInAsync(this.GenerateClaimsPrincipal(account));
+
+            return account;
+        }
 
         private ClaimsPrincipal GenerateClaimsPrincipal(Account account) =>
             new ClaimsPrincipal(this.GenerateClaimsIdentity(account));

@@ -11,16 +11,20 @@ namespace OwnerGPT.Core.Extensions
         public static Task<TNewResult> Then<TResult, TNewResult>(this Task<TResult> source, Func<TResult, TNewResult> continuationFunction, CancellationToken cancellationToken = default, TaskContinuationOptions continuationOptions = TaskContinuationOptions.None, TaskScheduler scheduler = null)
         {
             scheduler ??= TaskScheduler.Current;
-            return source.ContinueWith(t =>
+            return source.ContinueWith(task =>
             {
-                if (t.IsCanceled) t.GetAwaiter().GetResult(); // Propagate the correct token
-                if (t.IsFaulted)
+                if (task.IsCanceled)
+                    task.GetAwaiter().GetResult();
+
+                if (task.IsFaulted)
                 {
-                    var tcs = new TaskCompletionSource<TNewResult>();
-                    tcs.SetException(t.Exception.InnerExceptions);
-                    return tcs.Task;
+                    var taskCompletionSource = new TaskCompletionSource<TNewResult>();
+                    taskCompletionSource.SetException(task.Exception.InnerExceptions);
+                    return taskCompletionSource.Task;
                 }
-                var newResult = continuationFunction(t.Result);
+
+                var newResult = continuationFunction(task.Result);
+
                 return Task.FromResult(newResult);
             }, cancellationToken, continuationOptions, scheduler).Unwrap();
         }
