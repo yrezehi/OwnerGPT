@@ -8,7 +8,7 @@ using OwnerGPT.WebUI.Admin.Controllers.Abstract;
 namespace OwnerGPT.WebUI.Admin.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class AgentsController : RDBMSBaseController<AgentsService, Agent>
     {
         public AgentsController(AgentsService Service) : base(Service) { }

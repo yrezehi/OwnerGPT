@@ -30,6 +30,9 @@ namespace OwnerGPT.Core.Services
                 .Then(CookieAuthenticationSignIn).Then(account => account.Result);
         }
 
+        public async Task SignOut() =>
+            await HttpContextAccessor.HttpContext.SignOutAsync();
+
         private async Task<Account> CookieAuthenticationSignIn(Account account)
         {
             await HttpContextAccessor.HttpContext.SignInAsync(this.GenerateClaimsPrincipal(account));

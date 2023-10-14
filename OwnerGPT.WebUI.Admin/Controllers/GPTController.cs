@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace OwnerGPT.WebUI.Admin.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class GPTController : BasePartialViewController
     {
         private readonly GPTService StatelessGPT;

@@ -22,6 +22,14 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         [HttpGet("[controller]/[action]")]
         public IActionResult RequestAccess() => View();
 
+        [HttpGet("[controller]/[action]")]
+        public async Task<IActionResult> SignOut()
+        {
+            await Service.SignOut();
+
+            return RedirectToAction("Login");
+        }
+
         [HttpPost("[controller]/[action]")]
         public async Task<IActionResult> SignIn([FromForm] CredentialsDTO credintalsDTO) =>
             await Service.SignIn(credintalsDTO)
