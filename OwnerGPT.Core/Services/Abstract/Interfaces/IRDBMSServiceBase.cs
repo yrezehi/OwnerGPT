@@ -13,6 +13,8 @@ namespace OwnerGPT.Core.Services.Abstract.Interfaces
 
         Task<T> FindById(int id);
 
+        bool Any(Expression<Func<T, bool>> expression);
+
         Task<T> FindByProperty<TValue>(Expression<Func<T, TValue>> selector, TValue value);
 
         Task<IEnumerable<T>> SearchByProperty<TValue>(string propertyName, TValue value, int? page);

@@ -23,6 +23,9 @@ namespace OwnerGPT.Core.Services.Abstract
         public virtual IEnumerable<T> Find(Expression<Func<T, bool>> expression) =>
             DBSet.Where(expression).IncludeSurface();
 
+        public virtual bool Any(Expression<Func<T, bool>> expression) =>
+            DBSet.Any(expression);
+
         public virtual IQueryable<T> OrderBy<TValue>(Expression<Func<T, TValue>> orderByExpression) =>
             DBSet.OrderBy(orderByExpression).IncludeSurface();
 
