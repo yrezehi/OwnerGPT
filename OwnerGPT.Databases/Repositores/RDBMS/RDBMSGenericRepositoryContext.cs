@@ -12,12 +12,9 @@ namespace OwnerGPT.Databases.Repositores.RDBMS
         public virtual DbSet<AgentConversationHistory> AgentConversationHistories { get; set; }
         public virtual DbSet<AgentDocument> AgentDocuments { get; set; }
         public virtual DbSet<AgentInstruction> AgentInstructions { get; set; }
-
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<AccountStatus> AccountStatus { get; set; }
-
         public virtual DbSet<Document> Documents { get; set; }
-
         public virtual DbSet<Notification> Notifications { get; set; }
 
 
@@ -32,6 +29,8 @@ namespace OwnerGPT.Databases.Repositores.RDBMS
                     CreationDate = DateTime.Now,
                     Description = "Usless agent to pass the time.",
                     Name = "Uselessly",
+                    Introduction = $"Hi There! I'm your personal assistant Uselessly, ask me anything!",
+                    Instruction = $"You are an AI assistant called Uselessly that helps people find information and responds in rhyme. If the user asks you a question you don't know the answer to, say so."
                 }
             );
 

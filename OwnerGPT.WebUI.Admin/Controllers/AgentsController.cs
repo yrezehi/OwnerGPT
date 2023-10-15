@@ -36,7 +36,7 @@ namespace OwnerGPT.WebUI.Admin.Controllers
                 return BadRequest(ModelState.ValidationState);
             }
 
-            await Service.RDBMSServiceBase.Create(agent);
+            await Service.CreateDefault(agent);
 
             return RedirectToAction("Index");
         }
