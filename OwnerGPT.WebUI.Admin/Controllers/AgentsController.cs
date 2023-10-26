@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OwnerGPT.Core.Services;
 using OwnerGPT.Models.Abstracts.Bindings;
 using OwnerGPT.Models.Agents;
@@ -7,7 +6,6 @@ using OwnerGPT.WebUI.Admin.Controllers.Abstract;
 
 namespace OwnerGPT.WebUI.Admin.Controllers
 {
-    [Authorize]
     [Route("[controller]")]
     public class AgentsController : RDBMSBaseController<AgentsService, Agent>
     {
@@ -31,7 +29,7 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Create([FromForm][Bind(AgentBinding.Create)] Agent agent)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState.ValidationState);
             }

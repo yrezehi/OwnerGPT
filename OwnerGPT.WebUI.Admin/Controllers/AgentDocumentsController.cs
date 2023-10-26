@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OwnerGPT.Core.Services;
 using OwnerGPT.Models.Agents;
 using OwnerGPT.WebUI.Admin.Controllers.Abstract;
 
 namespace OwnerGPT.WebUI.Admin.Controllers
 {
-    [Authorize]
     [Route("[controller]")]
     public class AgentDocumentsController : RDBMSBaseController<AgentDocumentsService, AgentDocument>
     {
@@ -40,6 +38,6 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         [HttpGet("api")]
         public virtual async Task<IActionResult> GetAll() =>
             Ok(await Service.RDBMSServiceBase.GetAll());
-      
+
     }
 }

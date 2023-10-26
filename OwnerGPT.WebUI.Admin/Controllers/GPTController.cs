@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OwnerGPT.WebUI.Admin.Controllers.Abstract;
 using OwnerGPT.Core.Services;
 using OwnerGPT.Models.Abstracts.DTO;
-using Microsoft.AspNetCore.Authorization;
+using OwnerGPT.WebUI.Admin.Controllers.Abstract;
 
 namespace OwnerGPT.WebUI.Admin.Controllers
 {
-    [Authorize]
     [Route("[controller]")]
     public class GPTController : BasePartialViewController
     {
@@ -19,8 +17,8 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         public async Task StreamReplay([FromBody] GPTMessageInputDTO messageInput, int agentId, CancellationToken cancellationToken)
         {
             var streamWriter = new StreamWriter(Response.Body);
-            
-            await foreach(var replay in StatelessGPT.StreamReplay(messageInput.Message, agentId, cancellationToken))
+
+            await foreach (var replay in StatelessGPT.StreamReplay(messageInput.Message, agentId, cancellationToken))
             {
                 await streamWriter.WriteAsync(replay);
                 await streamWriter.FlushAsync();
@@ -30,6 +28,6 @@ namespace OwnerGPT.WebUI.Admin.Controllers
         [HttpPost("[action]")]
         public IActionResult Replay(GPTMessageInputDTO messageInput, CancellationToken cancellationToken) =>
             Ok(StatelessGPT.Replay(messageInput.Message, cancellationToken));
-        
+
     }
 }
