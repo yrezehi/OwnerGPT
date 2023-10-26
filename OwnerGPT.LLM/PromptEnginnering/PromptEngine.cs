@@ -20,7 +20,7 @@ namespace OwnerGPT.LLM.PromptEnginnering
         {
             string filePath = BuildFilePath(prompt);
 
-            if (!Path.Exists(filePath))
+            if (!File.Exists(filePath))
                 throw new FileNotFoundException("File does not exists!");
 
             return PromptEngine.ReadTextFile(filePath);

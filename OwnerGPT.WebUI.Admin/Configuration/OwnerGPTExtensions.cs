@@ -34,9 +34,10 @@ namespace OwnerGPT.WebUI.Admin.Configuration
             if (builder.Environment.IsDevelopment())
             {
                 builder.Services.AddSingleton(typeof(IPGVUnitOfWork), typeof(PGVUnitOfWorkInMemeory));
-            } else
+            }
+            else
             {
-                builder.Services.AddTransient(typeof(IPGVUnitOfWork), typeof(PGVUnitOfWork));
+                builder.Services.AddSingleton(typeof(IPGVUnitOfWork), typeof(PGVUnitOfWorkInMemeory));
             }
         }
 
@@ -49,21 +50,23 @@ namespace OwnerGPT.WebUI.Admin.Configuration
             if (builder.Environment.IsDevelopment())
             {
                 builder.Services.AddDbContext<RDBMSGenericRepositoryContext>(option => option.UseInMemoryDatabase("OWNERGPT"));
-            } else
+            }
+            else
             {
-                builder.Services.AddDbContext<RDBMSGenericRepositoryContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("OWNERGPT")));
+                builder.Services.AddDbContext<RDBMSGenericRepositoryContext>(option => option.UseInMemoryDatabase("OWNERGPT"));
             }
 
             builder.Services.AddTransient<IRDBMSUnitOfWork, RDBMSUnitOfWork<RDBMSGenericRepositoryContext>>();
         }
 
-        public static void RegisterSingletonServices(this WebApplicationBuilder builder){
+        public static void RegisterSingletonServices(this WebApplicationBuilder builder)
+        {
             builder.Services.AddSingleton(typeof(SentenceEncoder), typeof(SentenceEncoder));
             builder.Services.AddSingleton(typeof(LLamaModel), typeof(LLamaModel));
             builder.Services.AddSingleton(typeof(ADAuthentication), typeof(ADAuthentication));
         }
 
-    public static void RegisterTransientServices(this WebApplicationBuilder builder)
+        public static void RegisterTransientServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddTransient(typeof(VectorEmbeddingService), typeof(VectorEmbeddingService));
             builder.Services.AddTransient(typeof(AgentsService), typeof(AgentsService));
@@ -78,8 +81,8 @@ namespace OwnerGPT.WebUI.Admin.Configuration
         public static void PopulateRDBMSSeed(this WebApplication application)
         {
             using (var scope = application.Services.CreateScope())
-                using (var context = scope.ServiceProvider.GetService<RDBMSGenericRepositoryContext>())
-                    context!.Database.EnsureCreated();
+            using (var context = scope.ServiceProvider.GetService<RDBMSGenericRepositoryContext>())
+                context!.Database.EnsureCreated();
         }
     }
 }

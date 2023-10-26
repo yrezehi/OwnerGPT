@@ -25,8 +25,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Providers", "Providers", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Plugins.Providers.Whatsapp", "OwnerGPT.Plugins.Providers\OwnerGPT.Plugins.Providers.Whatsapp.csproj", "{A4E8DDE8-71FA-4481-845F-A950CE57D979}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Experimental", "OwnerGPT.Experimental\OwnerGPT.Experimental.csproj", "{FAC63425-D805-40C7-82AC-F4646D072EB9}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Plugins.Providers.Widget", "OwnerGPT.Plugins.Providers.Widget\OwnerGPT.Plugins.Providers.Widget.csproj", "{4CF39FA7-DC04-40EB-BE42-38D8C34BECF3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Plugins.Parsers.Excel", "OwnerGPT.Plugins.Parsers.Excel\OwnerGPT.Plugins.Parsers.Excel.csproj", "{F0D47CBA-793F-4BDC-A140-291802786A7A}"
@@ -41,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Core", "OwnerGPT.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Databases", "OwnerGPT.Databases\OwnerGPT.Databases.csproj", "{9A47E57C-A9D1-46B6-8689-64EA2E7003AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwnerGPT.Plugins.Parsers.Word", "OwnerGPT.Plugins.Parsers.Word\OwnerGPT.Plugins.Parsers.Word.csproj", "{9A512BE8-E150-4934-9DED-4902F0336B90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OwnerGPT.Plugins.Parsers.Word", "OwnerGPT.Plugins.Parsers.Word\OwnerGPT.Plugins.Parsers.Word.csproj", "{9A512BE8-E150-4934-9DED-4902F0336B90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,10 +79,6 @@ Global
 		{A4E8DDE8-71FA-4481-845F-A950CE57D979}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4E8DDE8-71FA-4481-845F-A950CE57D979}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4E8DDE8-71FA-4481-845F-A950CE57D979}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FAC63425-D805-40C7-82AC-F4646D072EB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAC63425-D805-40C7-82AC-F4646D072EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAC63425-D805-40C7-82AC-F4646D072EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAC63425-D805-40C7-82AC-F4646D072EB9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4CF39FA7-DC04-40EB-BE42-38D8C34BECF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4CF39FA7-DC04-40EB-BE42-38D8C34BECF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CF39FA7-DC04-40EB-BE42-38D8C34BECF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
