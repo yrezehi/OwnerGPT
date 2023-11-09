@@ -18,7 +18,7 @@ namespace OwnerGPT.Core.Services
         {
             var promptToExecute = await this.ConstructPrompt(prompt, agentId);
 
-            foreach (var response in LLamaModel.Executor.Infer(promptToExecute, LLamaModel.InferenceParams, cancellationToken))
+            await foreach (var response in LLamaModel.Executor.InferAsync(promptToExecute, LLamaModel.InferenceParams, cancellationToken))
             {
                 yield return response;
             }
@@ -67,18 +67,5 @@ namespace OwnerGPT.Core.Services
             return promptToExecute;
         }
 
-        public string Replay(string prompt, CancellationToken cancellationToken)
-        {
-            // TODO: fix me!
-            var promptToExecute = PromptEngine.Render(Prompts.GENERIC_ASSISTANT) + PromptsManager.PutAgentSuffix(PromptsManager.PutUserPrefix(PromptsManager.CleanPromptInput(prompt)));
-            StringBuilder responseBuilder = new StringBuilder();
-
-            foreach (var response in LLamaModel.Executor.Infer(promptToExecute, LLamaModel.InferenceParams, cancellationToken))
-            {
-                responseBuilder.Append(response);
-            }
-
-            return responseBuilder.ToString();
-        }
     }
 }

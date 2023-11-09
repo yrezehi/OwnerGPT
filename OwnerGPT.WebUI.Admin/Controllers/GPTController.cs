@@ -27,9 +27,5 @@ namespace OwnerGPT.WebUI.Admin.Controllers
             }
         }
 
-        [HttpPost("[action]")]
-        public IActionResult Replay(GPTMessageInputDTO messageInput, CancellationToken cancellationToken) =>
-            Ok(StatelessGPT.Replay(messageInput.Message, cancellationToken));
-        
     }
 }
