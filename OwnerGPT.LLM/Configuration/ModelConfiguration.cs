@@ -3,7 +3,7 @@
     public static class ModelConfiguration
     {
         /* Paths of the actual models binary file */
-        public static string LLAMA_MODEL_PATH = "C:\\model\\llama-2-7b-guanaco-qlora.Q4_K_M.gguf";
+        public static string LLAMA_MODEL_PATH = "C:\\llm_models\\llama-2-7b-guanaco-qlora.Q5_K_S.gguf";
 
         /* Model tunning parameters */
         public static uint CONTEXT_SIZE = 1024;

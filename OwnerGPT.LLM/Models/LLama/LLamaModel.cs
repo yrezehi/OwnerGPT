@@ -7,7 +7,7 @@ namespace OwnerGPT.LLM.Models.LLama
 {
     public class LLamaModel : ILLMModel
     {
-        public InstructExecutor Executor { get; set; }
+        public StatelessExecutor Executor { get; set; }
         public InferenceParams InferenceParams { get; set; }
 
         public LLamaModel()
@@ -16,17 +16,17 @@ namespace OwnerGPT.LLM.Models.LLama
 
             if (!File.Exists(modelPath))
             {
-                throw new Exception("Model Not Found!");
+                throw new ArgumentException("Model Not Found!");
             }
 
             var parameters = new ModelParams(modelPath)
             {
-                ContextSize = ModelConfiguration.CONTEXT_SIZE,
-                Seed = ModelConfiguration.SEED_COUNT,
-                GpuLayerCount = ModelConfiguration.GPU_LAYER_COUNT,
+                ContextSize = 1024 * 4,
+                Seed = 0,
+                GpuLayerCount = 0,
             };
 
-            Executor = new InstructExecutor(LLamaWeights.LoadFromFile(parameters).CreateContext(parameters));
+            Executor = new StatelessExecutor(LLamaWeights.LoadFromFile(parameters).CreateContext(parameters));
 
             InferenceParams = new InferenceParams
             {
