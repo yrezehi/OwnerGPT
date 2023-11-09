@@ -1,5 +1,4 @@
 ﻿using OwnerGPT.Core.Authentication.Abstracts;
-using OwnerGPT.Core.Utilities;
 using OwnerGPT.Models.Abstracts.DTO;
 using System.DirectoryServices.AccountManagement;
 using System.Runtime.InteropServices;
@@ -18,7 +17,7 @@ namespace OwnerGPT.Core.Authentication
                 throw new PlatformNotSupportedException("Only windows is supported at the moment for active directory");
             }
 
-            LDAP_DOMAIN = ConfigurationUtil.GetValue<string>("LDAP_DOMAIN");
+            //LDAP_DOMAIN = ConfigurationUtil.GetValue<string>("LDAP_DOMAIN");
 
             //LDAPContext = new PrincipalContext(ContextType.Domain, LDAP_DOMAIN);
         }
@@ -26,6 +25,6 @@ namespace OwnerGPT.Core.Authentication
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "<Pending>")]
         public bool IsAuthenticated(CredentialsDTO credentials) =>
             true; // LDAPContext.ValidateCredentials(email, password);
-        
+
     }
 }

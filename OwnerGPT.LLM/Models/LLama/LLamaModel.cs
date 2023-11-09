@@ -14,7 +14,7 @@ namespace OwnerGPT.LLM.Models.LLama
         {
             string modelPath = Path.GetFullPath(ModelConfiguration.LLAMA_MODEL_PATH);
 
-            if (!Path.Exists(modelPath))
+            if (!File.Exists(modelPath))
             {
                 throw new Exception("Model Not Found!");
             }

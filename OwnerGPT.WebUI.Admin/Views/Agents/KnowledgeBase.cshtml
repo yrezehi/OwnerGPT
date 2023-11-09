@@ -107,7 +107,7 @@
         }
 
         (function fetchPreviousDocuments(){
-            fetch("http://localhost:5027/AgentDocuments/api")
+            fetch(globalProperties.get("baseurl") + "/AgentDocuments/api")
                 .then(response => response.json())
                     .then(documents => {
                         for(var document in documents){
@@ -121,7 +121,7 @@
             formData.append("file", file);
 
             try {
-                const response = await fetch("http://localhost:5027/AgentDocuments", {
+                const response = await fetch(globalProperties.get("baseurl") + "/AgentDocuments", {
                     method: 'POST',
                     headers: {
                         "Connection": "keep-alive"
