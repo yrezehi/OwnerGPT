@@ -22,3 +22,7 @@
     ├── 📂OwnerGPT.Plugins.WEB
     ├── 📂OwnerGPT.Plugins.OCR
 ```
+
+## LLAMA
+
+https://huggingface.co/TheBloke/llama-2-7B-Guanaco-QLoRA-GGUF/blob/main/llama-2-7b-guanaco-qlora.Q5_K_S.gguf
